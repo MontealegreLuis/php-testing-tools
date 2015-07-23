@@ -10,15 +10,15 @@ use Money\Money;
 
 class Member
 {
-    /** @var Money */
-    private $balance;
+    /** @var Account */
+    private $account;
 
     /**
-     * @param Money $balance
+     * @param Account $account
      */
-    private function __construct(Money $balance)
+    private function __construct(Account $account)
     {
-        $this->balance = $balance;
+        $this->account = $account;
     }
 
     /**
@@ -27,7 +27,7 @@ class Member
      */
     public static function withAccountBalance(Money $amount)
     {
-        return new Member($amount);
+        return new Member(Account::withBalance($amount));
     }
 
     /**
@@ -35,7 +35,7 @@ class Member
      */
     public function balance()
     {
-        return $this->balance;
+        return $this->account->balance();
     }
 
     /**
@@ -44,7 +44,15 @@ class Member
      */
     public function transfer(Money $amount, Member $toMember)
     {
-        $toMember->balance = $toMember->balance->add($amount);
-        $this->balance = $this->balance->subtract($amount);
+        $toMember->applyDeposit($amount);
+        $this->account->withdraw($amount);
+    }
+
+    /**
+     * @param Money $amount
+     */
+    protected function applyDeposit(Money $amount)
+    {
+        $this->account->deposit($amount);
     }
 }

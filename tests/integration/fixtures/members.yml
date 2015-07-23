@@ -1,0 +1,26 @@
+Money\Currency (local):
+    mxn:
+        __construct: false
+        name: MXN
+
+Money\Money (local):
+    balance:
+        __construct: false
+        amount: 1000
+        currency: @mxn
+
+Ewallet\Accounts\Account (local):
+    account0:
+        balance: @balance
+    account1:
+        balance: @balance
+
+Ewallet\Accounts\Member:
+    member0:
+        __construct: false
+        memberId: "XYZ"
+        account: @account0
+    member1:
+        __construct: false
+        memberId: "ABC"
+        account: @account1

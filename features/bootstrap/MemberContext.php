@@ -8,6 +8,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
+use Ewallet\Wallet\Accounts\InMemoryMembers;
 
 /**
  * Defines application features from the specific context.
@@ -16,20 +17,26 @@ class MemberContext implements Context, SnippetAcceptingContext
 {
     use MemberDictionary;
 
-    /** @var Member */
-    private $i;
+    /** @var Members */
+    private $members;
 
-    /** @var Member */
-    private $myFriend;
+    /**
+     * Create an empty collection of members
+     */
+    public function __construct()
+    {
+        $this->members = new InMemoryMembers();
+    }
 
     /**
      * @Given I have an account balance of :amount MXN
      */
     public function iHaveAnAccountBalanceOfMxn($amount)
     {
-        $this->i = Member::withAccountBalance(
+        $me = Member::withAccountBalance(
             Identifier::fromString('abc'), $amount
         );
+        $this->members->add($me);
     }
 
     /**
@@ -37,9 +44,10 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendHasAnAccountBalanceOfMxn($amount)
     {
-        $this->myFriend = Member::withAccountBalance(
+        $myFriend = Member::withAccountBalance(
             Identifier::fromString('xyz'), $amount
         );
+        $this->members->add($myFriend);
     }
 
     /**
@@ -47,7 +55,13 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iTransferHimMxn($amount)
     {
-        $this->i->transfer($amount, $this->myFriend);
+        $i = $this->members->with(Identifier::fromString('abc'));
+        $myFriend = $this->members->with(Identifier::fromString('xyz'));
+
+        $i->transfer($amount, $myFriend);
+
+        $this->members->update($i);
+        $this->members->update($myFriend);
     }
 
     /**
@@ -55,8 +69,9 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myBalanceShouldBeMxn($amount)
     {
-        if (!$this->i->accountBalance()->equals($amount)) {
-            $currentBalance = $this->i->accountBalance()->getAmount();
+        $my = $this->members->with(Identifier::fromString('abc'));
+        if (!$my->accountBalance()->equals($amount)) {
+            $currentBalance = $my->accountBalance()->getAmount();
             throw new DomainException(
                 "Expecting {$amount->getAmount()}, not {$currentBalance}"
             );
@@ -68,8 +83,9 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn($amount)
     {
-        if (!$this->myFriend->accountBalance()->equals($amount)) {
-            $currentBalance = $this->myFriend->accountBalance()->getAmount();
+        $myFriend = $this->members->with(Identifier::fromString('xyz'));
+        if (!$myFriend->accountBalance()->equals($amount)) {
+            $currentBalance = $myFriend->accountBalance()->getAmount();
             throw new DomainException(
                 "Expecting {$amount->getAmount()}, not {$currentBalance}"
             );

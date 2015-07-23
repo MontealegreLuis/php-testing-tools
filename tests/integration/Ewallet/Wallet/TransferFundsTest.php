@@ -6,40 +6,21 @@
  */
 namespace Ewallet\Wallet;
 
-use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
+use EwalletTestsBridge\ProvidesDoctrineSetup;
 use Money\Money;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class TransferFundsTest extends TestCase
 {
-    /** @var EntityManager */
-    private $entityManager;
+    use ProvidesDoctrineSetup;
 
     public function setUp()
     {
-        $options = require __DIR__ . '/../../../../app/config.php';
-
-        $configuration = Setup::createXMLMetadataConfiguration(
-            $options['doctrine']['mapping_dirs'],
-            $options['doctrine']['dev_mode'],
-            $options['doctrine']['proxy_dir']
-        );
-        $this->entityManager = EntityManager::create(
-            $options['doctrine']['connection'], $configuration
-        );
-
-        $platform = $this->entityManager->getConnection()->getDatabasePlatform();
-        foreach ($options['doctrine']['types'] as $type => $class) {
-            !Type::hasType($type) && Type::addType($type, $class);
-            $platform->registerDoctrineTypeMapping($type, $type);
-        }
-
+        $this->setUpDoctrine();
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . Member::class)

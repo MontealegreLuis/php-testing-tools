@@ -13,6 +13,9 @@
             "": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-0": { "EwalletTestsBridge": "tests/" }
+    },
     "config": {
         "bin-dir": "bin/"
     },

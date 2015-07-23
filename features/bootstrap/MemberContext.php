@@ -4,7 +4,6 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Ewallet\Accounts\Member;
@@ -16,12 +15,18 @@ class MemberContext implements Context, SnippetAcceptingContext
 {
     use MemberDictionary;
 
+    /** @var Member */
+    private $i;
+
+    /** @var Member */
+    private $myFriend;
+
     /**
      * @Given I have an account balance of :amount MXN
      */
     public function iHaveAnAccountBalanceOfMxn($amount)
     {
-        $i = Member::withAccountBalance($amount);
+        $this->i = Member::withAccountBalance($amount);
     }
 
     /**
@@ -29,7 +34,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendHasAnAccountBalanceOfMxn($amount)
     {
-        throw new PendingException();
+        $this->myFriend = Member::withAccountBalance($amount);
     }
 
     /**
@@ -37,7 +42,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iTransferHimMxn($amount)
     {
-        throw new PendingException();
+        $this->i->transfer($amount, $this->myFriend);
     }
 
     /**
@@ -45,7 +50,12 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myBalanceShouldBeMxn($amount)
     {
-        throw new PendingException();
+        if (!$this->i->balance()->equals($amount)) {
+            $currentBalance = $this->i->balance()->getAmount();
+            throw new DomainException(
+                "Expecting {$amount->getAmount()}, not {$currentBalance}"
+            );
+        }
     }
 
     /**
@@ -53,6 +63,11 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn($amount)
     {
-        throw new PendingException();
+        if (!$this->myFriend->balance()->equals($amount)) {
+            $currentBalance = $this->myFriend->balance()->getAmount();
+            throw new DomainException(
+                "Expecting {$amount->getAmount()}, not {$currentBalance}"
+            );
+        }
     }
 }

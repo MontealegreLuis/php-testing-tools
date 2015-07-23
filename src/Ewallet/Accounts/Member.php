@@ -37,4 +37,14 @@ class Member
     {
         return $this->balance;
     }
+
+    /**
+     * @param Money $amount
+     * @param Member $toMember
+     */
+    public function transfer(Money $amount, Member $toMember)
+    {
+        $toMember->balance = $toMember->balance->add($amount);
+        $this->balance = $this->balance->subtract($amount);
+    }
 }

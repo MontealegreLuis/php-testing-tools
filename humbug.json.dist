@@ -1,0 +1,14 @@
+{
+    "source": {
+        "directories": [
+            "src\/"
+        ],
+        "excludes": [
+            "src\/EwalletDoctrineBridge\/Resources"
+        ]
+    },
+    "timeout": 10,
+    "logs": {
+        "text": "humbuglog.txt"
+    }
+}

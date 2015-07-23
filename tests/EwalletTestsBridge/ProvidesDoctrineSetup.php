@@ -20,7 +20,7 @@ trait ProvidesDoctrineSetup
      * Configure entity manager
      * Add custom types
      */
-    protected function setUpDoctrine()
+    protected function _setUpDoctrine()
     {
         $options = require __DIR__ . '/../../app/config.php';
 

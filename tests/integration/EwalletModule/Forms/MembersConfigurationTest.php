@@ -19,7 +19,7 @@ class MembersConfigurationTest extends TestCase
 
     public function setUp()
     {
-        $this->setUpDoctrine();
+        $this->_setUpDoctrine();
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . Member::class)

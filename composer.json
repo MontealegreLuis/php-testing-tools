@@ -17,7 +17,8 @@
         "bin-dir": "bin/"
     },
     "require": {
-        "mathiasverraes/money": "^1.2"
+        "mathiasverraes/money": "^1.2",
+        "beberlei/assert": "^2.3"
     },
     "require-dev": {
         "behat/behat": "^3.0",

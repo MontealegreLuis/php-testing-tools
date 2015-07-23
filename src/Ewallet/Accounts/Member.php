@@ -10,24 +10,30 @@ use Money\Money;
 
 class Member
 {
+    /** @var Identifier */
+    private $memberId;
+
     /** @var Account */
     private $account;
 
     /**
+     * @param Identifier $id
      * @param Account $account
      */
-    private function __construct(Account $account)
+    private function __construct(Identifier $id, Account $account)
     {
         $this->account = $account;
+        $this->memberId = $id;
     }
 
     /**
+     * @param Identifier $id
      * @param Money $amount
      * @return Member
      */
-    public static function withAccountBalance(Money $amount)
+    public static function withAccountBalance(Identifier $id, Money $amount)
     {
-        return new Member(Account::withBalance($amount));
+        return new Member($id, Account::withBalance($amount));
     }
 
     /**
@@ -36,6 +42,14 @@ class Member
     public function accountBalance()
     {
         return $this->account->balance();
+    }
+
+    /**
+     * @return Identifier
+     */
+    public function id()
+    {
+        return $this->memberId;
     }
 
     /**

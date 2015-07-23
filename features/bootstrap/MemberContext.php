@@ -6,6 +6,7 @@
  */
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 
 /**
@@ -26,7 +27,9 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iHaveAnAccountBalanceOfMxn($amount)
     {
-        $this->i = Member::withAccountBalance($amount);
+        $this->i = Member::withAccountBalance(
+            Identifier::fromString('abc'), $amount
+        );
     }
 
     /**
@@ -34,7 +37,9 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendHasAnAccountBalanceOfMxn($amount)
     {
-        $this->myFriend = Member::withAccountBalance($amount);
+        $this->myFriend = Member::withAccountBalance(
+            Identifier::fromString('xyz'), $amount
+        );
     }
 
     /**

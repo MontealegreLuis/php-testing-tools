@@ -19,8 +19,10 @@ Ewallet\Accounts\Member:
     member0:
         __construct: false
         memberId: "XYZ"
+        name: <name()>
         account: @account0
     member1:
         __construct: false
         memberId: "ABC"
+        name: <name()>
         account: @account1

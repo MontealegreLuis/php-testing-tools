@@ -13,6 +13,9 @@ use Money\Money;
 
 class MembersBuilder
 {
+    /** @var string */
+    private $name;
+
     /** @var integer */
     private $amount;
 
@@ -25,6 +28,7 @@ class MembersBuilder
     private function __construct()
     {
         $faker = Factory::create();
+        $this->name = $faker->name;
         $this->amount = (integer) $faker->numberBetween(0, 10000);
         $this->id = $faker->uuid;
     }
@@ -66,6 +70,7 @@ class MembersBuilder
     {
         return Member::withAccountBalance(
             Identifier::fromString($this->id),
+            $this->name,
             Money::MXN($this->amount)
         );
     }

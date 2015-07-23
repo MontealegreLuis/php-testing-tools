@@ -6,8 +6,8 @@
  */
 namespace spec\Ewallet\Accounts;
 
+use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Accounts\Member;
 use EwalletTestsBridge\MembersBuilder;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
@@ -18,7 +18,7 @@ class MemberSpec extends ObjectBehavior
     {
         $this->beConstructedThrough(
             'withAccountBalance',
-            [Identifier::fromString('abc'), Money::MXN(2000)]
+            [Identifier::fromString('abc'), 'Luis', Money::MXN(2000)]
         );
     }
 
@@ -48,5 +48,18 @@ class MemberSpec extends ObjectBehavior
     function it_should_be_recognizable_by_its_id()
     {
         $this->id()->equals(Identifier::fromString('abc'))->shouldBe(true);
+    }
+
+    function it_should_not_allow_an_empty_name()
+    {
+        $this->beConstructedThrough(
+            'withAccountBalance',
+            [Identifier::fromString('abc'), '', Money::MXN(2000)]
+        );
+        try {
+            $this->getWrappedObject();
+            throw new ExampleException('Expected exception was not thrown');
+        }
+        catch(InvalidArgumentException $e) {}
     }
 }

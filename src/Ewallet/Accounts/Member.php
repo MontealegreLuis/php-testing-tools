@@ -6,6 +6,7 @@
  */
 namespace Ewallet\Accounts;
 
+use Assert\Assertion;
 use Money\Money;
 
 class Member
@@ -13,27 +14,44 @@ class Member
     /** @var Identifier */
     private $memberId;
 
+    /** @var string */
+    private $name;
+
     /** @var Account */
     private $account;
 
     /**
      * @param Identifier $id
+     * @param string $name
      * @param Account $account
      */
-    private function __construct(Identifier $id, Account $account)
+    private function __construct(Identifier $id, $name, Account $account)
     {
-        $this->account = $account;
         $this->memberId = $id;
+        $this->setName($name);
+        $this->account = $account;
+    }
+
+    /**
+     * @param string $name
+     */
+    protected function setName($name)
+    {
+        Assertion::string($name);
+        Assertion::notEmpty($name);
+
+        $this->name = $name;
     }
 
     /**
      * @param Identifier $id
+     * @param string $name
      * @param Money $amount
      * @return Member
      */
-    public static function withAccountBalance(Identifier $id, Money $amount)
+    public static function withAccountBalance(Identifier $id, $name, Money $amount)
     {
-        return new Member($id, Account::withBalance($amount));
+        return new Member($id, $name, Account::withBalance($amount));
     }
 
     /**
@@ -50,6 +68,14 @@ class Member
     public function id()
     {
         return $this->memberId;
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
     }
 
     /**

@@ -31,5 +31,5 @@ Ewallet\Accounts\Member:
     member2:
         __construct: false
         memberId: "LMN"
-        name: <name()>
+        name: "Luis Montealegre"
         account: @account2

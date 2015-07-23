@@ -1,2 +1,2 @@
 <?php
-// This is global bootstrap for autoloading
+\Codeception\Util\Autoload::addNamespace('Page', __DIR__. '/_support/_pages');

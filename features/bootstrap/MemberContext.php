@@ -9,6 +9,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
+use Ewallet\Wallet\TransferFunds;
 
 /**
  * Defines application features from the specific context.
@@ -20,12 +21,16 @@ class MemberContext implements Context, SnippetAcceptingContext
     /** @var Members */
     private $members;
 
+    /** @var  TransferFunds */
+    private $useCase;
+
     /**
      * Create an empty collection of members
      */
     public function __construct()
     {
         $this->members = new InMemoryMembers();
+        $this->useCase = new TransferFunds($this->members);
     }
 
     /**
@@ -55,13 +60,11 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iTransferHimMxn($amount)
     {
-        $i = $this->members->with(Identifier::fromString('abc'));
-        $myFriend = $this->members->with(Identifier::fromString('xyz'));
-
-        $i->transfer($amount, $myFriend);
-
-        $this->members->update($i);
-        $this->members->update($myFriend);
+        $this->useCase->transfer(
+            Identifier::fromString('abc'),
+            Identifier::fromString('xyz'),
+            $amount
+        );
     }
 
     /**

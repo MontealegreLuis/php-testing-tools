@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "736a3cc28ee64a596db547823374657d",
+    "hash": "e2f359ed814f2c1af31a3c5a759d6ac5",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -54,6 +54,74 @@
                 "validation"
             ],
             "time": "2014-12-18 19:12:40"
+        },
+        {
+            "name": "comphppuebla/easy-forms",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ComPHPPuebla/easy-forms.git",
+                "reference": "a9dad28f212afacc73005f6eb023ba6aef162bda"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ComPHPPuebla/easy-forms/zipball/a9dad28f212afacc73005f6eb023ba6aef162bda",
+                "reference": "a9dad28f212afacc73005f6eb023ba6aef162bda",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/assert": "~2.3",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "~4.4",
+                "symfony/console": "~2.6",
+                "symfony/filesystem": "~2.6",
+                "symfony/security-csrf": "~2.6",
+                "twig/twig": "~1.16",
+                "zendframework/zend-captcha": "~2.3",
+                "zendframework/zend-inputfilter": "~2.3",
+                "zendframework/zendservice-recaptcha": "~2.0"
+            },
+            "suggest": {
+                "symfony/console": "To build your forms interactively through the console",
+                "symfony/filesystem": "To build your forms interactively through the console",
+                "symfony/security-csrf": "To protect forms against CSRF atacks",
+                "twig/twig": "To provide form rendering",
+                "zendframework/zend-captcha": "To use CAPTCHA images in forms",
+                "zendframework/zend-inputfilter": "For filtering and validation",
+                "zendframework/zendservice-recaptcha": "To use ReCAPTCHA elements in forms"
+            },
+            "bin": [
+                "bin/forms"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "EasyForms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luis Montealegre",
+                    "email": "montealegreluis@gmail.com"
+                }
+            ],
+            "description": "Easy forms processing",
+            "keywords": [
+                "Forms"
+            ],
+            "time": "2015-06-17 04:01:29"
         },
         {
             "name": "doctrine/annotations",

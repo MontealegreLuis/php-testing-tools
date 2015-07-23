@@ -46,4 +46,20 @@ class MembersRepository extends EntityRepository implements Members
         $this->_em->persist($member);
         $this->_em->flush($member);
     }
+
+    /**
+     * @param Identifier $memberId
+     * @return array
+     */
+    public function excluding(Identifier $memberId)
+    {
+        $builder = $this->createQueryBuilder('m');
+
+        $builder
+            ->where('m.memberId <> :id')
+            ->setParameter('id', $memberId)
+        ;
+
+        return $builder->getQuery()->getResult();
+    }
 }

@@ -16,7 +16,9 @@
     "config": {
         "bin-dir": "bin/"
     },
-    "require": {},
+    "require": {
+        "mathiasverraes/money": "^1.2"
+    },
     "require-dev": {
         "behat/behat": "^3.0"
     }

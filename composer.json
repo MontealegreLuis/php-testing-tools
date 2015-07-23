@@ -16,5 +16,8 @@
     "config": {
         "bin-dir": "bin/"
     },
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "behat/behat": "^3.0"
+    }
 }

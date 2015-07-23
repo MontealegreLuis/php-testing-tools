@@ -1,0 +1,5 @@
+default:
+    suites:
+        member_features:
+            paths:    [ %paths.base%/features/member ]
+            contexts: [ MemberContext ]

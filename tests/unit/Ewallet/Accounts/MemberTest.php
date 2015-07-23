@@ -20,7 +20,7 @@ class MemberTest extends TestCase
     function giver_balance_should_decrease_after_funds_have_been_transferred()
     {
         $this
-            ->forAll(Generator\int())
+            ->forAll(Generator\nat(10000))
             ->then(function($amount) {
                 $aMember = MembersBuilder::aMember();
                 $fromMember = $aMember->withBalance(10000)->build();
@@ -31,6 +31,27 @@ class MemberTest extends TestCase
                     10000,
                     $currentBalance,
                     "{$currentBalance} > 10000, {$amount} transferred"
+                );
+            });
+        ;
+    }
+
+    /** @test */
+    function beneficiary_balance_should_increase_after_funds_have_been_transferred()
+    {
+        $this
+            ->forAll(Generator\nat(10000))
+            ->then(function($amount) {
+                $aMember = MembersBuilder::aMember();
+                $fromMember = $aMember->withBalance(10000)->build();
+                $aMember = MembersBuilder::aMember();
+                $toMember = $aMember->withBalance(5000)->build();
+                $fromMember->transfer(Money::MXN($amount), $toMember);
+                $currentBalance = $toMember->accountBalance()->getAmount();
+                $this->assertGreaterThan(
+                    5000,
+                    $currentBalance,
+                    "{$currentBalance} < 5000, {$amount} transferred"
                 );
             });
         ;

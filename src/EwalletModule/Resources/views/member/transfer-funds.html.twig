@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% form_theme [_self] %}
+
+{%- block money -%}
+    <div class="input-group"><div class="input-group-addon">$</div>
+        {%- set options = options|merge({'block': 'input'}) -%}
+        {{- element(element, attr, options) -}}
+        <div class="input-group-addon">MXN</div></div>
+{%- endblock money -%}
+
+{% block content %}
+    {% if fromMember is defined and toMember is defined %}
+        <div
+            id="transfer-message"
+            class="alert alert-success alert-dismissible"
+            role="alert"
+        >
+            <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+            >
+                <span aria-hidden="true">&times;</span>
+            </button>
+            You have successfully transferred funds to {{ toMember.name() }}
+            Your current account balance is
+            {{ (fromMember.accountBalance().getAmount / 100)|number_format(2) }}
+            MXN
+        </div>
+    {% endif %}
+
+    {{ form_start(form, {'action': '/transfer-funds'}) }}
+
+    {{ element_row(
+        form.toMemberId, {'label': 'Transfer to', 'attr': {'id': 'toMember'}}
+    ) }}
+    {{ element_row(
+        form.amount,
+        {
+            'label': 'Amount',
+            'attr': {'id': 'amount'},
+            'options': {'block': 'money'}
+        }
+    ) }}
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-default">
+        <span class="glyphicon glyphicon-share"></span> Transfer
+    </button>
+
+    {{ form_end() }}
+{% endblock %}

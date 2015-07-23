@@ -50,8 +50,8 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myBalanceShouldBeMxn($amount)
     {
-        if (!$this->i->balance()->equals($amount)) {
-            $currentBalance = $this->i->balance()->getAmount();
+        if (!$this->i->accountBalance()->equals($amount)) {
+            $currentBalance = $this->i->accountBalance()->getAmount();
             throw new DomainException(
                 "Expecting {$amount->getAmount()}, not {$currentBalance}"
             );
@@ -63,8 +63,8 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn($amount)
     {
-        if (!$this->myFriend->balance()->equals($amount)) {
-            $currentBalance = $this->myFriend->balance()->getAmount();
+        if (!$this->myFriend->accountBalance()->equals($amount)) {
+            $currentBalance = $this->myFriend->accountBalance()->getAmount();
             throw new DomainException(
                 "Expecting {$amount->getAmount()}, not {$currentBalance}"
             );

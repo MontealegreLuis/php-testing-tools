@@ -16,7 +16,7 @@ class MemberSpec extends ObjectBehavior
     {
         $amount = Money::MXN(2000);
         $this->beConstructedThrough('withAccountBalance', [$amount]);
-        $this->balance()->getAmount()->shouldBe(2000);
+        $this->accountBalance()->getAmount()->shouldBe(2000);
     }
 
     function it_should_transfer_funds_to_another_member()
@@ -26,7 +26,7 @@ class MemberSpec extends ObjectBehavior
 
         $this->transfer(Money::MXN(500), $toMember);
 
-        $this->balance()->getAmount()->shouldBe(1500);
+        $this->accountBalance()->getAmount()->shouldBe(1500);
     }
 
     function it_should_receive_funds_from_another_member()
@@ -36,6 +36,6 @@ class MemberSpec extends ObjectBehavior
 
         $fromMember->transfer(Money::MXN(500), $this->getWrappedObject());
 
-        $this->balance()->getAmount()->shouldBe(2500);
+        $this->accountBalance()->getAmount()->shouldBe(2500);
     }
 }

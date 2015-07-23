@@ -33,7 +33,7 @@ class Member
     /**
      * @return Money
      */
-    public function balance()
+    public function accountBalance()
     {
         return $this->account->balance();
     }

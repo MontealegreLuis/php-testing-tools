@@ -7,6 +7,7 @@
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Ewallet\Accounts\Member;
 
 /**
  * Defines application features from the specific context.

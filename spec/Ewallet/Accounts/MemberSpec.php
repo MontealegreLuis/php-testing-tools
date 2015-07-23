@@ -8,6 +8,7 @@ namespace spec\Ewallet\Accounts;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
+use EwalletTestsBridge\MembersBuilder;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 
@@ -28,9 +29,7 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_transfer_funds_to_another_member()
     {
-        $toMember = Member::withAccountBalance(
-            Identifier::fromString('xyz'), Money::MXN(3000)
-        );
+        $toMember = MembersBuilder::aMember()->build();
 
         $this->transfer(Money::MXN(500), $toMember);
 
@@ -39,9 +38,7 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_receive_funds_from_another_member()
     {
-        $fromMember = Member::withAccountBalance(
-            Identifier::fromString('xyz'), Money::MXN(3000)
-        );
+        $fromMember = MembersBuilder::aMember()->withBalance(1000)->build();
 
         $fromMember->transfer(Money::MXN(500), $this->getWrappedObject());
 

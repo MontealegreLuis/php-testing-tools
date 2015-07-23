@@ -7,9 +7,10 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Accounts\Member;
+use EwalletTestsBridge\MembersBuilder;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
+use Money\Money;
 use PHPUnit_Framework_Assert as Assertion;
 
 /**
@@ -39,9 +40,14 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iHaveAnAccountBalanceOfMxn($amount)
     {
-        $me = Member::withAccountBalance(
-            Identifier::fromString('abc'), $amount
-        );
+        $member = MembersBuilder::aMember();
+        $member
+            ->withId('abc')
+            ->withBalance($amount)
+            ->build()
+        ;
+        $me = $member->build();
+
         $this->members->add($me);
     }
 
@@ -50,9 +56,14 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendHasAnAccountBalanceOfMxn($amount)
     {
-        $myFriend = Member::withAccountBalance(
-            Identifier::fromString('xyz'), $amount
-        );
+        $member = MembersBuilder::aMember();
+        $member
+            ->withId('xyz')
+            ->withBalance($amount)
+            ->build()
+        ;
+        $myFriend = $member->build();
+
         $this->members->add($myFriend);
     }
 
@@ -64,7 +75,7 @@ class MemberContext implements Context, SnippetAcceptingContext
         $this->useCase->transfer(
             Identifier::fromString('abc'),
             Identifier::fromString('xyz'),
-            $amount
+            Money::MXN($amount)
         );
     }
 
@@ -76,8 +87,8 @@ class MemberContext implements Context, SnippetAcceptingContext
         $my = $this->members->with(Identifier::fromString('abc'));
         $currentBalance = $my->accountBalance()->getAmount();
         Assertion::assertTrue(
-            $my->accountBalance()->equals($amount),
-            "Expecting {$amount->getAmount()}, not {$currentBalance}"
+            $my->accountBalance()->equals(Money::MXN($amount)),
+            "Expecting {$amount}, not {$currentBalance}"
         );
     }
 
@@ -89,8 +100,8 @@ class MemberContext implements Context, SnippetAcceptingContext
         $myFriend = $this->members->with(Identifier::fromString('xyz'));
         $currentBalance = $myFriend->accountBalance()->getAmount();
         Assertion::assertTrue(
-            $myFriend->accountBalance()->equals($amount),
-            "Expecting {$amount->getAmount()}, not {$currentBalance}"
+            $myFriend->accountBalance()->equals(Money::MXN($amount)),
+            "Expecting {$amount}, not {$currentBalance}"
         );
     }
 }

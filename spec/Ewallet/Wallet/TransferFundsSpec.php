@@ -9,6 +9,7 @@ namespace spec\Ewallet\Wallet;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
+use EwalletTestsBridge\MembersBuilder;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 
@@ -16,19 +17,30 @@ class TransferFundsSpec extends ObjectBehavior
 {
     function it_should_transfer_funds_between_accounts(Members $members)
     {
-        $fromId = Identifier::fromString('abc');
-        $toId = Identifier::fromString('xyz');
-        $fromMember = Member::withAccountBalance($fromId, Money::MXN(2000));
-        $toMember = Member::withAccountBalance($toId, Money::MXN(1000));
+        $member = MembersBuilder::aMember();
+        $member
+            ->withBalance(2000)
+            ->build()
+        ;
+        $fromMember = $member->build();
 
-        $members->with($fromId)->willReturn($fromMember);
-        $members->with($toId)->willReturn($toMember);
+        $member = MembersBuilder::aMember();
+        $member
+            ->withBalance(1000)
+            ->build()
+        ;
+        $toMember = $member->build();
+
+        $members->with($fromMember->id())->willReturn($fromMember);
+        $members->with($toMember->id())->willReturn($toMember);
         $members->update($fromMember)->shouldBeCalled();
         $members->update($toMember)->shouldBeCalled();
 
         $this->beConstructedWith($members);
 
-        $result = $this->transfer($fromId, $toId, Money::MXN(500));
+        $result = $this->transfer(
+            $fromMember->id(), $toMember->id(), Money::MXN(500)
+        );
 
         $result->fromMember()->accountBalance()->getAmount()->shouldBe(1500);
         $result->toMember()->accountBalance()->getAmount()->shouldBe(1500);

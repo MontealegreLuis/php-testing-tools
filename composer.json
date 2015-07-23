@@ -25,7 +25,9 @@
         "doctrine/orm": "^2.5",
         "comphppuebla/easy-forms": "^1.0",
         "twig/twig": "^1.18",
-        "zendframework/zend-diactoros": "^1.1"
+        "zendframework/zend-diactoros": "^1.1",
+        "slim/slim": "^2.6",
+        "comphppuebla/slim-modules": "^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.0",

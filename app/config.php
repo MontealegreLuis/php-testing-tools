@@ -19,4 +19,17 @@ return [
             'uuid' => 'EwalletDoctrineBridge\Types\UuidType',
         ],
     ],
+    'twig' => [
+        'options' => [
+            'cache' => __DIR__ . '/../var/cache/twig',
+            'debug' => true,
+            'strict_variables' => true,
+        ],
+        'loader_paths' => [
+            __DIR__ . '/templates',
+        ],
+    ],
+    'forms' => [
+        'theme' => 'layouts/bootstrap3.html.twig',
+    ],
 ];

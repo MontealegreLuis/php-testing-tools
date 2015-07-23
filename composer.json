@@ -29,6 +29,7 @@
         "behat/behat": "^3.0",
         "phpspec/phpspec": "^2.2",
         "phpunit/phpunit": "^4.7",
-        "nelmio/alice": "^2.0"
+        "nelmio/alice": "^2.0",
+        "mockery/mockery": "^0.9.4"
     }
 }

@@ -1,0 +1,20 @@
+{
+    "name": "montealegreluis/php-testing-tools",
+    "description": "Code examples with several PHP testing tools",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "require": {}
+}

@@ -20,6 +20,7 @@
         "mathiasverraes/money": "^1.2"
     },
     "require-dev": {
-        "behat/behat": "^3.0"
+        "behat/behat": "^3.0",
+        "phpspec/phpspec": "^2.2"
     }
 }

@@ -10,6 +10,7 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
+use PHPUnit_Framework_Assert as Assertion;
 
 /**
  * Defines application features from the specific context.
@@ -73,12 +74,11 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function myBalanceShouldBeMxn($amount)
     {
         $my = $this->members->with(Identifier::fromString('abc'));
-        if (!$my->accountBalance()->equals($amount)) {
-            $currentBalance = $my->accountBalance()->getAmount();
-            throw new DomainException(
-                "Expecting {$amount->getAmount()}, not {$currentBalance}"
-            );
-        }
+        $currentBalance = $my->accountBalance()->getAmount();
+        Assertion::assertTrue(
+            $my->accountBalance()->equals($amount),
+            "Expecting {$amount->getAmount()}, not {$currentBalance}"
+        );
     }
 
     /**
@@ -87,11 +87,10 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function myFriendSBalanceShouldBeMxn($amount)
     {
         $myFriend = $this->members->with(Identifier::fromString('xyz'));
-        if (!$myFriend->accountBalance()->equals($amount)) {
-            $currentBalance = $myFriend->accountBalance()->getAmount();
-            throw new DomainException(
-                "Expecting {$amount->getAmount()}, not {$currentBalance}"
-            );
-        }
+        $currentBalance = $myFriend->accountBalance()->getAmount();
+        Assertion::assertTrue(
+            $myFriend->accountBalance()->equals($amount),
+            "Expecting {$amount->getAmount()}, not {$currentBalance}"
+        );
     }
 }

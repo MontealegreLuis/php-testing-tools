@@ -14,6 +14,8 @@ Ewallet\Accounts\Account (local):
         balance: @balance
     account1:
         balance: @balance
+    account2:
+        balance: @balance
 
 Ewallet\Accounts\Member:
     member0:
@@ -26,3 +28,8 @@ Ewallet\Accounts\Member:
         memberId: "ABC"
         name: <name()>
         account: @account1
+    member2:
+        __construct: false
+        memberId: "LMN"
+        name: <name()>
+        account: @account2

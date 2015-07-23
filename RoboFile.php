@@ -37,4 +37,45 @@ class RoboFile extends \Robo\Tasks
             ->run()
         ;
     }
+
+    /**
+     * @description Run Behat, phpspec, PHPUnit and Codeception tests
+     */
+    public function test()
+    {
+        $this->stopOnFail();
+        $this
+            ->taskExec('php bin/behat')
+            ->run()
+        ;
+
+        $this
+            ->taskPhpspec('bin/phpspec')
+            ->run()
+        ;
+
+        $this
+            ->taskPhpUnit('bin/phpunit')
+            ->option('testdox')
+            ->run()
+        ;
+
+        $this->acceptance();
+    }
+
+    /**
+     * @description Run the application using PHP built-in server
+     */
+    public function run()
+    {
+        $this->stopOnFail();
+        $this
+            ->taskServer(8000)
+            ->dir('web')
+            ->background()
+            ->run()
+        ;
+
+        while (true);
+    }
 }

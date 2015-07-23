@@ -31,7 +31,8 @@ class MembersConfigurationTest extends TestCase
     function it_should_generate_options_excluding_the_member_transferring_funds()
     {
         Fixtures::load(
-            __DIR__ . '/../../fixtures/members.yml', $this->entityManager
+            __DIR__ . '/../../../_data/fixtures/members.yml',
+            $this->entityManager
         );
 
         /** @var MembersRepository $members */

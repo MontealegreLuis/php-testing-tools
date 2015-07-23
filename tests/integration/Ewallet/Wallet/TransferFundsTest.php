@@ -32,7 +32,8 @@ class TransferFundsTest extends TestCase
     function it_should_transfer_funds_between_members()
     {
         Fixtures::load(
-            __DIR__ . '/../../fixtures/members.yml', $this->entityManager
+            __DIR__ . '/../../../_data/fixtures/members.yml',
+            $this->entityManager
         );
 
         /** @var Members $members */

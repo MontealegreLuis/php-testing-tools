@@ -8,6 +8,7 @@ namespace spec\Ewallet\Accounts;
 
 use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\InvalidTransferAmount;
 use EwalletTestsBridge\MembersBuilder;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
@@ -61,5 +62,15 @@ class MemberSpec extends ObjectBehavior
             throw new ExampleException('Expected exception was not thrown');
         }
         catch(InvalidArgumentException $e) {}
+    }
+
+    function it_should_not_allow_to_transfer_a_negative_amount()
+    {
+        $toMember = MembersBuilder::aMember()->build();
+
+        $this
+            ->shouldThrow(InvalidTransferAmount::class)
+            ->duringTransfer(Money::MXN(-5000), $toMember)
+        ;
     }
 }

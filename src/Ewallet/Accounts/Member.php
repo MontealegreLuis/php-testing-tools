@@ -93,6 +93,12 @@ class Member
      */
     protected function applyDeposit(Money $amount)
     {
+        if ($amount->isNegative()) {
+            throw new InvalidTransferAmount(
+                "Cannot transfer negative amount {$amount->getAmount()}"
+            );
+        }
+
         $this->account->deposit($amount);
     }
 }

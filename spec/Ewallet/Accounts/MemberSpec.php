@@ -10,11 +10,14 @@ use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\InvalidTransferAmount;
 use EwalletTestsBridge\MembersBuilder;
+use EwalletTestsBridge\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 
 class MemberSpec extends ObjectBehavior
 {
+    use ProvidesMoneyMatcher;
+
     function let()
     {
         $this->beConstructedThrough(
@@ -25,7 +28,7 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_be_created_with_a_given_account_balance()
     {
-        $this->accountBalance()->getAmount()->shouldBe(2000);
+        $this->accountBalance()->shouldAmount(2000);
     }
 
     function it_should_transfer_funds_to_another_member()
@@ -34,7 +37,7 @@ class MemberSpec extends ObjectBehavior
 
         $this->transfer(Money::MXN(500), $toMember);
 
-        $this->accountBalance()->getAmount()->shouldBe(1500);
+        $this->accountBalance()->shouldAmount(1500);
     }
 
     function it_should_receive_funds_from_another_member()
@@ -43,7 +46,7 @@ class MemberSpec extends ObjectBehavior
 
         $fromMember->transfer(Money::MXN(500), $this->getWrappedObject());
 
-        $this->accountBalance()->getAmount()->shouldBe(2500);
+        $this->accountBalance()->shouldAmount(2500);
     }
 
     function it_should_be_recognizable_by_its_id()

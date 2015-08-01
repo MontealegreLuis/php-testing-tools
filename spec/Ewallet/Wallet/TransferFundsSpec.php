@@ -6,15 +6,16 @@
  */
 namespace spec\Ewallet\Wallet;
 
-use Ewallet\Accounts\Identifier;
-use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use EwalletTestsBridge\MembersBuilder;
+use EwalletTestsBridge\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 
 class TransferFundsSpec extends ObjectBehavior
 {
+    use ProvidesMoneyMatcher;
+
     function it_should_transfer_funds_between_accounts(Members $members)
     {
         $member = MembersBuilder::aMember();
@@ -42,7 +43,7 @@ class TransferFundsSpec extends ObjectBehavior
             $fromMember->id(), $toMember->id(), Money::MXN(500)
         );
 
-        $result->fromMember()->accountBalance()->getAmount()->shouldBe(1500);
-        $result->toMember()->accountBalance()->getAmount()->shouldBe(1500);
+        $result->fromMember()->accountBalance()->shouldAmount(1500);
+        $result->toMember()->accountBalance()->shouldAmount(1500);
     }
 }

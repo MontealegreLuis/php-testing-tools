@@ -7,16 +7,19 @@
 namespace spec\Ewallet\Accounts;
 
 use Ewallet\Accounts\InsufficientFunds;
+use EwalletTestsBridge\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class AccountSpec extends ObjectBehavior
 {
+    use ProvidesMoneyMatcher;
+
     function it_should_be_created_with_a_specific_balance()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
-        $this->balance()->getAmount()->shouldBe(3000);
+        $this->balance()->shouldAmount(3000);
     }
 
     function it_should_increase_balance_after_a_deposit()
@@ -25,7 +28,7 @@ class AccountSpec extends ObjectBehavior
 
         $this->deposit(Money::MXN(500));
 
-        $this->balance()->getAmount()->shouldBe(3500);
+        $this->balance()->shouldAmount(3500);
     }
 
     function it_should_decrease_balance_after_a_withdrawal()
@@ -34,7 +37,7 @@ class AccountSpec extends ObjectBehavior
 
         $this->withdraw(Money::MXN(500));
 
-        $this->balance()->getAmount()->shouldBe(2500);
+        $this->balance()->shouldAmount(2500);
     }
 
     function it_should_not_allow_withdrawing_more_than_the_current_balance()

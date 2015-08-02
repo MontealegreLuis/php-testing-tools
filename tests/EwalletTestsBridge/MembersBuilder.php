@@ -29,7 +29,7 @@ class MembersBuilder
     {
         $faker = Factory::create();
         $this->name = $faker->name;
-        $this->amount = (integer) $faker->numberBetween(0, 10000);
+        $this->amount = Money::MXN($faker->numberBetween(0, 10000));
         $this->id = $faker->uuid;
     }
 
@@ -42,11 +42,15 @@ class MembersBuilder
     }
 
     /**
-     * @param integer $amount
+     * @param integer|Money $amount
      * @return MembersBuilder
      */
     public function withBalance($amount)
     {
+        if (is_int($amount)) {
+            $amount = Money::MXN($amount);
+        }
+
         $this->amount = $amount;
 
         return $this;
@@ -71,7 +75,7 @@ class MembersBuilder
         return Member::withAccountBalance(
             Identifier::fromString($this->id),
             $this->name,
-            Money::MXN($this->amount)
+            $this->amount
         );
     }
 }

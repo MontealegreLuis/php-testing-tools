@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+use Money\Money;
 
 trait MemberDictionary
 {
@@ -12,6 +13,6 @@ trait MemberDictionary
      */
     public function transformStringToMoney($amount)
     {
-        return (integer) $amount * 100;
+        return Money::MXN((integer) $amount * 100);
     }
 }

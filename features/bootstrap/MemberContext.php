@@ -75,7 +75,7 @@ class MemberContext implements Context, SnippetAcceptingContext
         $this->useCase->transfer(
             Identifier::fromString('abc'),
             Identifier::fromString('xyz'),
-            Money::MXN($amount)
+            $amount
         );
     }
 
@@ -87,8 +87,8 @@ class MemberContext implements Context, SnippetAcceptingContext
         $my = $this->members->with(Identifier::fromString('abc'));
         $currentBalance = $my->accountBalance()->getAmount();
         Assertion::assertTrue(
-            $my->accountBalance()->equals(Money::MXN($amount)),
-            "Expecting {$amount}, not {$currentBalance}"
+            $my->accountBalance()->equals($amount),
+            "Expecting {$amount->getAmount()}, not {$currentBalance}"
         );
     }
 
@@ -100,8 +100,8 @@ class MemberContext implements Context, SnippetAcceptingContext
         $myFriend = $this->members->with(Identifier::fromString('xyz'));
         $currentBalance = $myFriend->accountBalance()->getAmount();
         Assertion::assertTrue(
-            $myFriend->accountBalance()->equals(Money::MXN($amount)),
-            "Expecting {$amount}, not {$currentBalance}"
+            $myFriend->accountBalance()->equals($amount),
+            "Expecting {$amount->getAmount()}, not {$currentBalance}"
         );
     }
 }

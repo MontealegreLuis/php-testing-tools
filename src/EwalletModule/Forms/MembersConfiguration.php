@@ -43,4 +43,12 @@ class MembersConfiguration
 
         return $options;
     }
+
+    /**
+     * @return array
+     */
+    public function getMembersWhiteList()
+    {
+        return array_keys($this->members->findAll());
+    }
 }

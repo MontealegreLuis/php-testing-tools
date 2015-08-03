@@ -27,7 +27,8 @@
         "twig/twig": "^1.18",
         "zendframework/zend-diactoros": "^1.1",
         "slim/slim": "^2.6",
-        "comphppuebla/slim-modules": "^2.0"
+        "comphppuebla/slim-modules": "^2.0",
+        "zendframework/zend-inputfilter": "^2.5"
     },
     "require-dev": {
         "behat/behat": "^3.0",

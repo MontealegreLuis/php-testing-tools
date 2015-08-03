@@ -26,7 +26,7 @@ class MemberTest extends TestCase
                 $fromMember = $aMember->withBalance(10000)->build();
                 $toMember = MembersBuilder::aMember()->build();
                 $fromMember->transfer(Money::MXN($amount), $toMember);
-                $currentBalance = $fromMember->accountBalance()->getAmount();
+                $currentBalance = $fromMember->information()->accountBalance()->getAmount();
                 $this->assertLessThan(
                     10000,
                     $currentBalance,
@@ -47,7 +47,7 @@ class MemberTest extends TestCase
                 $aMember = MembersBuilder::aMember();
                 $toMember = $aMember->withBalance(5000)->build();
                 $fromMember->transfer(Money::MXN($amount), $toMember);
-                $currentBalance = $toMember->accountBalance()->getAmount();
+                $currentBalance = $toMember->information()->accountBalance()->getAmount();
                 $this->assertGreaterThan(
                     5000,
                     $currentBalance,

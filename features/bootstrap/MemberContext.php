@@ -85,9 +85,9 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function myBalanceShouldBeMxn($amount)
     {
         $my = $this->members->with(Identifier::fromString('abc'));
-        $currentBalance = $my->accountBalance()->getAmount();
+        $currentBalance = $my->information()->accountBalance()->getAmount();
         Assertion::assertTrue(
-            $my->accountBalance()->equals($amount),
+            $my->information()->accountBalance()->equals($amount),
             "Expecting {$amount->getAmount()}, not {$currentBalance}"
         );
     }
@@ -98,9 +98,9 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function myFriendSBalanceShouldBeMxn($amount)
     {
         $myFriend = $this->members->with(Identifier::fromString('xyz'));
-        $currentBalance = $myFriend->accountBalance()->getAmount();
+        $currentBalance = $myFriend->information()->accountBalance()->getAmount();
         Assertion::assertTrue(
-            $myFriend->accountBalance()->equals($amount),
+            $myFriend->information()->accountBalance()->equals($amount),
             "Expecting {$amount->getAmount()}, not {$currentBalance}"
         );
     }

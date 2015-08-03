@@ -55,27 +55,14 @@ class Member
     }
 
     /**
-     * @return Money
+     * @return MemberInformation
      */
-    public function accountBalance()
+    public function information()
     {
-        return $this->account->balance();
-    }
-
-    /**
-     * @return Identifier
-     */
-    public function id()
-    {
-        return $this->memberId;
-    }
-
-    /**
-     * @return string
-     */
-    public function name()
-    {
-        return $this->name;
+        if (is_string($this->memberId)) {
+            $this->memberId = Identifier::fromString($this->memberId);
+        }
+        return new MemberInformation($this->memberId, $this->name, $this->account);
     }
 
     /**

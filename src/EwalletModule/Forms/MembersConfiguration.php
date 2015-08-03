@@ -33,11 +33,12 @@ class MembersConfiguration
 
         /** @var \EWallet\Accounts\Member $member */
         foreach ($members as $member) {
+            $information = $member->information();
             $amount = number_format(
-                round($member->accountBalance()->getAmount() / 100, 2), 2
+                round($information->accountBalance()->getAmount() / 100, 2), 2
             );
-            $label = "{$member->name()} \${$amount} MXN";
-            $options[(string) $member->id()] = $label;
+            $label = "{$information->name()} \${$amount} MXN";
+            $options[(string) $information->id()] = $label;
         }
 
         return $options;

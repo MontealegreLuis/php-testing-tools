@@ -32,15 +32,17 @@ class TransferFundsSpec extends ObjectBehavior
         ;
         $toMember = $member->build();
 
-        $members->with($fromMember->id())->willReturn($fromMember);
-        $members->with($toMember->id())->willReturn($toMember);
+        $members->with($fromMember->information()->id())->willReturn($fromMember);
+        $members->with($toMember->information()->id())->willReturn($toMember);
         $members->update($fromMember)->shouldBeCalled();
         $members->update($toMember)->shouldBeCalled();
 
         $this->beConstructedWith($members);
 
         $result = $this->transfer(
-            $fromMember->id(), $toMember->id(), Money::MXN(500)
+            $fromMember->information()->id(),
+            $toMember->information()->id(),
+            Money::MXN(500)
         );
 
         $result->fromMember()->accountBalance()->shouldAmount(1500);

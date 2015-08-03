@@ -28,7 +28,7 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_be_created_with_a_given_account_balance()
     {
-        $this->accountBalance()->shouldAmount(2000);
+        $this->information()->accountBalance()->shouldAmount(2000);
     }
 
     function it_should_transfer_funds_to_another_member()
@@ -37,7 +37,7 @@ class MemberSpec extends ObjectBehavior
 
         $this->transfer(Money::MXN(500), $toMember);
 
-        $this->accountBalance()->shouldAmount(1500);
+        $this->information()->accountBalance()->shouldAmount(1500);
     }
 
     function it_should_receive_funds_from_another_member()
@@ -46,12 +46,12 @@ class MemberSpec extends ObjectBehavior
 
         $fromMember->transfer(Money::MXN(500), $this->getWrappedObject());
 
-        $this->accountBalance()->shouldAmount(2500);
+        $this->information()->accountBalance()->shouldAmount(2500);
     }
 
     function it_should_be_recognizable_by_its_id()
     {
-        $this->id()->equals(Identifier::fromString('abc'))->shouldBe(true);
+        $this->information()->id()->equals(Identifier::fromString('abc'))->shouldBe(true);
     }
 
     function it_should_not_allow_an_empty_name()

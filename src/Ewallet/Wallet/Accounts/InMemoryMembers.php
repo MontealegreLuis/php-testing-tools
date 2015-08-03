@@ -32,7 +32,7 @@ class InMemoryMembers implements Members
     {
         /** @var Member $member */
         foreach ($this->members as $member) {
-            if ($member->id()->equals($id)) {
+            if ($member->information()->id()->equals($id)) {
                 return $member;
             }
         }

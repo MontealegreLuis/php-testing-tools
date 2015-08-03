@@ -7,6 +7,7 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
+use Ewallet\Accounts\MemberInformation;
 
 class TransferFundsResult
 {
@@ -27,18 +28,18 @@ class TransferFundsResult
     }
 
     /**
-     * @return Member
+     * @return MemberInformation
      */
     public function fromMember()
     {
-        return $this->fromMember;
+        return $this->fromMember->information();
     }
 
     /**
-     * @return Member
+     * @return MemberInformation
      */
     public function toMember()
     {
-        return $this->toMember;
+        return $this->toMember->information();
     }
 }

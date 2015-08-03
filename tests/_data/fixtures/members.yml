@@ -9,27 +9,41 @@ Money\Money (local):
         amount: 1000
         currency: @mxn
 
+Ewallet\Accounts\Identifier (local):
+    id0:
+        __construct: false
+        id: "XYZ"
+    id1:
+        __construct: false
+        id: "ABC"
+    id2:
+        __construct: false
+        id: "LMN"
+
 Ewallet\Accounts\Account (local):
     account0:
+        __construct: false
         balance: @balance
     account1:
+        __construct: false
         balance: @balance
     account2:
+        __construct: false
         balance: @balance
 
 Ewallet\Accounts\Member:
     member0:
         __construct: false
-        memberId: "XYZ"
+        memberId: @id0
         name: <name()>
         account: @account0
     member1:
         __construct: false
-        memberId: "ABC"
+        memberId: @id1
         name: <name()>
         account: @account1
     member2:
         __construct: false
-        memberId: "LMN"
+        memberId: @id2
         name: "Luis Montealegre"
         account: @account2

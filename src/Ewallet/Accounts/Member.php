@@ -59,9 +59,6 @@ class Member
      */
     public function information()
     {
-        if (is_string($this->memberId)) {
-            $this->memberId = Identifier::fromString($this->memberId);
-        }
         return new MemberInformation($this->memberId, $this->name, $this->account);
     }
 

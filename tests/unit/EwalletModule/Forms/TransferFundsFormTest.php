@@ -15,16 +15,18 @@ class TransferFundsFormTest extends TestCase
     /** @test */
     function it_should_populate_the_form_with_the_transfer_values()
     {
-        $input = [
+        $form = new TransferFundsForm();
+        $form->submit([
             'fromMemberId' => 'abc',
             'toMemberId' => 'xyz',
-            'amount' => 10000,
-        ];
+            'amount' => 100,
+        ]);
 
-        $form = new TransferFundsForm();
-        $form->submit($input);
-
-        $this->assertEquals($input, $form->values());
+        $this->assertEquals([
+            'fromMemberId' => 'abc',
+            'toMemberId' => 'xyz',
+            'amount' => ['amount' => 10000, 'currency' => 'MXN'],
+        ], $form->values());
     }
 
     /** @test */

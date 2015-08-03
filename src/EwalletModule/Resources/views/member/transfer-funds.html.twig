@@ -1,13 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% form_theme [_self] %}
-
-{%- block money -%}
-    <div class="input-group"><div class="input-group-addon">$</div>
-        {%- set options = options|merge({'block': 'input'}) -%}
-        {{- element(element, attr, options) -}}
-        <div class="input-group-addon">MXN</div></div>
-{%- endblock money -%}
+{% form_theme ['forms/elements/money.html.twig'] %}
 
 {% block content %}
     {% if fromMember is defined and toMember is defined %}
@@ -36,14 +29,7 @@
     {{ element_row(
         form.toMemberId, {'label': 'Transfer to', 'attr': {'id': 'toMember'}}
     ) }}
-    {{ element_row(
-        form.amount,
-        {
-            'label': 'Amount',
-            'attr': {'id': 'amount'},
-            'options': {'block': 'money'}
-        }
-    ) }}
+    {{ element_row(form.amount, {'label': 'Amount', 'attr': {'id': 'amount'}}) }}
     {{ form_rest(form) }}
 
     <button type="submit" class="btn btn-default">

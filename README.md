@@ -25,7 +25,7 @@ $ make install
 
 ## Usage
 
-You can run all the test with this command:
+You can run all the tests with this command:
 
 ```bash
 $ bin/robo test
@@ -37,5 +37,8 @@ You can run the application with:
 $ bin/robo run
 ```
 
+You can now browse to [http://localhost:8000][3]
+
 [1]: http://escuela.it/cursos/php-web-congress-2015/
 [2]: http://bit.ly/php-testing-tools
+[3]: http://localhost:8000

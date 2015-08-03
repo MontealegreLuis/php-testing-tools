@@ -4,7 +4,8 @@
             "src\/"
         ],
         "excludes": [
-            "src\/EwalletDoctrineBridge\/Resources"
+            "src\/EwalletDoctrineBridge\/Resources\/",
+            "src\/EwalletModule\/Resources\/"
         ]
     },
     "timeout": 10,

@@ -8,9 +8,9 @@ namespace EwalletModule\Forms;
 
 use EasyForms\Elements\Hidden;
 use EasyForms\Elements\Select;
-use EasyForms\Elements\Text;
 use EasyForms\Form;
 use EWallet\Accounts\Identifier;
+use EwalletModule\Forms\Elements\MoneyElement;
 
 class TransferFundsForm extends Form
 {
@@ -23,7 +23,7 @@ class TransferFundsForm extends Form
         $this
             ->add(new Hidden('fromMemberId'))
             ->add(new Select('toMemberId'))
-            ->add(new Text('amount'))
+            ->add(new MoneyElement('amount'))
         ;
     }
 

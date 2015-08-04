@@ -66,15 +66,26 @@ class TransferFundsController
     }
 
     /**
-     * @param Identifier $fromMemberId
-     * @param Identifier $toMemberId
-     * @param Money $amount
+     * @param FilteredRequest $request
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function transfer(
-        Identifier $fromMemberId, Identifier $toMemberId, Money $amount
-    ) {
-        $result = $this->useCase->transfer($fromMemberId, $toMemberId, $amount);
+    public function transfer(FilteredRequest $request)
+    {
+        $fromMemberId = Identifier::fromString($request->value('fromMemberId'));
+        $fromMember = null;
+        $toMember = null;
+
+        if ($request->isValid()) {
+            $result = $this->useCase->transfer(
+                $fromMemberId,
+                Identifier::fromString($request->value('toMemberId')),
+                Money::MXN((integer) $request->value('amount') * 100)
+            );
+            $fromMember = $result->fromMember();
+            $toMember = $result->toMember();
+        } else {
+            $this->form->setErrorMessages($request->errorMessages());
+        }
 
         $this->form->configure($this->configuration, $fromMemberId);
 
@@ -83,8 +94,8 @@ class TransferFundsController
             ->getBody()
             ->write($this->view->render('member/transfer-funds.html.twig', [
                 'form' => $this->form->buildView(),
-                'fromMember' => $result->fromMember(),
-                'toMember' => $result->toMember(),
+                'fromMember' => $fromMember,
+                'toMember' => $toMember,
             ]))
         ;
 

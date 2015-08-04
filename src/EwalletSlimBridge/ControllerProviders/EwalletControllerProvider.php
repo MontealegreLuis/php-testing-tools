@@ -37,9 +37,7 @@ class EwalletControllerProvider implements ControllerProvider
                 'ewallet.transfer_funds_controller:transfer',
                 function () use ($app) {
                     return [
-                        Identifier::fromString($app->request->post('fromMemberId')),
-                        Identifier::fromString($app->request->post('toMemberId')),
-                        Money::MXN((integer) $app->request->post('amount') * 100)
+                        $app->container->get('ewallet.transfer_filter_request'),
                     ];
                 }
             )

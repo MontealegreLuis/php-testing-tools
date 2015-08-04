@@ -74,15 +74,36 @@ class TransferFundsControllerTest extends TestCase
                 Mockery::mock(TransferFundsResult::class)->shouldIgnoreMissing()
             )
         ;
+        $request = Mockery::mock(FilteredRequest::class);
+        $request
+            ->shouldReceive('value')
+            ->once()
+            ->with('fromMemberId')
+            ->andReturn('abc')
+        ;
+        $request
+            ->shouldReceive('value')
+            ->once()
+            ->with('toMemberId')
+            ->andReturn('xyz')
+        ;
+        $request
+            ->shouldReceive('value')
+            ->once()
+            ->with('amount')
+            ->andReturn(100)
+        ;
+        $request
+            ->shouldReceive('isValid')
+            ->once()
+            ->andReturn(true)
+        ;
+
         $controller = new TransferFundsController(
             $view, $form, $configuration, $useCase
         );
 
-        $response = $controller->transfer(
-            Identifier::fromString('abc'),
-            Identifier::fromString('xyz'),
-            Money::MXN(100)
-        );
+        $response = $controller->transfer($request);
 
         $this->assertEquals(200, $response->getStatusCode());
     }

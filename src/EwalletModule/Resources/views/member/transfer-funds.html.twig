@@ -3,7 +3,7 @@
 {% form_theme ['forms/elements/money.html.twig'] %}
 
 {% block content %}
-    {% if fromMember is defined and toMember is defined %}
+    {% if fromMember is defined and fromMember is not null and toMember is defined and toMember is not null %}
         <div
             id="transfer-message"
             class="alert alert-success alert-dismissible"

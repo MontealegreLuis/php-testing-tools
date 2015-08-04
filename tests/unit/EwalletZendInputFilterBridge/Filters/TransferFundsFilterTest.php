@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Forms\Filters;
+namespace EwalletZendInputFilterBridge\Filters;
 
 use EwalletModule\Forms\MembersConfiguration;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -23,6 +23,7 @@ class TransferFundsFilterTest extends TestCase
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
+            'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,
             'amount' => self::VALID_AMOUNT,
         ]);
@@ -35,6 +36,7 @@ class TransferFundsFilterTest extends TestCase
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
+            'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,
             'amount' => 12000.34
         ]);
@@ -48,6 +50,7 @@ class TransferFundsFilterTest extends TestCase
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
+            'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,
             'amount' => '',
         ]);
@@ -61,6 +64,7 @@ class TransferFundsFilterTest extends TestCase
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
+            'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,
             'amount' => self::VALID_AMOUNT,
         ]);
@@ -69,10 +73,11 @@ class TransferFundsFilterTest extends TestCase
     }
 
     /** @test */
-    function it_should_not_pass_validation_with_an_empty_member_id()
+    function it_should_not_pass_validation_with_an_empty_member_id_to_transfer_to()
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
+            'fromMemberId' => self::VALID_ID,
             'toMemberId' => '',
             'amount' => self::VALID_AMOUNT,
         ]);
@@ -86,6 +91,7 @@ class TransferFundsFilterTest extends TestCase
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
+            'fromMemberId' => self::VALID_ID,
             'toMemberId' => 'not a valid member ID',
             'amount' => self::VALID_AMOUNT,
         ]);
@@ -101,5 +107,18 @@ class TransferFundsFilterTest extends TestCase
 
         $this->assertFalse($filter->isValid(), 'Member ID should be invalid');
         $this->assertArrayHasKey(InArray::NOT_IN_ARRAY, $filter->getMessages()['toMemberId']);
+    }
+
+    function it_should_not_pass_validation_if_the_member_making_the_transfer_is_not_specified()
+    {
+        $filter = new TransferFundsFilter();
+        $filter->setData([
+            'fromMemberId' => '',
+            'toMemberId' => self::VALID_ID,
+            'amount' => self::VALID_AMOUNT,
+        ]);
+
+        $this->assertFalse($filter->isValid(), 'Member ID should be invalid');
+        $this->assertArrayHasKey(NotEmpty::IS_EMPTY, $filter->getMessages()['fromMemberId']);
     }
 }

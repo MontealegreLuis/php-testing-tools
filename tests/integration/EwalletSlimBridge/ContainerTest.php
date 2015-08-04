@@ -9,6 +9,7 @@ namespace EwalletSlimBridge;
 use ComPHPPuebla\Slim\Resolver;
 use Doctrine\ORM\EntityManager;
 use EwalletDoctrineBridge\Accounts\MembersRepository;
+use EwalletModule\Controllers\FilteredRequest;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletSlimBridge\Controllers\SlimController;
@@ -23,6 +24,8 @@ class ContainerTest extends TestCase
     function it_should_create_the_application_services()
     {
         $app = new Slim();
+        \Slim\Environment::mock(['REQUEST_METHOD' => 'POST']); //Request objects use it.
+
         $services = new Services(
             new Resolver(), require __DIR__ . '/../../../app/config.php'
         );
@@ -57,6 +60,10 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(
             SlimController::class,
             $app->container->get('ewallet.transfer_funds_controller')
+        );
+        $this->assertInstanceOf(
+            FilteredRequest::class,
+            $app->container->get('ewallet.transfer_filter_request')
         );
     }
 }

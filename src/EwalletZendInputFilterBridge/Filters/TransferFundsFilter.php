@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Forms\Filters;
+namespace EwalletZendInputFilterBridge\Filters;
 
 use EwalletModule\Forms\MembersConfiguration;
 use Zend\InputFilter\Input;
@@ -18,13 +18,17 @@ class TransferFundsFilter extends InputFilter
     /**
      * Configure validations for fields
      *
-     * - toPartnerId
+     * - fromMemberId
+     * - toMemberId
      * - amount
      */
     public function __construct()
     {
-        $this->add($this->buildToMemberIdInput());
-        $this->add($this->buildAmountInput());
+        $this
+            ->add($this->buildFromMemberIdInput())
+            ->add($this->buildToMemberIdInput())
+            ->add($this->buildAmountInput())
+        ;
     }
 
     /**
@@ -45,15 +49,29 @@ class TransferFundsFilter extends InputFilter
     /**
      * @return Input
      */
-    protected function buildToMemberIdInput()
+    protected function buildFromMemberIdInput()
     {
-        $toPartnerId = new Input('toMemberId');
-        $toPartnerId
+        $fromMemberId = new Input('fromMemberId');
+        $fromMemberId
             ->getValidatorChain()
             ->attach(new NotEmpty())
         ;
 
-        return $toPartnerId;
+        return $fromMemberId;
+    }
+
+    /**
+     * @return Input
+     */
+    protected function buildToMemberIdInput()
+    {
+        $toMemberId = new Input('toMemberId');
+        $toMemberId
+            ->getValidatorChain()
+            ->attach(new NotEmpty())
+        ;
+
+        return $toMemberId;
     }
 
     /**

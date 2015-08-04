@@ -7,9 +7,9 @@
 namespace spec\Ewallet\Wallet;
 
 use Ewallet\Accounts\Members;
+use Ewallet\Wallet\TransferFundsRequest;
 use EwalletTestsBridge\MembersBuilder;
 use EwalletTestsBridge\ProvidesMoneyMatcher;
-use Money\Money;
 use PhpSpec\ObjectBehavior;
 
 class TransferFundsSpec extends ObjectBehavior
@@ -39,11 +39,11 @@ class TransferFundsSpec extends ObjectBehavior
 
         $this->beConstructedWith($members);
 
-        $result = $this->transfer(
-            $fromMember->information()->id(),
-            $toMember->information()->id(),
-            Money::MXN(500)
-        );
+        $result = $this->transfer(TransferFundsRequest::from([
+            'fromMemberId' => (string) $fromMember->information()->id(),
+            'toMemberId' => (string) $toMember->information()->id(),
+            'amount' => 5,
+        ]));
 
         $result->fromMember()->accountBalance()->shouldAmount(1500);
         $result->toMember()->accountBalance()->shouldAmount(1500);

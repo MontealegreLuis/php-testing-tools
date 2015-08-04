@@ -8,9 +8,9 @@ namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
+use Ewallet\Wallet\TransferFundsRequest;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
-use Money\Money;
 use Twig_Environment as Twig;
 use Zend\Diactoros\Response;
 
@@ -76,11 +76,11 @@ class TransferFundsController
         $toMember = null;
 
         if ($request->isValid()) {
-            $result = $this->useCase->transfer(
-                $fromMemberId,
-                Identifier::fromString($request->value('toMemberId')),
-                Money::MXN((integer) $request->value('amount') * 100)
-            );
+            $result = $this->useCase->transfer(TransferFundsRequest::from([
+                'fromMemberId' => (string) $fromMemberId,
+                'toMemberId' => $request->value('toMemberId'),
+                'amount' => $request->value('amount'),
+            ]));
             $fromMember = $result->fromMember();
             $toMember = $result->toMember();
         } else {

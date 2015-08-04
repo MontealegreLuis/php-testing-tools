@@ -8,11 +8,11 @@ namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
+use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResult;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use Mockery;
-use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 use Twig_Environment as Twig;
 
@@ -65,11 +65,7 @@ class TransferFundsControllerTest extends TestCase
         $useCase
             ->shouldReceive('transfer')
             ->once()
-            ->with(
-                Mockery::type(Identifier::class),
-                Mockery::type(Identifier::class),
-                Mockery::type(Money::class)
-            )
+            ->with(Mockery::type(TransferFundsRequest::class))
             ->andReturn(
                 Mockery::mock(TransferFundsResult::class)->shouldIgnoreMissing()
             )

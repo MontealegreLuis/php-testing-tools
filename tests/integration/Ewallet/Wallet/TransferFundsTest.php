@@ -6,12 +6,10 @@
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use EwalletTestsBridge\ProvidesDoctrineSetup;
 use EwalletTestsBridge\ProvidesMoneyConstraint;
-use Money\Money;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -42,11 +40,11 @@ class TransferFundsTest extends TestCase
 
         $transferBalance = new TransferFunds($members);
 
-        $result = $transferBalance->transfer(
-            Identifier::fromString('XYZ'),
-            Identifier::fromString('ABC'),
-            Money::MXN(300)
-        );
+        $result = $transferBalance->transfer(TransferFundsRequest::from([
+            'fromMemberId' => 'XYZ',
+            'toMemberId' => 'ABC',
+            'amount' => 3,
+        ]));
 
         $this->assertBalanceAmounts(700, $result->fromMember()->accountBalance());
         $this->assertBalanceAmounts(1300, $result->toMember()->accountBalance());

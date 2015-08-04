@@ -10,7 +10,7 @@ use Ewallet\Accounts\Identifier;
 use EwalletTestsBridge\MembersBuilder;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
-use Money\Money;
+use Ewallet\Wallet\TransferFundsRequest;
 use PHPUnit_Framework_Assert as Assertion;
 
 /**
@@ -72,11 +72,11 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iTransferHimMxn($amount)
     {
-        $this->useCase->transfer(
-            Identifier::fromString('abc'),
-            Identifier::fromString('xyz'),
-            $amount
-        );
+        $this->useCase->transfer(TransferFundsRequest::from([
+            'fromMemberId' => 'abc',
+            'toMemberId' => 'xyz',
+            'amount' => round($amount->getAmount() / 100),
+        ]));
     }
 
     /**

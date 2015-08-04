@@ -6,9 +6,7 @@
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Members;
-use Money\Money;
 
 class TransferFunds
 {
@@ -24,18 +22,15 @@ class TransferFunds
     }
 
     /**
-     * @param Identifier $fromMemberId
-     * @param Identifier $toMemberId
-     * @param Money $amount
+     * @param TransferFundsRequest $request
      * @return TransferFundsResult
      */
-    public function transfer(
-        Identifier $fromMemberId, Identifier $toMemberId, Money $amount
-    ) {
-        $fromMember = $this->members->with($fromMemberId);
-        $toMember = $this->members->with($toMemberId);
+    public function transfer(TransferFundsRequest $request)
+    {
+        $fromMember = $this->members->with($request->fromMemberId());
+        $toMember = $this->members->with($request->toMemberId());
 
-        $fromMember->transfer($amount, $toMember);
+        $fromMember->transfer($request->amount(), $toMember);
 
         $this->members->update($fromMember);
         $this->members->update($toMember);

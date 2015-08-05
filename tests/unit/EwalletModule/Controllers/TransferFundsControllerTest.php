@@ -10,56 +10,34 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResult;
-use EwalletModule\Forms\MembersConfiguration;
-use EwalletModule\Forms\TransferFundsForm;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
-use Twig_Environment as Twig;
+use Psr\Http\Message\ResponseInterface;
 
 class TransferFundsControllerTest extends TestCase
 {
     /** @test */
     function it_should_show_transfer_funds_form()
     {
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $form = Mockery::mock(TransferFundsForm::class);
-        $form->shouldReceive('buildView')->once();
-        $form
-            ->shouldReceive('configure')
+        $responder = Mockery::mock(TransferFundsResponder::class);
+        $responder
+            ->shouldReceive('transferFundsFormResponse')
             ->once()
-            ->with($configuration, Mockery::type(Identifier::class))
+            ->andReturn(Mockery::type(ResponseInterface::class))
         ;
-        $view = Mockery::mock(Twig::class);
-        $view
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-            ->andReturn('')
-        ;
-        $controller = new TransferFundsController($view, $form, $configuration);
+        $controller = new TransferFundsController($responder);
 
-        $response = $controller->showForm(Identifier::fromString('abc'));
-
-        $this->assertEquals(200, $response->getStatusCode());
+        $controller->showForm(Identifier::fromString('abc'));
     }
 
     /** @test */
     function it_should_transfer_funds_from_one_member_to_another()
     {
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $form = Mockery::mock(TransferFundsForm::class);
-        $form->shouldReceive('buildView')->once();
-        $form
-            ->shouldReceive('configure')
+        $responder = Mockery::mock(TransferFundsResponder::class);
+        $responder
+            ->shouldReceive('successfulTransferResponse')
             ->once()
-            ->with($configuration, Mockery::type(Identifier::class))
-        ;
-        $view = Mockery::mock(Twig::class);
-        $view
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-            ->andReturn('')
+            ->andReturn(Mockery::type(ResponseInterface::class))
         ;
         $useCase = Mockery::mock(TransferFunds::class);
         $useCase
@@ -72,22 +50,11 @@ class TransferFundsControllerTest extends TestCase
         ;
         $request = Mockery::mock(FilteredRequest::class);
         $request
-            ->shouldReceive('value')
+            ->shouldReceive('values')
             ->once()
-            ->with('fromMemberId')
-            ->andReturn('abc')
-        ;
-        $request
-            ->shouldReceive('value')
-            ->once()
-            ->with('toMemberId')
-            ->andReturn('xyz')
-        ;
-        $request
-            ->shouldReceive('value')
-            ->once()
-            ->with('amount')
-            ->andReturn(100)
+            ->andReturn([
+                'fromMemberId' => 'abc', 'toMemberId' => 'xyz', 'amount' => 100
+            ])
         ;
         $request
             ->shouldReceive('isValid')
@@ -95,12 +62,8 @@ class TransferFundsControllerTest extends TestCase
             ->andReturn(true)
         ;
 
-        $controller = new TransferFundsController(
-            $view, $form, $configuration, $useCase
-        );
+        $controller = new TransferFundsController($responder, $useCase);
 
-        $response = $controller->transfer($request);
-
-        $this->assertEquals(200, $response->getStatusCode());
+        $controller->transfer($request);
     }
 }

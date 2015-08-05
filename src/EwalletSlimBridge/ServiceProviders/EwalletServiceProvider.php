@@ -11,6 +11,7 @@ use ComPHPPuebla\Slim\ServiceProvider;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFunds;
 use EwalletModule\Controllers\TransferFundsController;
+use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletSlimBridge\Controllers\SlimController;
@@ -61,12 +62,20 @@ class EwalletServiceProvider implements ServiceProvider
             }
         );
         $app->container->singleton(
-            'ewallet.transfer_form_controller',
+            'ewallet.transfer_funds_responder',
             function () use ($app) {
-                return new SlimController(new TransferFundsController(
+                return new TransferFundsResponder(
                     $app->container->get('twig.environment'),
                     $app->container->get('ewallet.transfer_form'),
                     $app->container->get('ewallet.members_configuration')
+                );
+            }
+        );
+        $app->container->singleton(
+            'ewallet.transfer_form_controller',
+            function () use ($app) {
+                return new SlimController(new TransferFundsController(
+                    $app->container->get('ewallet.transfer_funds_responder')
                 ));
             }
         );
@@ -74,9 +83,7 @@ class EwalletServiceProvider implements ServiceProvider
             'ewallet.transfer_funds_controller',
             function () use ($app) {
                 return new SlimController(new TransferFundsController(
-                    $app->container->get('twig.environment'),
-                    $app->container->get('ewallet.transfer_form'),
-                    $app->container->get('ewallet.members_configuration'),
+                    $app->container->get('ewallet.transfer_funds_responder'),
                     new TransferFunds(
                         $app->container->get('ewallet.member_repository')
                     )

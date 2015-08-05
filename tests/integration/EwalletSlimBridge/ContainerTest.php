@@ -10,6 +10,7 @@ use ComPHPPuebla\Slim\Resolver;
 use Doctrine\ORM\EntityManager;
 use EwalletDoctrineBridge\Accounts\MembersRepository;
 use EwalletModule\Controllers\FilteredRequest;
+use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletSlimBridge\Controllers\SlimController;
@@ -52,6 +53,10 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(
             MembersConfiguration::class,
             $app->container->get('ewallet.members_configuration')
+        );
+        $this->assertInstanceOf(
+            TransferFundsResponder::class,
+            $app->container->get('ewallet.transfer_funds_responder')
         );
         $this->assertInstanceOf(
             SlimController::class,

@@ -9,40 +9,24 @@ namespace EwalletModule\Controllers;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsRequest;
-use EwalletModule\Forms\MembersConfiguration;
-use EwalletModule\Forms\TransferFundsForm;
-use Twig_Environment as Twig;
-use Zend\Diactoros\Response;
 
 class TransferFundsController
 {
-    /** @var Twig */
-    private $view;
-
-    /** @var TransferFundsForm */
-    private $form;
-
-    /** @var MembersConfiguration */
-    private $configuration;
-
     /** @var TransferFunds */
     private $useCase;
 
+    /** @var TransferFundsResponder */
+    private $responder;
+
     /**
-     * @param Twig $view
-     * @param TransferFundsForm $form
-     * @param MembersConfiguration $configuration
+     * @param TransferFundsResponder $responder
      * @param TransferFunds $transferFunds
      */
     public function __construct(
-        Twig $view,
-        TransferFundsForm $form,
-        MembersConfiguration $configuration,
+        TransferFundsResponder $responder,
         TransferFunds $transferFunds = null
     ) {
-        $this->view = $view;
-        $this->form = $form;
-        $this->configuration = $configuration;
+        $this->responder = $responder;
         $this->useCase = $transferFunds;
     }
 
@@ -52,17 +36,7 @@ class TransferFundsController
      */
     public function showForm(Identifier $fromMemberId)
     {
-        $this->form->configure($this->configuration, $fromMemberId);
-
-        $response = new Response();
-        $response
-            ->getBody()
-            ->write($this->view->render('member/transfer-funds.html.twig', [
-                'form' => $this->form->buildView(),
-            ]))
-        ;
-
-        return $response;
+        return $this->responder->transferFundsFormResponse($fromMemberId);
     }
 
     /**
@@ -71,34 +45,14 @@ class TransferFundsController
      */
     public function transfer(FilteredRequest $request)
     {
-        $fromMemberId = Identifier::fromString($request->value('fromMemberId'));
-        $fromMember = null;
-        $toMember = null;
-
-        if ($request->isValid()) {
-            $result = $this->useCase->transfer(TransferFundsRequest::from([
-                'fromMemberId' => (string) $fromMemberId,
-                'toMemberId' => $request->value('toMemberId'),
-                'amount' => $request->value('amount'),
-            ]));
-            $fromMember = $result->fromMember();
-            $toMember = $result->toMember();
-        } else {
-            $this->form->setErrorMessages($request->errorMessages());
+        if (!$request->isValid()) {
+            return $this->responder->invalidTransferInputResponse(
+                $request->errorMessages(), $request->value('fromMemberId')
+            );
         }
 
-        $this->form->configure($this->configuration, $fromMemberId);
+        $result = $this->useCase->transfer(TransferFundsRequest::from($request->values()));
 
-        $response = new Response();
-        $response
-            ->getBody()
-            ->write($this->view->render('member/transfer-funds.html.twig', [
-                'form' => $this->form->buildView(),
-                'fromMember' => $fromMember,
-                'toMember' => $toMember,
-            ]))
-        ;
-
-        return $response;
+        return $this->responder->successfulTransferResponse($result);
     }
 }

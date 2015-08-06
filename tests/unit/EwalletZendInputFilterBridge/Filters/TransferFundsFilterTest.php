@@ -10,12 +10,14 @@ use EwalletModule\Forms\MembersConfiguration;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Validator\Digits;
 use Mockery;
+use Zend\Validator\GreaterThan;
 use Zend\Validator\InArray;
 use Zend\Validator\NotEmpty;
 
 class TransferFundsFilterTest extends TestCase
 {
     const VALID_ID = 'a valid ID';
+    const INVALID_ID = 'not a valid member ID';
     const VALID_AMOUNT = 12000;
 
     /** @test */
@@ -60,6 +62,20 @@ class TransferFundsFilterTest extends TestCase
     }
 
     /** @test */
+    function it_should_not_pass_validation_if_amount_is_negative()
+    {
+        $filter = new TransferFundsFilter();
+        $filter->setData([
+            'fromMemberId' => self::VALID_ID,
+            'toMemberId' => self::VALID_ID,
+            'amount' => -500,
+        ]);
+
+        $this->assertFalse($filter->isValid(), 'Negative amounts should be invalid');
+        $this->assertArrayHasKey(GreaterThan::NOT_GREATER, $filter->getMessages()['amount']);
+    }
+
+    /** @test */
     function it_should_pass_validation_with_valid_member_id()
     {
         $filter = new TransferFundsFilter();
@@ -82,7 +98,7 @@ class TransferFundsFilterTest extends TestCase
             'amount' => self::VALID_AMOUNT,
         ]);
 
-        $this->assertFalse($filter->isValid(), 'Member ID should be invalid');
+        $this->assertFalse($filter->isValid(), 'An empty member ID should be invalid');
         $this->assertArrayHasKey(NotEmpty::IS_EMPTY, $filter->getMessages()['toMemberId']);
     }
 
@@ -92,7 +108,7 @@ class TransferFundsFilterTest extends TestCase
         $filter = new TransferFundsFilter();
         $filter->setData([
             'fromMemberId' => self::VALID_ID,
-            'toMemberId' => 'not a valid member ID',
+            'toMemberId' => self::INVALID_ID,
             'amount' => self::VALID_AMOUNT,
         ]);
 
@@ -100,15 +116,17 @@ class TransferFundsFilterTest extends TestCase
         $configuration
             ->shouldReceive('getMembersWhiteList')
             ->once()
+            ->with(self::VALID_ID)
             ->andReturn(['abc', 'xyz'])
         ;
 
-        $filter->configure($configuration);
+        $filter->configure($configuration, self::VALID_ID);
 
         $this->assertFalse($filter->isValid(), 'Member ID should be invalid');
         $this->assertArrayHasKey(InArray::NOT_IN_ARRAY, $filter->getMessages()['toMemberId']);
     }
 
+    /** @test */
     function it_should_not_pass_validation_if_the_member_making_the_transfer_is_not_specified()
     {
         $filter = new TransferFundsFilter();

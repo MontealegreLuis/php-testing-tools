@@ -16,7 +16,13 @@ class IdentifierSpec extends ObjectBehavior
     function it_should_be_created_from_a_string()
     {
         $this->beConstructedThrough('fromString', ['abcd']);
-        $this->shouldHaveType(Identifier::class);
+        $this->__toString()->shouldBe('abcd');
+    }
+
+    function it_should_be_created_using_any_non_empty_value()
+    {
+        $this->beConstructedThrough('any', []);
+        $this->__toString()->shouldNotBe('');
     }
 
     function it_should_not_be_created_from_an_empty_string()

@@ -42,6 +42,14 @@ class Identifier
     }
 
     /**
+     * @return Identifier
+     */
+    public static function any()
+    {
+        return new Identifier(uniqid());
+    }
+
+    /**
      * @param Identifier $id
      * @return bool
      */

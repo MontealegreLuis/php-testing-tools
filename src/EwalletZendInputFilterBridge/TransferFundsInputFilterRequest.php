@@ -7,20 +7,28 @@
 namespace EwalletZendInputFilterBridge;
 
 use EwalletModule\Controllers\FilteredRequest;
+use EwalletModule\Forms\MembersConfiguration;
+use EwalletZendInputFilterBridge\Filters\TransferFundsFilter;
 use Zend\InputFilter\InputFilter;
 
-class InputFilterRequest implements FilteredRequest
+class TransferFundsInputFilterRequest implements FilteredRequest
 {
-    /** @var InputFilter */
+    /** @var TransferFundsFilter */
     private $filter;
 
     /**
-     * @param InputFilter $filter
+     * @param TransferFundsFilter $filter
+     * @param MembersConfiguration $configuration
      * @param array $input
      */
-    public function __construct(InputFilter $filter, array $input)
-    {
+    public function __construct(
+        TransferFundsFilter $filter,
+        MembersConfiguration $configuration,
+        array $input
+    ) {
         $this->filter = $filter;
+        $fromMemberId = isset($input['fromMemberId']) ? $input['fromMemberId']: null;
+        $this->filter->configure($configuration, $fromMemberId);
         $this->filter->setData($input);
     }
 

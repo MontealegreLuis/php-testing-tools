@@ -10,6 +10,7 @@ use EwalletModule\Forms\MembersConfiguration;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\Digits;
+use Zend\Validator\GreaterThan;
 use Zend\Validator\InArray;
 use Zend\Validator\NotEmpty;
 
@@ -33,15 +34,16 @@ class TransferFundsFilter extends InputFilter
 
     /**
      * @param MembersConfiguration $configuration
+     * @param string $fromMemberId
      */
-    public function configure(MembersConfiguration $configuration)
+    public function configure(MembersConfiguration $configuration, $fromMemberId)
     {
         $toPartnerId = $this->get('toMemberId');
 
         $toPartnerId
             ->getValidatorChain()
             ->attach(new InArray([
-                'haystack' => $configuration->getMembersWhitelist()
+                'haystack' => $configuration->getMembersWhitelist($fromMemberId)
             ]))
         ;
     }
@@ -83,6 +85,7 @@ class TransferFundsFilter extends InputFilter
         $amount
             ->getValidatorChain()
             ->attach(new NotEmpty(['type' => NotEmpty::INTEGER]))
+            ->attach(new GreaterThan(['min' => 0]))
             ->attach(new Digits())
         ;
 

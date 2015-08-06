@@ -62,11 +62,14 @@ class TransferFundsResponder
 
     /**
      * @param array $messages
+     * @param array $values
      * @param string $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function invalidTransferInputResponse(array $messages, $fromMemberId)
-    {
+    public function invalidTransferInputResponse(
+        array $messages, array $values, $fromMemberId
+    ) {
+        $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
         return $this->transferFundsFormResponse(Identifier::fromString($fromMemberId));

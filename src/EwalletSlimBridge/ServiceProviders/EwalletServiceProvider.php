@@ -16,7 +16,7 @@ use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletSlimBridge\Controllers\SlimController;
 use EwalletZendInputFilterBridge\Filters\TransferFundsFilter;
-use EwalletZendInputFilterBridge\InputFilterRequest;
+use EwalletZendInputFilterBridge\TransferFundsInputFilterRequest;
 use Slim\Slim;
 use Twig_Loader_Filesystem as Loader;
 
@@ -48,8 +48,10 @@ class EwalletServiceProvider implements ServiceProvider
         $app->container->singleton(
             'ewallet.transfer_filter_request',
             function () use ($app) {
-                return new InputFilterRequest(
-                    new TransferFundsFilter(), $app->request()->post()
+                return new TransferFundsInputFilterRequest(
+                    new TransferFundsFilter(),
+                    $app->container->get('ewallet.members_configuration'),
+                    $app->request()->post()
                 );
             }
         );

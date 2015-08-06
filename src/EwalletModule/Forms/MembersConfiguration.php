@@ -45,10 +45,18 @@ class MembersConfiguration
     }
 
     /**
+     * @param string $fromMemberId
      * @return array
      */
-    public function getMembersWhiteList()
+    public function getMembersWhiteList($fromMemberId)
     {
-        return array_keys($this->members->findAll());
+        $memberId = Identifier::any();
+        if (!is_null($fromMemberId)) {
+            $memberId = Identifier::fromString($fromMemberId);
+        }
+
+        return array_keys(
+            $this->getMembersChoicesExcluding($memberId)
+        );
     }
 }

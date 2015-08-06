@@ -47,7 +47,9 @@ class TransferFundsController
     {
         if (!$request->isValid()) {
             return $this->responder->invalidTransferInputResponse(
-                $request->errorMessages(), $request->value('fromMemberId')
+                $request->errorMessages(),
+                $request->values(),
+                $request->value('fromMemberId')
             );
         }
 

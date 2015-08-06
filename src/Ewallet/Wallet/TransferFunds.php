@@ -23,7 +23,7 @@ class TransferFunds
 
     /**
      * @param TransferFundsRequest $request
-     * @return TransferFundsResult
+     * @return TransferFundsResponse
      */
     public function transfer(TransferFundsRequest $request)
     {
@@ -35,6 +35,6 @@ class TransferFunds
         $this->members->update($fromMember);
         $this->members->update($toMember);
 
-        return new TransferFundsResult($fromMember, $toMember);
+        return new TransferFundsResponse($fromMember, $toMember);
     }
 }

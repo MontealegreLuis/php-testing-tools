@@ -9,7 +9,7 @@ namespace EwalletModule\Controllers;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsRequest;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsResponse;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -45,7 +45,7 @@ class TransferFundsControllerTest extends TestCase
             ->once()
             ->with(Mockery::type(TransferFundsRequest::class))
             ->andReturn(
-                Mockery::mock(TransferFundsResult::class)->shouldIgnoreMissing()
+                Mockery::mock(TransferFundsResponse::class)->shouldIgnoreMissing()
             )
         ;
         $request = Mockery::mock(FilteredRequest::class);

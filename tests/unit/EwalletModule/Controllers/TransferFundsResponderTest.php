@@ -7,7 +7,7 @@
 namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletTestsBridge\MembersBuilder;
@@ -63,7 +63,7 @@ class TransferFundsResponderTest extends TestCase
             ->with(Mockery::type('string'), Mockery::type('array'))
             ->andReturn('')
         ;
-        $result = new TransferFundsResult(
+        $result = new TransferFundsResponse(
             MembersBuilder::aMember()->build(),
             MembersBuilder::aMember()->build()
         );

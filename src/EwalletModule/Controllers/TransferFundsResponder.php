@@ -7,7 +7,7 @@
 namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use Twig_Environment as Twig;
@@ -40,10 +40,10 @@ class TransferFundsResponder
     }
 
     /**
-     * @param TransferFundsResult $result
+     * @param TransferFundsResponse $result
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function successfulTransferResponse(TransferFundsResult $result)
+    public function successfulTransferResponse(TransferFundsResponse $result)
     {
         $this->form->configure($this->configuration, $result->fromMember()->id());
 

@@ -9,7 +9,7 @@ namespace Ewallet\Wallet;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\MemberInformation;
 
-class TransferFundsResult
+class TransferFundsResponse
 {
     /** @var Member */
     private $fromMember;
@@ -21,7 +21,7 @@ class TransferFundsResult
      * @param Member $fromMember
      * @param Member $toMember
      */
-    function __construct(Member $fromMember, Member $toMember)
+    public function __construct(Member $fromMember, Member $toMember)
     {
         $this->fromMember = $fromMember;
         $this->toMember = $toMember;

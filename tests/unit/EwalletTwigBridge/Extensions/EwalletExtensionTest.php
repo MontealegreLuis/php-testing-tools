@@ -20,7 +20,7 @@ class EwalletExtensionTest extends TestCase
         $extension = new EwalletExtension();
         $amount = Money::MXN(300000);
 
-        $this->assertEquals('$3000 MXN', $extension->renderMoney($amount));
+        $this->assertEquals('$3,000.00 MXN', $extension->renderMoney($amount));
     }
 
     /** @test */
@@ -33,7 +33,7 @@ class EwalletExtensionTest extends TestCase
             ->build();
 
         $this->assertEquals(
-            'Luis Montealegre $2550 MXN',
+            'Luis Montealegre $2,550.00 MXN',
             $extension->renderMember($member->information())
         );
     }

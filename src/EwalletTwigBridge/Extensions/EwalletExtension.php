@@ -20,6 +20,7 @@ class EwalletExtension extends Extension
     {
         return [
             new SimpleFunction('member', [$this, 'renderMember']),
+            new SimpleFunction('money_amount', [$this, 'renderMoneyAmount']),
             new SimpleFunction('money', [$this, 'renderMoney']),
         ];
     }
@@ -39,7 +40,16 @@ class EwalletExtension extends Extension
      */
     public function renderMoney(Money $money)
     {
-        return '$' . round($money->getAmount() / 100, 2) . ' ' . $money->getCurrency();
+        return "\${$this->renderMoneyAmount(round($money->getAmount() / 100, 2))} {$money->getCurrency()}";
+    }
+
+    /**
+     * @param integer $amount
+     * @return string
+     */
+    public function renderMoneyAmount($amount)
+    {
+        return number_format($amount, 2);
     }
 
     /**

@@ -23,14 +23,14 @@ class MoneyElementTest extends TestCase
     }
 
     /** @test */
-    function it_should_format_view_value()
+    function it_should_pass_value_to_the_amount_text_element()
     {
         $money = new MoneyElement('amount');
 
-        $money->setValue(3533.333);
+        $money->setValue(3533);
 
         $view = $money->buildView();
 
-        $this->assertEquals(35.33, $view->amount->value);
+        $this->assertEquals(3533, $view->amount->value);
     }
 }

@@ -53,7 +53,6 @@ class MoneyElement extends Element
         $view = parent::buildView($view);
 
         $view->amount = $this->amount->buildView();
-        $view->amount->value = round($view->amount->value / 100, 2);
         $view->currency = $this->currency;
         $view->block = 'money';
 

@@ -42,6 +42,17 @@ class MembersBuilder
     }
 
     /**
+     * @param $name
+     * @return MembersBuilder
+     */
+    public function withName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
      * @param integer|Money $amount
      * @return MembersBuilder
      */

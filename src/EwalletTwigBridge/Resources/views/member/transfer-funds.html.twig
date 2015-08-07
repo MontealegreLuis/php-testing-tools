@@ -17,10 +17,8 @@
             >
                 <span aria-hidden="true">&times;</span>
             </button>
-            You have successfully transferred funds to {{ toMember.name() }}
-            Your current account balance is
-            {{ (fromMember.accountBalance().getAmount / 100)|number_format(2) }}
-            MXN
+            Your beneficiary summary is {{ member(toMember) }} <br>
+            Your summary is {{ member(fromMember) }}
         </div>
     {% endif %}
 

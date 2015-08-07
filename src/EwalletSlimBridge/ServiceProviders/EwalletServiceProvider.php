@@ -15,9 +15,11 @@ use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletSlimBridge\Controllers\SlimController;
+use EwalletTwigBridge\Extensions\EwalletExtension;
 use EwalletZendInputFilterBridge\Filters\TransferFundsFilter;
 use EwalletZendInputFilterBridge\TransferFundsInputFilterRequest;
 use Slim\Slim;
+use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
 
 class EwalletServiceProvider implements ServiceProvider
@@ -41,7 +43,7 @@ class EwalletServiceProvider implements ServiceProvider
         );
         $app->container->singleton(
             'ewallet.transfer_form',
-            function () use ($app) {
+            function () {
                 return new TransferFundsForm();
             }
         );
@@ -92,15 +94,32 @@ class EwalletServiceProvider implements ServiceProvider
                 ));
             }
         );
+        $app->container->singleton(
+            'ewallet.twig.extension',
+            function () {
+                return new EwalletExtension();
+            }
+        );
         $resolver->extend(
             $app,
             'twig.loader',
-            function (Loader $loader) use ($app, $options) {
+            function (Loader $loader) {
                 $loader->addPath(
-                    __DIR__ . '/../../EwalletModule/Resources/views'
+                    __DIR__ . '/../../EwalletTwigBridge/Resources/views'
                 );
 
                 return $loader;
+            }
+        );
+        $resolver->extend(
+            $app,
+            'twig.environment',
+            function (Environment $environment) use ($app) {
+                $environment->addExtension(
+                    $app->container->get('ewallet.twig.extension')
+                );
+
+                return $environment;
             }
         );
     }

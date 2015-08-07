@@ -5,7 +5,7 @@
         ],
         "excludes": [
             "src\/EwalletDoctrineBridge\/Resources\/",
-            "src\/EwalletModule\/Resources\/"
+            "src\/EwalletTwigBridge\/Resources\/"
         ]
     },
     "timeout": 10,

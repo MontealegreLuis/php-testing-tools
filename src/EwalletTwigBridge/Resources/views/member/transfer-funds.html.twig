@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% form_theme ['forms/elements/money.html.twig'] %}
+{% form_theme ['forms/elements/money.html.twig', 'forms/elements/members.html.twig'] %}
 
 {% block content %}
     {% if fromMember is defined and fromMember is not null and toMember is defined and toMember is not null %}
@@ -24,9 +24,7 @@
 
     {{ form_start(form, {'action': '/transfer-funds'}) }}
 
-    {{ element_row(
-        form.toMemberId, {'label': 'Transfer to', 'attr': {'id': 'toMember'}}
-    ) }}
+    {{ element_row(form.toMemberId, {'label': 'Transfer to', 'attr': {'id': 'toMember'}, 'options': {'block': 'members'}}) }}
     {{ element_row(form.amount, {'label': 'Amount', 'attr': {'id': 'amount'}}) }}
     {{ form_rest(form) }}
 

@@ -1,0 +1,12 @@
+{% block members -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    <select{{ block('attributes') }}>
+        {{- block('members_options') -}}
+    </select>
+{%- endblock members %}
+
+{% block members_options -%}
+    {% for group_label, choice in choices %}
+        <option value="{{ group_label }}"{% if element.isSelected(group_label) %} selected{% endif %}>{{ member(choice) }}</option>
+    {% endfor %}
+{%- endblock members_options %}

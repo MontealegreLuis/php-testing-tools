@@ -21,6 +21,12 @@ class EwalletControllerProvider implements ControllerProvider
     public function register(Slim $app, Resolver $resolver)
     {
         $app->get(
+            '/',
+            function () use ($app) {
+                $app->redirectTo('transfer_form');
+            }
+        );
+        $app->get(
             '/transfer-form',
             $resolver->resolve(
                 $app,
@@ -29,7 +35,7 @@ class EwalletControllerProvider implements ControllerProvider
                     return [Identifier::fromString('ABC')];
                 }
             )
-        );
+        )->name('transfer_form');
         $app->post(
             '/transfer-funds',
             $resolver->resolve(

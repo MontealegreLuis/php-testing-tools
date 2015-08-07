@@ -34,7 +34,7 @@ class MoneyElement extends Element
      */
     public function setValue($value)
     {
-        $this->amount->setValue($value * 100);
+        $this->amount->setValue($value);
         $this->value = [
             'amount' => $this->amount->value(),
             'currency' => $this->currency,

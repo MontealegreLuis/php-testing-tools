@@ -25,7 +25,7 @@ class TransferFundsFormTest extends TestCase
         $this->assertEquals([
             'fromMemberId' => 'abc',
             'toMemberId' => 'xyz',
-            'amount' => ['amount' => 10000, 'currency' => 'MXN'],
+            'amount' => ['amount' => 100, 'currency' => 'MXN'],
         ], $form->values());
     }
 

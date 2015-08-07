@@ -11,14 +11,14 @@ use PHPUnit_Framework_TestCase as TestCase;
 class MoneyElementTest extends TestCase
 {
     /** @test */
-    function it_should_multiply_value_by_100()
+    function it_should_set_its_value_as_a_pair_amount_currency()
     {
         $money = new MoneyElement('amount');
 
         $money->setValue(100);
 
         $this->assertEquals(
-            ['amount' => 10000, 'currency' => 'MXN'], $money->value()
+            ['amount' => 100, 'currency' => 'MXN'], $money->value()
         );
     }
 
@@ -27,7 +27,7 @@ class MoneyElementTest extends TestCase
     {
         $money = new MoneyElement('amount');
 
-        $money->setValue(35.33333);
+        $money->setValue(3533.333);
 
         $view = $money->buildView();
 

@@ -10,6 +10,7 @@ use ComPHPPuebla\Slim\Resolver;
 use ComPHPPuebla\Slim\ServiceProvider;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFunds;
+use EwalletHexagonalBridge\Wallet\TransferFundsTransactionally;
 use EwalletModule\Controllers\TransferFundsController;
 use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
@@ -18,6 +19,8 @@ use EwalletSlimBridge\Controllers\SlimController;
 use EwalletTwigBridge\Extensions\EwalletExtension;
 use EwalletZendInputFilterBridge\Filters\TransferFundsFilter;
 use EwalletZendInputFilterBridge\TransferFundsInputFilterRequest;
+use Hexagonal\Application\Services\TransactionalService;
+use HexagonalDoctrineBridge\Application\Services\DoctrineSession;
 use Slim\Slim;
 use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
@@ -84,13 +87,24 @@ class EwalletServiceProvider implements ServiceProvider
             }
         );
         $app->container->singleton(
+            'ewallet.transfer_funds',
+            function () use ($app) {
+                $transferFunds = new TransferFundsTransactionally(
+                    $app->container->get('ewallet.member_repository')
+                );
+                $transferFunds->setTransactionalSession(new DoctrineSession(
+                    $app->container->get('doctrine.em')
+                ));
+
+                return $transferFunds;
+            }
+        );
+        $app->container->singleton(
             'ewallet.transfer_funds_controller',
             function () use ($app) {
                 return new SlimController(new TransferFundsController(
                     $app->container->get('ewallet.transfer_funds_responder'),
-                    new TransferFunds(
-                        $app->container->get('ewallet.member_repository')
-                    )
+                    $app->container->get('ewallet.transfer_funds')
                 ));
             }
         );

@@ -117,6 +117,7 @@ class EwalletServiceProvider implements ServiceProvider
             $app,
             'twig.loader',
             function (Loader $loader) {
+                $loader->addPath(__DIR__ . '/../Resources/templates');
                 $loader->addPath(
                     __DIR__ . '/../../../../EwalletModule/Bridges/Twig/Resources/views'
                 );

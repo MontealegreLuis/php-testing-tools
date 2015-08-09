@@ -25,9 +25,7 @@ return [
             'debug' => true,
             'strict_variables' => true,
         ],
-        'loader_paths' => [
-            __DIR__ . '/templates',
-        ],
+        'loader_paths' => [],
     ],
     'forms' => [
         'theme' => 'layouts/bootstrap3.html.twig',

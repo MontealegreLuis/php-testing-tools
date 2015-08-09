@@ -21,7 +21,7 @@ class RoboFile extends \Robo\Tasks
         ;
         $this
             ->taskServer(8000)
-            ->dir('web')
+            ->dir('src/EwalletApplication/Bridges/Slim/Resources/web')
             ->background()
             ->run()
         ;
@@ -71,7 +71,7 @@ class RoboFile extends \Robo\Tasks
         $this->stopOnFail();
         $this
             ->taskServer(8000)
-            ->dir('web')
+            ->dir('src/EwalletApplication/Bridges/Slim/Resources/web')
             ->background()
             ->run()
         ;

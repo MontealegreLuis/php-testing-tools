@@ -15,6 +15,9 @@ use Zend\Diactoros\Response;
 
 class TransferFundsResponder
 {
+    /** @var \Psr\Http\Message\ResponseInterface */
+    private $response;
+
     /** @var Twig */
     private $view;
 
@@ -43,7 +46,7 @@ class TransferFundsResponder
      * @param TransferFundsResponse $result
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function successfulTransferResponse(TransferFundsResponse $result)
+    public function transferCompletedResponse(TransferFundsResponse $result)
     {
         $this->form->configure($this->configuration, $result->fromMember()->id());
 
@@ -57,7 +60,7 @@ class TransferFundsResponder
             ]))
         ;
 
-        return $response;
+        $this->response = $response;
     }
 
     /**
@@ -92,5 +95,13 @@ class TransferFundsResponder
         ;
 
         return $response;
+    }
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function response()
+    {
+        return $this->response;
     }
 }

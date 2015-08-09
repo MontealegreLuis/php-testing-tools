@@ -10,6 +10,7 @@ use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use EwalletTestsBridge\ProvidesDoctrineSetup;
 use EwalletTestsBridge\ProvidesMoneyConstraint;
+use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -37,16 +38,21 @@ class TransferFundsTest extends TestCase
 
         /** @var Members $members */
         $members = $this->entityManager->getRepository(Member::class);
+        $notifier = Mockery::mock(TransferFundsNotifier::class)->shouldIgnoreMissing();
 
         $transferBalance = new TransferFunds($members);
+        $transferBalance->attach($notifier);
 
-        $result = $transferBalance->transfer(TransferFundsRequest::from([
+        $transferBalance->transfer($request = TransferFundsRequest::from([
             'fromMemberId' => 'XYZ',
             'toMemberId' => 'ABC',
             'amount' => 3,
         ]));
 
-        $this->assertBalanceAmounts(700, $result->fromMember()->accountBalance());
-        $this->assertBalanceAmounts(1300, $result->toMember()->accountBalance());
+        $fromMember = $members->with($request->fromMemberId());
+        $this->assertBalanceAmounts(700, $fromMember->information()->accountBalance());
+
+        $toMember = $members->with($request->toMemberId());
+        $this->assertBalanceAmounts(1300, $toMember->information()->accountBalance());
     }
 }

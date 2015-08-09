@@ -8,6 +8,7 @@ namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
+use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
 use Mockery;
@@ -35,31 +36,32 @@ class TransferFundsControllerTest extends TestCase
     {
         $responder = Mockery::mock(TransferFundsResponder::class);
         $responder
-            ->shouldReceive('successfulTransferResponse')
+            ->shouldReceive('response')
             ->once()
-            ->andReturn(Mockery::type(ResponseInterface::class))
         ;
         $useCase = Mockery::mock(TransferFunds::class);
         $useCase
             ->shouldReceive('transfer')
             ->once()
             ->with(Mockery::type(TransferFundsRequest::class))
-            ->andReturn(
-                Mockery::mock(TransferFundsResponse::class)->shouldIgnoreMissing()
-            )
+        ;
+        $useCase
+            ->shouldReceive('attach')
+            ->once()
+            ->with(Mockery::type(TransferFundsNotifier::class))
         ;
         $request = Mockery::mock(FilteredRequest::class);
+        $request
+            ->shouldReceive('isValid')
+            ->once()
+            ->andReturn(true)
+        ;
         $request
             ->shouldReceive('values')
             ->once()
             ->andReturn([
                 'fromMemberId' => 'abc', 'toMemberId' => 'xyz', 'amount' => 100
             ])
-        ;
-        $request
-            ->shouldReceive('isValid')
-            ->once()
-            ->andReturn(true)
         ;
 
         $controller = new TransferFundsController($responder, $useCase);

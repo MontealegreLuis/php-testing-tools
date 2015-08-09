@@ -11,7 +11,6 @@ use EwalletTestsBridge\MembersBuilder;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsRequest;
-use PHPUnit_Framework_Assert as Assertion;
 
 /**
  * Defines application features from the specific context.
@@ -23,16 +22,21 @@ class MemberContext implements Context, SnippetAcceptingContext
     /** @var Members */
     private $members;
 
+    /** @var MembersHelper */
+    private $membersHelper;
+
     /** @var  TransferFunds */
     private $useCase;
 
     /**
-     * Create an empty collection of members
+     * @BeforeScenario
      */
-    public function __construct()
+    public function prepare()
     {
         $this->members = new InMemoryMembers();
+        $this->membersHelper = new MembersHelper();
         $this->useCase = new TransferFunds($this->members);
+        $this->useCase->attach($this->membersHelper);
     }
 
     /**
@@ -80,16 +84,20 @@ class MemberContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Then I should be notified that the transfer is complete
+     */
+    public function iShouldBeNotifiedThatTheTransferIsComplete()
+    {
+        $this->membersHelper->assertTransferCompleted();
+    }
+
+    /**
      * @Then my balance should be :amount MXN
      */
     public function myBalanceShouldBeMxn($amount)
     {
-        $my = $this->members->with(Identifier::fromString('abc'));
-        $currentBalance = $my->information()->accountBalance()->getAmount();
-        Assertion::assertTrue(
-            $my->information()->accountBalance()->equals($amount),
-            "Expecting {$amount->getAmount()}, not {$currentBalance}"
-        );
+        $forMe = $this->members->with(Identifier::fromString('abc'));
+        $this->membersHelper->assertBalanceIs($amount, $forMe);
     }
 
     /**
@@ -97,11 +105,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn($amount)
     {
-        $myFriend = $this->members->with(Identifier::fromString('xyz'));
-        $currentBalance = $myFriend->information()->accountBalance()->getAmount();
-        Assertion::assertTrue(
-            $myFriend->information()->accountBalance()->equals($amount),
-            "Expecting {$amount->getAmount()}, not {$currentBalance}"
-        );
+        $forMyFriend = $this->members->with(Identifier::fromString('xyz'));
+        $this->membersHelper->assertBalanceIs($amount, $forMyFriend);
     }
 }

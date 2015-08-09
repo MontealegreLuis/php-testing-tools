@@ -7,30 +7,27 @@
 namespace spec\Ewallet\Wallet;
 
 use Ewallet\Accounts\Members;
+use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
+use Ewallet\Wallet\TransferFundsResponse;
 use EwalletTestsBridge\MembersBuilder;
 use EwalletTestsBridge\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class TransferFundsSpec extends ObjectBehavior
 {
     use ProvidesMoneyMatcher;
 
-    function it_should_transfer_funds_between_accounts(Members $members)
-    {
+    function it_should_transfer_funds_between_accounts(
+        Members $members,
+        TransferFundsNotifier $notifier
+    ) {
         $member = MembersBuilder::aMember();
-        $member
-            ->withBalance(2000)
-            ->build()
-        ;
-        $fromMember = $member->build();
+        $fromMember = $member->withBalance(2000)->build();
 
         $member = MembersBuilder::aMember();
-        $member
-            ->withBalance(1000)
-            ->build()
-        ;
-        $toMember = $member->build();
+        $toMember = $member->withBalance(1000)->build();
 
         $members->with($fromMember->information()->id())->willReturn($fromMember);
         $members->with($toMember->information()->id())->willReturn($toMember);
@@ -38,14 +35,17 @@ class TransferFundsSpec extends ObjectBehavior
         $members->update($toMember)->shouldBeCalled();
 
         $this->beConstructedWith($members);
+        $this->attach($notifier);
 
-        $result = $this->transfer(TransferFundsRequest::from([
+        $this->transfer(TransferFundsRequest::from([
             'fromMemberId' => (string) $fromMember->information()->id(),
             'toMemberId' => (string) $toMember->information()->id(),
             'amount' => 5,
         ]));
 
-        $result->fromMember()->accountBalance()->shouldAmount(1500);
-        $result->toMember()->accountBalance()->shouldAmount(1500);
+        $notifier
+            ->transferCompleted(Argument::type(TransferFundsResponse::class))
+            ->shouldHaveBeenCalled()
+        ;
     }
 }

@@ -7,11 +7,15 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Members;
+use LogicException;
 
 class TransferFunds
 {
     /** @var Members */
     private $members;
+
+    /** @var TransferFundsNotifier */
+    private $notifier;
 
     /**
      * @param Members $members
@@ -19,6 +23,14 @@ class TransferFunds
     public function __construct(Members $members)
     {
         $this->members = $members;
+    }
+
+    /**
+     * @param TransferFundsNotifier $notifier
+     */
+    public function attach(TransferFundsNotifier $notifier)
+    {
+        $this->notifier = $notifier;
     }
 
     /**
@@ -35,6 +47,19 @@ class TransferFunds
         $this->members->update($fromMember);
         $this->members->update($toMember);
 
-        return new TransferFundsResponse($fromMember, $toMember);
+        $this->notifier()->transferCompleted(
+            new TransferFundsResponse($fromMember, $toMember)
+        );
+    }
+
+    /**
+     * @return TransferFundsNotifier
+     */
+    private function notifier()
+    {
+        if ($this->notifier) {
+            return $this->notifier;
+        }
+        throw new LogicException('No notifier was attached');
     }
 }

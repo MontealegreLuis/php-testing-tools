@@ -69,9 +69,9 @@ class TransferFundsResponderTest extends TestCase
         );
         $responder = new TransferFundsResponder($view, $form, $configuration);
 
-        $response = $responder->successfulTransferResponse($result);
+        $responder->transferCompletedResponse($result);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $responder->response()->getStatusCode());
     }
 
     /** @test */

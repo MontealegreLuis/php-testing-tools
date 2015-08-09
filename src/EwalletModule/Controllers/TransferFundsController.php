@@ -8,9 +8,11 @@ namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
+use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
+use Ewallet\Wallet\TransferFundsResponse;
 
-class TransferFundsController
+class TransferFundsController implements TransferFundsNotifier
 {
     /** @var TransferFunds */
     private $useCase;
@@ -28,6 +30,7 @@ class TransferFundsController
     ) {
         $this->responder = $responder;
         $this->useCase = $transferFunds;
+        $transferFunds && $this->useCase->attach($this);
     }
 
     /**
@@ -46,15 +49,32 @@ class TransferFundsController
     public function transfer(FilteredRequest $request)
     {
         if (!$request->isValid()) {
-            return $this->responder->invalidTransferInputResponse(
-                $request->errorMessages(),
-                $request->values(),
-                $request->value('fromMemberId')
-            );
+            return $this->validationFailedFor($request);
         }
 
-        $result = $this->useCase->transfer(TransferFundsRequest::from($request->values()));
+        $this->useCase->transfer(TransferFundsRequest::from($request->values()));
 
-        return $this->responder->successfulTransferResponse($result);
+        return $this->responder->response();
+    }
+
+    /**
+     * @param FilteredRequest $request
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    private function validationFailedFor(FilteredRequest $request)
+    {
+        return $this->responder->invalidTransferInputResponse(
+            $request->errorMessages(),
+            $request->values(),
+            $request->value('fromMemberId')
+        );
+    }
+
+    /**
+     * @param TransferFundsResponse $response
+     */
+    public function transferCompleted(TransferFundsResponse $response)
+    {
+        $this->responder->transferCompletedResponse($response);
     }
 }

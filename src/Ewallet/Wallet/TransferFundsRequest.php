@@ -27,7 +27,7 @@ class TransferFundsRequest
     {
         $this->fromMemberId = Identifier::fromString($filteredInput['fromMemberId']);
         $this->toMemberId = Identifier::fromString($filteredInput['toMemberId']);
-        $this->amount = Money::MXN((integer) $filteredInput['amount'] * 100);
+        $this->amount = Money::MXN((integer) ($filteredInput['amount'] * 100));
     }
 
     /**

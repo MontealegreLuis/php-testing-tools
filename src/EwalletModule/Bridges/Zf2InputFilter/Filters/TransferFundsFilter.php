@@ -9,7 +9,6 @@ namespace EwalletModule\Bridges\Zf2InputFilter\Filters;
 use EwalletModule\Forms\MembersConfiguration;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
-use Zend\Validator\Digits;
 use Zend\Validator\GreaterThan;
 use Zend\Validator\InArray;
 use Zend\Validator\NotEmpty;
@@ -84,9 +83,8 @@ class TransferFundsFilter extends InputFilter
         $amount = new Input('amount');
         $amount
             ->getValidatorChain()
-            ->attach(new NotEmpty(['type' => NotEmpty::INTEGER]))
+            ->attach(new NotEmpty(['type' => NotEmpty::FLOAT]))
             ->attach(new GreaterThan(['min' => 0]))
-            ->attach(new Digits())
         ;
 
         return $amount;

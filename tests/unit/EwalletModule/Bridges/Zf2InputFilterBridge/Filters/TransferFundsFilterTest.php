@@ -34,7 +34,7 @@ class TransferFundsFilterTest extends TestCase
     }
 
     /** @test */
-    function it_should_not_pass_validation_with_a_non_integer_amount()
+    function it_should_pass_validation_with_a_float_number_amount()
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
@@ -43,8 +43,7 @@ class TransferFundsFilterTest extends TestCase
             'amount' => 12000.34
         ]);
 
-        $this->assertFalse($filter->isValid(), 'Amount should be invalid');
-        $this->assertArrayHasKey(Digits::NOT_DIGITS, $filter->getMessages()['amount']);
+        $this->assertTrue($filter->isValid(), 'Amounts with floating point numbers should be valid');
     }
 
     /** @test */
@@ -58,7 +57,7 @@ class TransferFundsFilterTest extends TestCase
         ]);
 
         $this->assertFalse($filter->isValid(), 'Amount should be invalid');
-        $this->assertArrayHasKey(Digits::STRING_EMPTY, $filter->getMessages()['amount']);
+        $this->assertArrayHasKey(GreaterThan::NOT_GREATER, $filter->getMessages()['amount']);
     }
 
     /** @test */

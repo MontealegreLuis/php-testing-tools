@@ -7,7 +7,7 @@
 namespace EwalletModule\Forms;
 
 use Ewallet\Accounts\Identifier;
-use EwalletDoctrineBridge\Accounts\MembersRepository;
+use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 
 class MembersConfiguration
 {

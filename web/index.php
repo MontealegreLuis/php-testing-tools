@@ -9,12 +9,12 @@ require __DIR__ . '/../vendor/autoload.php';
 $app = new \Slim\Slim();
 $resolver = new \ComPHPPuebla\Slim\Resolver();
 
-$services = new \EwalletSlimBridge\Services(
+$services = new \EwalletApplication\Bridges\Slim\Services(
     $resolver, require __DIR__ . '/../app/config.php'
 );
 $services->configure($app);
 
-$controllers = new \EwalletSlimBridge\Controllers($resolver);
+$controllers = new \EwalletApplication\Bridges\Slim\Controllers($resolver);
 $controllers->register($app);
 
 $app->run();

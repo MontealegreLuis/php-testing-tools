@@ -7,7 +7,7 @@
 return [
     'doctrine' => [
         'mapping_dirs' => [
-            __DIR__ . '/../src/EwalletDoctrineBridge/Resources/config',
+            __DIR__ . '/../src/Ewallet/Bridges/Doctrine2/Resources/config',
         ],
         'dev_mode' => true,
         'proxy_dir' => __DIR__ . '/../var/doctrine/proxies',
@@ -16,7 +16,7 @@ return [
             'path' => __DIR__ . '/../var/wallet.sqlite',
         ],
         'types' => [
-            'uuid' => 'EwalletDoctrineBridge\Types\UuidType',
+            'uuid' => 'Ewallet\Bridges\Doctrine2\Types\UuidType',
         ],
     ],
     'twig' => [

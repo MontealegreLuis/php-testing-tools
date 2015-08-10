@@ -9,6 +9,7 @@ namespace EwalletApplication\Bridges\Slim;
 use EwalletApplication\Bridges\Slim\ServiceProviders\EwalletServiceProvider;
 use EwalletApplication\Bridges\Slim\ServiceProviders\FormsServiceProvider;
 use EwalletApplication\Bridges\Slim\ServiceProviders\DoctrineServiceProvider;
+use EwalletApplication\Bridges\Slim\ServiceProviders\MonologServiceProvider;
 use EwalletApplication\Bridges\Slim\ServiceProviders\TwigServiceProvider;
 
 class Services extends \ComPHPPuebla\Slim\Services
@@ -20,6 +21,7 @@ class Services extends \ComPHPPuebla\Slim\Services
             ->add(new TwigServiceProvider())
             ->add(new FormsServiceProvider())
             ->add(new EwalletServiceProvider())
+            ->add(new MonologServiceProvider())
         ;
     }
 }

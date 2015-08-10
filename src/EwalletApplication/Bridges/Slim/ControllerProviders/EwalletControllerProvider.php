@@ -47,6 +47,6 @@ class EwalletControllerProvider implements ControllerProvider
                     ];
                 }
             )
-        );
+        )->name('transfer_funds');
     }
 }

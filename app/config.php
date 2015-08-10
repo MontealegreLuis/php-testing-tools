@@ -30,4 +30,13 @@ return [
     'forms' => [
         'theme' => 'layouts/bootstrap3.html.twig',
     ],
+    'monolog' => [
+        'app' => [
+            'channel' => 'slim',
+            'path' => __DIR__ . '/../var/logs/app.log',
+        ]
+    ],
+    'slim' => [
+        'log.level' => \Monolog\Logger::DEBUG,
+    ]
 ];

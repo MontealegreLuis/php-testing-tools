@@ -6,73 +6,69 @@
  */
 namespace EwalletApplication\Bridges\Slim\Middleware;
 
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 use Slim\Middleware;
 
 class RequestLoggingMiddleware extends Middleware
 {
+    /** @var LoggerInterface */
+    private $logger;
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * Log the current request information and its matched route, if any
      */
     public function call()
     {
-        /** @var Logger $logger */
-        $logger = $this->app->container->get('logger.slim');
-
-        $this->logRequest($logger);
+        $this->logRequest();
 
         $this->next->call();
 
         if ($this->app->response->isNotFound()) {
-            return $this->logNotFound($logger);
+            return $this->logNotFound();
         }
 
         if ($this->app->response->isRedirect()) {
-            return $this->logRedirect($logger);
+            return $this->logRedirect();
         }
 
-        $this->logRouteMatched($logger);
+        $this->logRouteMatched();
     }
 
-    /**
-     * @param Logger $logger
-     */
-    private function logNotFound(Logger $logger)
+    private function logNotFound()
     {
-        $logger->info('No route matched', [
+        $this->logger->info('No route matched', [
             'path' => $this->app->request->getPathInfo(),
             'method' => $this->app->request->getMethod(),
         ]);
     }
 
-    /**
-     * @param Logger $logger
-     */
-    private function logRedirect(Logger $logger)
+    private function logRedirect()
     {
-        $logger->info('Redirect', [
+        $this->logger->info('Redirect', [
             'redirect' => $this->app->response->headers->get('Location')
         ]);
     }
 
-    /**
-     * @param Logger $logger
-     */
-    private function logRouteMatched(Logger $logger)
+    private function logRouteMatched()
     {
-        $logger->info('Matched route ', [
+        $this->logger->info('Matched route ', [
             'route' => $this->app->router->getCurrentRoute()->getName(),
             'params' => $this->app->router->getCurrentRoute()->getParams(),
             'request' => $this->app->request->params(),
         ]);
     }
 
-    /**
-     * @param Logger $logger
-     */
-    private function logRequest(Logger $logger)
+    private function logRequest()
     {
-        $logger->info('Current request', [
+        $this->logger->info('Current request', [
             'path' => $this->app->request->getPathInfo(),
             'method' => $this->app->request->getMethod(),
         ]);

@@ -8,11 +8,10 @@ namespace EwalletApplication\Bridges\Slim\ServiceProviders;
 
 use ComPHPPuebla\Slim\Resolver;
 use ComPHPPuebla\Slim\ServiceProvider;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use EwalletApplication\Bridges\Slim\Middleware\RequestLoggingMiddleware;
 use Slim\Slim;
 
-class MonologServiceProvider implements ServiceProvider
+class MiddlewareServiceProvider implements ServiceProvider
 {
     /**
      * @param Slim $app
@@ -23,14 +22,11 @@ class MonologServiceProvider implements ServiceProvider
     public function configure(Slim $app, Resolver $resolver, array $options = [])
     {
         $app->container->singleton(
-            'logger.slim',
-            function () use ($app, $options) {
-                $logger = new Logger($options['monolog']['app']['channel']);
-                $logger->pushHandler(new StreamHandler(
-                    $options['monolog']['app']['path'], Logger::DEBUG
-                ));
-
-                return $logger;
+            'slim.middleware.request_logging',
+            function () use ($app) {
+                return new RequestLoggingMiddleware(
+                    $app->container->get('logger.slim')
+                );
             }
         );
     }

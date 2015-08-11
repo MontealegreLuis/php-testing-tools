@@ -36,7 +36,4 @@ return [
             'path' => __DIR__ . '/../var/logs/app.log',
         ]
     ],
-    'slim' => [
-        'log.level' => \Monolog\Logger::DEBUG,
-    ]
 ];

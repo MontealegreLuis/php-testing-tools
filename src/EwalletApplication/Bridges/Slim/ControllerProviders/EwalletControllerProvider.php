@@ -9,7 +9,6 @@ namespace EwalletApplication\Bridges\Slim\ControllerProviders;
 use ComPHPPuebla\Slim\ControllerProvider;
 use ComPHPPuebla\Slim\Resolver;
 use Ewallet\Accounts\Identifier;
-use Money\Money;
 use Slim\Slim;
 
 class EwalletControllerProvider implements ControllerProvider

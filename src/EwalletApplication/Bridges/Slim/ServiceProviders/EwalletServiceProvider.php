@@ -18,7 +18,6 @@ use EwalletModule\Controllers\TransferFundsController;
 use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
-use Hexagonal\Application\Services\TransactionalService;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Slim\Slim;
 use Twig_Environment as Environment;

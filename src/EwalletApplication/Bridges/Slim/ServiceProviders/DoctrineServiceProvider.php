@@ -24,7 +24,7 @@ class DoctrineServiceProvider implements ServiceProvider
     {
         $app->container->singleton(
             'doctrine.em',
-            function () use ($app, $options) {
+            function () use ($options) {
                 $configuration = Setup::createXMLMetadataConfiguration(
                     $options['doctrine']['mapping_dirs'],
                     $options['doctrine']['dev_mode'],

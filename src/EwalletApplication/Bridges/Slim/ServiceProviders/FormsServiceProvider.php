@@ -27,7 +27,7 @@ class FormsServiceProvider implements ServiceProvider
         $resolver->extend(
             $app,
             'twig.environment',
-            function (Environment $twig) use ($app, $options) {
+            function (Environment $twig) use ($options) {
                 $renderer = new FormRenderer(
                     new FormTheme($twig, $options['forms']['theme'])
                 );
@@ -39,7 +39,7 @@ class FormsServiceProvider implements ServiceProvider
         $resolver->extend(
             $app,
             'twig.loader',
-            function (Loader $loader) use ($app, $options) {
+            function (Loader $loader) {
                 $loader->addPath(
                     __DIR__ . '/../../../../../vendor/comphppuebla/easy-forms/src/EasyForms/Bridges/Twig'
                 );

@@ -24,7 +24,7 @@ class MonologServiceProvider implements ServiceProvider
     {
         $app->container->singleton(
             'logger.slim',
-            function () use ($app, $options) {
+            function () use ($options) {
                 $logger = new Logger($options['monolog']['app']['channel']);
                 $logger->pushHandler(new StreamHandler(
                     $options['monolog']['app']['path'], Logger::DEBUG

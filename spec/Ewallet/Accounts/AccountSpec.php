@@ -7,7 +7,7 @@
 namespace spec\Ewallet\Accounts;
 
 use Ewallet\Accounts\InsufficientFunds;
-use EwalletTestsBridge\ProvidesMoneyMatcher;
+use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

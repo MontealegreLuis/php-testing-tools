@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletTestsBridge;
+namespace Ewallet\Bridges\Tests;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;

@@ -8,8 +8,7 @@ namespace EwalletModule\Forms;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
-use EwalletDoctrineBridge\Accounts\MembersRepository;
-use EwalletTestsBridge\ProvidesDoctrineSetup;
+use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 

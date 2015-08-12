@@ -7,7 +7,7 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Ewallet\Accounts\Identifier;
-use EwalletTestsBridge\MembersBuilder;
+use Ewallet\Bridges\Tests\MembersBuilder;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsRequest;

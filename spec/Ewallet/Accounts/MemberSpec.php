@@ -9,8 +9,8 @@ namespace spec\Ewallet\Accounts;
 use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\InvalidTransferAmount;
-use EwalletTestsBridge\MembersBuilder;
-use EwalletTestsBridge\ProvidesMoneyMatcher;
+use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 

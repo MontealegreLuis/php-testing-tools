@@ -8,8 +8,8 @@ namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
-use EwalletTestsBridge\ProvidesDoctrineSetup;
-use EwalletTestsBridge\ProvidesMoneyConstraint;
+use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
+use Ewallet\Bridges\Tests\ProvidesMoneyConstraint;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;

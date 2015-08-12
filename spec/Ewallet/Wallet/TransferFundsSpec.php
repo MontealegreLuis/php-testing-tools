@@ -10,8 +10,8 @@ use Ewallet\Accounts\Members;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use EwalletTestsBridge\MembersBuilder;
-use EwalletTestsBridge\ProvidesMoneyMatcher;
+use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

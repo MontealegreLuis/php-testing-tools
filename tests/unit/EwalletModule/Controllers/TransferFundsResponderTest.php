@@ -7,10 +7,10 @@
 namespace EwalletModule\Controllers;
 
 use Ewallet\Accounts\Identifier;
+use Ewallet\Bridges\Tests\MembersBuilder;
 use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
-use EwalletTestsBridge\MembersBuilder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Twig_Environment as Twig;

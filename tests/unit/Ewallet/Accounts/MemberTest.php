@@ -8,7 +8,7 @@ namespace Ewallet\Accounts;
 
 use Eris\Generator;
 use Eris\TestTrait;
-use EwalletTestsBridge\MembersBuilder;
+use Ewallet\Bridges\Tests\MembersBuilder;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 

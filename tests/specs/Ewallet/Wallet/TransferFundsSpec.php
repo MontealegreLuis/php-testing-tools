@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace spec\Ewallet\Wallet;
+namespace specs\Ewallet\Wallet;
 
 use Ewallet\Accounts\Members;
 use Ewallet\Wallet\TransferFundsNotifier;

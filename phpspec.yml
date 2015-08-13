@@ -1,1 +1,5 @@
 formatter.name: pretty
+suites:
+    default:
+        spec_prefix: specs
+        spec_path: tests

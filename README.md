@@ -28,19 +28,39 @@ $ make install
 
 ## Usage
 
+### Tests
+
 You can run all the tests with this command:
 
 ```bash
 $ bin/robo test
 ```
 
-You can run the application with:
+### Web
+
+You can run the Web application with:
 
 ```bash
 $ bin/robo run
 ```
 
 You can now browse to [http://localhost:8000][3]
+
+### Console
+
+You can run the console application with:
+
+```bash
+$ bin/robo console <command> <arg1> ... <argN>
+```
+
+It implements the Transfer Funds feature  in the `ewallet:transfer` command. The
+following command would transfer $5.00 MXN from the member with ID 'ABC' to the
+member with ID 'LMN'.
+
+```bash
+$ bin/robo console ewallet:transfer ABC LMN 5
+```
 
 [1]: http://escuela.it/cursos/php-web-congress-2015/
 [2]: http://bit.ly/php-testing-tools

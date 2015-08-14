@@ -78,4 +78,22 @@ class RoboFile extends \Robo\Tasks
 
         while (true);
     }
+
+    /**
+     * @description Run an ewallet console command
+     * @param string $ewalletCommand
+     * @param array $args
+     */
+    public function console($ewalletCommand, array $args)
+    {
+        $console = $this->taskExec(
+            'src/EwalletApplication/Bridges/SymfonyConsole/Resources/bin/console'
+        );
+
+        $console->arg($ewalletCommand);
+        foreach ($args as $arg) {
+            $console->arg($arg);
+        }
+        $console->run();
+    }
 }

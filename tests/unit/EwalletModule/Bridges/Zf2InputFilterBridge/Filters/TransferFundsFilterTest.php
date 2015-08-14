@@ -8,7 +8,6 @@ namespace EwalletModule\Bridges\Zf2InputFilter\Filters;
 
 use EwalletModule\Forms\MembersConfiguration;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Validator\Digits;
 use Mockery;
 use Zend\Validator\GreaterThan;
 use Zend\Validator\InArray;

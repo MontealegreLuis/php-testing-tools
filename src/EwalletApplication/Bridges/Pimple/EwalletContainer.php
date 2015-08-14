@@ -1,0 +1,26 @@
+<?php
+/**
+ * PHP version 5.6
+ *
+ * This source file is subject to the license that is bundled with this package in the file LICENSE.
+ */
+namespace EwalletApplication\Bridges\Pimple;
+
+use EwalletApplication\Bridges\Pimple\ServiceProviders\DoctrineServiceProvider;
+use EwalletApplication\Bridges\Pimple\ServiceProviders\EwalletServiceProvider;
+use Pimple\Container;
+
+class EwalletContainer extends Container
+{
+    /**
+     * Add service providers and application options.
+     *
+     * @param array $values
+     */
+    public function __construct(array $values = array())
+    {
+        parent::__construct($values);
+        $this->register(new DoctrineServiceProvider());
+        $this->register(new EwalletServiceProvider());
+    }
+}

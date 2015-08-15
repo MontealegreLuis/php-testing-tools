@@ -9,7 +9,10 @@ namespace EwalletApplication\Bridges\Pimple;
 use Doctrine\ORM\EntityManager;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
+use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
+use Hexagonal\DomainEvents\EventPublisher;
+use Monolog\Logger;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class EwalletConsoleContainerTest extends TestCase
@@ -35,6 +38,18 @@ class EwalletConsoleContainerTest extends TestCase
         $this->assertInstanceOf(
             TransferFundsTransactionally::class,
             $container['ewallet.transfer_funds']
+        );
+        $this->assertInstanceOf(
+            Logger::class,
+            $container['ewallet.logger']
+        );
+        $this->assertInstanceOf(
+            LogTransferWasMadeSubscriber::class,
+            $container['ewallet.transfer_funds_logger']
+        );
+        $this->assertInstanceOf(
+            EventPublisher::class,
+            $container['ewallet.events_publisher']
         );
     }
 }

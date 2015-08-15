@@ -20,8 +20,12 @@ class TransferFundsTransactionally extends TransferFunds
      */
     public function transfer(TransferFundsRequest $request)
     {
-        return $this->session->executeAtomically(function () use ($request) {
+        $response = $this->session->executeAtomically(function () use ($request) {
             return parent::transfer($request);
         });
+
+        $this->publisher()->publish();
+
+        return $response;
     }
 }

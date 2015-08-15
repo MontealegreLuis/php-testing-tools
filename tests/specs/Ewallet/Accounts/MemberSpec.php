@@ -76,4 +76,13 @@ class MemberSpec extends ObjectBehavior
             ->duringTransfer(Money::MXN(-5000), $toMember)
         ;
     }
+
+    function it_should_record_that_a_transfer_was_made()
+    {
+        $toMember = MembersBuilder::aMember()->build();
+
+        $this->transfer(Money::MXN(500), $toMember);
+
+        $this->events()->count()->shouldBe(1);
+    }
 }

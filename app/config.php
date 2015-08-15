@@ -34,6 +34,10 @@ return [
         'app' => [
             'channel' => 'slim',
             'path' => __DIR__ . '/../var/logs/app.log',
+        ],
+        'ewallet' => [
+            'channel' => 'ewallet',
+            'path' => __DIR__ . '/../var/logs/app.log',
         ]
     ],
 ];

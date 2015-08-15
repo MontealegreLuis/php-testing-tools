@@ -8,8 +8,12 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
+use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
+use Hexagonal\DomainEvents\EventPublisher;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -30,11 +34,31 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             $transferFunds->setTransactionalSession(new DoctrineSession(
                 $pimple['doctrine.em']
             ));
+            $transferFunds->setPublisher($pimple['ewallet.events_publisher']);
 
             return $transferFunds;
         };
         $pimple['ewallet.member_formatter'] = function () {
             return new MemberFormatter();
+        };
+        $pimple['ewallet.events_publisher'] = function() use ($pimple) {
+            $publisher = new EventPublisher();
+            $publisher->subscribe($pimple['ewallet.transfer_funds_logger']);
+
+            return $publisher;
+        };
+        $pimple['ewallet.transfer_funds_logger'] = function () use ($pimple) {
+            return new LogTransferWasMadeSubscriber(
+                $pimple['ewallet.logger'], $pimple['ewallet.member_formatter']
+            );
+        };
+        $pimple['ewallet.logger'] = function () use ($pimple) {
+            $logger = new Logger($pimple['monolog']['ewallet']['channel']);
+            $logger->pushHandler(new StreamHandler(
+                $pimple['monolog']['ewallet']['path'], Logger::DEBUG
+            ));
+
+            return $logger;
         };
     }
 }

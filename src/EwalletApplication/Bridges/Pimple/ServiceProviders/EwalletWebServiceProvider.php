@@ -56,16 +56,6 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
                 $pimple['ewallet.transfer_funds_responder']
             ));
         };
-        $pimple['ewallet.transfer_funds'] = function () use ($pimple) {
-            $transferFunds = new TransferFundsTransactionally(
-                $pimple['ewallet.member_repository']
-            );
-            $transferFunds->setTransactionalSession(new DoctrineSession(
-                $pimple['doctrine.em']
-            ));
-
-            return $transferFunds;
-        };
         $pimple['ewallet.transfer_funds_controller'] = function () use ($pimple) {
             return new SlimController(new TransferFundsController(
                 $pimple['ewallet.transfer_funds_responder'],

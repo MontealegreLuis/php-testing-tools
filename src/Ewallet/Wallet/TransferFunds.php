@@ -7,10 +7,13 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Members;
+use Hexagonal\DomainEvents\PublishesEvents;
 use LogicException;
 
 class TransferFunds
 {
+    use PublishesEvents;
+
     /** @var Members */
     private $members;
 
@@ -43,6 +46,7 @@ class TransferFunds
         $toMember = $this->members->with($request->toMemberId());
 
         $fromMember->transfer($request->amount(), $toMember);
+        $this->publisher()->register($fromMember->events());
 
         $this->members->update($fromMember);
         $this->members->update($toMember);

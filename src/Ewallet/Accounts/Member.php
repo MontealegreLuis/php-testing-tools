@@ -7,10 +7,14 @@
 namespace Ewallet\Accounts;
 
 use Assert\Assertion;
+use Hexagonal\DomainEvents\CanRecordEvents;
+use Hexagonal\DomainEvents\RecordsEvents;
 use Money\Money;
 
-class Member
+class Member implements CanRecordEvents
 {
+    use RecordsEvents;
+
     /** @var Identifier */
     private $memberId;
 
@@ -70,6 +74,9 @@ class Member
     {
         $toMember->applyDeposit($amount);
         $this->account->withdraw($amount);
+        $this->recordThat(
+            new TransferWasMade($this->memberId, $amount, $toMember->memberId)
+        );
     }
 
     /**

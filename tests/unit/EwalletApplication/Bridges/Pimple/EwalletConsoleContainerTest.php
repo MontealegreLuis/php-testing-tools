@@ -9,16 +9,16 @@ namespace EwalletApplication\Bridges\Pimple;
 use Doctrine\ORM\EntityManager;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
+use EwalletModule\View\MemberFormatter;
 use PHPUnit_Framework_TestCase as TestCase;
 
-class EwalletContainerTest extends TestCase
+class EwalletConsoleContainerTest extends TestCase
 {
     /** @test */
     function it_should_create_the_console_application_services()
     {
         $options = require __DIR__ . '/../../../../../app/config.php';
-        $container = new EwalletContainer($options);
+        $container = new EwalletConsoleContainer($options);
 
         $this->assertInstanceOf(
             EntityManager::class,
@@ -29,8 +29,8 @@ class EwalletContainerTest extends TestCase
             $container['ewallet.member_repository']
         );
         $this->assertInstanceOf(
-            EwalletExtension::class,
-            $container['ewallet.twig.extension']
+            MemberFormatter::class,
+            $container['ewallet.member_formatter']
         );
         $this->assertInstanceOf(
             TransferFundsTransactionally::class,

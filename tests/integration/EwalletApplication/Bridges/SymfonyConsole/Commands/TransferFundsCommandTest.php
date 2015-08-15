@@ -9,7 +9,7 @@ namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Ewallet\Wallet\TransferFunds;
-use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
+use EwalletModule\View\MemberFormatter;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -38,8 +38,9 @@ class TransferFundsCommandTest extends TestCase
         $useCase = new TransferFunds(
             $this->entityManager->getRepository(Member::class)
         );
-        $formatter = new EwalletExtension();
-        $tester = new CommandTester(new TransferFundsCommand($useCase, $formatter));
+        $tester = new CommandTester(
+            new TransferFundsCommand($useCase, new MemberFormatter())
+        );
 
         $tester->execute([
             'fromMemberId' => 'LMN',

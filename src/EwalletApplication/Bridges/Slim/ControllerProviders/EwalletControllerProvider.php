@@ -41,9 +41,11 @@ class EwalletControllerProvider implements ControllerProvider
                 $app,
                 'ewallet.transfer_funds_controller:transfer',
                 function () use ($app) {
-                    return [
-                        $app->container->get('ewallet.transfer_filter_request'),
-                    ];
+                    /** @var \EwalletModule\Bridges\Zf2InputFilter\TransferFundsInputFilterRequest $request */
+                    $request = $app->container->get('ewallet.transfer_filter_request');
+                    $request->populate($app->request->post());
+
+                    return [$request];
                 }
             )
         )->name('transfer_funds');

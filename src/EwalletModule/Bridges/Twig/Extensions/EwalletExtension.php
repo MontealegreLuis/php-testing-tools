@@ -7,12 +7,24 @@
 namespace EwalletModule\Bridges\Twig\Extensions;
 
 use Ewallet\Accounts\MemberInformation;
+use EwalletModule\View\MemberFormatter;
 use Money\Money;
 use Twig_Extension as Extension;
 use Twig_SimpleFunction as SimpleFunction;
 
 class EwalletExtension extends Extension
 {
+    /** @var MemberFormatter */
+    private $formatter;
+
+    /**
+     * @param MemberFormatter $formatter
+     */
+    public function __construct(MemberFormatter $formatter)
+    {
+        $this->formatter = $formatter;
+    }
+
     /**
      * @return array
      */
@@ -31,7 +43,7 @@ class EwalletExtension extends Extension
      */
     public function renderMember(MemberInformation $member)
     {
-        return $member->name() . ' ' . $this->renderMoney($member->accountBalance());
+        return $this->formatter->renderMember($member);
     }
 
     /**
@@ -40,7 +52,7 @@ class EwalletExtension extends Extension
      */
     public function renderMoney(Money $money)
     {
-        return "\${$this->renderMoneyAmount(round($money->getAmount() / 100, 2))} {$money->getCurrency()}";
+        return $this->formatter->renderMoney($money);
     }
 
     /**
@@ -49,7 +61,7 @@ class EwalletExtension extends Extension
      */
     public function renderMoneyAmount($amount)
     {
-        return number_format($amount, 2);
+        return $this->formatter->renderMoneyAmount($amount);
     }
 
     /**

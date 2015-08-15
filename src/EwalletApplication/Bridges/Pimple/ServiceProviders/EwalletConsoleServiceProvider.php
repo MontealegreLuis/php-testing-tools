@@ -8,12 +8,12 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
+use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class EwalletServiceProvider implements ServiceProviderInterface
+class EwalletConsoleServiceProvider implements ServiceProviderInterface
 {
     /**
      * @param Container $pimple
@@ -33,8 +33,8 @@ class EwalletServiceProvider implements ServiceProviderInterface
 
             return $transferFunds;
         };
-        $pimple['ewallet.twig.extension'] = function () {
-            return new EwalletExtension();
+        $pimple['ewallet.member_formatter'] = function () {
+            return new MemberFormatter();
         };
     }
 }

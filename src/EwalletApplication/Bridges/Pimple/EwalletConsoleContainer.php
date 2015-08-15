@@ -7,10 +7,10 @@
 namespace EwalletApplication\Bridges\Pimple;
 
 use EwalletApplication\Bridges\Pimple\ServiceProviders\DoctrineServiceProvider;
-use EwalletApplication\Bridges\Pimple\ServiceProviders\EwalletServiceProvider;
+use EwalletApplication\Bridges\Pimple\ServiceProviders\EwalletConsoleServiceProvider;
 use Pimple\Container;
 
-class EwalletContainer extends Container
+class EwalletConsoleContainer extends Container
 {
     /**
      * Add service providers and application options.
@@ -21,6 +21,6 @@ class EwalletContainer extends Container
     {
         parent::__construct($values);
         $this->register(new DoctrineServiceProvider());
-        $this->register(new EwalletServiceProvider());
+        $this->register(new EwalletConsoleServiceProvider());
     }
 }

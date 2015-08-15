@@ -9,6 +9,10 @@ require __DIR__ . '/../../../../../../vendor/autoload.php';
 $options = require __DIR__ . '/../../../../../../app/config.php';
 
 $app = new \Slim\Slim();
+$container = new \EwalletApplication\Bridges\Slim\SlimContainer(
+    new \EwalletApplication\Bridges\Pimple\EwalletWebContainer($options)
+);
+$app->container = $container->merge($app->container);
 
 $resolver = new \ComPHPPuebla\Slim\Resolver();
 $services = new \EwalletApplication\Bridges\Slim\Services($resolver, $options);

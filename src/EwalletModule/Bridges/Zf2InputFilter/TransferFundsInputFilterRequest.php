@@ -15,19 +15,28 @@ class TransferFundsInputFilterRequest implements FilteredRequest
     /** @var TransferFundsFilter */
     private $filter;
 
+    /** @var MembersConfiguration */
+    private $configuration;
+
     /**
      * @param TransferFundsFilter $filter
      * @param MembersConfiguration $configuration
-     * @param array $input
      */
     public function __construct(
         TransferFundsFilter $filter,
-        MembersConfiguration $configuration,
-        array $input
+        MembersConfiguration $configuration
     ) {
         $this->filter = $filter;
+        $this->configuration = $configuration;
+    }
+
+    /**
+     * @param array $input
+     */
+    public function populate(array $input)
+    {
         $fromMemberId = isset($input['fromMemberId']) ? $input['fromMemberId']: null;
-        $this->filter->configure($configuration, $fromMemberId);
+        $this->filter->configure($this->configuration, $fromMemberId);
         $this->filter->setData($input);
     }
 

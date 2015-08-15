@@ -11,7 +11,7 @@ use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
+use EwalletModule\View\MemberFormatter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ class TransferFundsCommand extends Command implements TransferFundsNotifier
     /** @var TransferFunds */
     private $useCase;
 
-    /** @var EwalletExtension */
+    /** @var MemberFormatter */
     private $formatter;
 
     /** @var OutputInterface */
@@ -32,7 +32,7 @@ class TransferFundsCommand extends Command implements TransferFundsNotifier
      * @param TransferFunds $useCase
      * @param EwalletExtension $formatter
      */
-    public function __construct(TransferFunds $useCase, EwalletExtension $formatter)
+    public function __construct(TransferFunds $useCase, MemberFormatter $formatter)
     {
         parent::__construct();
         $this->formatter = $formatter;

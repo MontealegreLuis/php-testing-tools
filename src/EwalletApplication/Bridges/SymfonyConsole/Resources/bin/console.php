@@ -6,11 +6,11 @@
  */
 require __DIR__ . '/../../../../../../vendor/autoload.php';
 
-use EwalletApplication\Bridges\Pimple\EwalletContainer;
+use EwalletApplication\Bridges\Pimple\EwalletConsoleContainer;
 use EwalletApplication\Bridges\SymfonyConsole\EwalletApplication;
 
 $options = require __DIR__ . '/../../../../../../app/config.php';
-$container = new EwalletContainer($options);
+$container = new EwalletConsoleContainer($options);
 
 $application = new EwalletApplication($container);
 $application->run();

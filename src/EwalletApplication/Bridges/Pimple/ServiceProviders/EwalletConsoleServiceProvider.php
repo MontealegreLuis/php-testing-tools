@@ -41,7 +41,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
         $pimple['ewallet.member_formatter'] = function () {
             return new MemberFormatter();
         };
-        $pimple['ewallet.events_publisher'] = function() use ($pimple) {
+        $pimple['ewallet.events_publisher'] = function () use ($pimple) {
             $publisher = new EventPublisher();
             $publisher->subscribe($pimple['ewallet.transfer_funds_logger']);
 

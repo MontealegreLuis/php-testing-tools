@@ -6,6 +6,7 @@
  */
 namespace Ewallet\Bridges\Tests;
 
+use Ewallet\Accounts\Email;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Faker\Factory;
@@ -15,6 +16,9 @@ class MembersBuilder
 {
     /** @var string */
     private $name;
+
+    /** @var string */
+    private $email;
 
     /** @var integer */
     private $amount;
@@ -29,6 +33,7 @@ class MembersBuilder
     {
         $faker = Factory::create();
         $this->name = $faker->name;
+        $this->email = $faker->email;
         $this->amount = Money::MXN($faker->numberBetween(0, 10000));
         $this->id = $faker->uuid;
     }
@@ -86,6 +91,7 @@ class MembersBuilder
         return Member::withAccountBalance(
             Identifier::fromString($this->id),
             $this->name,
+            new Email($this->email),
             $this->amount
         );
     }

@@ -12,6 +12,7 @@
             <generator strategy="NONE" />
         </id>
         <field name="name" type="string" />
+        <embedded name="email" class="Ewallet\Accounts\Email" />
         <embedded name="account" class="Ewallet\Accounts\Account" />
     </entity>
 

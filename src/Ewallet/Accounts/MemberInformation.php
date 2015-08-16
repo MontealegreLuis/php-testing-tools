@@ -14,18 +14,27 @@ class MemberInformation
     /** @var string */
     private $name;
 
+    /** @var Email */
+    private $email;
+
     /** @var Account */
     private $account;
 
     /**
      * @param Identifier $memberId
      * @param string $name
+     * @param Email $email
      * @param Account $account
      */
-    public function __construct(Identifier $memberId, $name, Account $account)
-    {
+    public function __construct(
+        Identifier $memberId,
+        $name,
+        Email $email,
+        Account $account
+    ) {
         $this->memberId = $memberId;
         $this->name = $name;
+        $this->email = $email;
         $this->account = $account;
     }
 
@@ -52,5 +61,13 @@ class MemberInformation
     public function name()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Email
+     */
+    public function email()
+    {
+        return $this->email;
     }
 }

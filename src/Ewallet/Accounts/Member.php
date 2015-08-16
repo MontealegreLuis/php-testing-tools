@@ -21,18 +21,27 @@ class Member implements CanRecordEvents
     /** @var string */
     private $name;
 
+    /** @var Email */
+    private $email;
+
     /** @var Account */
     private $account;
 
     /**
      * @param Identifier $id
      * @param string $name
+     * @param Email $email
      * @param Account $account
      */
-    private function __construct(Identifier $id, $name, Account $account)
-    {
+    private function __construct(
+        Identifier $id,
+        $name,
+        Email $email,
+        Account $account
+    ) {
         $this->memberId = $id;
         $this->setName($name);
+        $this->email = $email;
         $this->account = $account;
     }
 
@@ -50,12 +59,17 @@ class Member implements CanRecordEvents
     /**
      * @param Identifier $id
      * @param string $name
+     * @param Email $email
      * @param Money $amount
      * @return Member
      */
-    public static function withAccountBalance(Identifier $id, $name, Money $amount)
-    {
-        return new Member($id, $name, Account::withBalance($amount));
+    public static function withAccountBalance(
+        Identifier $id,
+        $name,
+        Email $email,
+        Money $amount
+    ) {
+        return new Member($id, $name, $email, Account::withBalance($amount));
     }
 
     /**
@@ -63,7 +77,12 @@ class Member implements CanRecordEvents
      */
     public function information()
     {
-        return new MemberInformation($this->memberId, $this->name, $this->account);
+        return new MemberInformation(
+            $this->memberId,
+            $this->name,
+            $this->email,
+            $this->account
+        );
     }
 
     /**

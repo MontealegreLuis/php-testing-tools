@@ -7,6 +7,7 @@
 namespace specs\Ewallet\Accounts;
 
 use Assert\InvalidArgumentException;
+use Ewallet\Accounts\Email;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\InvalidTransferAmount;
 use Ewallet\Bridges\Tests\MembersBuilder;
@@ -18,17 +19,24 @@ class MemberSpec extends ObjectBehavior
 {
     use ProvidesMoneyMatcher;
 
+    const A_VALID_ID = 'abc';
+    const A_VALID_NAME = 'Luis Montealegre';
+    const A_VALID_EMAIL = 'montealegreluis@gmail.com';
+    const A_VALID_AMOUNT = 2000;
+
     function let()
     {
-        $this->beConstructedThrough(
-            'withAccountBalance',
-            [Identifier::fromString('abc'), 'Luis', Money::MXN(2000)]
-        );
+        $this->beConstructedThrough( 'withAccountBalance', [
+            Identifier::fromString(self::A_VALID_ID),
+            self::A_VALID_NAME,
+            new Email(self::A_VALID_EMAIL),
+            Money::MXN(self::A_VALID_AMOUNT)
+        ]);
     }
 
     function it_should_be_created_with_a_given_account_balance()
     {
-        $this->information()->accountBalance()->shouldAmount(2000);
+        $this->information()->accountBalance()->shouldAmount(self::A_VALID_AMOUNT);
     }
 
     function it_should_transfer_funds_to_another_member()
@@ -51,15 +59,17 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_be_recognizable_by_its_id()
     {
-        $this->information()->id()->equals(Identifier::fromString('abc'))->shouldBe(true);
+        $this->information()->id()->equals(Identifier::fromString(self::A_VALID_ID))->shouldBe(true);
     }
 
     function it_should_not_allow_an_empty_name()
     {
-        $this->beConstructedThrough(
-            'withAccountBalance',
-            [Identifier::fromString('abc'), '', Money::MXN(2000)]
-        );
+        $this->beConstructedThrough('withAccountBalance', [
+            Identifier::fromString(self::A_VALID_ID),
+            '',
+            new Email(self::A_VALID_EMAIL),
+            Money::MXN(self::A_VALID_AMOUNT)
+        ]);
         try {
             $this->getWrappedObject();
             throw new ExampleException('Expected exception was not thrown');

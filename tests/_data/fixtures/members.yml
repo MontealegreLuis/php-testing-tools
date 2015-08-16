@@ -20,6 +20,17 @@ Ewallet\Accounts\Identifier (local):
         __construct: false
         id: "LMN"
 
+Ewallet\Accounts\Email (local):
+    email0:
+        __construct: false
+        address: <email()>
+    email1:
+        __construct: false
+        address: <email()>
+    email2:
+        __construct: false
+        address: <email()>
+
 Ewallet\Accounts\Account (local):
     account0:
         __construct: false
@@ -36,14 +47,17 @@ Ewallet\Accounts\Member:
         __construct: false
         memberId: @id0
         name: <name()>
+        email: @email0
         account: @account0
     member1:
         __construct: false
         memberId: @id1
         name: <name()>
+        email: @email1
         account: @account1
     member2:
         __construct: false
         memberId: @id2
         name: "Luis Montealegre"
+        email: @email2
         account: @account2

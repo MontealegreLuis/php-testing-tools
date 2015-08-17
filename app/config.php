@@ -40,4 +40,7 @@ return [
             'path' => __DIR__ . '/../var/logs/app.log',
         ]
     ],
+    'mail' => [
+        'path' => __DIR__ . '/../var/mail',
+    ],
 ];

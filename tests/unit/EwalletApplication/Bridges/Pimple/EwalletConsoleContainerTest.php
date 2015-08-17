@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Zf2Mail\EmailTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\DomainEvents\EventPublisher;
 use Monolog\Logger;
@@ -46,6 +47,10 @@ class EwalletConsoleContainerTest extends TestCase
         $this->assertInstanceOf(
             LogTransferWasMadeSubscriber::class,
             $container['ewallet.transfer_funds_logger']
+        );
+        $this->assertInstanceOf(
+            EmailTransferWasMadeSubscriber::class,
+            $container['ewallet.transfer_mail_notifier']
         );
         $this->assertInstanceOf(
             EventPublisher::class,

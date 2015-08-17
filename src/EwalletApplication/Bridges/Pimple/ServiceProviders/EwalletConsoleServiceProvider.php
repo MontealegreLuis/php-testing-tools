@@ -9,6 +9,7 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Zf2Mail\EmailTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\DomainEvents\EventPublisher;
@@ -16,6 +17,8 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Zend\Mail\Transport\File;
+use Zend\Mail\Transport\FileOptions;
 
 class EwalletConsoleServiceProvider implements ServiceProviderInterface
 {
@@ -44,6 +47,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
         $pimple['ewallet.events_publisher'] = function () use ($pimple) {
             $publisher = new EventPublisher();
             $publisher->subscribe($pimple['ewallet.transfer_funds_logger']);
+            $publisher->subscribe($pimple['ewallet.transfer_mail_notifier']);
 
             return $publisher;
         };
@@ -59,6 +63,18 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             ));
 
             return $logger;
+        };
+        $pimple['ewallet.transfer_mail_notifier'] = function () use ($pimple) {
+            return new EmailTransferWasMadeSubscriber(
+                $pimple['ewallet.member_repository'],
+                $pimple['twig.environment'],
+                new File(new FileOptions([
+                    'path' => $pimple['mail']['path'],
+                    'callback'  => function () {
+                        return 'message-' . microtime(true) . '-' . mt_rand() . '.html';
+                    }
+                ]))
+            );
         };
     }
 }

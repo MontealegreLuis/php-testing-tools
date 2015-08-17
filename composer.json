@@ -31,7 +31,8 @@
         "zendframework/zend-inputfilter": "^2.5",
         "monolog/monolog": "^1.16",
         "symfony/console": "^2.7",
-        "pimple/pimple": "^3.0"
+        "pimple/pimple": "^3.0",
+        "zendframework/zend-mail": "^2.5"
     },
     "require-dev": {
         "behat/behat": "^3.0",

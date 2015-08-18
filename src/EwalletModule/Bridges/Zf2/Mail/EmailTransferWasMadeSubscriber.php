@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Zf2Mail;
+namespace EwalletModule\Bridges\Zf2\Mail;
 
 use Ewallet\Accounts\Members;
 use Ewallet\Accounts\TransferWasMade;

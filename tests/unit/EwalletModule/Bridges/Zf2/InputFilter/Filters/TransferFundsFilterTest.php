@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Zf2InputFilter\Filters;
+namespace EwalletModule\Bridges\Zf2\InputFilter\Filters;
 
 use EwalletModule\Forms\MembersConfiguration;
 use PHPUnit_Framework_TestCase as TestCase;

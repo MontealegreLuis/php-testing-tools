@@ -4,11 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Zf2InputFilter;
+namespace EwalletModule\Bridges\Zf2\InputFilter;
 
+use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
 use EwalletModule\Controllers\FilteredRequest;
 use EwalletModule\Forms\MembersConfiguration;
-use EwalletModule\Bridges\Zf2InputFilter\Filters\TransferFundsFilter;
 
 class TransferFundsInputFilterRequest implements FilteredRequest
 {

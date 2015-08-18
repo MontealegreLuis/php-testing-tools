@@ -7,7 +7,7 @@
 namespace EwalletApplication\Bridges\Pimple;
 
 use EwalletApplication\Bridges\Slim\Controllers\SlimController;
-use EwalletModule\Bridges\Zf2InputFilter\TransferFundsInputFilterRequest;
+use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;

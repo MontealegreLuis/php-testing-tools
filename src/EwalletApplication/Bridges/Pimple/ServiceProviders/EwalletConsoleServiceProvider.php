@@ -9,7 +9,7 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
-use EwalletModule\Bridges\Zf2Mail\EmailTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Zf2\Mail\EmailTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\DomainEvents\EventPublisher;

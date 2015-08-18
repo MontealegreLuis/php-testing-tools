@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
-use EwalletModule\Bridges\Zf2Mail\EmailTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Zf2\Mail\EmailTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\DomainEvents\EventPublisher;
 use Monolog\Logger;

@@ -6,17 +6,15 @@
  */
 namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
-use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletApplication\Bridges\Slim\Controllers\SlimController;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
-use EwalletModule\Bridges\Zf2InputFilter\Filters\TransferFundsFilter;
-use EwalletModule\Bridges\Zf2InputFilter\TransferFundsInputFilterRequest;
+use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
+use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Controllers\TransferFundsController;
 use EwalletModule\Controllers\TransferFundsResponder;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use EwalletModule\View\MemberFormatter;
-use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Pimple\Container;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;

@@ -8,9 +8,9 @@ namespace EwalletModule\Bridges\Zf2\Mail;
 
 use Ewallet\Accounts\Members;
 use Ewallet\Accounts\TransferWasMade;
+use EwalletModule\Controllers\TemplateEngine;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSubscriber;
-use Twig_Environment as Twig;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
 
@@ -19,24 +19,24 @@ class EmailTransferWasMadeSubscriber implements EventSubscriber
     /** @var Members */
     private $members;
 
-    /** @var Twig */
-    private $view;
+    /** @var TemplateEngine */
+    private $template;
 
     /** @var TransportInterface */
     private $mailTransport;
 
     /**
      * @param Members $members
-     * @param Twig $view
+     * @param TemplateEngine $template
      * @param TransportInterface $mailTransport
      */
     public function __construct(
         Members $members,
-        Twig $view,
+        TemplateEngine $template,
         TransportInterface $mailTransport
     ) {
         $this->members = $members;
-        $this->view = $view;
+        $this->template = $template;
         $this->mailTransport = $mailTransport;
     }
 
@@ -63,7 +63,7 @@ class EmailTransferWasMadeSubscriber implements EventSubscriber
             ->setFrom('hello@ewallet.com')
             ->setTo((string) $fromMember->information()->email())
             ->setSubject('Funds transfer completed')
-            ->setBody($this->view->render('email/transfer.html.twig', [
+            ->setBody($this->template->render('email/transfer.html', [
                 'fromMember' => $fromMember->information(),
                 'toMember' => $toMember->information(),
                 'amount' => $event->amount(),
@@ -77,7 +77,7 @@ class EmailTransferWasMadeSubscriber implements EventSubscriber
             ->setFrom('hello@ewallet.com')
             ->setTo((string) $toMember->information()->email())
             ->setSubject('You have received a deposit')
-            ->setBody($this->view->render('email/deposit.html.twig', [
+            ->setBody($this->template->render('email/deposit.html', [
                 'fromMember' => $fromMember->information(),
                 'toMember' => $toMember->information(),
                 'amount' => $event->amount(),

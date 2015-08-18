@@ -9,6 +9,7 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Twig\TwigTemplateEngine;
 use EwalletModule\Bridges\Zf2\Mail\EmailTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
@@ -29,6 +30,9 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
     {
         $pimple['ewallet.member_repository'] = function () use ($pimple) {
             return $pimple['doctrine.em']->getRepository(Member::class);
+        };
+        $pimple['ewallet.template_engine'] = function () use ($pimple) {
+            return new TwigTemplateEngine($pimple['twig.environment']);
         };
         $pimple['ewallet.transfer_funds'] =  function () use ($pimple) {
             $transferFunds = new TransferFundsTransactionally(
@@ -67,7 +71,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
         $pimple['ewallet.transfer_mail_notifier'] = function () use ($pimple) {
             return new EmailTransferWasMadeSubscriber(
                 $pimple['ewallet.member_repository'],
-                $pimple['twig.environment'],
+                $pimple['ewallet.template_engine'],
                 new File(new FileOptions([
                     'path' => $pimple['mail']['path'],
                     'callback'  => function () {

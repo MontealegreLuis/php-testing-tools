@@ -10,7 +10,6 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
-use Twig_Environment as Twig;
 use Zend\Diactoros\Response;
 
 class TransferFundsResponder
@@ -18,8 +17,8 @@ class TransferFundsResponder
     /** @var \Psr\Http\Message\ResponseInterface */
     private $response;
 
-    /** @var Twig */
-    private $view;
+    /** @var TemplateEngine */
+    private $template;
 
     /** @var TransferFundsForm */
     private $form;
@@ -28,16 +27,16 @@ class TransferFundsResponder
     private $configuration;
 
     /**
-     * @param Twig $view
+     * @param TemplateEngine $template
      * @param TransferFundsForm $form
      * @param MembersConfiguration $configuration
      */
     public function __construct(
-        Twig $view,
+        TemplateEngine $template,
         TransferFundsForm $form,
         MembersConfiguration $configuration
     ) {
-        $this->view = $view;
+        $this->template = $template;
         $this->form = $form;
         $this->configuration = $configuration;
     }
@@ -53,7 +52,7 @@ class TransferFundsResponder
         $response = new Response();
         $response
             ->getBody()
-            ->write($this->view->render('member/transfer-funds.html.twig', [
+            ->write($this->template->render('member/transfer-funds.html', [
                 'form' => $this->form->buildView(),
                 'fromMember' => $result->fromMember(),
                 'toMember' => $result->toMember(),
@@ -89,7 +88,7 @@ class TransferFundsResponder
         $response = new Response();
         $response
             ->getBody()
-            ->write($this->view->render('member/transfer-funds.html.twig', [
+            ->write($this->template->render('member/transfer-funds.html', [
                 'form' => $this->form->buildView(),
             ]))
         ;

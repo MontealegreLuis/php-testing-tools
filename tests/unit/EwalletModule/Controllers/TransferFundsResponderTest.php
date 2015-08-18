@@ -13,7 +13,6 @@ use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
-use Twig_Environment as Twig;
 
 class TransferFundsResponderTest extends TestCase
 {
@@ -28,7 +27,7 @@ class TransferFundsResponderTest extends TestCase
             ->once()
             ->with($configuration, Mockery::type(Identifier::class))
         ;
-        $view = Mockery::mock(Twig::class);
+        $view = Mockery::mock(TemplateEngine::class);
         $view
             ->shouldReceive('render')
             ->once()
@@ -56,7 +55,7 @@ class TransferFundsResponderTest extends TestCase
             ->shouldReceive('buildView')
             ->once()
         ;
-        $view = Mockery::mock(Twig::class);
+        $view = Mockery::mock(TemplateEngine::class);
         $view
             ->shouldReceive('render')
             ->once()
@@ -95,7 +94,7 @@ class TransferFundsResponderTest extends TestCase
             ->once()
             ->with(Mockery::type('array'))
         ;
-        $view = Mockery::mock(Twig::class);
+        $view = Mockery::mock(TemplateEngine::class);
         $view
             ->shouldReceive('render')
             ->once()

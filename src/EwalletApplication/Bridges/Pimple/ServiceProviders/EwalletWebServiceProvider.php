@@ -44,7 +44,7 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
         };
         $pimple['ewallet.transfer_funds_responder'] = function () use ($pimple) {
             return new TransferFundsResponder(
-                $pimple['twig.environment'],
+                $pimple['ewallet.template_engine'],
                 $pimple['ewallet.transfer_form'],
                 $pimple['ewallet.members_configuration']
             );

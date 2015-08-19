@@ -10,10 +10,12 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
-use Zend\Diactoros\Response;
 
 class TransferFundsResponder
 {
+    /** @var ResponseFactory */
+    private $factory;
+
     /** @var \Psr\Http\Message\ResponseInterface */
     private $response;
 
@@ -28,15 +30,18 @@ class TransferFundsResponder
 
     /**
      * @param TemplateEngine $template
+     * @param ResponseFactory $factory
      * @param TransferFundsForm $form
      * @param MembersConfiguration $configuration
      */
     public function __construct(
         TemplateEngine $template,
+        ResponseFactory $factory,
         TransferFundsForm $form,
         MembersConfiguration $configuration
     ) {
         $this->template = $template;
+        $this->factory = $factory;
         $this->form = $form;
         $this->configuration = $configuration;
     }
@@ -49,10 +54,9 @@ class TransferFundsResponder
     {
         $this->form->configure($this->configuration, $result->fromMember()->id());
 
-        $response = new Response();
-        $response
-            ->getBody()
-            ->write($this->template->render('member/transfer-funds.html', [
+        $response = $this
+            ->factory
+            ->buildResponse($this->template->render('member/transfer-funds.html', [
                 'form' => $this->form->buildView(),
                 'fromMember' => $result->fromMember(),
                 'toMember' => $result->toMember(),
@@ -85,10 +89,9 @@ class TransferFundsResponder
     {
         $this->form->configure($this->configuration, $fromMemberId);
 
-        $response = new Response();
-        $response
-            ->getBody()
-            ->write($this->template->render('member/transfer-funds.html', [
+        $response = $this
+            ->factory
+            ->buildResponse($this->template->render('member/transfer-funds.html', [
                 'form' => $this->form->buildView(),
             ]))
         ;

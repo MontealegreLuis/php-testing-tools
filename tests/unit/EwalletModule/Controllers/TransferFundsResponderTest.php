@@ -9,6 +9,7 @@ namespace EwalletModule\Controllers;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Bridges\Tests\MembersBuilder;
 use Ewallet\Wallet\TransferFundsResponse;
+use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Forms\MembersConfiguration;
 use EwalletModule\Forms\TransferFundsForm;
 use Mockery;
@@ -34,7 +35,9 @@ class TransferFundsResponderTest extends TestCase
             ->with(Mockery::type('string'), Mockery::type('array'))
             ->andReturn('')
         ;
-        $responder = new TransferFundsResponder($view, $form, $configuration);
+        $responder = new TransferFundsResponder(
+            $view, new DiactorosResponseFactory(), $form, $configuration
+        );
 
         $response = $responder->transferFundsFormResponse(Identifier::fromString('abc'));
 
@@ -66,7 +69,9 @@ class TransferFundsResponderTest extends TestCase
             MembersBuilder::aMember()->build(),
             MembersBuilder::aMember()->build()
         );
-        $responder = new TransferFundsResponder($view, $form, $configuration);
+        $responder = new TransferFundsResponder(
+            $view, new DiactorosResponseFactory(), $form, $configuration
+        );
 
         $responder->transferCompletedResponse($result);
 
@@ -101,7 +106,9 @@ class TransferFundsResponderTest extends TestCase
             ->with(Mockery::type('string'), Mockery::type('array'))
             ->andReturn('')
         ;
-        $responder = new TransferFundsResponder($view, $form, $configuration);
+        $responder = new TransferFundsResponder(
+            $view, new DiactorosResponseFactory(), $form, $configuration
+        );
 
         $response = $responder->invalidTransferInputResponse(
             $messages = [],

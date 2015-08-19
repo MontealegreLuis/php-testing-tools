@@ -8,6 +8,7 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
 use EwalletApplication\Bridges\Slim\Controllers\SlimController;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
+use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Controllers\TransferFundsController;
@@ -45,6 +46,7 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
         $pimple['ewallet.transfer_funds_responder'] = function () use ($pimple) {
             return new TransferFundsResponder(
                 $pimple['ewallet.template_engine'],
+                new DiactorosResponseFactory(),
                 $pimple['ewallet.transfer_form'],
                 $pimple['ewallet.members_configuration']
             );

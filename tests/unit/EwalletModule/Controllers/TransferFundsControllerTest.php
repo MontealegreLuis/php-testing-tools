@@ -24,8 +24,13 @@ class TransferFundsControllerTest extends TestCase
         $responder
             ->shouldReceive('transferFundsFormResponse')
             ->once()
+        ;
+        $responder
+            ->shouldReceive('response')
+            ->once()
             ->andReturn(Mockery::type(ResponseInterface::class))
         ;
+
         $controller = new TransferFundsController($responder);
 
         $controller->showForm(Identifier::fromString('abc'));

@@ -78,7 +78,7 @@ class TransferFundsResponder
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
-        return $this->transferFundsFormResponse(Identifier::fromString($fromMemberId));
+        $this->transferFundsFormResponse(Identifier::fromString($fromMemberId));
     }
 
     /**
@@ -96,7 +96,7 @@ class TransferFundsResponder
             ]))
         ;
 
-        return $response;
+        $this->response = $response;
     }
 
     /**

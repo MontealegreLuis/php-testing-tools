@@ -39,7 +39,9 @@ class TransferFundsController implements TransferFundsNotifier
      */
     public function showForm(Identifier $fromMemberId)
     {
-        return $this->responder->transferFundsFormResponse($fromMemberId);
+        $this->responder->transferFundsFormResponse($fromMemberId);
+
+        return $this->responder->response();
     }
 
     /**
@@ -49,10 +51,10 @@ class TransferFundsController implements TransferFundsNotifier
     public function transfer(FilteredRequest $request)
     {
         if (!$request->isValid()) {
-            return $this->validationFailedFor($request);
+            $this->validationFailedFor($request);
+        } else {
+            $this->useCase->transfer(TransferFundsRequest::from($request->values()));
         }
-
-        $this->useCase->transfer(TransferFundsRequest::from($request->values()));
 
         return $this->responder->response();
     }
@@ -63,7 +65,7 @@ class TransferFundsController implements TransferFundsNotifier
      */
     private function validationFailedFor(FilteredRequest $request)
     {
-        return $this->responder->invalidTransferInputResponse(
+        $this->responder->invalidTransferInputResponse(
             $request->errorMessages(),
             $request->values(),
             $request->value('fromMemberId')

@@ -39,9 +39,9 @@ class TransferFundsResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $response = $responder->transferFundsFormResponse(Identifier::fromString('abc'));
+        $responder->transferFundsFormResponse(Identifier::fromString('abc'));
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $responder->response()->getStatusCode());
     }
 
     /** @test */
@@ -110,12 +110,12 @@ class TransferFundsResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $response = $responder->invalidTransferInputResponse(
+        $responder->invalidTransferInputResponse(
             $messages = [],
             $values = [],
             $fromMemberId = 'xyz'
         );
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $responder->response()->getStatusCode());
     }
 }

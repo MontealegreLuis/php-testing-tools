@@ -23,49 +23,52 @@ use Twig_Environment as Environment;
 class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
 {
     /**
-     * @param Container $pimple A container instance
+     * Register the services for Transfer Funds feature delivered through a
+     * web interface
+     *
+     * @param Container $container
      */
-    public function register(Container $pimple)
+    public function register(Container $container)
     {
-        parent::register($pimple);
+        parent::register($container);
 
-        $pimple['ewallet.transfer_form'] = function () {
+        $container['ewallet.transfer_form'] = function () {
             return new TransferFundsForm();
         };
-        $pimple['ewallet.transfer_filter_request'] = function () use ($pimple) {
+        $container['ewallet.transfer_filter_request'] = function () use ($container) {
             return new TransferFundsInputFilterRequest(
                 new TransferFundsFilter(),
-                $pimple['ewallet.members_configuration']
+                $container['ewallet.members_configuration']
             );
         };
-        $pimple['ewallet.members_configuration'] = function () use ($pimple) {
+        $container['ewallet.members_configuration'] = function () use ($container) {
             return new MembersConfiguration(
-                $pimple['ewallet.member_repository']
+                $container['ewallet.member_repository']
             );
         };
-        $pimple['ewallet.transfer_funds_responder'] = function () use ($pimple) {
+        $container['ewallet.transfer_funds_responder'] = function () use ($container) {
             return new TransferFundsResponder(
-                $pimple['ewallet.template_engine'],
+                $container['ewallet.template_engine'],
                 new DiactorosResponseFactory(),
-                $pimple['ewallet.transfer_form'],
-                $pimple['ewallet.members_configuration']
+                $container['ewallet.transfer_form'],
+                $container['ewallet.members_configuration']
             );
         };
-        $pimple['ewallet.transfer_form_controller'] = function () use ($pimple) {
+        $container['ewallet.transfer_form_controller'] = function () use ($container) {
             return new SlimController(new TransferFundsController(
-                $pimple['ewallet.transfer_funds_responder']
+                $container['ewallet.transfer_funds_responder']
             ));
         };
-        $pimple['ewallet.transfer_funds_controller'] = function () use ($pimple) {
+        $container['ewallet.transfer_funds_controller'] = function () use ($container) {
             return new SlimController(new TransferFundsController(
-                $pimple['ewallet.transfer_funds_responder'],
-                $pimple['ewallet.transfer_funds']
+                $container['ewallet.transfer_funds_responder'],
+                $container['ewallet.transfer_funds']
             ));
         };
-        $pimple['ewallet.twig.extension'] = function () {
+        $container['ewallet.twig.extension'] = function () {
             return new EwalletExtension(new MemberFormatter());
         };
-        $pimple->extend(
+        $container->extend(
             'twig.loader',
             function (Loader $loader) {
                 $loader->addPath(__DIR__ . '/../../Slim/Resources/templates');
@@ -76,10 +79,10 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
                 return $loader;
             }
         );
-        $pimple->extend(
+        $container->extend(
             'twig.environment',
-            function (Environment $environment) use ($pimple) {
-                $environment->addExtension($pimple['ewallet.twig.extension']);
+            function (Environment $environment) use ($container) {
+                $environment->addExtension($container['ewallet.twig.extension']);
 
                 return $environment;
             }

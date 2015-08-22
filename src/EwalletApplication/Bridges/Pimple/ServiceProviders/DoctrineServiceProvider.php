@@ -15,24 +15,24 @@ use Pimple\ServiceProviderInterface;
 class DoctrineServiceProvider implements ServiceProviderInterface
 {
     /**
-     * Registers Doctrine's entity manager
+     * Register Doctrine's entity manager
      *
-     * @param Container $pimple
+     * @param Container $container
      */
-    public function register(Container $pimple)
+    public function register(Container $container)
     {
-        $pimple['doctrine.em'] = function () use ($pimple) {
+        $container['doctrine.em'] = function () use ($container) {
             $configuration = Setup::createXMLMetadataConfiguration(
-                $pimple['doctrine']['mapping_dirs'],
-                $pimple['doctrine']['dev_mode'],
-                $pimple['doctrine']['proxy_dir']
+                $container['doctrine']['mapping_dirs'],
+                $container['doctrine']['dev_mode'],
+                $container['doctrine']['proxy_dir']
             );
             $entityManager = EntityManager::create(
-                $pimple['doctrine']['connection'], $configuration
+                $container['doctrine']['connection'], $configuration
             );
 
             $platform = $entityManager->getConnection()->getDatabasePlatform();
-            foreach ($pimple['doctrine']['types'] as $type => $class) {
+            foreach ($container['doctrine']['types'] as $type => $class) {
                 !Type::hasType($type) && Type::addType($type, $class);
                 $platform->registerDoctrineTypeMapping($type, $type);
             }

@@ -24,56 +24,59 @@ use Zend\Mail\Transport\FileOptions;
 class EwalletConsoleServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $pimple
+     * Register the services for Transfer Funds feature delivered through a
+     * console command
+     *
+     * @param Container $container
      */
-    public function register(Container $pimple)
+    public function register(Container $container)
     {
-        $pimple['ewallet.member_repository'] = function () use ($pimple) {
-            return $pimple['doctrine.em']->getRepository(Member::class);
+        $container['ewallet.member_repository'] = function () use ($container) {
+            return $container['doctrine.em']->getRepository(Member::class);
         };
-        $pimple['ewallet.template_engine'] = function () use ($pimple) {
-            return new TwigTemplateEngine($pimple['twig.environment']);
+        $container['ewallet.template_engine'] = function () use ($container) {
+            return new TwigTemplateEngine($container['twig.environment']);
         };
-        $pimple['ewallet.transfer_funds'] =  function () use ($pimple) {
+        $container['ewallet.transfer_funds'] =  function () use ($container) {
             $transferFunds = new TransferFundsTransactionally(
-                $pimple['ewallet.member_repository']
+                $container['ewallet.member_repository']
             );
             $transferFunds->setTransactionalSession(new DoctrineSession(
-                $pimple['doctrine.em']
+                $container['doctrine.em']
             ));
-            $transferFunds->setPublisher($pimple['ewallet.events_publisher']);
+            $transferFunds->setPublisher($container['ewallet.events_publisher']);
 
             return $transferFunds;
         };
-        $pimple['ewallet.member_formatter'] = function () {
+        $container['ewallet.member_formatter'] = function () {
             return new MemberFormatter();
         };
-        $pimple['ewallet.events_publisher'] = function () use ($pimple) {
+        $container['ewallet.events_publisher'] = function () use ($container) {
             $publisher = new EventPublisher();
-            $publisher->subscribe($pimple['ewallet.transfer_funds_logger']);
-            $publisher->subscribe($pimple['ewallet.transfer_mail_notifier']);
+            $publisher->subscribe($container['ewallet.transfer_funds_logger']);
+            $publisher->subscribe($container['ewallet.transfer_mail_notifier']);
 
             return $publisher;
         };
-        $pimple['ewallet.transfer_funds_logger'] = function () use ($pimple) {
+        $container['ewallet.transfer_funds_logger'] = function () use ($container) {
             return new LogTransferWasMadeSubscriber(
-                $pimple['ewallet.logger'], $pimple['ewallet.member_formatter']
+                $container['ewallet.logger'], $container['ewallet.member_formatter']
             );
         };
-        $pimple['ewallet.logger'] = function () use ($pimple) {
-            $logger = new Logger($pimple['monolog']['ewallet']['channel']);
+        $container['ewallet.logger'] = function () use ($container) {
+            $logger = new Logger($container['monolog']['ewallet']['channel']);
             $logger->pushHandler(new StreamHandler(
-                $pimple['monolog']['ewallet']['path'], Logger::DEBUG
+                $container['monolog']['ewallet']['path'], Logger::DEBUG
             ));
 
             return $logger;
         };
-        $pimple['ewallet.transfer_mail_notifier'] = function () use ($pimple) {
+        $container['ewallet.transfer_mail_notifier'] = function () use ($container) {
             return new EmailTransferWasMadeSubscriber(
-                $pimple['ewallet.member_repository'],
-                $pimple['ewallet.template_engine'],
+                $container['ewallet.member_repository'],
+                $container['ewallet.template_engine'],
                 new File(new FileOptions([
-                    'path' => $pimple['mail']['path'],
+                    'path' => $container['mail']['path'],
                     'callback'  => function () {
                         return 'message-' . microtime(true) . '-' . mt_rand() . '.html';
                     }

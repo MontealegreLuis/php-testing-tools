@@ -16,17 +16,19 @@ use Twig_Environment as Environment;
 class TwigServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $pimple A container instance
+     * Register Twig's loader and environment
+     *
+     * @param Container $container
      */
-    public function register(Container $pimple)
+    public function register(Container $container)
     {
-        $pimple['twig.loader'] = function () use ($pimple) {
-            return new Loader($pimple['twig']['loader_paths']);
+        $container['twig.loader'] = function () use ($container) {
+            return new Loader($container['twig']['loader_paths']);
         };
-        $pimple['twig.environment'] = function () use ($pimple) {
+        $container['twig.environment'] = function () use ($container) {
             return new Environment(
-                $pimple['twig.loader'],
-                $pimple['twig']['options']
+                $container['twig.loader'],
+                $container['twig']['options']
             );
         };
     }

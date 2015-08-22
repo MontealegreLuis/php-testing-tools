@@ -17,22 +17,24 @@ use Twig_Loader_Filesystem as Loader;
 class FormsServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $pimple A container instance
+     * Register the services required to render forms for the web application
+     *
+     * @param Container $container
      */
-    public function register(Container $pimple)
+    public function register(Container $container)
     {
-        $pimple->extend(
+        $container->extend(
             'twig.environment',
-            function (Environment $twig) use ($pimple) {
+            function (Environment $twig) use ($container) {
                 $renderer = new FormRenderer(
-                    new FormTheme($twig, $pimple['forms']['theme'])
+                    new FormTheme($twig, $container['forms']['theme'])
                 );
                 $twig->addExtension(new FormExtension($renderer));
 
                 return $twig;
             }
         );
-        $pimple->extend(
+        $container->extend(
             'twig.loader',
             function (Loader $loader) {
                 $loader->addPath(

@@ -12,9 +12,9 @@ use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Controllers\TransferFundsController;
-use EwalletModule\Controllers\TransferFundsResponder;
-use EwalletModule\Forms\MembersConfiguration;
-use EwalletModule\Forms\TransferFundsForm;
+use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
+use EwalletModule\Bridges\EasyForms\TransferFundsForm;
 use EwalletModule\View\MemberFormatter;
 use Pimple\Container;
 use Twig_Loader_Filesystem as Loader;
@@ -47,7 +47,7 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
             );
         };
         $container['ewallet.transfer_funds_responder'] = function () use ($container) {
-            return new TransferFundsResponder(
+            return new TransferFundsFormResponder(
                 $container['ewallet.template_engine'],
                 new DiactorosResponseFactory(),
                 $container['ewallet.transfer_form'],

@@ -4,13 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Forms;
+namespace EwalletModule\Bridges\EasyForms;
 
 use EasyForms\Elements\Hidden;
 use EasyForms\Elements\Select;
 use EasyForms\Form;
 use EWallet\Accounts\Identifier;
-use EwalletModule\Forms\Elements\MoneyElement;
+use EwalletModule\Bridges\EasyForms\Elements\MoneyElement;
 
 class TransferFundsForm extends Form
 {

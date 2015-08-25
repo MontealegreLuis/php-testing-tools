@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Forms;
+namespace EwalletModule\Bridges\EasyForms;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
@@ -30,7 +30,7 @@ class MembersConfigurationTest extends TestCase
     function it_should_generate_options_excluding_the_member_transferring_funds()
     {
         Fixtures::load(
-            __DIR__ . '/../../../_data/fixtures/members.yml',
+            __DIR__ . '/../../../../_data/fixtures/members.yml',
             $this->entityManager
         );
 

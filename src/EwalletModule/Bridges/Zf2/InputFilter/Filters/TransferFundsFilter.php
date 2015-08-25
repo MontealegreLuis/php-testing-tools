@@ -6,7 +6,7 @@
  */
 namespace EwalletModule\Bridges\Zf2\InputFilter\Filters;
 
-use EwalletModule\Forms\MembersConfiguration;
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\GreaterThan;

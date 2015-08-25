@@ -6,9 +6,9 @@
  */
 namespace EwalletModule\Bridges\Zf2\InputFilter;
 
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
 use EwalletModule\Controllers\FilteredRequest;
-use EwalletModule\Forms\MembersConfiguration;
 
 class TransferFundsInputFilterRequest implements FilteredRequest
 {

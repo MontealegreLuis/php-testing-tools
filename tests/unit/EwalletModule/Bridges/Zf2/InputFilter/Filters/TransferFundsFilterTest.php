@@ -6,7 +6,7 @@
  */
 namespace EwalletModule\Bridges\Zf2\InputFilter\Filters;
 
-use EwalletModule\Forms\MembersConfiguration;
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use PHPUnit_Framework_TestCase as TestCase;
 use Mockery;
 use Zend\Validator\GreaterThan;

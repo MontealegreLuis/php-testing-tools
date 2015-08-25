@@ -4,12 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Forms\Elements;
+namespace EwalletModule\Bridges\EasyForms\Elements;
 
 use EasyForms\Elements\Element;
 use EasyForms\Elements\Text;
 use EasyForms\View\ElementView;
-use EwalletModule\Forms\Elements\Views\MoneyView;
+use EwalletModule\Bridges\EasyForms\Elements\Views\MoneyView;
 
 class MoneyElement extends Element
 {

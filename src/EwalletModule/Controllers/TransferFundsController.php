@@ -11,21 +11,22 @@ use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
+use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 
 class TransferFundsController implements TransferFundsNotifier
 {
     /** @var TransferFunds */
     private $useCase;
 
-    /** @var TransferFundsResponder */
+    /** @var TransferFundsFormResponder */
     private $responder;
 
     /**
-     * @param TransferFundsResponder $responder
+     * @param TransferFundsFormResponder $responder
      * @param TransferFunds $transferFunds
      */
     public function __construct(
-        TransferFundsResponder $responder,
+        TransferFundsFormResponder $responder,
         TransferFunds $transferFunds = null
     ) {
         $this->responder = $responder;

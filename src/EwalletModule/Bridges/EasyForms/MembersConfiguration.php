@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Forms;
+namespace EwalletModule\Bridges\EasyForms;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;

@@ -8,9 +8,9 @@ namespace EwalletApplication\Bridges\Pimple;
 
 use EwalletApplication\Bridges\Slim\Controllers\SlimController;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use EwalletModule\Controllers\TransferFundsResponder;
-use EwalletModule\Forms\MembersConfiguration;
-use EwalletModule\Forms\TransferFundsForm;
+use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
+use EwalletModule\Bridges\EasyForms\TransferFundsForm;
 use PHPUnit_Framework_TestCase as TestCase;
 use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
@@ -40,7 +40,7 @@ class EwalletWebContainerTest extends TestCase
             $container['ewallet.members_configuration']
         );
         $this->assertInstanceOf(
-            TransferFundsResponder::class,
+            TransferFundsFormResponder::class,
             $container['ewallet.transfer_funds_responder']
         );
         $this->assertInstanceOf(

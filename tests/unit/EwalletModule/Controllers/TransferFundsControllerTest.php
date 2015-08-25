@@ -10,7 +10,7 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
-use Ewallet\Wallet\TransferFundsResponse;
+use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -20,7 +20,7 @@ class TransferFundsControllerTest extends TestCase
     /** @test */
     function it_should_show_transfer_funds_form()
     {
-        $responder = Mockery::mock(TransferFundsResponder::class);
+        $responder = Mockery::mock(TransferFundsFormResponder::class);
         $responder
             ->shouldReceive('transferFundsFormResponse')
             ->once()
@@ -39,7 +39,7 @@ class TransferFundsControllerTest extends TestCase
     /** @test */
     function it_should_transfer_funds_from_one_member_to_another()
     {
-        $responder = Mockery::mock(TransferFundsResponder::class);
+        $responder = Mockery::mock(TransferFundsFormResponder::class);
         $responder
             ->shouldReceive('response')
             ->once()

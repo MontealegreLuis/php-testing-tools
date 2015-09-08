@@ -4,29 +4,29 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Controllers;
+namespace EwalletModule\Actions;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
+use EwalletModule\Responders\TransferFundsWebResponder;
 
-class TransferFundsController implements TransferFundsNotifier
+class TransferFundsAction implements TransferFundsNotifier
 {
     /** @var TransferFunds */
     private $useCase;
 
-    /** @var TransferFundsFormResponder */
+    /** @var TransferFundsWebResponder */
     private $responder;
 
     /**
-     * @param TransferFundsFormResponder $responder
+     * @param TransferFundsWebResponder $responder
      * @param TransferFunds $transferFunds
      */
     public function __construct(
-        TransferFundsFormResponder $responder,
+        TransferFundsWebResponder $responder,
         TransferFunds $transferFunds = null
     ) {
         $this->responder = $responder;
@@ -40,7 +40,7 @@ class TransferFundsController implements TransferFundsNotifier
      */
     public function showForm(Identifier $fromMemberId)
     {
-        $this->responder->transferFundsFormResponse($fromMemberId);
+        $this->responder->respondEnterTransferInformation($fromMemberId);
 
         return $this->responder->response();
     }
@@ -66,7 +66,7 @@ class TransferFundsController implements TransferFundsNotifier
      */
     private function validationFailedFor(FilteredRequest $request)
     {
-        $this->responder->invalidTransferInputResponse(
+        $this->responder->respondInvalidTransferInput(
             $request->errorMessages(),
             $request->values(),
             $request->value('fromMemberId')
@@ -78,6 +78,6 @@ class TransferFundsController implements TransferFundsNotifier
      */
     public function transferCompleted(TransferFundsResponse $response)
     {
-        $this->responder->transferCompletedResponse($response);
+        $this->responder->respondTransferCompleted($response);
     }
 }

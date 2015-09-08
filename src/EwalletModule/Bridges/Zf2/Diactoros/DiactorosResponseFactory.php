@@ -6,7 +6,7 @@
  */
 namespace EwalletModule\Bridges\Zf2\Diactoros;
 
-use EwalletModule\Controllers\ResponseFactory;
+use EwalletModule\Responders\Web\ResponseFactory;
 use Zend\Diactoros\Response;
 
 class DiactorosResponseFactory implements ResponseFactory

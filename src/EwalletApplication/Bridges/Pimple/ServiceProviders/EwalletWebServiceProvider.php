@@ -11,7 +11,7 @@ use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use EwalletModule\Controllers\TransferFundsController;
+use EwalletModule\Actions\TransferFundsAction;
 use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Bridges\EasyForms\TransferFundsForm;
@@ -55,12 +55,12 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
             );
         };
         $container['ewallet.transfer_form_controller'] = function () use ($container) {
-            return new SlimController(new TransferFundsController(
+            return new SlimController(new TransferFundsAction(
                 $container['ewallet.transfer_funds_responder']
             ));
         };
         $container['ewallet.transfer_funds_controller'] = function () use ($container) {
-            return new SlimController(new TransferFundsController(
+            return new SlimController(new TransferFundsAction(
                 $container['ewallet.transfer_funds_responder'],
                 $container['ewallet.transfer_funds']
             ));

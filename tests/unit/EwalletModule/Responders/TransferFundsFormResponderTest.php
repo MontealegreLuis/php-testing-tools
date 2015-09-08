@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Controllers;
+namespace EwalletModule\Responders;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Bridges\Tests\MembersBuilder;
@@ -13,10 +13,11 @@ use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Bridges\EasyForms\TransferFundsForm;
+use EwalletModule\Responders\Web\TemplateEngine;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
-class TransferFundsResponderTest extends TestCase
+class TransferFundsFormResponderTest extends TestCase
 {
     /** @test */
     function it_should_build_a_response_to_show_the_transfer_form()
@@ -40,7 +41,7 @@ class TransferFundsResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $responder->transferFundsFormResponse(Identifier::fromString('abc'));
+        $responder->respondEnterTransferInformation(Identifier::fromString('abc'));
 
         $this->assertEquals(200, $responder->response()->getStatusCode());
     }
@@ -74,7 +75,7 @@ class TransferFundsResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $responder->transferCompletedResponse($result);
+        $responder->respondTransferCompleted($result);
 
         $this->assertEquals(200, $responder->response()->getStatusCode());
     }
@@ -111,7 +112,7 @@ class TransferFundsResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $responder->invalidTransferInputResponse(
+        $responder->respondInvalidTransferInput(
             $messages = [],
             $values = [],
             $fromMemberId = 'xyz'

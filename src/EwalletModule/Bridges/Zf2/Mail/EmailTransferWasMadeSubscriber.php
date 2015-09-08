@@ -8,7 +8,7 @@ namespace EwalletModule\Bridges\Zf2\Mail;
 
 use Ewallet\Accounts\Members;
 use Ewallet\Accounts\TransferWasMade;
-use EwalletModule\Controllers\TemplateEngine;
+use EwalletModule\Responders\Web\TemplateEngine;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSubscriber;
 use Zend\Mail\Message;

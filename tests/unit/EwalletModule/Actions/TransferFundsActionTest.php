@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Controllers;
+namespace EwalletModule\Actions;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
@@ -15,14 +15,14 @@ use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-class TransferFundsControllerTest extends TestCase
+class TransferFundsActionTest extends TestCase
 {
     /** @test */
     function it_should_show_transfer_funds_form()
     {
         $responder = Mockery::mock(TransferFundsFormResponder::class);
         $responder
-            ->shouldReceive('transferFundsFormResponse')
+            ->shouldReceive('respondEnterTransferInformation')
             ->once()
         ;
         $responder
@@ -31,7 +31,7 @@ class TransferFundsControllerTest extends TestCase
             ->andReturn(Mockery::type(ResponseInterface::class))
         ;
 
-        $controller = new TransferFundsController($responder);
+        $controller = new TransferFundsAction($responder);
 
         $controller->showForm(Identifier::fromString('abc'));
     }
@@ -69,7 +69,7 @@ class TransferFundsControllerTest extends TestCase
             ])
         ;
 
-        $controller = new TransferFundsController($responder, $useCase);
+        $controller = new TransferFundsAction($responder, $useCase);
 
         $controller->transfer($request);
     }

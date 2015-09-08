@@ -4,24 +4,24 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Controllers;
+namespace EwalletModule\Responders;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResponse;
 
-interface TransferFundsResponder
+interface TransferFundsWebResponder
 {
     /**
      * @param TransferFundsResponse $result
      */
-    public function transferCompletedResponse(TransferFundsResponse $result);
+    public function respondTransferCompleted(TransferFundsResponse $result);
 
     /**
      * @param array $messages
      * @param array $values
      * @param string $fromMemberId
      */
-    public function invalidTransferInputResponse(
+    public function respondInvalidTransferInput(
         array $messages,
         array $values,
         $fromMemberId
@@ -30,5 +30,10 @@ interface TransferFundsResponder
     /**
      * @param Identifier $fromMemberId
      */
-    public function transferFundsFormResponse(Identifier $fromMemberId);
+    public function respondEnterTransferInformation(Identifier $fromMemberId);
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function response();
 }

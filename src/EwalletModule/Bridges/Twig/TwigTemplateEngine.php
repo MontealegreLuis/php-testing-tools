@@ -6,7 +6,7 @@
  */
 namespace EwalletModule\Bridges\Twig;
 
-use EwalletModule\Controllers\TemplateEngine;
+use EwalletModule\Responders\Web\TemplateEngine;
 use Twig_Environment as Twig;
 
 class TwigTemplateEngine implements TemplateEngine

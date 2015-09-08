@@ -8,11 +8,11 @@ namespace EwalletModule\Bridges\EasyForms;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResponse;
-use EwalletModule\Controllers\ResponseFactory;
-use EwalletModule\Controllers\TemplateEngine;
-use EwalletModule\Controllers\TransferFundsResponder;
+use EwalletModule\Responders\Web\ResponseFactory;
+use EwalletModule\Responders\Web\TemplateEngine;
+use EwalletModule\Responders\TransferFundsWebResponder;
 
-class TransferFundsFormResponder implements TransferFundsResponder
+class TransferFundsFormResponder implements TransferFundsWebResponder
 {
     /** @var ResponseFactory */
     private $factory;
@@ -51,7 +51,7 @@ class TransferFundsFormResponder implements TransferFundsResponder
      * @param TransferFundsResponse $result
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function transferCompletedResponse(TransferFundsResponse $result)
+    public function respondTransferCompleted(TransferFundsResponse $result)
     {
         $this->form->configure($this->configuration, $result->fromMember()->id());
 
@@ -70,20 +70,20 @@ class TransferFundsFormResponder implements TransferFundsResponder
      * @param string $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function invalidTransferInputResponse(
+    public function respondInvalidTransferInput(
         array $messages, array $values, $fromMemberId
     ) {
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
-        $this->transferFundsFormResponse(Identifier::fromString($fromMemberId));
+        $this->respondEnterTransferInformation(Identifier::fromString($fromMemberId));
     }
 
     /**
      * @param Identifier $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function transferFundsFormResponse(Identifier $fromMemberId)
+    public function respondEnterTransferInformation(Identifier $fromMemberId)
     {
         $this->form->configure($this->configuration, $fromMemberId);
 

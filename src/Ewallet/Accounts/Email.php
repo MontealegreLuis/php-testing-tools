@@ -8,13 +8,16 @@ namespace Ewallet\Accounts;
 
 use Assert\Assertion;
 
+/**
+ * All members are notified of its transactions via e-mail
+ */
 class Email
 {
     /** @var string */
     private $address;
 
     /**
-     * @param string $address
+     * @param string $address A valid e-mail address
      */
     public function __construct($address)
     {
@@ -22,6 +25,8 @@ class Email
     }
 
     /**
+     * The address is validated before setting it
+     *
      * @param $address
      */
     protected function setAddress($address)

@@ -8,6 +8,9 @@ namespace Ewallet\Accounts;
 
 use RuntimeException;
 
+/**
+ * This exception is thrown to prevent a member to overdraw her account
+ */
 class InsufficientFunds extends RuntimeException
 {
 }

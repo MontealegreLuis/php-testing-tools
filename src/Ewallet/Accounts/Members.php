@@ -6,6 +6,9 @@
  */
 namespace Ewallet\Accounts;
 
+/**
+ * Handle the persistence of members information
+ */
 interface Members
 {
     /**

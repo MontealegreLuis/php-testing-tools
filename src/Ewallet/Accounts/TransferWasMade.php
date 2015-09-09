@@ -10,6 +10,9 @@ use DateTime;
 use Hexagonal\DomainEvents\Event;
 use Money\Money;
 
+/**
+ * This event is triggered every time a funds transfer is completed successfully
+ */
 class TransferWasMade implements Event
 {
     /** @var DateTime */

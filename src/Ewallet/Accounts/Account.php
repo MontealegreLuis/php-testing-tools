@@ -8,6 +8,9 @@ namespace Ewallet\Accounts;
 
 use Money\Money;
 
+/**
+ * Every member has an account with an initial balance.
+ */
 class Account
 {
     /** @var Money */
@@ -22,6 +25,8 @@ class Account
     }
 
     /**
+     * Accounts can only be created with a given initial amount
+     *
      * @param Money $amount
      * @return Account
      */
@@ -31,14 +36,16 @@ class Account
     }
 
     /**
-     * @return Money
+     * @return AccountInformation
      */
-    public function balance()
+    public function information()
     {
-        return $this->balance;
+        return new AccountInformation($this->balance);
     }
 
     /**
+     * Increase this account current balance
+     *
      * @param Money $amount
      */
     public function deposit(Money $amount)
@@ -47,8 +54,11 @@ class Account
     }
 
     /**
+     * Decrease this account current balance
+     *
      * @param Money $amount
      * @throws InsufficientFunds
+     *     A member cannot withdraw more than it's account current balance
      */
     public function withdraw(Money $amount)
     {

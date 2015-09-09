@@ -8,6 +8,9 @@ namespace Ewallet\Accounts;
 
 use Assert\Assertion;
 
+/**
+ * All members have a unique identifier
+ */
 class Identifier
 {
     /** @var string */
@@ -33,6 +36,8 @@ class Identifier
     }
 
     /**
+     * Identifiers are non-empty strings
+     *
      * @param string $id
      * @return Identifier
      */
@@ -42,6 +47,8 @@ class Identifier
     }
 
     /**
+     * Generates a random identifier using `uniqid` function
+     *
      * @return Identifier
      */
     public static function any()

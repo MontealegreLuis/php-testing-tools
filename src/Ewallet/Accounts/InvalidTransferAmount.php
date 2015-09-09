@@ -8,6 +8,9 @@ namespace Ewallet\Accounts;
 
 use RuntimeException;
 
+/**
+ * This exception is thrown when a member tries to transfer a negative amount.
+ */
 class InvalidTransferAmount extends RuntimeException
 {
 }

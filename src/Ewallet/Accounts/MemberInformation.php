@@ -6,6 +6,9 @@
  */
 namespace Ewallet\Accounts;
 
+/**
+ * This class enables access to a member information
+ */
 class MemberInformation
 {
     /** @var Identifier */
@@ -17,7 +20,7 @@ class MemberInformation
     /** @var Email */
     private $email;
 
-    /** @var Account */
+    /** @var AccountInformation */
     private $account;
 
     /**
@@ -35,7 +38,7 @@ class MemberInformation
         $this->memberId = $memberId;
         $this->name = $name;
         $this->email = $email;
-        $this->account = $account;
+        $this->account = $account->information();
     }
 
 

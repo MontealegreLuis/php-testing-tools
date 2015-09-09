@@ -11,6 +11,9 @@ use Hexagonal\DomainEvents\CanRecordEvents;
 use Hexagonal\DomainEvents\RecordsEvents;
 use Money\Money;
 
+/**
+ * Members can transfer money to each other's accounts
+ */
 class Member implements CanRecordEvents
 {
     use RecordsEvents;
@@ -46,6 +49,8 @@ class Member implements CanRecordEvents
     }
 
     /**
+     * A name cannot be empty
+     *
      * @param string $name
      */
     protected function setName($name)
@@ -57,6 +62,8 @@ class Member implements CanRecordEvents
     }
 
     /**
+     * All members have an account with an initial balance
+     *
      * @param Identifier $id
      * @param string $name
      * @param Email $email
@@ -86,6 +93,8 @@ class Member implements CanRecordEvents
     }
 
     /**
+     * Transfer a given amount to a specific member
+     *
      * @param Money $amount
      * @param Member $toMember
      */
@@ -99,7 +108,11 @@ class Member implements CanRecordEvents
     }
 
     /**
+     * Deposit the given amount to the beneficiary's account
+     *
      * @param Money $amount
+     * @throws InvalidTransferAmount
+     *     A member cannot transfer a negative amount to another member
      */
     protected function applyDeposit(Money $amount)
     {

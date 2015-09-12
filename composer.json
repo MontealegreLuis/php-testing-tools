@@ -32,7 +32,8 @@
         "monolog/monolog": "^1.16",
         "symfony/console": "^2.7",
         "pimple/pimple": "^3.0",
-        "zendframework/zend-mail": "^2.5"
+        "zendframework/zend-mail": "^2.5",
+        "vlucas/phpdotenv": "^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.0",

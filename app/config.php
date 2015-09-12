@@ -9,7 +9,7 @@ return [
         'mapping_dirs' => [
             __DIR__ . '/../src/Ewallet/Bridges/Doctrine2/Resources/config',
         ],
-        'dev_mode' => true,
+        'dev_mode' => (boolean) getenv('DOCTRINE_DEV_MODE'),
         'proxy_dir' => __DIR__ . '/../var/doctrine/proxies',
         'connection' => [
             'driver' => 'pdo_sqlite',
@@ -22,7 +22,7 @@ return [
     'twig' => [
         'options' => [
             'cache' => __DIR__ . '/../var/cache/twig',
-            'debug' => true,
+            'debug' => (boolean) getenv('TWIG_DEBUG'),
             'strict_variables' => true,
         ],
         'loader_paths' => [],

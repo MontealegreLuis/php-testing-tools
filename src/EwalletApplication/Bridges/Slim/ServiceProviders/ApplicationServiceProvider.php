@@ -12,7 +12,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Slim\Slim;
 
-class MonologServiceProvider implements ServiceProvider
+class ApplicationServiceProvider implements ServiceProvider
 {
     /**
      * @param Slim $app
@@ -23,7 +23,7 @@ class MonologServiceProvider implements ServiceProvider
     public function configure(Slim $app, Resolver $resolver, array $options = [])
     {
         $app->container->singleton(
-            'logger.slim',
+            'slim.logger',
             function () use ($options) {
                 $logger = new Logger($options['monolog']['app']['channel']);
                 $logger->pushHandler(new StreamHandler(

@@ -35,7 +35,7 @@ class TransferFundsCest
         $I->fillField(TransferFundsPage::$amount, 5);
         $I->click(TransferFundsPage::$transfer);
 
-        $I->seeCurrentUrlEquals(TransferFundsPage::$transferPage);
+        $I->seeCurrentUrlMatches('/' . TransferFundsPage::$transferPage . '/');
         $I->seeElement(TransferFundsPage::$successMessage);
     }
 }

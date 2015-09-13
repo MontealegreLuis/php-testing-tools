@@ -22,7 +22,7 @@ class Application extends Slim
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        $container = new SlimContainer(new EwalletWebContainer($options));
+        $container = new SlimContainer(new EwalletWebContainer($options, $this));
         $this->container = $container->merge($this->container);
 
         $resolver = new Resolver();

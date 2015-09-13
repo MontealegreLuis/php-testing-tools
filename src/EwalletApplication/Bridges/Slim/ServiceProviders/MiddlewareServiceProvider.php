@@ -25,7 +25,7 @@ class MiddlewareServiceProvider implements ServiceProvider
             'slim.middleware.request_logging',
             function () use ($app) {
                 return new RequestLoggingMiddleware(
-                    $app->container->get('logger.slim')
+                    $app->container->get('slim.logger')
                 );
             }
         );

@@ -7,12 +7,15 @@
 namespace EwalletApplication\Bridges\Pimple;
 
 use EwalletApplication\Bridges\Slim\Controllers\SlimController;
+use EwalletApplication\Bridges\Twig\RouterExtension;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Bridges\EasyForms\TransferFundsForm;
 use PHPUnit_Framework_TestCase as TestCase;
-use Twig_Environment as Environment;
+use Slim\Environment;
+use Slim\Slim;
+use Twig_Environment as TwigEnvironment;
 use Twig_Loader_Filesystem as Loader;
 
 class EwalletWebContainerTest extends TestCase
@@ -20,11 +23,13 @@ class EwalletWebContainerTest extends TestCase
     /** @test */
     function it_should_create_the_web_application_services()
     {
+        Environment::mock(['REQUEST_METHOD' => 'GET']);
+
         $options = require __DIR__ . '/../../../../../app/config.php';
-        $container = new EwalletWebContainer($options);
+        $container = new EwalletWebContainer($options, new Slim());
 
         $this->assertInstanceOf(
-            Environment::class,
+            TwigEnvironment::class,
             $container['twig.environment']
         );
         $this->assertInstanceOf(
@@ -54,6 +59,14 @@ class EwalletWebContainerTest extends TestCase
         $this->assertInstanceOf(
             TransferFundsInputFilterRequest::class,
             $container['ewallet.transfer_filter_request']
+        );
+        $this->assertInstanceOf(
+            RouterExtension::class,
+            $container['slim.twig_extension']
+        );
+        $this->assertInstanceOf(
+            RouterExtension::class,
+            $container['twig.environment']->getExtension('slim_router')
         );
     }
 }

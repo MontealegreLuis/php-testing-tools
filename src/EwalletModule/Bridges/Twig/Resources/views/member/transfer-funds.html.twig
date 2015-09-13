@@ -22,7 +22,7 @@
         </div>
     {% endif %}
 
-    {{ form_start(form, {'action': '/transfer-funds'}) }}
+    {{ form_start(form, {'action': url_for('transfer_funds')}) }}
 
     {{ element_row(form.toMemberId, {'label': 'Transfer to', 'attr': {'id': 'toMember'}, 'options': {'block': 'members'}}) }}
     {{ element_row(form.amount, {'label': 'Amount', 'attr': {'id': 'amount'}}) }}

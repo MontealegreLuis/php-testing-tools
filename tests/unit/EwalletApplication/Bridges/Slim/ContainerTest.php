@@ -27,7 +27,7 @@ class ContainerTest extends TestCase
 
         $this->assertInstanceOf(
             LoggerInterface::class,
-            $app->container->get('logger.slim')
+            $app->container->get('slim.logger')
         );
         $this->assertInstanceOf(
             RequestLoggingMiddleware::class,

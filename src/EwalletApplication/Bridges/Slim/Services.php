@@ -7,14 +7,14 @@
 namespace EwalletApplication\Bridges\Slim;
 
 use EwalletApplication\Bridges\Slim\ServiceProviders\MiddlewareServiceProvider;
-use EwalletApplication\Bridges\Slim\ServiceProviders\MonologServiceProvider;
+use EwalletApplication\Bridges\Slim\ServiceProviders\ApplicationServiceProvider;
 
 class Services extends \ComPHPPuebla\Slim\Services
 {
     public function init()
     {
         $this
-            ->add(new MonologServiceProvider())
+            ->add(new ApplicationServiceProvider())
             ->add(new MiddlewareServiceProvider())
         ;
     }

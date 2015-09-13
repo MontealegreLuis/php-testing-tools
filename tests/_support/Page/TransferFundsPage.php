@@ -8,8 +8,8 @@ namespace Page;
 
 class TransferFundsPage
 {
-    public static $formPage = '/transfer-form';
-    public static $transferPage = '/transfer-funds';
+    public static $formPage = 'transfer-form';
+    public static $transferPage = 'transfer-funds';
     public static $toMember = 'Transfer to';
     public static $amount = 'Amount';
     public static $transfer = 'Transfer';

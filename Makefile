@@ -9,4 +9,6 @@ install:
 	@npm install
 	@echo "Setup database..."
 	@bin/doctrine orm:schema-tool:create
+	@echo "Configuring environment variables for development..."
+	@cp .env.dist .env
 	@echo "Done!"

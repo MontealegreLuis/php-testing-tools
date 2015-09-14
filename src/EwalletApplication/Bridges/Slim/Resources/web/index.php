@@ -6,10 +6,12 @@
  */
 require __DIR__ . '/../../../../../../vendor/autoload.php';
 
-$dotenv = new \Dotenv\Dotenv(__DIR__ . '/../../../../../../');
-$dotenv->load();
+$validator = new \Dotenv\Validator(
+    ['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG',],
+    new \Dotenv\Loader(null)
+);
 
-$options = require __DIR__ . '/../../../../../../app/config.php';
-
-$app = new \EwalletApplication\Bridges\Slim\Application($options);
+$app = new \EwalletApplication\Bridges\Slim\Application(
+    require __DIR__ . '/../../../../../../app/config.php'
+);
 $app->run();

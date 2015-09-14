@@ -6,8 +6,9 @@
  */
 require __DIR__ . '/../../../../../../vendor/autoload.php';
 
-$dotEnv = new \Dotenv\Dotenv(__DIR__ . '/../../../../../../');
-$dotEnv->load();
+$environment = new \Dotenv\Dotenv(__DIR__ . '/../../../../../../');
+$environment->load();
+$environment->required(['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG',]);
 
 $app = new \EwalletApplication\Bridges\Slim\Application(
     require __DIR__ . '/../../../../../../app/config.php'

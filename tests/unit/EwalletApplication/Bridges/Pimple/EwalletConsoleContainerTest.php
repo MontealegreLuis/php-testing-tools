@@ -7,6 +7,7 @@
 namespace EwalletApplication\Bridges\Pimple;
 
 use Doctrine\ORM\EntityManager;
+use Dotenv\Dotenv;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
@@ -21,7 +22,9 @@ class EwalletConsoleContainerTest extends TestCase
     /** @test */
     function it_should_create_the_console_application_services()
     {
-        $options = require __DIR__ . '/../../../../../app/config.php';
+        $environment = new Dotenv(__DIR__ . '/../../../../../');
+        $environment->load();
+        $options = require __DIR__ . '/../../../../../app/config_dev.php';
         $container = new EwalletConsoleContainer($options);
 
         $this->assertInstanceOf(

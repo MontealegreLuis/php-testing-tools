@@ -7,7 +7,7 @@
 require __DIR__ . '/../../../../../../vendor/autoload.php';
 
 $validator = new \Dotenv\Validator(
-    ['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG',],
+    ['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'],
     new \Dotenv\Loader(null)
 );
 

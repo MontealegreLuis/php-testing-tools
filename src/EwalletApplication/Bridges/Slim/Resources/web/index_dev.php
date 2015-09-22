@@ -11,6 +11,6 @@ $environment->load();
 $environment->required(['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG',]);
 
 $app = new \EwalletApplication\Bridges\Slim\Application(
-    require __DIR__ . '/../../../../../../app/config.php'
+    require __DIR__ . '/../../../../../../app/config_dev.php'
 );
 $app->run();

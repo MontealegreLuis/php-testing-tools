@@ -11,6 +11,7 @@ use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\Bridges\Twig\TwigTemplateEngine;
 use EwalletModule\Bridges\Zf2\Mail\EmailTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Zf2\Mail\TransportFactory;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\DomainEvents\EventPublisher;
@@ -18,8 +19,6 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Zend\Mail\Transport\File;
-use Zend\Mail\Transport\FileOptions;
 
 class EwalletConsoleServiceProvider implements ServiceProviderInterface
 {
@@ -75,12 +74,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             return new EmailTransferWasMadeSubscriber(
                 $container['ewallet.member_repository'],
                 $container['ewallet.template_engine'],
-                new File(new FileOptions([
-                    'path' => $container['mail']['path'],
-                    'callback'  => function () {
-                        return 'message-' . microtime(true) . '-' . mt_rand() . '.html';
-                    }
-                ]))
+                (new TransportFactory())->buildTransport($container['mail'])
             );
         };
     }

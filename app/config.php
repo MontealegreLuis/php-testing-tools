@@ -41,6 +41,10 @@ return [
         ]
     ],
     'mail' => [
-        'path' => __DIR__ . '/../var/mail',
+        'type' => 'smtp',
+        'options' => [
+            'host' => getenv('SMTP_HOST'),
+            'port' => (integer) getenv('SMTP_PORT'),
+        ],
     ],
 ];

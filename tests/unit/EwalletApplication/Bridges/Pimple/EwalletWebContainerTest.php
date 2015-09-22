@@ -6,6 +6,7 @@
  */
 namespace EwalletApplication\Bridges\Pimple;
 
+use Dotenv\Dotenv;
 use EwalletApplication\Bridges\Slim\Controllers\SlimController;
 use EwalletApplication\Bridges\Twig\RouterExtension;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
@@ -24,8 +25,9 @@ class EwalletWebContainerTest extends TestCase
     function it_should_create_the_web_application_services()
     {
         Environment::mock(['REQUEST_METHOD' => 'GET']);
-
-        $options = require __DIR__ . '/../../../../../app/config.php';
+        $environment = new Dotenv(__DIR__ . '/../../../../../');
+        $environment->load();
+        $options = require __DIR__ . '/../../../../../app/config_dev.php';
         $container = new EwalletWebContainer($options, new Slim());
 
         $this->assertInstanceOf(

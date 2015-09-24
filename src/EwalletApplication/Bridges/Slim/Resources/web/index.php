@@ -6,12 +6,16 @@
  */
 require __DIR__ . '/../../../../../../vendor/autoload.php';
 
-$validator = new \Dotenv\Validator(
+use EwalletApplication\Bridges\Slim\Application;
+use Dotenv\Loader;
+use Dotenv\Validator;
+
+$validator = new Validator(
     ['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'],
-    new \Dotenv\Loader(null)
+    new Loader(null)
 );
 
-$app = new \EwalletApplication\Bridges\Slim\Application(
+$app = new Application(
     require __DIR__ . '/../../../../../../app/config.php'
 );
 $app->run();

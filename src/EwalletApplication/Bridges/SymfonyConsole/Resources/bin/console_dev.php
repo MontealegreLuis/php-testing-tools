@@ -6,14 +6,17 @@
  */
 require __DIR__ . '/../../../../../../vendor/autoload.php';
 
+use EwalletApplication\Bridges\Pimple\EwalletConsoleContainer;
+use EwalletApplication\Bridges\SymfonyConsole\EwalletApplication;
 use Dotenv\Dotenv;
-use EwalletApplication\Bridges\Slim\Application;
 
 $environment = new Dotenv(__DIR__ . '/../../../../../../');
 $environment->load();
-$environment->required(['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG']);
+$environment->required([
+    'APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG'
+]);
 
-$app = new Application(
+$application = new EwalletApplication(new EwalletConsoleContainer(
     require __DIR__ . '/../../../../../../app/config_dev.php'
-);
-$app->run();
+));
+$application->run();

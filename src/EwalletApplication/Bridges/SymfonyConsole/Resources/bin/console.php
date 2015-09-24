@@ -8,9 +8,15 @@ require __DIR__ . '/../../../../../../vendor/autoload.php';
 
 use EwalletApplication\Bridges\Pimple\EwalletConsoleContainer;
 use EwalletApplication\Bridges\SymfonyConsole\EwalletApplication;
+use Dotenv\Dotenv;
 
-$options = require __DIR__ . '/../../../../../../app/config.php';
-$container = new EwalletConsoleContainer($options);
+$environment = new Dotenv(__DIR__ . '/../../../../../../');
+$environment->load();
+$environment->required([
+    'APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'
+]);
 
-$application = new EwalletApplication($container);
+$application = new EwalletApplication(new EwalletConsoleContainer(
+    require __DIR__ . '/../../../../../../app/config.php'
+));
 $application->run();

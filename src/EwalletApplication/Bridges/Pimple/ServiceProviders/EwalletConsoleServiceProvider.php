@@ -6,6 +6,7 @@
  */
 namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
+use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
@@ -17,6 +18,8 @@ use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\DomainEvents\EventPublisher;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Twig_Loader_Filesystem as Loader;
+use Twig_Environment as Environment;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -77,5 +80,26 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
                 (new TransportFactory())->buildTransport($container['mail'])
             );
         };
+        $container['ewallet.twig.extension'] = function () {
+            return new EwalletExtension(new MemberFormatter());
+        };
+        $container->extend(
+            'twig.loader',
+            function (Loader $loader) {
+                $loader->addPath(
+                    __DIR__ . '/../../../../EwalletModule/Bridges/Twig/Resources/views'
+                );
+
+                return $loader;
+            }
+        );
+        $container->extend(
+            'twig.environment',
+            function (Environment $twig) use ($container) {
+                $twig->addExtension($container['ewallet.twig.extension']);
+
+                return $twig;
+            }
+        );
     }
 }

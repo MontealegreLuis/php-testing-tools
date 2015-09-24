@@ -14,7 +14,7 @@ before_script:
   - npm install
   - cp .env.dist .env
   - bin/doctrine orm:schema-tool:create
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then wget https://github.com/digitalkaoz/typehint-to-docblock/releases/download/0.2.2/typehint-to-docblock.phar && php typehint-to-docblock.phar transform spec; fi;'
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then wget https://github.com/digitalkaoz/typehint-to-docblock/releases/download/0.2.2/typehint-to-docblock.phar && php typehint-to-docblock.phar transform tests/specs; fi;'
 
 script:
   - bin/phpspec run -v

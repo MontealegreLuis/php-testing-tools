@@ -13,7 +13,7 @@ use Dotenv\Dotenv;
 $environment = new Dotenv(__DIR__ . '/../../../../../../');
 $environment->load();
 $environment->required([
-    'APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'
+    'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'
 ]);
 
 $application = new EwalletApplication(new EwalletConsoleContainer(

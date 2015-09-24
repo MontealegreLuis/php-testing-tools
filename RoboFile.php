@@ -87,7 +87,7 @@ class RoboFile extends \Robo\Tasks
     public function console($ewalletCommand, array $args)
     {
         $console = $this->taskExec(
-            'src/EwalletApplication/Bridges/SymfonyConsole/Resources/bin/console'
+            'src/EwalletApplication/Bridges/SymfonyConsole/Resources/bin/console_dev'
         );
 
         $console->arg($ewalletCommand);

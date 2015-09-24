@@ -11,7 +11,7 @@ use Dotenv\Loader;
 use Dotenv\Validator;
 
 $validator = new Validator(
-    ['APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'],
+    ['DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'],
     new Loader(null)
 );
 

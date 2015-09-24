@@ -12,9 +12,7 @@ use Dotenv\Dotenv;
 
 $environment = new Dotenv(__DIR__ . '/../../../../../../');
 $environment->load();
-$environment->required([
-    'APP_ENV', 'DOCTRINE_DEV_MODE', 'TWIG_DEBUG'
-]);
+$environment->required(['DOCTRINE_DEV_MODE', 'TWIG_DEBUG']);
 
 $application = new EwalletApplication(new EwalletConsoleContainer(
     require __DIR__ . '/../../../../../../app/config_dev.php'

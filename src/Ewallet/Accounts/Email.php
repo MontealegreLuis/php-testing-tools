@@ -31,7 +31,7 @@ class Email
      */
     protected function setAddress($address)
     {
-        Assertion::email($address);
+        Assertion::email($address, "{$address} is not a valid email address");
         $this->address = $address;
     }
 

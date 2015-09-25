@@ -21,7 +21,7 @@ class Identifier
      */
     private function __construct($id)
     {
-        $this->setId($id);
+        $this->setId(trim($id));
     }
 
     /**
@@ -29,8 +29,8 @@ class Identifier
      */
     private function setId($id)
     {
-        Assertion::string($id);
-        Assertion::notEmpty($id);
+        Assertion::string($id, "Identifiers should be strings");
+        Assertion::notEmpty($id, "An identifier cannot be empty");
 
         $this->id = $id;
     }

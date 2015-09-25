@@ -8,7 +8,6 @@ namespace specs\Ewallet\Accounts;
 
 use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Identifier;
-use PhpSpec\Exception\Example\ExampleException;
 use PhpSpec\ObjectBehavior;
 
 class IdentifierSpec extends ObjectBehavior
@@ -19,7 +18,7 @@ class IdentifierSpec extends ObjectBehavior
         $this->__toString()->shouldBe('abcd');
     }
 
-    function it_should_be_created_using_any_non_empty_value()
+    function it_should_be_created_randomly_using_any_non_empty_value()
     {
         $this->beConstructedThrough('any', []);
         $this->__toString()->shouldNotBe('');
@@ -28,11 +27,10 @@ class IdentifierSpec extends ObjectBehavior
     function it_should_not_be_created_from_an_empty_string()
     {
         $this->beConstructedThrough('fromString', ['']);
-        try {
-            $this->getWrappedObject();
-            throw new ExampleException('Expected exception was not thrown');
-        }
-        catch(InvalidArgumentException $e) {}
+        $this
+            ->shouldThrow(InvalidArgumentException::class)
+            ->duringInstantiation()
+        ;
     }
 
     function it_should_know_when_it_is_equal_to_another_id()

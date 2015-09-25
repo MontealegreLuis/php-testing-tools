@@ -11,14 +11,13 @@ use PhpSpec\ObjectBehavior;
 
 class EmailSpec extends ObjectBehavior
 {
-    function it_is_should_throw_exception_if_invalid_email_is_provided()
+    function it_should_throw_exception_if_an_invalid_email_address_is_provided()
     {
         $this->beConstructedWith('invalid email address');
-        try {
-            $this->getWrappedObject();
-            throw new ExampleException('Expected exception was not thrown');
-        }
-        catch(InvalidArgumentException $e) {}
+        $this
+            ->shouldThrow(InvalidArgumentException::class)
+            ->duringInstantiation()
+        ;
     }
 
     function it_should_be_casted_to_string()

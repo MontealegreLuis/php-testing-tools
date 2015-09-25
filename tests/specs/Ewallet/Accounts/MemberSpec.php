@@ -57,11 +57,6 @@ class MemberSpec extends ObjectBehavior
         $this->information()->accountBalance()->shouldAmount(2500);
     }
 
-    function it_should_be_recognizable_by_its_id()
-    {
-        $this->information()->id()->equals(Identifier::fromString(self::A_VALID_ID))->shouldBe(true);
-    }
-
     function it_should_not_allow_an_empty_name()
     {
         $this->beConstructedThrough('withAccountBalance', [
@@ -70,11 +65,10 @@ class MemberSpec extends ObjectBehavior
             new Email(self::A_VALID_EMAIL),
             Money::MXN(self::A_VALID_AMOUNT)
         ]);
-        try {
-            $this->getWrappedObject();
-            throw new ExampleException('Expected exception was not thrown');
-        }
-        catch(InvalidArgumentException $e) {}
+        $this
+            ->shouldThrow(InvalidArgumentException::class)
+            ->duringInstantiation()
+        ;
     }
 
     function it_should_not_allow_to_transfer_a_negative_amount()

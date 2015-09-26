@@ -124,4 +124,13 @@ class Member implements CanRecordEvents
 
         $this->account->deposit($amount);
     }
+
+    /**
+     * @param Member $member
+     * @return bool
+     */
+    public function equals(Member $member)
+    {
+        return $this->memberId->equals($member->memberId);
+    }
 }

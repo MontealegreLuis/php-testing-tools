@@ -89,4 +89,18 @@ class MemberSpec extends ObjectBehavior
 
         $this->events()->count()->shouldBe(1);
     }
+
+    function it_should_know_when_another_member_is_equal_to_it()
+    {
+        $sameMember = MembersBuilder::aMember()->withId(self::A_VALID_ID)->build();
+
+        $this->equals($sameMember)->shouldBe(true);
+    }
+
+    function it_should_know_when_another_member_is_not_equal_to_it()
+    {
+        $sameMember = MembersBuilder::aMember()->withId('xyz')->build();
+
+        $this->equals($sameMember)->shouldBe(false);
+    }
 }

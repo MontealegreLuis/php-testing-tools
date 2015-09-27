@@ -7,20 +7,21 @@
 namespace EwalletModule\Actions;
 
 use Ewallet\Accounts\Identifier;
+use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsRequest;
-use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
+use Ewallet\Wallet\TransferFundsResponse;
+use EwalletModule\Responders\TransferFundsWebResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
-use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Response;
 
 class TransferFundsActionTest extends TestCase
 {
     /** @test */
     function it_should_show_transfer_funds_form()
     {
-        $responder = Mockery::mock(TransferFundsFormResponder::class);
+        $responder = Mockery::mock(TransferFundsWebResponder::class);
         $responder
             ->shouldReceive('respondEnterTransferInformation')
             ->once()
@@ -28,33 +29,36 @@ class TransferFundsActionTest extends TestCase
         $responder
             ->shouldReceive('response')
             ->once()
-            ->andReturn(Mockery::type(ResponseInterface::class))
+            ->andReturn(new Response())
         ;
 
         $controller = new TransferFundsAction($responder);
 
-        $controller->showForm(Identifier::fromString('abc'));
+        $response = $controller->showForm(Identifier::any());
+
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     /** @test */
     function it_should_transfer_funds_from_one_member_to_another()
     {
-        $responder = Mockery::mock(TransferFundsFormResponder::class);
+        $responder = Mockery::mock(TransferFundsWebResponder::class);
+        $responder
+            ->shouldReceive('respondTransferCompleted')
+            ->once()
+            ->with(Mockery::type(TransferFundsResponse::class))
+        ;
         $responder
             ->shouldReceive('response')
             ->once()
+            ->andReturn(new Response())
         ;
-        $useCase = Mockery::mock(TransferFunds::class);
-        $useCase
-            ->shouldReceive('transfer')
-            ->once()
-            ->with(Mockery::type(TransferFundsRequest::class))
-        ;
-        $useCase
-            ->shouldReceive('attach')
-            ->once()
-            ->with(Mockery::type(TransferFundsNotifier::class))
-        ;
+        $members = new InMemoryMembers();
+        $members->add(
+            MembersBuilder::aMember()->withId('abc')->withBalance(20000)->build()
+        );
+        $members->add(MembersBuilder::aMember()->withId('xyz')->build());
+        $useCase = new TransferFunds($members);
         $request = Mockery::mock(FilteredRequest::class);
         $request
             ->shouldReceive('isValid')
@@ -71,6 +75,8 @@ class TransferFundsActionTest extends TestCase
 
         $controller = new TransferFundsAction($responder, $useCase);
 
-        $controller->transfer($request);
+        $response = $controller->transfer($request);
+
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }

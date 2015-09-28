@@ -18,6 +18,8 @@ class MembersHelper implements TransferFundsNotifier
     private $lastEvent;
 
     /**
+     * Record last event triggered
+     *
      * @param TransferFundsResponse $response
      */
     public function transferCompleted(TransferFundsResponse $response)
@@ -25,6 +27,9 @@ class MembersHelper implements TransferFundsNotifier
         $this->lastEvent = self::TRANSFER_COMPLETED;
     }
 
+    /**
+     * Assert that the 'Transfer completed' event is the last event triggered
+     */
     public function assertTransferCompleted()
     {
         Assertion::assertEquals(self::TRANSFER_COMPLETED, $this->lastEvent);

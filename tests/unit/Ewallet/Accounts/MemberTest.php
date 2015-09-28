@@ -8,7 +8,7 @@ namespace Ewallet\Accounts;
 
 use Eris\Generator;
 use Eris\TestTrait;
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -22,9 +22,8 @@ class MemberTest extends TestCase
         $this
             ->forAll(Generator\int(1, 10000))
             ->then(function($amount) {
-                $aMember = MembersBuilder::aMember();
-                $fromMember = $aMember->withBalance(10000)->build();
-                $toMember = MembersBuilder::aMember()->build();
+                $fromMember = A::member()->withBalance(10000)->build();
+                $toMember = A::member()->build();
                 $fromMember->transfer(Money::MXN($amount), $toMember);
                 $currentBalance = $fromMember->information()->accountBalance()->getAmount();
                 $this->assertLessThan(
@@ -42,10 +41,8 @@ class MemberTest extends TestCase
         $this
             ->forAll(Generator\int(1, 10000))
             ->then(function($amount) {
-                $aMember = MembersBuilder::aMember();
-                $fromMember = $aMember->withBalance(10000)->build();
-                $aMember = MembersBuilder::aMember();
-                $toMember = $aMember->withBalance(5000)->build();
+                $fromMember = A::member()->withBalance(10000)->build();
+                $toMember = A::member()->withBalance(5000)->build();
                 $fromMember->transfer(Money::MXN($amount), $toMember);
                 $currentBalance = $toMember->information()->accountBalance()->getAmount();
                 $this->assertGreaterThan(

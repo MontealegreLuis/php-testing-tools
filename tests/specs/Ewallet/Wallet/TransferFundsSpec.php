@@ -10,7 +10,7 @@ use Ewallet\Accounts\Members;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -23,11 +23,8 @@ class TransferFundsSpec extends ObjectBehavior
         Members $members,
         TransferFundsNotifier $notifier
     ) {
-        $member = MembersBuilder::aMember();
-        $fromMember = $member->withBalance(2000)->build();
-
-        $member = MembersBuilder::aMember();
-        $toMember = $member->withBalance(1000)->build();
+        $fromMember = A::member()->withBalance(2000)->build();
+        $toMember = A::member()->withBalance(1000)->build();
 
         $members->with($fromMember->information()->id())->willReturn($fromMember);
         $members->with($toMember->information()->id())->willReturn($toMember);

@@ -14,6 +14,9 @@ use Money\Money;
 
 class MembersBuilder
 {
+    /** @var Factory */
+    private $faker;
+
     /** @var string */
     private $name;
 
@@ -29,21 +32,10 @@ class MembersBuilder
     /**
      * Initialize member's information with fake data
      */
-    private function __construct()
+    public function __construct()
     {
-        $faker = Factory::create();
-        $this->name = $faker->name;
-        $this->email = $faker->email;
-        $this->amount = Money::MXN($faker->numberBetween(0, 10000));
-        $this->id = $faker->uuid;
-    }
-
-    /**
-     * @return MembersBuilder
-     */
-    public static function aMember()
-    {
-        return new self();
+        $this->faker = Factory::create();
+        $this->reset();
     }
 
     /**
@@ -88,11 +80,22 @@ class MembersBuilder
      */
     public function build()
     {
-        return Member::withAccountBalance(
+        $member = Member::withAccountBalance(
             Identifier::fromString($this->id),
             $this->name,
             new Email($this->email),
             $this->amount
         );
+        $this->reset();
+
+        return $member;
+    }
+
+    protected function reset()
+    {
+        $this->name = $this->faker->name;
+        $this->email = $this->faker->email;
+        $this->amount = Money::MXN($this->faker->numberBetween(0, 10000));
+        $this->id = $this->faker->uuid;
     }
 }

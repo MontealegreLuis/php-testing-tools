@@ -7,7 +7,7 @@
 namespace EwalletModule\Actions;
 
 use Ewallet\Accounts\Identifier;
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsResponse;
@@ -54,10 +54,8 @@ class TransferFundsActionTest extends TestCase
             ->andReturn(new Response())
         ;
         $members = new InMemoryMembers();
-        $members->add(
-            MembersBuilder::aMember()->withId('abc')->withBalance(20000)->build()
-        );
-        $members->add(MembersBuilder::aMember()->withId('xyz')->build());
+        $members->add(A::member()->withId('abc')->withBalance(20000)->build());
+        $members->add(A::member()->withId('xyz')->build());
         $useCase = new TransferFunds($members);
         $request = Mockery::mock(FilteredRequest::class);
         $request

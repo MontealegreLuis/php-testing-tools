@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Accounts;
 
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use Ewallet\Bridges\Tests\ProvidesMoneyConstraint;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -30,18 +30,13 @@ abstract class MembersTest extends TestCase
     function generateFixtures()
     {
         $this->members = $this->membersInstance();
-        $builder = MembersBuilder::aMember();
-        $builder
-            ->withId('abcd')
-            ->withBalance(3000)
-        ;
-        $this->existingMember = $builder->build();
+        $this->existingMember = A::member()->withId('abcd')->withBalance(3000)->build();
 
         $this->members->add(
-            MembersBuilder::aMember()->withId('wxyz')->withBalance(1000)->build()
+            A::member()->withId('wxyz')->withBalance(1000)->build()
         );
         $this->members->add($this->existingMember);
-        $this->members->add(MembersBuilder::aMember()->withId('hijk')->build());
+        $this->members->add(A::member()->withId('hijk')->build());
     }
 
     /** @test */

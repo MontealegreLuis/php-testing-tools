@@ -8,7 +8,7 @@
  */
 namespace EwalletModule\Bridges\Twig\Extensions;
 
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use EwalletModule\View\MemberFormatter;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -28,10 +28,11 @@ class EwalletExtensionTest extends TestCase
     function it_should_render_a_member()
     {
         $extension = new EwalletExtension(new MemberFormatter());
-        $member = MembersBuilder::aMember()
+        $member = A::member()
             ->withName('Luis Montealegre')
             ->withBalance(255000)
-            ->build();
+            ->build()
+        ;
 
         $this->assertEquals(
             'Luis Montealegre $2,550.00 MXN',

@@ -10,7 +10,7 @@ use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Email;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\InvalidTransferAmount;
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
@@ -41,16 +41,14 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_transfer_funds_to_another_member()
     {
-        $toMember = MembersBuilder::aMember()->build();
-
-        $this->transfer(Money::MXN(500), $toMember);
+        $this->transfer(Money::MXN(500), A::member()->build());
 
         $this->information()->accountBalance()->shouldAmount(1500);
     }
 
     function it_should_receive_funds_from_another_member()
     {
-        $fromMember = MembersBuilder::aMember()->withBalance(1000)->build();
+        $fromMember = A::member()->withBalance(1000)->build();
 
         $fromMember->transfer(Money::MXN(500), $this->getWrappedObject());
 
@@ -73,34 +71,30 @@ class MemberSpec extends ObjectBehavior
 
     function it_should_not_allow_to_transfer_a_negative_amount()
     {
-        $toMember = MembersBuilder::aMember()->build();
-
         $this
             ->shouldThrow(InvalidTransferAmount::class)
-            ->duringTransfer(Money::MXN(-5000), $toMember)
+            ->duringTransfer(Money::MXN(-5000), A::member()->build())
         ;
     }
 
     function it_should_record_that_a_transfer_was_made()
     {
-        $toMember = MembersBuilder::aMember()->build();
-
-        $this->transfer(Money::MXN(500), $toMember);
+        $this->transfer(Money::MXN(500), A::member()->build());
 
         $this->events()->count()->shouldBe(1);
     }
 
     function it_should_know_when_another_member_is_equal_to_it()
     {
-        $sameMember = MembersBuilder::aMember()->withId(self::A_VALID_ID)->build();
+        $sameMember = A::member()->withId(self::A_VALID_ID)->build();
 
         $this->equals($sameMember)->shouldBe(true);
     }
 
     function it_should_know_when_another_member_is_not_equal_to_it()
     {
-        $sameMember = MembersBuilder::aMember()->withId('xyz')->build();
+        $aDifferentMember = A::member()->withId('xyz')->build();
 
-        $this->equals($sameMember)->shouldBe(false);
+        $this->equals($aDifferentMember)->shouldBe(false);
     }
 }

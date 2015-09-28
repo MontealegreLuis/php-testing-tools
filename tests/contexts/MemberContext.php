@@ -7,7 +7,7 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Bridges\Tests\MembersBuilder;
+use Ewallet\Bridges\Tests\A;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsRequest;
@@ -44,13 +44,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iHaveAnAccountBalanceOfMxn($amount)
     {
-        $member = MembersBuilder::aMember();
-        $member
-            ->withId('abc')
-            ->withBalance($amount)
-            ->build()
-        ;
-        $me = $member->build();
+        $me = A::member()->withId('abc')->withBalance($amount)->build();
 
         $this->members->add($me);
     }
@@ -60,13 +54,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendHasAnAccountBalanceOfMxn($amount)
     {
-        $member = MembersBuilder::aMember();
-        $member
-            ->withId('xyz')
-            ->withBalance($amount)
-            ->build()
-        ;
-        $myFriend = $member->build();
+        $myFriend = A::member()->withId('xyz')->withBalance($amount)->build();
 
         $this->members->add($myFriend);
     }

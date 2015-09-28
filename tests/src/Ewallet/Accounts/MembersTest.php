@@ -7,13 +7,13 @@
 namespace Ewallet\Accounts;
 
 use Ewallet\Bridges\Tests\A;
-use Ewallet\Bridges\Tests\ProvidesMoneyConstraint;
+use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class MembersTest extends TestCase
 {
-    use ProvidesMoneyConstraint;
+    use ProvidesMoneyConstraints;
 
     /** @var Members */
     protected $members;
@@ -67,7 +67,7 @@ abstract class MembersTest extends TestCase
 
         $this->assertBalanceAmounts(
             3500,
-            $this->existingMember->information()->accountBalance(),
+            $this->existingMember,
             "Current member balance should be 3500"
         );
     }

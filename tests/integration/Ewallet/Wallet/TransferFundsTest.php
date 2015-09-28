@@ -9,14 +9,14 @@ namespace Ewallet\Wallet;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
-use Ewallet\Bridges\Tests\ProvidesMoneyConstraint;
+use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class TransferFundsTest extends TestCase
 {
-    use ProvidesDoctrineSetup, ProvidesMoneyConstraint;
+    use ProvidesDoctrineSetup, ProvidesMoneyConstraints;
 
     public function setUp()
     {
@@ -50,9 +50,9 @@ class TransferFundsTest extends TestCase
         ]));
 
         $fromMember = $members->with($request->fromMemberId());
-        $this->assertBalanceAmounts(700, $fromMember->information()->accountBalance());
+        $this->assertBalanceAmounts(700, $fromMember);
 
         $toMember = $members->with($request->toMemberId());
-        $this->assertBalanceAmounts(1300, $toMember->information()->accountBalance());
+        $this->assertBalanceAmounts(1300, $toMember);
     }
 }

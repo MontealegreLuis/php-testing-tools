@@ -4,12 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Tests;
+namespace Ewallet\Bridges\Tests\Money;
 
 use Money\Money;
 use PHPUnit_Framework_Constraint as Constraint;
 
-class MoneyConstraint extends Constraint
+class ExactAmountConstraint extends Constraint
 {
     /** @var integer */
     private $amountExpected;
@@ -24,6 +24,9 @@ class MoneyConstraint extends Constraint
     }
 
     /**
+     * Returns true only if the amount of provided `Money` object is equal to
+     * the expected one
+     *
      * @param mixed $other
      * @return boolean
      */
@@ -40,6 +43,6 @@ class MoneyConstraint extends Constraint
      */
     public function toString()
     {
-        return 'has the correct amount';
+        return "has the correct amount, expecting {$this->amountExpected}";
     }
 }

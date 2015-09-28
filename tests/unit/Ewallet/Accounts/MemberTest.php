@@ -9,12 +9,13 @@ namespace Ewallet\Accounts;
 use Eris\Generator;
 use Eris\TestTrait;
 use Ewallet\Bridges\Tests\A;
+use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class MemberTest extends TestCase
 {
-    use TestTrait;
+    use TestTrait, ProvidesMoneyConstraints;
 
     /** @test */
     function giver_balance_should_decrease_after_funds_have_been_transferred()
@@ -24,12 +25,13 @@ class MemberTest extends TestCase
             ->then(function($amount) {
                 $fromMember = A::member()->withBalance(10000)->build();
                 $toMember = A::member()->build();
+
                 $fromMember->transfer(Money::MXN($amount), $toMember);
-                $currentBalance = $fromMember->information()->accountBalance()->getAmount();
-                $this->assertLessThan(
+
+                $this->assertBalanceIsLowerThan(
                     10000,
-                    $currentBalance,
-                    "{$currentBalance} > 10000, {$amount} transferred"
+                    $fromMember,
+                    "Transferring {$amount} increased balance of sender member"
                 );
             });
         ;
@@ -43,12 +45,13 @@ class MemberTest extends TestCase
             ->then(function($amount) {
                 $fromMember = A::member()->withBalance(10000)->build();
                 $toMember = A::member()->withBalance(5000)->build();
+
                 $fromMember->transfer(Money::MXN($amount), $toMember);
-                $currentBalance = $toMember->information()->accountBalance()->getAmount();
-                $this->assertGreaterThan(
+
+                $this->assertBalanceIsGreaterThan(
                     5000,
-                    $currentBalance,
-                    "{$currentBalance} < 5000, {$amount} transferred"
+                    $toMember,
+                    "Transferring {$amount} increased balance of receiver member"
                 );
             });
         ;

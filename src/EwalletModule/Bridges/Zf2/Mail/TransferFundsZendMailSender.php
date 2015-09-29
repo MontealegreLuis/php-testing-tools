@@ -6,19 +6,16 @@
  */
 namespace EwalletModule\Bridges\Zf2\Mail;
 
-use Ewallet\Accounts\Members;
-use Ewallet\Accounts\TransferWasMade;
+use DateTime;
+use Ewallet\Accounts\MemberInformation;
+use EwalletModule\Actions\EventSubscribers\TransferFundsEmailSender;
 use EwalletModule\Responders\Web\TemplateEngine;
-use Hexagonal\DomainEvents\Event;
-use Hexagonal\DomainEvents\EventSubscriber;
+use Money\Money;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
 
-class EmailTransferWasMadeSubscriber implements EventSubscriber
+class TransferFundsZendMailSender implements TransferFundsEmailSender
 {
-    /** @var Members */
-    private $members;
-
     /** @var TemplateEngine */
     private $template;
 
@@ -26,65 +23,68 @@ class EmailTransferWasMadeSubscriber implements EventSubscriber
     private $mailTransport;
 
     /**
-     * @param Members $members
      * @param TemplateEngine $template
      * @param TransportInterface $mailTransport
      */
     public function __construct(
-        Members $members,
         TemplateEngine $template,
         TransportInterface $mailTransport
     ) {
-        $this->members = $members;
         $this->template = $template;
         $this->mailTransport = $mailTransport;
     }
 
     /**
-     * @param Event $event
-     * @return boolean
+     * @param MemberInformation $fromMember
+     * @param MemberInformation $toMember
+     * @param Money $amount
+     * @param DateTime $occurredOn
      */
-    public function isSubscribedTo(Event $event)
-    {
-        return TransferWasMade::class === get_class($event);
-    }
-
-    /**
-     * @param Event $event
-     * @return boolean
-     */
-    public function handle(Event $event)
-    {
-        $fromMember = $this->members->with($event->fromMemberId());
-        $toMember = $this->members->with($event->toMemberId());
-
+    public function sendFundsTransferredEmail(
+        MemberInformation $fromMember,
+        MemberInformation $toMember,
+        Money $amount,
+        DateTime $occurredOn
+    ) {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
-            ->setTo((string) $fromMember->information()->email())
+            ->setTo($fromMember->email()->address())
             ->setSubject('Funds transfer completed')
             ->setBody($this->template->render('email/transfer.html', [
-                'fromMember' => $fromMember->information(),
-                'toMember' => $toMember->information(),
-                'amount' => $event->amount(),
-                'occurredOn' => $event->occurredOn(),
+                'fromMember' => $fromMember,
+                'toMember' => $toMember,
+                'amount' => $amount,
+                'occurredOn' => $occurredOn,
             ]))
         ;
         $this->mailTransport->send($message);
+    }
 
+    /**
+     * @param MemberInformation $fromMember
+     * @param MemberInformation $toMember
+     * @param Money $amount
+     * @param DateTime $occurredOn
+     */
+    public function sendDepositReceivedEmail(
+        MemberInformation $fromMember,
+        MemberInformation $toMember,
+        Money $amount,
+        DateTime $occurredOn
+    ) {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
-            ->setTo((string) $toMember->information()->email())
+            ->setTo($toMember->email()->address())
             ->setSubject('You have received a deposit')
             ->setBody($this->template->render('email/deposit.html', [
-                'fromMember' => $fromMember->information(),
-                'toMember' => $toMember->information(),
-                'amount' => $event->amount(),
-                'occurredOn' => $event->occurredOn(),
+                'fromMember' => $fromMember,
+                'toMember' => $toMember,
+                'amount' => $amount,
+                'occurredOn' => $occurredOn,
             ]))
         ;
-
         $this->mailTransport->send($message);
     }
 }

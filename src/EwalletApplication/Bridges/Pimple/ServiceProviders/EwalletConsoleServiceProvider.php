@@ -9,9 +9,10 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
+use EwalletModule\Actions\EventSubscribers\EmailTransferWasMadeSubscriber;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\Bridges\Twig\TwigTemplateEngine;
-use EwalletModule\Bridges\Zf2\Mail\EmailTransferWasMadeSubscriber;
+use EwalletModule\Bridges\Zf2\Mail\TransferFundsZendMailSender;
 use EwalletModule\Bridges\Zf2\Mail\TransportFactory;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
@@ -73,11 +74,16 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
 
             return $logger;
         };
+        $container['ewallet.transfer_mail_sender'] = function () use ($container) {
+            return new TransferFundsZendMailSender(
+                $container['ewallet.template_engine'],
+                (new TransportFactory())->buildTransport($container['mail'])
+            );
+        };
         $container['ewallet.transfer_mail_notifier'] = function () use ($container) {
             return new EmailTransferWasMadeSubscriber(
                 $container['ewallet.member_repository'],
-                $container['ewallet.template_engine'],
-                (new TransportFactory())->buildTransport($container['mail'])
+                $container['ewallet.transfer_mail_sender']
             );
         };
         $container['ewallet.twig.extension'] = function () {

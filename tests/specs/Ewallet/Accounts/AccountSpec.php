@@ -19,6 +19,7 @@ class AccountSpec extends ObjectBehavior
     function it_should_be_created_with_a_specific_balance()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
+
         $this->information()->balance()->shouldAmount(3000);
     }
 

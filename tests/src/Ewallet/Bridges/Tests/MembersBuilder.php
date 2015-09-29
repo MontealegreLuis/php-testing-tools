@@ -50,6 +50,17 @@ class MembersBuilder
     }
 
     /**
+     * @param string $email
+     * @return MembersBuilder
+     */
+    public function withEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
      * @param integer|Money $amount
      * @return MembersBuilder
      */

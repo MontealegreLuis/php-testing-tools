@@ -20,9 +20,9 @@ class EmailSpec extends ObjectBehavior
         ;
     }
 
-    function it_should_be_casted_to_string()
+    function it_should_have_access_to_its_address()
     {
         $this->beConstructedWith('montealegreluis@gmail.com');
-        $this->__toString()->shouldBe('montealegreluis@gmail.com');
+        $this->address()->shouldBe('montealegreluis@gmail.com');
     }
 }

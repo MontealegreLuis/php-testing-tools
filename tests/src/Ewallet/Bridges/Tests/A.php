@@ -15,4 +15,12 @@ class A
     {
         return new MembersBuilder();
     }
+
+    /**
+     * @return TransferWasMadeBuilder
+     */
+    public static function transferWasMadeEvent()
+    {
+        return new TransferWasMadeBuilder();
+    }
 }

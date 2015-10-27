@@ -8,6 +8,10 @@ namespace EwalletApplication\Bridges\Slim\ServiceProviders;
 
 use ComPHPPuebla\Slim\Resolver;
 use ComPHPPuebla\Slim\ServiceProvider;
+use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
+use Hexagonal\DomainEvents\PersistEventsSubscriber;
+use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\StoredEventFactory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Slim\Slim;
@@ -31,6 +35,24 @@ class ApplicationServiceProvider implements ServiceProvider
                 ));
 
                 return $logger;
+            }
+        );
+        $app->container->singleton(
+            'ewallet.event_store',
+            function () use ($app) {
+                return $app->container
+                    ->get('doctrine.em')
+                    ->getRepository(StoredEvent::class)
+                ;
+            }
+        );
+        $app->container->singleton(
+            'ewallet.event_persist_subscriber',
+            function () use ($app) {
+                return new PersistEventsSubscriber(
+                    $app->container->get('ewallet.event_store'),
+                    new StoredEventFactory(new JsonSerializer())
+                );
             }
         );
     }

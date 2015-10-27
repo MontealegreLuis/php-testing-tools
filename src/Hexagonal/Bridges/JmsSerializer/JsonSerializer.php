@@ -30,7 +30,7 @@ class JsonSerializer implements EventSerializer
                     'serialization',
                     Currency::class,
                     'json',
-                    function($visitor, Currency $currency, array $type) {
+                    function ($visitor, Currency $currency, array $type) {
                         return $currency->getName();
                     }
                 );
@@ -39,7 +39,7 @@ class JsonSerializer implements EventSerializer
                     'serialization',
                     DateTime::class,
                     'json',
-                    function($visitor, DateTime $dateTime, array $type) {
+                    function ($visitor, DateTime $dateTime, array $type) {
                         return $dateTime->format('Y-m-d H:i:s');
                     }
                 );

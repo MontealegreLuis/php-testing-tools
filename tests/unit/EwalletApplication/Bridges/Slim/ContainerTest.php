@@ -6,32 +6,39 @@
  */
 namespace EwalletApplication\Bridges\Slim;
 
-use ComPHPPuebla\Slim\Resolver;
+use EwalletApplication\Bridges\Slim\Middleware\PersistEventsMiddleware;
 use EwalletApplication\Bridges\Slim\Middleware\RequestLoggingMiddleware;
+use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;
+use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Log\LoggerInterface;
-use Slim\Slim;
 
 class ContainerTest extends TestCase
 {
     /** @test */
     function it_should_create_the_application_services()
     {
-        $app = new Slim();
-        $services = new Services(
-            new Resolver(),
-            require __DIR__ . '/../../../../../app/config.php'
-        );
-
-        $services->configure($app);
+        $app = new Application(require __DIR__ . '/../../../../../app/config.php');
 
         $this->assertInstanceOf(
             LoggerInterface::class,
             $app->container->get('slim.logger')
         );
         $this->assertInstanceOf(
+            EventStoreRepository::class,
+            $app->container->get('ewallet.event_store')
+        );
+        $this->assertInstanceOf(
+            PersistEventsSubscriber::class,
+            $app->container->get('ewallet.event_persist_subscriber')
+        );
+        $this->assertInstanceOf(
             RequestLoggingMiddleware::class,
             $app->container->get('slim.middleware.request_logging')
+        );
+        $this->assertInstanceOf(
+            PersistEventsMiddleware::class,
+            $app->container->get('slim.middleware.persist_events')
         );
     }
 }

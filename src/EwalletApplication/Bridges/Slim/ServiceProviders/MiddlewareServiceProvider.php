@@ -8,6 +8,7 @@ namespace EwalletApplication\Bridges\Slim\ServiceProviders;
 
 use ComPHPPuebla\Slim\Resolver;
 use ComPHPPuebla\Slim\ServiceProvider;
+use EwalletApplication\Bridges\Slim\Middleware\PersistEventsMiddleware;
 use EwalletApplication\Bridges\Slim\Middleware\RequestLoggingMiddleware;
 use Slim\Slim;
 
@@ -26,6 +27,15 @@ class MiddlewareServiceProvider implements ServiceProvider
             function () use ($app) {
                 return new RequestLoggingMiddleware(
                     $app->container->get('slim.logger')
+                );
+            }
+        );
+        $app->container->singleton(
+            'slim.middleware.persist_events',
+            function () use ($app) {
+                return new PersistEventsMiddleware(
+                    $app->container->get('ewallet.event_persist_subscriber'),
+                    $app->container->get('ewallet.events_publisher')
                 );
             }
         );

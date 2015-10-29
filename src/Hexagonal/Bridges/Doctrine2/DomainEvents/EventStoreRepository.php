@@ -7,7 +7,6 @@
 namespace Hexagonal\Bridges\Doctrine2\DomainEvents;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping;
 use Hexagonal\DomainEvents\EventSerializer;
 use Hexagonal\DomainEvents\EventStore;
 use Hexagonal\DomainEvents\StoredEvent;

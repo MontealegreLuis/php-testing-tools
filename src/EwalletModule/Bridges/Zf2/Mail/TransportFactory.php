@@ -6,6 +6,7 @@
  */
 namespace EwalletModule\Bridges\Zf2\Mail;
 
+use InvalidArgumentException;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\File;
 use Zend\Mail\Transport\FileOptions;

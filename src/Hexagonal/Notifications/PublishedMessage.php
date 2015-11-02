@@ -6,8 +6,6 @@
  */
 namespace Hexagonal\Notifications;
 
-use Hexagonal\DomainEvents\StoredEvent;
-
 class PublishedMessage
 {
     /** @var integer */
@@ -21,25 +19,12 @@ class PublishedMessage
 
     /**
      * @param string $exchangeName
-     * @param int $mostRecentMessageId
+     * @param integer $mostRecentMessageId
      */
     public function __construct($exchangeName, $mostRecentMessageId)
     {
         $this->exchangeName = $exchangeName;
         $this->mostRecentMessageId = $mostRecentMessageId;
-    }
-
-    /**
-     * @param StoredEvent $notification
-     * @param string $inExchangeName
-     * @return PublishedMessage
-     */
-    public static function from(StoredEvent $notification, $inExchangeName)
-    {
-        return new PublishedMessage(
-            $inExchangeName,
-            $notification->id()
-        );
     }
 
     /**

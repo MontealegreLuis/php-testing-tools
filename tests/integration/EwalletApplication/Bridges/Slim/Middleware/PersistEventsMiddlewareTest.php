@@ -34,16 +34,20 @@ class PersistEventsMiddlewareTest extends TestCase
     }
 
     /** @test */
-    function it_should_persist_an_event_in_published_inside_an_slim_route()
+    function it_should_persist_an_event_published_inside_an_slim_route()
     {
-        $app = new Slim();
+        /** @var \Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository $store */
         $store = $this->entityManager->getRepository(StoredEvent::class);
-        $factory = new StoredEventFactory(new JsonSerializer());
+
         $publisher = new EventPublisher();
         $middleware = new PersistEventsMiddleware(
-            new PersistEventsSubscriber($store, $factory),
+            new PersistEventsSubscriber(
+                $store, new StoredEventFactory(new JsonSerializer())
+            ),
             $publisher
         );
+
+        $app = new Slim();
         $app->get('/', function() use ($publisher) {
             $events = new SplObjectStorage();
             $events->attach(A::transferWasMadeEvent()->build());
@@ -57,6 +61,6 @@ class PersistEventsMiddlewareTest extends TestCase
 
         $app->run();
 
-        $this->assertCount(1, $store->eventsStoredAfter());
+        $this->assertCount(1, $store->allEvents());
     }
 }

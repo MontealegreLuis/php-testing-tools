@@ -35,18 +35,27 @@ class EventStoreRepository extends EntityRepository implements EventStore
     }
 
     /**
-     * @param integer|null $lastStoredEventId
+     * @param integer $lastStoredEventId
      * @return StoredEvent[]
      */
-    public function eventsStoredAfter($lastStoredEventId = null)
+    public function eventsStoredAfter($lastStoredEventId)
     {
         $query = $this->createQueryBuilder('e');
+        $query
+            ->where('e.id > :eventId')
+            ->setParameter('eventId', $lastStoredEventId)
+            ->orderBy('e.id')
+        ;
 
-        if ($lastStoredEventId) {
-            $query->where('e.id > :eventId');
-            $query->setParameter('eventId', $lastStoredEventId);
-        }
-        $query->orderBy('e.id');
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @return StoredEvent[]
+     */
+    public function allEvents()
+    {
+        $query = $this->createQueryBuilder('e')->orderBy('e.id');
 
         return $query->getQuery()->getResult();
     }

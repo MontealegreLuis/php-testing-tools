@@ -21,5 +21,10 @@ interface EventStore
      * @param $lastStoredEventId
      * @return StoredEvent[]
      */
-    public function eventsStoredAfter($lastStoredEventId = null);
+    public function eventsStoredAfter($lastStoredEventId);
+
+    /**
+     * @return StoredEvent[]
+     */
+    public function allEvents();
 }

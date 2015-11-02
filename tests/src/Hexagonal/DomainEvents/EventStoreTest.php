@@ -6,11 +6,8 @@
  */
 namespace Hexagonal\DomainEvents;
 
-use Ewallet\Accounts\Identifier;
-use Ewallet\Accounts\TransferWasMade;
 use Ewallet\Bridges\Tests\A;
 use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
-use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class EventStoreTest extends TestCase
@@ -42,9 +39,9 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @test */
-    function it_should_retrieve_all_stored_events_if_no_last_event_id_is_provided()
+    function it_should_retrieve_all_stored_events()
     {
-        $events = $this->store->eventsStoredAfter();
+        $events = $this->store->allEvents();
 
         $this->assertCount(4, $events);
     }

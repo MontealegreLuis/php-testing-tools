@@ -6,6 +6,8 @@
  */
 namespace Hexagonal\Notifications;
 
+use Hexagonal\DomainEvents\StoredEvent;
+
 class PublishedMessage
 {
     /** @var integer */
@@ -28,11 +30,32 @@ class PublishedMessage
     }
 
     /**
+     * @param StoredEvent $notification
+     * @param string $inExchangeName
+     * @return PublishedMessage
+     */
+    public static function from(StoredEvent $notification, $inExchangeName)
+    {
+        return new PublishedMessage(
+            $inExchangeName,
+            $notification->id()
+        );
+    }
+
+    /**
      * @return integer
      */
     public function id()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function exchangeName()
+    {
+        return $this->exchangeName;
     }
 
     /**
@@ -49,5 +72,16 @@ class PublishedMessage
     public function updateMostRecentMessageId($mostRecentMessageId)
     {
         $this->mostRecentMessageId = $mostRecentMessageId;
+    }
+
+    /**
+     * 2 messages are equal if they have the same ID
+     *
+     * @param PublishedMessage $message
+     * @return boolean
+     */
+    public function equals(PublishedMessage $message)
+    {
+        return $this->id == $message->id;
     }
 }

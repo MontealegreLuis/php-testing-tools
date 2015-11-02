@@ -62,6 +62,20 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /**
+     * @test
+     * @expectedException \Hexagonal\Notifications\InvalidPublishedMessageToTrack
+     */
+    function it_should_not_allow_more_than_one_last_message_for_each_exchange()
+    {
+        $tracker = $this->messageTracker();
+        $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);
+        $tracker->track($message);
+        // try to track a different message
+        $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);
+        $tracker->track($message);
+    }
+
+    /**
      * @return MessageTracker
      */
     abstract function messageTracker();

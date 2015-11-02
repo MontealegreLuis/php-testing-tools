@@ -9,6 +9,7 @@ namespace Hexagonal\Bridges\Doctrine2\Notifications;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Hexagonal\Notifications\EmptyExchange;
+use Hexagonal\Notifications\InvalidPublishedMessageToTrack;
 use Hexagonal\Notifications\MessageTracker;
 use Hexagonal\Notifications\PublishedMessage;
 
@@ -50,9 +51,25 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
 
     /**
      * @param PublishedMessage $mostRecentPublishedMessage
+     * @throws InvalidPublishedMessageToTrack There can only be one last
+     *     published message for exchange this exception's thrown if 2 are found
      */
     public function track(PublishedMessage $mostRecentPublishedMessage)
     {
+        $builder = $this->createQueryBuilder('p');
+        $builder
+            ->andWhere('p.exchangeName = :exchangeName')
+            ->setParameter(
+                'exchangeName',
+                $mostRecentPublishedMessage->exchangeName()
+            )
+        ;
+
+        $currentMessage = $builder->getQuery()->getOneOrNullResult();
+        if ($currentMessage && !$currentMessage->equals($mostRecentPublishedMessage)) {
+            throw new InvalidPublishedMessageToTrack();
+        }
+
         $this->_em->persist($mostRecentPublishedMessage);
         $this->_em->flush($mostRecentPublishedMessage);
     }

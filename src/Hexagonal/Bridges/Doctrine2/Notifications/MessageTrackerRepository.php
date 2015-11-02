@@ -7,11 +7,29 @@
 namespace Hexagonal\Bridges\Doctrine2\Notifications;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Hexagonal\Notifications\EmptyExchange;
 use Hexagonal\Notifications\MessageTracker;
 use Hexagonal\Notifications\PublishedMessage;
 
 class MessageTrackerRepository extends EntityRepository implements MessageTracker
 {
+    /**
+     * @param string $exchangeName
+     * @return boolean
+     */
+    public function hasPublishedMessages($exchangeName)
+    {
+        $builder = $this->createQueryBuilder('p');
+        $builder
+            ->select('COUNT(p)')
+            ->where('p.exchangeName = :exchangeName')
+            ->setParameter('exchangeName', $exchangeName)
+        ;
+
+        return (integer) $builder->getQuery()->getSingleScalarResult() > 0;
+    }
+
     /**
      * @param string $exchangeName
      * @return PublishedMessage
@@ -23,8 +41,11 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
             ->where('p.exchangeName = :exchangeName')
             ->setParameter('exchangeName', $exchangeName)
         ;
-
-        return $builder->getQuery()->getOneOrNullResult();
+        try {
+            return $builder->getQuery()->getSingleResult();
+        } catch (NoResultException $e) {
+            throw new EmptyExchange("$exchangeName has no published messages");
+        }
     }
 
     /**

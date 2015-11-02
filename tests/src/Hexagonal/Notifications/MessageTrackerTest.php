@@ -13,15 +13,35 @@ abstract class MessageTrackerTest extends TestCase
     const LAST_PUBLISHED_MESSAGE_ID = 5;
 
     /** @test */
-    function it_should_return_null_if_no_message_has_been_published_to_a_given_exchange()
+    function it_should_recognize_empty_exchanges()
     {
         $tracker = $this->messageTracker();
 
-        $this->assertNull($tracker->mostRecentPublishedMessage('empty_exchange'));
+        $this->assertFalse($tracker->hasPublishedMessages('empty_exchange'));
     }
 
     /** @test */
-    function it_should_return_last_message_for_a_given_exchange()
+    function it_should_recognize_non_empty_exchanges()
+    {
+        $tracker = $this->messageTracker();
+        $message = new PublishedMessage('non_empty_exchange', $arbitraryId = 1);
+        $tracker->track($message);
+
+        $this->assertTrue($tracker->hasPublishedMessages('non_empty_exchange'));
+    }
+
+    /**
+     * @test
+     * @expectedException \Hexagonal\Notifications\EmptyExchange
+     */
+    function it_should_throw_exception_when_trying_to_get_the_last_message_from_an_empty_exchange()
+    {
+        $tracker = $this->messageTracker();
+        $tracker->mostRecentPublishedMessage('non_empty_exchange');
+    }
+
+    /** @test */
+    function it_should_return_last_published_message_in_a_given_exchange()
     {
         $tracker = $this->messageTracker();
         $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);

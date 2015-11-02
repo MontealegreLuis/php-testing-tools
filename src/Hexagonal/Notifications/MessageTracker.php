@@ -10,7 +10,14 @@ interface MessageTracker
 {
     /**
      * @param string $exchangeName
+     * @return boolean
+     */
+    public function hasPublishedMessages($exchangeName);
+
+    /**
+     * @param string $exchangeName
      * @return PublishedMessage
+     * @throws EmptyExchange
      */
     public function mostRecentPublishedMessage($exchangeName);
 

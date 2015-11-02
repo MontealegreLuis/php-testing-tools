@@ -34,7 +34,8 @@
         "pimple/pimple": "^3.0",
         "zendframework/zend-mail": "^2.5",
         "vlucas/phpdotenv": "^2.0",
-        "jms/serializer": "^1.0"
+        "jms/serializer": "^1.0",
+        "videlalvaro/php-amqplib": "^2.6"
     },
     "require-dev": {
         "behat/behat": "^3.0",

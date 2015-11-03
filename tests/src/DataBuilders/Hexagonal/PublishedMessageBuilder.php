@@ -7,7 +7,7 @@
 namespace DataBuilders\Hexagonal;
 
 use Faker\Factory;
-use Hexagonal\Notifications\PublishedMessage;
+use Hexagonal\Messaging\PublishedMessage;
 
 class PublishedMessageBuilder
 {

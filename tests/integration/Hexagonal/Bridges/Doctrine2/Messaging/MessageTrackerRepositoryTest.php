@@ -4,12 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\Bridges\Doctrine2\Notifications;
+namespace Hexagonal\Bridges\Doctrine2\Messaging;
 
 use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
-use Hexagonal\Notifications\MessageTracker;
-use Hexagonal\Notifications\MessageTrackerTest;
-use Hexagonal\Notifications\PublishedMessage;
+use Hexagonal\Messaging\MessageTracker;
+use Hexagonal\Messaging\MessageTrackerTest;
+use Hexagonal\Messaging\PublishedMessage;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest
 {

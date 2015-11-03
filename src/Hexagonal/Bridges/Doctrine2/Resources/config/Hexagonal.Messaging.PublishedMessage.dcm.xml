@@ -4,9 +4,9 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity
-        name="Hexagonal\Notifications\PublishedMessage"
+        name="Hexagonal\Messaging\PublishedMessage"
         table="published_messages"
-        repository-class="Hexagonal\Bridges\Doctrine2\Notifications\MessageTrackerRepository"
+        repository-class="Hexagonal\Bridges\Doctrine2\Messaging\MessageTrackerRepository"
     >
         <id name="id" type="integer" column="message_id">
             <generator strategy="AUTO" />

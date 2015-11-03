@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\Notifications;
+namespace Hexagonal\Messaging;
 
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -32,7 +32,7 @@ abstract class MessageTrackerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Hexagonal\Notifications\EmptyExchange
+     * @expectedException \Hexagonal\Messaging\EmptyExchange
      */
     function it_should_throw_exception_when_trying_to_get_the_last_message_from_an_empty_exchange()
     {
@@ -63,7 +63,7 @@ abstract class MessageTrackerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Hexagonal\Notifications\InvalidPublishedMessageToTrack
+     * @expectedException \Hexagonal\Messaging\InvalidPublishedMessageToTrack
      */
     function it_should_not_allow_more_than_one_last_message_for_each_exchange()
     {

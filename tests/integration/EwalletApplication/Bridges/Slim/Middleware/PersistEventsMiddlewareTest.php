@@ -6,7 +6,7 @@
  */
 namespace EwalletApplication\Bridges\Slim\Middleware;
 
-use Ewallet\Bridges\Tests\A;
+use DataBuilders\A;
 use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;

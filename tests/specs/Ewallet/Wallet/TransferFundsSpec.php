@@ -6,11 +6,11 @@
  */
 namespace specs\Ewallet\Wallet;
 
+use DataBuilders\A;
 use Ewallet\Accounts\Members;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use Ewallet\Bridges\Tests\A;
 use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

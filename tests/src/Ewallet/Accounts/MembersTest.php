@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Accounts;
 
-use Ewallet\Bridges\Tests\A;
+use DataBuilders\A;
 use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Tests;
+namespace DataBuilders\Ewallet;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\TransferWasMade;
@@ -16,8 +16,13 @@ class TransferWasMadeBuilder
     /** @var Factory */
     private $factory;
 
+    /** @var string */
     private $fromId;
+
+    /** @var integer */
     private $amount;
+
+    /** @var integer */
     private $toId;
 
     /**

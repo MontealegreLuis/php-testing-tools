@@ -6,7 +6,7 @@
  */
 namespace Hexagonal\Notifications;
 
-use Ewallet\Bridges\Tests\A;
+use DataBuilders\A;
 use Hexagonal\DomainEvents\EventStore;
 use Hexagonal\DomainEvents\StoredEvent;
 use Mockery;

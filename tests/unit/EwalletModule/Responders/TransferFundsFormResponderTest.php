@@ -6,8 +6,8 @@
  */
 namespace EwalletModule\Responders;
 
+use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Bridges\Tests\A;
 use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;

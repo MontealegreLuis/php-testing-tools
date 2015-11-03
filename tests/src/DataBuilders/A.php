@@ -4,7 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Tests;
+namespace DataBuilders;
+
+use DataBuilders\Ewallet\MembersBuilder;
+use DataBuilders\Ewallet\TransferWasMadeBuilder;
+use DataBuilders\Hexagonal\PublishedMessageBuilder;
+use DataBuilders\Hexagonal\StoredEventBuilder;
 
 class A
 {

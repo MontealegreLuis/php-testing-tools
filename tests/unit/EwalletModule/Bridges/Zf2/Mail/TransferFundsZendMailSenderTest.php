@@ -6,8 +6,8 @@
  */
 namespace EwalletModule\Bridges\Zf2\Mail;
 
+use DataBuilders\A;
 use DateTime;
-use Ewallet\Bridges\Tests\A;
 use EwalletModule\Responders\Web\TemplateEngine;
 use Mockery;
 use Money\Money;

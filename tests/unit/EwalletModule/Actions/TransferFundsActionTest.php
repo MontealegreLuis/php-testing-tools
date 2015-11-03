@@ -6,8 +6,8 @@
  */
 namespace EwalletModule\Actions;
 
+use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Bridges\Tests\A;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsResponse;

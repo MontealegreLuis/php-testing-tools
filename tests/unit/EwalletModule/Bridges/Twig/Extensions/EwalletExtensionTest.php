@@ -8,7 +8,7 @@
  */
 namespace EwalletModule\Bridges\Twig\Extensions;
 
-use Ewallet\Bridges\Tests\A;
+use DataBuilders\A;
 use EwalletModule\View\MemberFormatter;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

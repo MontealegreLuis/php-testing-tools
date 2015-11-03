@@ -7,10 +7,10 @@
 namespace specs\Ewallet\Accounts;
 
 use Assert\InvalidArgumentException;
+use DataBuilders\A;
 use Ewallet\Accounts\Email;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\InvalidTransferAmount;
-use Ewallet\Bridges\Tests\A;
 use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;

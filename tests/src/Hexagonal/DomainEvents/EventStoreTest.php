@@ -6,7 +6,7 @@
  */
 namespace Hexagonal\DomainEvents;
 
-use Ewallet\Bridges\Tests\A;
+use DataBuilders\A;
 use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
 use PHPUnit_Framework_TestCase as TestCase;
 

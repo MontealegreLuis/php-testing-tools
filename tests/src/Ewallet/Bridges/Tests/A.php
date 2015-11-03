@@ -23,4 +23,20 @@ class A
     {
         return new TransferWasMadeBuilder();
     }
+
+    /**
+     * @return StoredEventBuilder
+     */
+    public static function storedEvent()
+    {
+        return new StoredEventBuilder();
+    }
+
+    /**
+     * @return PublishedMessageBuilder
+     */
+    public static function publishedMessage()
+    {
+        return new PublishedMessageBuilder();
+    }
 }

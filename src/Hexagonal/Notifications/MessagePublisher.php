@@ -1,0 +1,84 @@
+<?php
+/**
+ * PHP version 5.6
+ *
+ * This source file is subject to the license that is bundled with this package in the file LICENSE.
+ */
+namespace Hexagonal\Notifications;
+
+use Exception;
+use Hexagonal\DomainEvents\EventStore;
+
+class MessagePublisher
+{
+    /** @var EventStore */
+    private $store;
+
+    /** @var  MessageTracker */
+    private $tracker;
+
+    /** @var MessageProducer */
+    private $producer;
+
+    /**
+     * @param EventStore $store
+     * @param MessageTracker $tracker
+     * @param MessageProducer $producer
+     */
+    public function __construct(
+        EventStore $store,
+        MessageTracker $tracker,
+        MessageProducer $producer
+    ) {
+        $this->store = $store;
+        $this->tracker = $tracker;
+        $this->producer = $producer;
+    }
+
+    /**
+     * @param string $exchangeName
+     * @return integer
+     */
+    public function publishTo($exchangeName)
+    {
+        if (!$this->tracker->hasPublishedMessages($exchangeName)) {
+            $mostRecentMessage = null;
+            $messages = $this->store->allEvents();
+        } else {
+            $mostRecentMessage = $this->tracker->mostRecentPublishedMessage($exchangeName);
+            $messages = $this->store->eventsStoredAfter($mostRecentMessage->id());
+        }
+
+        if (!$messages) {
+            return 0;
+        }
+
+        $publishedMessages = 0;
+        $lastPublishedNotification = null;
+
+        try {
+            $this->producer->open($exchangeName);
+            foreach ($messages as $message) {
+                $this->producer->send($exchangeName, $message);
+                $lastPublishedNotification = $message;
+                $publishedMessages++;
+            }
+            $this->producer->close($exchangeName);
+        } catch (Exception $e) {
+        } finally {
+            if (!$mostRecentMessage) {
+                $mostRecentMessage = new PublishedMessage(
+                    $exchangeName,
+                    $lastPublishedNotification->id()
+                );
+            } else {
+                $mostRecentMessage->updateMostRecentMessageId(
+                    $lastPublishedNotification->id()
+                );
+            }
+            $this->tracker->track($mostRecentMessage);
+        }
+
+        return $publishedMessages;
+    }
+}

@@ -16,16 +16,11 @@ class TransferFundsTransactionally extends TransferFunds
 
     /**
      * @param TransferFundsRequest $request
-     * @return \Ewallet\Wallet\TransferFundsResponse
      */
     public function transfer(TransferFundsRequest $request)
     {
-        $response = $this->session->executeAtomically(function () use ($request) {
-            return parent::transfer($request);
+        $this->session->executeAtomically(function () use ($request) {
+            parent::transfer($request);
         });
-
-        $this->publisher()->publish();
-
-        return $response;
     }
 }

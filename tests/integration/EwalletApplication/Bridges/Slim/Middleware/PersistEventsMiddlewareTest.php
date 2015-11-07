@@ -51,8 +51,7 @@ class PersistEventsMiddlewareTest extends TestCase
         $app->get('/', function() use ($publisher) {
             $events = new SplObjectStorage();
             $events->attach(A::transferWasMadeEvent()->build());
-            $publisher->register($events);
-            $publisher->publish();
+            $publisher->publish($events);
         });
         $app->add($middleware);
         Environment::mock([

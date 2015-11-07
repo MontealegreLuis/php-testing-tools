@@ -38,7 +38,6 @@ class TransferFunds
 
     /**
      * @param TransferFundsRequest $request
-     * @return TransferFundsResponse
      */
     public function transfer(TransferFundsRequest $request)
     {
@@ -46,10 +45,11 @@ class TransferFunds
         $toMember = $this->members->with($request->toMemberId());
 
         $fromMember->transfer($request->amount(), $toMember);
-        $this->publisher()->register($fromMember->events());
 
         $this->members->update($fromMember);
         $this->members->update($toMember);
+
+        $this->publisher()->publish($fromMember->events());
 
         $this->notifier()->transferCompleted(
             new TransferFundsResponse($fromMember, $toMember)

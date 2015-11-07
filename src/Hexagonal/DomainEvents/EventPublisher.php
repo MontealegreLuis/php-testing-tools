@@ -14,17 +14,6 @@ class EventPublisher
     /** @var SplObjectStorage */
     private $subscribers;
 
-    /** @var Traversable */
-    private $events = [];
-
-    /**
-     * @param Traversable $events
-     */
-    public function register(Traversable $events)
-    {
-        $this->events = $events;
-    }
-
     /**
      * @param EventSubscriber $subscriber
      */
@@ -36,10 +25,10 @@ class EventPublisher
     /**
      * @param SplObjectStorage $events
      */
-    public function publish()
+    public function publish(Traversable $events)
     {
         /** @var Event $event */
-        foreach ($this->events as $event) {
+        foreach ($events as $event) {
             $this->dispatch($event);
         }
     }

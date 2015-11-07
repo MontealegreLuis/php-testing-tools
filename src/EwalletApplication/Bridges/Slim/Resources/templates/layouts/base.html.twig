@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+        <link href="{{ asset('/favicon.ico') }}" rel="shortcut icon" type="image/x-icon" />
+        <link href="{{ asset('/favicon.ico') }}" rel="icon" type="image/x-icon" />
         <link
             rel="stylesheet"
             href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
         >
-        <link rel="stylesheet" href="/assets/styles/app.css">
+        <link rel="stylesheet" href="{{ asset('/assets/styles/app.css') }}">
         {% block styles %}{% endblock %}
         <title>Ewallet</title>
         <!--[if lt IE 9]>

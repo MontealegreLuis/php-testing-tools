@@ -39,6 +39,7 @@ class RouterExtension extends Extension
     {
         return [
             new SimpleFunction('url_for', [$this, 'urlFor']),
+            new SimpleFunction('asset', [$this, 'asset']),
         ];
     }
 
@@ -54,6 +55,15 @@ class RouterExtension extends Extension
             $this->request->getRootUri(),
             $this->router->urlFor($routeName, $arguments)
         );
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     */
+    public function asset($path)
+    {
+        return sprintf('%s%s', dirname($this->request->getRootUri()), $path);
     }
 
     /**

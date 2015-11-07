@@ -92,10 +92,10 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             'twig.loader',
             function (Loader $loader) {
                 $loader->addPath(
-                    __DIR__ . '/../../../../EwalletModule/Bridges/Twig/Resources/views'
+                    __DIR__ . '/../../../../EwalletModule/Bridges/Twig/Resources/templates'
                 );
                 $loader->addPath(
-                    __DIR__ . '/../../SymfonyConsole/Resources/views'
+                    __DIR__ . '/../../SymfonyConsole/Resources/templates'
                 );
 
                 return $loader;

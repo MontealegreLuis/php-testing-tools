@@ -31,9 +31,9 @@ class MessageProducerThatThrowsException implements MessageProducer
     }
 
     /**
-     * @param string $exchangeName
+     * Close channel and connection
      */
-    public function close($exchangeName)
+    public function close()
     {
     }
 }

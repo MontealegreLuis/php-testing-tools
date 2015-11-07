@@ -9,7 +9,7 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Actions\EventSubscribers\EmailTransferWasMadeSubscriber;
+use EwalletModule\Actions\EventSubscribers\TransferFundsEmailNotifier;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\Bridges\Twig\TwigTemplateEngine;
 use EwalletModule\Bridges\Zf2\Mail\TransferFundsZendMailSender;
@@ -57,7 +57,6 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
         $container['ewallet.events_publisher'] = function () use ($container) {
             $publisher = new EventPublisher();
             $publisher->subscribe($container['ewallet.transfer_funds_logger']);
-            $publisher->subscribe($container['ewallet.transfer_mail_notifier']);
 
             return $publisher;
         };
@@ -81,7 +80,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             );
         };
         $container['ewallet.transfer_mail_notifier'] = function () use ($container) {
-            return new EmailTransferWasMadeSubscriber(
+            return new TransferFundsEmailNotifier(
                 $container['ewallet.member_repository'],
                 $container['ewallet.transfer_mail_sender']
             );
@@ -94,6 +93,9 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             function (Loader $loader) {
                 $loader->addPath(
                     __DIR__ . '/../../../../EwalletModule/Bridges/Twig/Resources/views'
+                );
+                $loader->addPath(
+                    __DIR__ . '/../../SymfonyConsole/Resources/views'
                 );
 
                 return $loader;

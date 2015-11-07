@@ -7,11 +7,9 @@
 namespace EwalletModule\Actions\EventSubscribers;
 
 use Ewallet\Accounts\Members;
-use Ewallet\Accounts\TransferWasMade;
 use Hexagonal\DomainEvents\Event;
-use Hexagonal\DomainEvents\EventSubscriber;
 
-class EmailTransferWasMadeSubscriber implements EventSubscriber
+class TransferFundsEmailNotifier
 {
     /** @var Members */
     private $members;
@@ -32,40 +30,31 @@ class EmailTransferWasMadeSubscriber implements EventSubscriber
     }
 
     /**
-     * @param Event $event
-     * @return boolean
-     */
-    public function isSubscribedTo(Event $event)
-    {
-        return TransferWasMade::class === get_class($event);
-    }
-
-    /**
      * This event is handled after a successful funds transfer
      *
      * It will send an email to both members, summarizing their last account
      * transaction
      *
-     * @param Event $event
-     * @return boolean
+     * @param TransferFundsNotification|Event $notification
+     * @return bool
      */
-    public function handle(Event $event)
+    public function notify(TransferFundsNotification $notification)
     {
-        $fromMember = $this->members->with($event->fromMemberId());
-        $toMember = $this->members->with($event->toMemberId());
+        $fromMember = $this->members->with($notification->fromMemberId());
+        $toMember = $this->members->with($notification->toMemberId());
 
         $this->sender->sendFundsTransferredEmail(
             $fromMember->information(),
             $toMember->information(),
-            $event->amount(),
-            $event->occurredOn()
+            $notification->amount(),
+            $notification->occurredOn()
         );
 
         $this->sender->sendDepositReceivedEmail(
             $fromMember->information(),
             $toMember->information(),
-            $event->amount(),
-            $event->occurredOn()
+            $notification->amount(),
+            $notification->occurredOn()
         );
     }
 }

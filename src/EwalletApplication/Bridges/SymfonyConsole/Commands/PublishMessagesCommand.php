@@ -34,12 +34,6 @@ class PublishMessagesCommand extends Command
         $this
             ->setName('ewallet:events:spread')
             ->setDescription('Spread domain events via messaging')
-            ->addArgument(
-                'exchange',
-                InputArgument::OPTIONAL,
-                'Exchange name to publish events to',
-                'ewallet'
-            )
         ;
     }
 
@@ -50,7 +44,7 @@ class PublishMessagesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $messages = $this->publisher->publishTo($input->getArgument('exchange'));
+        $messages = $this->publisher->publishTo('ewallet');
 
         $output->writeln(sprintf(
             '<comment>%d</comment> <info>messages published!</info>',

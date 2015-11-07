@@ -6,18 +6,21 @@
  */
 namespace Hexagonal\Bridges\RabbitMq;
 
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\Messaging\MessageProducer;
+use Hexagonal\Messaging\MessageConsumer;
+use Hexagonal\Messaging\StoredEvent;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class AmqpMessageProducer implements MessageProducer
+class AmqpMessageConsumer implements MessageConsumer
 {
     /** @var AMQPStreamConnection */
     private $connection;
 
     /** @var  \PhpAmqpLib\Channel\AMQPChannel */
     private $channel;
+
+    /** @var callable */
+    private $callback;
 
     /**
      * AmqpMessageProducer constructor.
@@ -38,26 +41,32 @@ class AmqpMessageProducer implements MessageProducer
         }
 
         $channel = $this->connection->channel();
-        $channel->exchange_declare($exchangeName, 'fanout', false, true, false);
         $channel->queue_declare($exchangeName, false, true, false, false);
-        $channel->queue_bind($exchangeName, $exchangeName);
         $this->channel = $channel;
     }
 
     /**
      * @param string $exchangeName
-     * @param StoredEvent $notification
+     * @param callable $callback
      */
-    public function send($exchangeName, StoredEvent $notification)
+    public function consume($exchangeName, callable $callback)
     {
-        $this->channel->basic_publish(
-            new AMQPMessage($notification->body(), [
-                'type' => $notification->type(),
-                'timestamp' => $notification->occurredOn()->getTimestamp(),
-                'message_id' => $notification->id()
-            ]),
-            $exchangeName
+        $this->callback = $callback;
+        $this->channel->basic_consume(
+            $exchangeName, '', false, true, false, false, [$this, 'callback']
         );
+
+        while (count($this->channel->callbacks)) {
+            $this->channel->wait();
+        }
+    }
+
+    /**
+     * @param AMQPMessage $message
+     */
+    public function callback(AMQPMessage $message)
+    {
+        call_user_func_array($this->callback, [json_decode($message->body)]);
     }
 
     /**

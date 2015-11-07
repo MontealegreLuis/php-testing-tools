@@ -6,9 +6,7 @@
  */
 namespace Hexagonal\Messaging;
 
-use Hexagonal\DomainEvents\StoredEvent;
-
-interface MessageProducer
+interface MessageConsumer
 {
     /**
      * @param string $exchangeName
@@ -17,9 +15,9 @@ interface MessageProducer
 
     /**
      * @param string $exchangeName
-     * @param StoredEvent $notification
+     * @param callable $callback
      */
-    public function send($exchangeName, StoredEvent $notification);
+    public function consume($exchangeName, callable $callback);
 
     /**
      * Close channel and connection

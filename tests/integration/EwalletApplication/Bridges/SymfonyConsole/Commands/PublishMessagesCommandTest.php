@@ -25,9 +25,7 @@ class PublishMessagesCommandTest extends TestCase
         ;
 
         $tester = new CommandTester(new PublishMessagesCommand($publisher));
-        $tester->execute([
-            'exchange' => 'ewallet',
-        ]);
+        $tester->execute([]);
 
         $this->assertRegexp(
             '/3 messages published/',

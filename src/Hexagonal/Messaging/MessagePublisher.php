@@ -46,7 +46,7 @@ class MessagePublisher
             $messages = $this->store->allEvents();
         } else {
             $mostRecentMessage = $this->tracker->mostRecentPublishedMessage($exchangeName);
-            $messages = $this->store->eventsStoredAfter($mostRecentMessage->id());
+            $messages = $this->store->eventsStoredAfter($mostRecentMessage->mostRecentMessageId());
         }
 
         if (!$messages) {

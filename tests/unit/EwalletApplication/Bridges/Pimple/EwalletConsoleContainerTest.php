@@ -10,11 +10,17 @@ use Doctrine\ORM\EntityManager;
 use Dotenv\Dotenv;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Actions\EventSubscribers\EmailTransferWasMadeSubscriber;
+use EwalletModule\Actions\EventSubscribers\TransferFundsEmailNotifier;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
+use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;
+use Hexagonal\Bridges\Doctrine2\Messaging\MessageTrackerRepository;
+use Hexagonal\Bridges\RabbitMq\AmqpMessageConsumer;
+use Hexagonal\Bridges\RabbitMq\AmqpMessageProducer;
 use Hexagonal\DomainEvents\EventPublisher;
+use Hexagonal\Messaging\MessagePublisher;
 use Monolog\Logger;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class EwalletConsoleContainerTest extends TestCase
@@ -52,12 +58,39 @@ class EwalletConsoleContainerTest extends TestCase
             $container['ewallet.transfer_funds_logger']
         );
         $this->assertInstanceOf(
-            EmailTransferWasMadeSubscriber::class,
+            TransferFundsEmailNotifier::class,
             $container['ewallet.transfer_mail_notifier']
         );
         $this->assertInstanceOf(
             EventPublisher::class,
             $container['ewallet.events_publisher']
+        );
+        $this->assertInstanceOf(
+            EventStoreRepository::class,
+            $container['hexagonal.event_store_repository']
+        );
+        $this->assertInstanceOf(
+            MessageTrackerRepository::class,
+            $container['hexagonal.message_tracker_repository']
+        );
+        $this->assertInstanceOf(
+            AMQPStreamConnection::class,
+            $connection = $container['hexagonal.amqp_connection']
+        );
+        $connection->close();
+        $this->assertInstanceOf(
+            AmqpMessageProducer::class,
+            $producer = $container['hexagonal.messages_producer']
+        );
+        $producer->close();
+        $this->assertInstanceOf(
+            AmqpMessageConsumer::class,
+            $consumer = $container['hexagonal.messages_consumer']
+        );
+        $consumer->close();
+        $this->assertInstanceOf(
+            MessagePublisher::class,
+            $container['hexagonal.messages_publisher']
         );
     }
 }

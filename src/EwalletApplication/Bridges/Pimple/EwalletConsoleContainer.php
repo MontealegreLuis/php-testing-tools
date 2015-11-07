@@ -8,6 +8,7 @@ namespace EwalletApplication\Bridges\Pimple;
 
 use EwalletApplication\Bridges\Pimple\ServiceProviders\DoctrineServiceProvider;
 use EwalletApplication\Bridges\Pimple\ServiceProviders\EwalletConsoleServiceProvider;
+use EwalletApplication\Bridges\Pimple\ServiceProviders\HexagonalServiceProvider;
 use EwalletApplication\Bridges\Pimple\ServiceProviders\TwigServiceProvider;
 use Pimple\Container;
 
@@ -23,6 +24,7 @@ class EwalletConsoleContainer extends Container
         parent::__construct($values);
         $this->register(new DoctrineServiceProvider());
         $this->register(new TwigServiceProvider());
+        $this->register(new HexagonalServiceProvider());
         $this->register(new EwalletConsoleServiceProvider());
     }
 }

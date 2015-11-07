@@ -48,4 +48,10 @@ return [
             'port' => (integer) getenv('SMTP_PORT'),
         ],
     ],
+    'rabbit_mq' => [
+        'host' => 'localhost',
+        'port' => 5672,
+        'user' => getenv('RABBIT_MQ_USER'),
+        'password' => getenv('RABBIT_MQ_PASSWORD'),
+    ]
 ];

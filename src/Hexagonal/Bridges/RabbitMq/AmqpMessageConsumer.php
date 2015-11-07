@@ -66,7 +66,10 @@ class AmqpMessageConsumer implements MessageConsumer
      */
     public function callback(AMQPMessage $message)
     {
-        call_user_func_array($this->callback, [json_decode($message->body)]);
+        call_user_func_array($this->callback, [
+            json_decode($message->body),
+            $message->get('type')
+        ]);
     }
 
     /**

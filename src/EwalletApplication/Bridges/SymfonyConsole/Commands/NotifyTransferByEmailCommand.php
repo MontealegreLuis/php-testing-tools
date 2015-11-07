@@ -52,9 +52,14 @@ class NotifyTransferByEmailCommand extends Command
 
     /**
      * @param stdClass $message
+     * @param string $event
      */
-    public function notify(stdClass $message)
+    public function notify(stdClass $message, $event)
     {
+        if (!$this->notifier->shouldNotifyOn($event)) {
+            return;
+        }
+
         $this->notifier->notify(new TransferFundsNotification(
             $message->from_member_id,
             $message->amount,

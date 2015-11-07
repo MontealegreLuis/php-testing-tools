@@ -7,7 +7,7 @@
 namespace EwalletModule\Actions\EventSubscribers;
 
 use Ewallet\Accounts\Members;
-use Hexagonal\DomainEvents\Event;
+use Ewallet\Accounts\TransferWasMade;
 
 class TransferFundsEmailNotifier
 {
@@ -30,12 +30,21 @@ class TransferFundsEmailNotifier
     }
 
     /**
+     * @param string $event
+     * @return boolean
+     */
+    public function shouldNotifyOn($event)
+    {
+        return TransferWasMade::class === $event;
+    }
+
+    /**
      * This event is handled after a successful funds transfer
      *
      * It will send an email to both members, summarizing their last account
      * transaction
      *
-     * @param TransferFundsNotification|Event $notification
+     * @param TransferFundsNotification $notification
      * @return bool
      */
     public function notify(TransferFundsNotification $notification)

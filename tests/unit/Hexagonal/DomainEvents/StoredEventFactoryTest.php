@@ -29,7 +29,7 @@ class StoredEventFactoryTest extends TestCase
         // Stored events get an ID after being persisted
         $this->assertEquals(null, $storedEvent->id());
         $this->assertEquals(
-            '{"occurred_on":"2015-10-25 19:59:00","member_id":{"id":"abc"},"amount":{"amount":500000,"currency":"MXN"}}',
+            '{"occurred_on":"2015-10-25 19:59:00","member_id":"abc","amount":500000}',
             $storedEvent->body()
         );
         $this->assertEquals(InstantaneousEvent::class, $storedEvent->type());

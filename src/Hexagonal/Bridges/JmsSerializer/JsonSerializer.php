@@ -7,11 +7,12 @@
 namespace Hexagonal\Bridges\JmsSerializer;
 
 use DateTime;
+use Ewallet\Accounts\Identifier;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSerializer;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
-use Money\Currency;
+use Money\Money;
 
 class JsonSerializer implements EventSerializer
 {
@@ -28,10 +29,19 @@ class JsonSerializer implements EventSerializer
                 // We only need to serialize the currency name
                 $registry->registerHandler(
                     'serialization',
-                    Currency::class,
+                    Money::class,
                     'json',
-                    function ($visitor, Currency $currency, array $type) {
-                        return $currency->getName();
+                    function ($visitor, Money $money, array $type) {
+                        return $money->getAmount();
+                    }
+                );
+                // We only need the value of the ID
+                $registry->registerHandler(
+                    'serialization',
+                    Identifier::class,
+                    'json',
+                    function ($visitor, Identifier $id, array $type) {
+                        return (string) $id;
                     }
                 );
                 // Use specific format for date/time objects

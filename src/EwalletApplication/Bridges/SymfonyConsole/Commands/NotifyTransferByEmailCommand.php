@@ -6,8 +6,8 @@
  */
 namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
 
-use EwalletModule\Actions\EventSubscribers\TransferFundsEmailNotifier;
-use EwalletModule\Actions\EventSubscribers\TransferFundsNotification;
+use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
+use EwalletModule\Actions\Notifications\TransferFundsNotification;
 use Hexagonal\Messaging\MessageConsumer;
 use stdClass;
 use Symfony\Component\Console\Command\Command;

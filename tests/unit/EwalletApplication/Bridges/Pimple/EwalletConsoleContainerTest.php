@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Dotenv\Dotenv;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Actions\EventSubscribers\TransferFundsEmailNotifier;
+use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;

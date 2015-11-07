@@ -9,7 +9,7 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Actions\EventSubscribers\TransferFundsEmailNotifier;
+use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\Bridges\Twig\TwigTemplateEngine;
 use EwalletModule\Bridges\Zf2\Mail\TransferFundsZendMailSender;

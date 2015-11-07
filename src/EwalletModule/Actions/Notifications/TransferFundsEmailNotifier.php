@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Actions\EventSubscribers;
+namespace EwalletModule\Actions\Notifications;
 
 use Ewallet\Accounts\Members;
 use Ewallet\Accounts\TransferWasMade;

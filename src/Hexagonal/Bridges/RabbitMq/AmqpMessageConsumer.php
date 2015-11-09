@@ -7,7 +7,6 @@
 namespace Hexagonal\Bridges\RabbitMq;
 
 use Hexagonal\Messaging\MessageConsumer;
-use Hexagonal\Messaging\StoredEvent;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 

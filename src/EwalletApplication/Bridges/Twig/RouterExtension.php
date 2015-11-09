@@ -63,7 +63,11 @@ class RouterExtension extends Extension
      */
     public function asset($path)
     {
-        return sprintf('%s%s', dirname($this->request->getRootUri()), $path);
+        return preg_replace(
+            '#/+#',
+            '/',
+            sprintf('%s%s', dirname($this->request->getRootUri()), $path)
+        );
     }
 
     /**

@@ -6,6 +6,7 @@
  */
 namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
+use EwalletApplication\Bridges\SymfonyConsole\Listeners\StoreEventsListener;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
@@ -16,9 +17,16 @@ use EwalletModule\Bridges\Zf2\Mail\TransferFundsZendMailSender;
 use EwalletModule\Bridges\Zf2\Mail\TransportFactory;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\Application\Services\DoctrineSession;
+use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;
+use Hexagonal\DomainEvents\PersistEventsSubscriber;
+use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\StoredEventFactory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
 use Pimple\Container;
@@ -84,6 +92,29 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
                 $container['ewallet.member_repository'],
                 $container['ewallet.transfer_mail_sender']
             );
+        };
+        $container['ewallet.event_store'] = function () use ($container) {
+            return $container['doctrine.em']->getRepository(StoredEvent::class);
+        };
+        $container['ewallet.event_persist_subscriber'] = function () use ($container) {
+            return new PersistEventsSubscriber(
+                $container['ewallet.event_store'],
+                new StoredEventFactory(new JsonSerializer())
+            );
+        };
+        $container['ewallet.store_events_listener'] = function () use ($container) {
+            return new StoreEventsListener(
+                $container['ewallet.event_persist_subscriber'],
+                $container['ewallet.events_publisher']
+            );
+        };
+        $container['ewallet.console.dispatcher'] = function () use ($container) {
+            $dispatcher = new EventDispatcher();
+            $dispatcher->addListener(
+                ConsoleEvents::COMMAND,  $container['ewallet.store_events_listener']
+            );
+
+            return $dispatcher;
         };
         $container['ewallet.twig.extension'] = function () {
             return new EwalletExtension(new MemberFormatter());

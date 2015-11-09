@@ -23,7 +23,7 @@ class EwalletWebContainer extends Container
      * @param array $values
      * @param Slim $app
      */
-    public function __construct(array $values = array(), Slim $app)
+    public function __construct(array $values = [], Slim $app)
     {
         parent::__construct($values);
         $this->register(new DoctrineServiceProvider());

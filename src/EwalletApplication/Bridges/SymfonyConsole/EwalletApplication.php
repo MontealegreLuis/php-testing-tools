@@ -37,5 +37,6 @@ class EwalletApplication extends Application
                 $container['hexagonal.messages_consumer']
             ))
         ;
+        $this->setDispatcher($container['ewallet.console.dispatcher']);
     }
 }

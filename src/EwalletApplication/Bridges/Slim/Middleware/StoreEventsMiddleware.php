@@ -10,7 +10,7 @@ use Hexagonal\DomainEvents\EventPublisher;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use Slim\Middleware;
 
-class PersistEventsMiddleware extends Middleware
+class StoreEventsMiddleware extends Middleware
 {
     /** @var PersistEventsSubscriber */
     private $subscriber;

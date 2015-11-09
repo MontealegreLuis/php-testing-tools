@@ -18,7 +18,7 @@ use SplObjectStorage;
 use Slim\Environment;
 use Slim\Slim;
 
-class PersistEventsMiddlewareTest extends TestCase
+class StoreEventsMiddlewareTest extends TestCase
 {
     use ProvidesDoctrineSetup;
 
@@ -40,7 +40,7 @@ class PersistEventsMiddlewareTest extends TestCase
         $store = $this->entityManager->getRepository(StoredEvent::class);
 
         $publisher = new EventPublisher();
-        $middleware = new PersistEventsMiddleware(
+        $middleware = new StoreEventsMiddleware(
             new PersistEventsSubscriber(
                 $store, new StoredEventFactory(new JsonSerializer())
             ),

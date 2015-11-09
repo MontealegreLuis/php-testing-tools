@@ -17,6 +17,6 @@ class Middleware extends MiddlewareLayers
     public function init(Set $container)
     {
         $this->add($container->get('slim.middleware.request_logging'));
-        $this->add($container->get('slim.middleware.persist_events'));
+        $this->add($container->get('slim.middleware.store_events'));
     }
 }

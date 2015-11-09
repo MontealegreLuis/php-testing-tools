@@ -6,7 +6,7 @@
  */
 namespace EwalletApplication\Bridges\Slim;
 
-use EwalletApplication\Bridges\Slim\Middleware\PersistEventsMiddleware;
+use EwalletApplication\Bridges\Slim\Middleware\StoreEventsMiddleware;
 use EwalletApplication\Bridges\Slim\Middleware\RequestLoggingMiddleware;
 use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
@@ -37,8 +37,8 @@ class ContainerTest extends TestCase
             $app->container->get('slim.middleware.request_logging')
         );
         $this->assertInstanceOf(
-            PersistEventsMiddleware::class,
-            $app->container->get('slim.middleware.persist_events')
+            StoreEventsMiddleware::class,
+            $app->container->get('slim.middleware.store_events')
         );
     }
 }

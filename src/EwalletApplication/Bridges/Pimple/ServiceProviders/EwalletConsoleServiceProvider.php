@@ -25,7 +25,6 @@ use Hexagonal\DomainEvents\StoredEventFactory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;

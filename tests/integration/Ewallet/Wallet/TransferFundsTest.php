@@ -9,9 +9,9 @@ namespace Ewallet\Wallet;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
-use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Mockery;
 use Nelmio\Alice\Fixtures;
+use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class TransferFundsTest extends TestCase

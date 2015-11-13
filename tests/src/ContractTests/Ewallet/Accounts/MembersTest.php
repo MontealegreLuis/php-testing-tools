@@ -8,8 +8,8 @@ namespace ContractTests\Ewallet\Accounts;
 
 use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Money\Money;
+use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class MembersTest extends TestCase

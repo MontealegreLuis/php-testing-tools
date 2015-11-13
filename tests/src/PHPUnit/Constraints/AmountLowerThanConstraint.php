@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Tests\Money;
+namespace PHPUnit\Constraints;
 
 use Money\Money;
 use PHPUnit_Framework_Constraint as Constraint;

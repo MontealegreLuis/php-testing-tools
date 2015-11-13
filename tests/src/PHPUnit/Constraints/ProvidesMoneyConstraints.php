@@ -4,12 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Tests;
+namespace PHPUnit\Constraints;
 
 use Ewallet\Accounts\Member;
-use Ewallet\Bridges\Tests\Money\AmountGreaterThanConstraint;
-use Ewallet\Bridges\Tests\Money\AmountLowerThanConstraint;
-use Ewallet\Bridges\Tests\Money\ExactAmountConstraint;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 

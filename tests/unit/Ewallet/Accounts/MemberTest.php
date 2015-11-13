@@ -9,8 +9,8 @@ namespace Ewallet\Accounts;
 use DataBuilders\A;
 use Eris\Generator;
 use Eris\TestTrait;
-use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Money\Money;
+use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class MemberTest extends TestCase

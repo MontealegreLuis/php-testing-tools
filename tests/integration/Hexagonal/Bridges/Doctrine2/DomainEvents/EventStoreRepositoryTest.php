@@ -7,9 +7,9 @@
 namespace Hexagonal\Bridges\Doctrine2\DomainEvents;
 
 use ContractTests\Hexagonal\DomainEvents\EventStoreTest;
-use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Hexagonal\DomainEvents\EventStore;
 use Hexagonal\DomainEvents\StoredEvent;
+use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class EventStoreRepositoryTest extends EventStoreTest
 {

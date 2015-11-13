@@ -7,7 +7,6 @@
 namespace EwalletApplication\Bridges\Slim\Middleware;
 
 use DataBuilders\A;
-use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
@@ -17,6 +16,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use SplObjectStorage;
 use Slim\Environment;
 use Slim\Slim;
+use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class StoreEventsMiddlewareTest extends TestCase
 {

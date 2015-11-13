@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 use Page\TransferFundsPage;
-use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
+use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class TransferFundsCest
 {

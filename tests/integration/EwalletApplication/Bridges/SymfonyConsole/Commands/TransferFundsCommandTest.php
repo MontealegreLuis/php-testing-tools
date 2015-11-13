@@ -7,12 +7,12 @@
 namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\Member;
-use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Ewallet\Wallet\TransferFunds;
 use EwalletModule\View\MemberFormatter;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class TransferFundsCommandTest extends TestCase
 {

@@ -8,11 +8,11 @@ namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
-use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit_Framework_TestCase as TestCase;
+use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class TransferFundsTest extends TestCase
 {

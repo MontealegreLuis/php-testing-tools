@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Tests;
+namespace TestHelpers\Bridges;
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
@@ -22,7 +22,7 @@ trait ProvidesDoctrineSetup
      */
     protected function _setUpDoctrine()
     {
-        $options = require __DIR__ . '/../../../../../app/config.php';
+        $options = require __DIR__ . '/../../../../app/config.php';
 
         $configuration = Setup::createXMLMetadataConfiguration(
             $options['doctrine']['mapping_dirs'],

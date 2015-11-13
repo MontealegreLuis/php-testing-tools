@@ -8,9 +8,9 @@ namespace EwalletModule\Bridges\EasyForms;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
-use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
+use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class MembersConfigurationTest extends TestCase
 {

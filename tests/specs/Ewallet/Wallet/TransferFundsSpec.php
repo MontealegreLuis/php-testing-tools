@@ -11,7 +11,7 @@ use Ewallet\Accounts\Members;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use Ewallet\Bridges\Tests\ProvidesMoneyMatcher;
+use PhpSpec\Matchers\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

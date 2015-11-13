@@ -7,6 +7,7 @@
 namespace Hexagonal\Messaging;
 
 use DataBuilders\A;
+use Fakes\Hexagonal\Messaging\MessageProducerThatThrowsException;
 use Hexagonal\DomainEvents\EventStore;
 use Hexagonal\DomainEvents\StoredEvent;
 use Mockery;

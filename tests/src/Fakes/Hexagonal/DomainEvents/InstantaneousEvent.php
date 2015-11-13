@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\DomainEvents;
+namespace Fakes\Hexagonal\DomainEvents;
 
 use DateTime;
 use Ewallet\Accounts\Identifier;
+use Hexagonal\DomainEvents\Event;
 use Money\Money;
 
 class InstantaneousEvent implements Event

@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\Messaging;
+namespace Fakes\Hexagonal\Messaging;
 
 use Exception;
 use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\Messaging\MessageProducer;
 
 class MessageProducerThatThrowsException implements MessageProducer
 {

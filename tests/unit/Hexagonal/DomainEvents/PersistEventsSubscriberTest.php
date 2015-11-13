@@ -9,6 +9,7 @@ namespace Hexagonal\DomainEvents;
 use DataBuilders\A;
 use DateTime;
 use Ewallet\Accounts\Identifier;
+use Fakes\Hexagonal\DomainEvents\InstantaneousEvent;
 use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
 use Mockery;
 use Money\Money;

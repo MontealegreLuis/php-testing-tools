@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\DomainEvents;
+namespace ContractTests\Hexagonal\DomainEvents;
 
 use DataBuilders\A;
 use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
+use Hexagonal\DomainEvents\StoredEventFactory;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class EventStoreTest extends TestCase

@@ -6,9 +6,9 @@
  */
 namespace Hexagonal\Bridges\Doctrine2\Messaging;
 
+use ContractTests\Hexagonal\Messaging\MessageTrackerTest;
 use Ewallet\Bridges\Tests\ProvidesDoctrineSetup;
 use Hexagonal\Messaging\MessageTracker;
-use Hexagonal\Messaging\MessageTrackerTest;
 use Hexagonal\Messaging\PublishedMessage;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest

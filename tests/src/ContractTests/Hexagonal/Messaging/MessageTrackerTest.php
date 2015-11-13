@@ -4,8 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\Messaging;
+namespace ContractTests\Hexagonal\Messaging;
 
+use Hexagonal\Messaging\PublishedMessage;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class MessageTrackerTest extends TestCase

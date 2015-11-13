@@ -4,9 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Accounts;
+namespace ContractTests\Ewallet\Accounts;
 
 use DataBuilders\A;
+use Ewallet\Accounts\Identifier;
 use Ewallet\Bridges\Tests\ProvidesMoneyConstraints;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

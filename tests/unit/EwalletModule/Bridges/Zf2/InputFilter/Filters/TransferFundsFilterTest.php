@@ -19,30 +19,26 @@ class TransferFundsFilterTest extends TestCase
     const INVALID_ID = 'not a valid member ID';
     const VALID_AMOUNT = 12000;
 
-    /** @test */
-    function it_should_pass_validation_with_a_valid_amount()
+    /**
+     * @param integer $validAmount
+     * @test
+     * @dataProvider validAmountsProvider
+     */
+    function it_should_pass_validation_with_a_valid_amount($validAmount)
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
             'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,
-            'amount' => self::VALID_AMOUNT,
+            'amount' => $validAmount,
         ]);
 
         $this->assertTrue($filter->isValid(), 'Amount should be valid');
     }
 
-    /** @test */
-    function it_should_pass_validation_with_a_float_number_amount()
+    public function validAmountsProvider()
     {
-        $filter = new TransferFundsFilter();
-        $filter->setData([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => self::VALID_ID,
-            'amount' => 12000.34
-        ]);
-
-        $this->assertTrue($filter->isValid(), 'Amounts with floating point numbers should be valid');
+        return [[1], [500], [12000.34], [1000000]];
     }
 
     /** @test */
@@ -59,18 +55,27 @@ class TransferFundsFilterTest extends TestCase
         $this->assertArrayHasKey(GreaterThan::NOT_GREATER, $filter->getMessages()['amount']);
     }
 
-    /** @test */
-    function it_should_not_pass_validation_if_amount_is_negative()
+    /**
+     * @param integer $invalidAmount
+     * @test
+     * @dataProvider invalidAmountsProvider
+     */
+    function it_should_not_pass_validation_if_amount_is_negative_or_zero($invalidAmount)
     {
         $filter = new TransferFundsFilter();
         $filter->setData([
             'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,
-            'amount' => -500,
+            'amount' => $invalidAmount,
         ]);
 
         $this->assertFalse($filter->isValid(), 'Negative amounts should be invalid');
         $this->assertArrayHasKey(GreaterThan::NOT_GREATER, $filter->getMessages()['amount']);
+    }
+
+    public function invalidAmountsProvider()
+    {
+        return [[0], [-500], [-12000.34]];
     }
 
     /** @test */

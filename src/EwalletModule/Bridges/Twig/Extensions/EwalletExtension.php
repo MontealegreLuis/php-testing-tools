@@ -31,9 +31,9 @@ class EwalletExtension extends Extension
     public function getFunctions()
     {
         return [
-            new SimpleFunction('member', [$this, 'renderMember']),
-            new SimpleFunction('money_amount', [$this, 'renderMoneyAmount']),
-            new SimpleFunction('money', [$this, 'renderMoney']),
+            new SimpleFunction('member', [$this, 'formatMember']),
+            new SimpleFunction('money_amount', [$this, 'formatMoneyAmount']),
+            new SimpleFunction('money', [$this, 'formatMoney']),
         ];
     }
 
@@ -41,27 +41,27 @@ class EwalletExtension extends Extension
      * @param MemberInformation $member
      * @return string
      */
-    public function renderMember(MemberInformation $member)
+    public function formatMember(MemberInformation $member)
     {
-        return $this->formatter->renderMember($member);
+        return $this->formatter->formatMember($member);
     }
 
     /**
      * @param Money $money
      * @return string
      */
-    public function renderMoney(Money $money)
+    public function formatMoney(Money $money)
     {
-        return $this->formatter->renderMoney($money);
+        return $this->formatter->formatMoney($money);
     }
 
     /**
      * @param integer $amount
      * @return string
      */
-    public function renderMoneyAmount($amount)
+    public function formatMoneyAmount($amount)
     {
-        return $this->formatter->renderMoneyAmount($amount);
+        return $this->formatter->formatMoneyAmount($amount);
     }
 
     /**

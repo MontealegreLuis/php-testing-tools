@@ -15,25 +15,25 @@ class MemberFormatter
      * @param MemberInformation $member
      * @return string
      */
-    public function renderMember(MemberInformation $member)
+    public function formatMember(MemberInformation $member)
     {
-        return "{$member->name()} {$this->renderMoney($member->accountBalance())}";
+        return "{$member->name()} {$this->formatMoney($member->accountBalance())}";
     }
 
     /**
      * @param Money $money
      * @return string
      */
-    public function renderMoney(Money $money)
+    public function formatMoney(Money $money)
     {
-        return "\${$this->renderMoneyAmount(round($money->getAmount() / 100, 2))} {$money->getCurrency()}";
+        return "\${$this->formatMoneyAmount(round($money->getAmount() / 100, 2))} {$money->getCurrency()}";
     }
 
     /**
-     * @param integer $amount
+     * @param float $amount
      * @return string
      */
-    public function renderMoneyAmount($amount)
+    public function formatMoneyAmount($amount)
     {
         return number_format($amount, 2);
     }

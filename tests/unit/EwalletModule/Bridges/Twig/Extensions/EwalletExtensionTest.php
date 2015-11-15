@@ -10,33 +10,70 @@ namespace EwalletModule\Bridges\Twig\Extensions;
 
 use DataBuilders\A;
 use EwalletModule\View\MemberFormatter;
+use Mockery;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class EwalletExtensionTest extends TestCase
 {
-    /** @test */
-    function it_should_render_a_money_amount()
-    {
-        $extension = new EwalletExtension(new MemberFormatter());
-        $amount = Money::MXN(300000);
+    /** @var MemberFormatter */
+    private $formatter;
 
-        $this->assertEquals('$3,000.00 MXN', $extension->renderMoney($amount));
+    /** @var EwalletExtension */
+    private $extension;
+
+    /** @before */
+    public function configureExtension()
+    {
+        $this->formatter = Mockery::mock(MemberFormatter::class)->shouldIgnoreMissing();
+        $this->extension = new EwalletExtension($this->formatter);
     }
 
     /** @test */
-    function it_should_render_a_member()
+    function it_should_delegate_formatting_a_money_object()
     {
-        $extension = new EwalletExtension(new MemberFormatter());
-        $member = A::member()
-            ->withName('Luis Montealegre')
-            ->withBalance(255000)
-            ->build()
-        ;
+        $this->extension->formatMoney($amount = Money::MXN(300000));
 
-        $this->assertEquals(
-            'Luis Montealegre $2,550.00 MXN',
-            $extension->renderMember($member->information())
-        );
+        $this->formatter
+            ->shouldHaveReceived('formatMoney')
+            ->once()
+            ->with($amount)
+        ;
+    }
+
+    /** @test */
+    function it_should_delegate_formatting_a_money_amount()
+    {
+        $this->extension->formatMoneyAmount($amount = 300000);
+
+        $this->formatter
+            ->shouldHaveReceived('formatMoneyAmount')
+            ->once()
+            ->with($amount)
+        ;
+    }
+
+    function it_should_delegate_formatting_a_member()
+    {
+        $member = A::member()->build()->information();
+
+        $this->extension->formatMember($member);
+
+        $this->formatter
+            ->shouldHaveReceived('formatMember')
+            ->once()
+            ->with($member)
+        ;
+    }
+
+    /** @test */
+    function it_should_register_three_twig_simple_functions()
+    {
+        $functions = $this->extension->getFunctions();
+
+        $this->assertCount(3, $functions);
+        $this->assertEquals('member', $functions[0]->getName());
+        $this->assertEquals('money_amount', $functions[1]->getName());
+        $this->assertEquals('money', $functions[2]->getName());
     }
 }

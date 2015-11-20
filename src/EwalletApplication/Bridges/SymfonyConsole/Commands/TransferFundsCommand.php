@@ -48,21 +48,28 @@ class TransferFundsCommand extends Command implements TransferFundsNotifier
         $this
             ->setName('ewallet:transfer')
             ->setDescription('Transfer funds from a member to another')
-            ->addArgument('fromMemberId', InputArgument::REQUIRED, 'The ID of the member making the transfer')
-            ->addArgument('toMemberId', InputArgument::REQUIRED, 'The ID of the member that will receive funds')
-            ->addArgument('amount', InputArgument::REQUIRED, 'The amount to be transferred')
+            ->addArgument(
+                'fromMemberId',
+                InputArgument::REQUIRED,
+                'The ID of the member making the transfer'
+            )
+            ->addArgument(
+                'toMemberId',
+                InputArgument::REQUIRED,
+                'The ID of the member that will receive funds'
+            )
+            ->addArgument(
+                'amount',
+                InputArgument::REQUIRED,
+                'The amount to be transferred'
+            )
         ;
     }
 
     /**
-     * @param InputInterface $input An InputInterface instance
-     * @param OutputInterface $output An OutputInterface instance
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
-     *
-     * @throws \LogicException When this abstract method is not implemented
-     *
-     * @see setCode()
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -86,6 +93,6 @@ class TransferFundsCommand extends Command implements TransferFundsNotifier
      */
     private function printStatement(MemberInformation $forMember)
     {
-        $this->output->writeln("{$this->formatter->renderMember($forMember)}");
+        $this->output->writeln("{$this->formatter->formatMember($forMember)}");
     }
 }

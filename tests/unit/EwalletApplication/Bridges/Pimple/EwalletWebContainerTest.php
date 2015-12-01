@@ -7,7 +7,7 @@
 namespace EwalletApplication\Bridges\Pimple;
 
 use Dotenv\Dotenv;
-use EwalletApplication\Bridges\Slim\Controllers\SlimController;
+use EwalletApplication\Bridges\Slim\Controllers\TransferFundsController;
 use EwalletApplication\Bridges\Twig\RouterExtension;
 use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
@@ -51,11 +51,11 @@ class EwalletWebContainerTest extends TestCase
             $container['ewallet.transfer_funds_responder']
         );
         $this->assertInstanceOf(
-            SlimController::class,
+            TransferFundsController::class,
             $container['ewallet.transfer_form_controller']
         );
         $this->assertInstanceOf(
-            SlimController::class,
+            TransferFundsController::class,
             $container['ewallet.transfer_funds_controller']
         );
         $this->assertInstanceOf(

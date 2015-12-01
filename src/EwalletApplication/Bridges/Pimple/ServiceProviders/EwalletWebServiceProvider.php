@@ -6,7 +6,7 @@
  */
 namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
-use EwalletApplication\Bridges\Slim\Controllers\SlimController;
+use EwalletApplication\Bridges\Slim\Controllers\TransferFundsController;
 use EwalletApplication\Bridges\Twig\RouterExtension;
 use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
@@ -66,15 +66,18 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
             );
         };
         $container['ewallet.transfer_form_controller'] = function () use ($container) {
-            return new SlimController(new TransferFundsAction(
+            return new TransferFundsController(new TransferFundsAction(
                 $container['ewallet.transfer_funds_responder']
             ));
         };
         $container['ewallet.transfer_funds_controller'] = function () use ($container) {
-            return new SlimController(new TransferFundsAction(
-                $container['ewallet.transfer_funds_responder'],
-                $container['ewallet.transfer_funds']
-            ));
+            return new TransferFundsController(
+                new TransferFundsAction(
+                    $container['ewallet.transfer_funds_responder'],
+                    $container['ewallet.transfer_funds']
+                ),
+                $container['ewallet.transfer_filter_request']
+            );
         };
         $container['slim.twig_extension'] = function () {
             return new RouterExtension($this->app->router, $this->app->request);

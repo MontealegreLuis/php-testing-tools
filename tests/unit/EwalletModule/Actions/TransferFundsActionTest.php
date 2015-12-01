@@ -23,7 +23,7 @@ class TransferFundsActionTest extends TestCase
     {
         $responder = Mockery::mock(TransferFundsWebResponder::class);
         $responder
-            ->shouldReceive('respondEnterTransferInformation')
+            ->shouldReceive('respondToEnterTransferInformation')
             ->once()
         ;
         $responder
@@ -44,7 +44,7 @@ class TransferFundsActionTest extends TestCase
     {
         $responder = Mockery::mock(TransferFundsWebResponder::class);
         $responder
-            ->shouldReceive('respondTransferCompleted')
+            ->shouldReceive('respondToTransferCompleted')
             ->once()
             ->with(Mockery::type(TransferFundsResponse::class))
         ;

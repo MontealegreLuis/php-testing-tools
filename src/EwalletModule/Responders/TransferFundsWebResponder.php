@@ -14,14 +14,14 @@ interface TransferFundsWebResponder
     /**
      * @param TransferFundsResponse $result
      */
-    public function respondTransferCompleted(TransferFundsResponse $result);
+    public function respondToTransferCompleted(TransferFundsResponse $result);
 
     /**
      * @param array $messages
      * @param array $values
      * @param string $fromMemberId
      */
-    public function respondInvalidTransferInput(
+    public function respondToInvalidTransferInput(
         array $messages,
         array $values,
         $fromMemberId
@@ -30,7 +30,7 @@ interface TransferFundsWebResponder
     /**
      * @param Identifier $fromMemberId
      */
-    public function respondEnterTransferInformation(Identifier $fromMemberId);
+    public function respondToEnterTransferInformation(Identifier $fromMemberId);
 
     /**
      * @return \Psr\Http\Message\ResponseInterface

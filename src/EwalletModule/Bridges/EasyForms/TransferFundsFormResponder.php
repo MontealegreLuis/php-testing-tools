@@ -51,7 +51,7 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
      * @param TransferFundsResponse $result
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function respondTransferCompleted(TransferFundsResponse $result)
+    public function respondToTransferCompleted(TransferFundsResponse $result)
     {
         $this->form->configure($this->configuration, $result->fromMember()->id());
 
@@ -70,20 +70,20 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
      * @param string $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function respondInvalidTransferInput(
+    public function respondToInvalidTransferInput(
         array $messages, array $values, $fromMemberId
     ) {
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
-        $this->respondEnterTransferInformation(Identifier::fromString($fromMemberId));
+        $this->respondToEnterTransferInformation(Identifier::fromString($fromMemberId));
     }
 
     /**
      * @param Identifier $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function respondEnterTransferInformation(Identifier $fromMemberId)
+    public function respondToEnterTransferInformation(Identifier $fromMemberId)
     {
         $this->form->configure($this->configuration, $fromMemberId);
 

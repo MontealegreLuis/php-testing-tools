@@ -40,7 +40,7 @@ class TransferFundsAction implements TransferFundsNotifier
      */
     public function enterTransferInformation(Identifier $fromMemberId)
     {
-        $this->responder->respondEnterTransferInformation($fromMemberId);
+        $this->responder->respondToEnterTransferInformation($fromMemberId);
 
         return $this->responder->response();
     }
@@ -66,7 +66,7 @@ class TransferFundsAction implements TransferFundsNotifier
      */
     private function validationFailedFor(FilteredRequest $request)
     {
-        $this->responder->respondInvalidTransferInput(
+        $this->responder->respondToInvalidTransferInput(
             $request->errorMessages(),
             $request->values(),
             $request->value('fromMemberId')
@@ -78,6 +78,6 @@ class TransferFundsAction implements TransferFundsNotifier
      */
     public function transferCompleted(TransferFundsResponse $response)
     {
-        $this->responder->respondTransferCompleted($response);
+        $this->responder->respondToTransferCompleted($response);
     }
 }

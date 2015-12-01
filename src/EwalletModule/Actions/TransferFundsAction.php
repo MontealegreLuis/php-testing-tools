@@ -38,7 +38,7 @@ class TransferFundsAction implements TransferFundsNotifier
      * @param Identifier $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function showForm(Identifier $fromMemberId)
+    public function enterTransferInformation(Identifier $fromMemberId)
     {
         $this->responder->respondEnterTransferInformation($fromMemberId);
 

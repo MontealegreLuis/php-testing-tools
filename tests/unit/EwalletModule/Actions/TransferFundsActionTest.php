@@ -34,7 +34,7 @@ class TransferFundsActionTest extends TestCase
 
         $controller = new TransferFundsAction($responder);
 
-        $response = $controller->showForm(Identifier::any());
+        $response = $controller->enterTransferInformation(Identifier::any());
 
         $this->assertEquals(200, $response->getStatusCode());
     }

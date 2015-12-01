@@ -29,7 +29,7 @@ class EwalletControllerProvider implements ControllerProvider
             '/transfer-form',
             $resolver->resolve(
                 $app,
-                'ewallet.transfer_form_controller:showForm',
+                'ewallet.transfer_form_controller:enterTransferInformation',
                 function () {
                     return [Identifier::fromString('ABC')];
                 }

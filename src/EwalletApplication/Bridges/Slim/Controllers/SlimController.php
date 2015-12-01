@@ -6,8 +6,6 @@
  */
 namespace EwalletApplication\Bridges\Slim\Controllers;
 
-use Zend\Diactoros\Response;
-
 class SlimController
 {
     /** @var mixed */
@@ -23,9 +21,8 @@ class SlimController
 
     public function __call($action, array $args)
     {
-        /** @var Response $response */
-        $response = $this->controller->$action(...$args);
+        $this->controller->$action(...$args);
 
-        echo $response->getBody();
+        echo $this->controller->responder()->response()->getBody();
     }
 }

@@ -11,22 +11,22 @@ use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsRequest;
 use Ewallet\Wallet\TransferFundsResponse;
-use EwalletModule\Responders\TransferFundsWebResponder;
+use EwalletModule\Responders\TransferFundsResponder;
 
 class TransferFundsAction implements TransferFundsNotifier
 {
     /** @var TransferFunds */
     private $useCase;
 
-    /** @var TransferFundsWebResponder */
+    /** @var TransferFundsResponder */
     private $responder;
 
     /**
-     * @param TransferFundsWebResponder $responder
+     * @param TransferFundsResponder $responder
      * @param TransferFunds $transferFunds
      */
     public function __construct(
-        TransferFundsWebResponder $responder,
+        TransferFundsResponder $responder,
         TransferFunds $transferFunds = null
     ) {
         $this->responder = $responder;
@@ -36,18 +36,14 @@ class TransferFundsAction implements TransferFundsNotifier
 
     /**
      * @param Identifier $fromMemberId
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function enterTransferInformation(Identifier $fromMemberId)
     {
         $this->responder->respondToEnterTransferInformation($fromMemberId);
-
-        return $this->responder->response();
     }
 
     /**
      * @param FilteredRequest $request
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function transfer(FilteredRequest $request)
     {
@@ -56,8 +52,6 @@ class TransferFundsAction implements TransferFundsNotifier
         } else {
             $this->useCase->transfer(TransferFundsRequest::from($request->values()));
         }
-
-        return $this->responder->response();
     }
 
     /**
@@ -79,5 +73,13 @@ class TransferFundsAction implements TransferFundsNotifier
     public function transferCompleted(TransferFundsResponse $response)
     {
         $this->responder->respondToTransferCompleted($response);
+    }
+
+    /**
+     * @return TransferFundsResponder
+     */
+    public function responder()
+    {
+        return $this->responder;
     }
 }

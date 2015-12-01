@@ -9,7 +9,7 @@ namespace EwalletModule\Responders;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResponse;
 
-interface TransferFundsWebResponder
+interface TransferFundsResponder
 {
     /**
      * @param TransferFundsResponse $result
@@ -31,9 +31,4 @@ interface TransferFundsWebResponder
      * @param Identifier $fromMemberId
      */
     public function respondToEnterTransferInformation(Identifier $fromMemberId);
-
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function response();
 }

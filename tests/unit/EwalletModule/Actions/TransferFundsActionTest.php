@@ -11,7 +11,7 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsResponse;
-use EwalletModule\Responders\TransferFundsWebResponder;
+use EwalletModule\Responders\TransferFundsResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Diactoros\Response;
@@ -19,44 +19,111 @@ use Zend\Diactoros\Response;
 class TransferFundsActionTest extends TestCase
 {
     /** @test */
-    function it_should_show_transfer_funds_form()
+    function it_should_allow_to_enter_transfer_information()
     {
-        $responder = Mockery::mock(TransferFundsWebResponder::class);
+        $responder = Mockery::spy(TransferFundsResponder::class);
+        $action = new TransferFundsAction($responder);
+
+        $action->enterTransferInformation(Identifier::any());
+
         $responder
-            ->shouldReceive('respondToEnterTransferInformation')
+            ->shouldHaveReceived('respondToEnterTransferInformation')
             ->once()
         ;
-        $responder
-            ->shouldReceive('response')
-            ->once()
-            ->andReturn(new Response())
-        ;
-
-        $controller = new TransferFundsAction($responder);
-
-        $response = $controller->enterTransferInformation(Identifier::any());
-
-        $this->assertEquals(200, $response->getStatusCode());
     }
 
     /** @test */
-    function it_should_transfer_funds_from_one_member_to_another()
+    function it_should_allow_to_transfer_funds()
     {
-        $responder = Mockery::mock(TransferFundsWebResponder::class);
+        $responder = Mockery::spy(TransferFundsResponder::class);
+        $useCase = $this->givenThatMembersAreKnown(
+            $fromId = 'abc',
+            $toId = 'xyz'
+        );
+        $request = $this->givenThatValidTransferInformationIsProvided(
+            $fromId, $toId, $amount = 100
+        );
+        $action = new TransferFundsAction($responder, $useCase);
+
+        $action->transfer($request);
+
         $responder
-            ->shouldReceive('respondToTransferCompleted')
+            ->shouldHaveReceived('respondToTransferCompleted')
             ->once()
             ->with(Mockery::type(TransferFundsResponse::class))
         ;
+    }
+
+    /** @test */
+    function it_should_notify_when_transfer_funds_information_is_invalid()
+    {
+        $responder = Mockery::spy(TransferFundsResponder::class);
+        $useCase = Mockery::spy(TransferFunds::class);
+        $request = $this->givenThatNoAmountIsProvided(
+            $fromId = 'abc', $toId = 'xyz'
+        );
+        $action = new TransferFundsAction($responder, $useCase);
+
+        $action->transfer($request);
+
         $responder
-            ->shouldReceive('response')
+            ->shouldHaveReceived('respondToInvalidTransferInput')
             ->once()
-            ->andReturn(new Response())
+            ->with(Mockery::type('array'), Mockery::type('array'), Mockery::type('string'))
         ;
-        $members = new InMemoryMembers();
-        $members->add(A::member()->withId('abc')->withBalance(20000)->build());
-        $members->add(A::member()->withId('xyz')->build());
-        $useCase = new TransferFunds($members);
+
+        $useCase->shouldNotHaveReceived('transfer');
+    }
+
+    /**
+     * @param string $fromMemberId
+     * @param string $toMemberId
+     * @return FilteredRequest
+     */
+    private function givenThatNoAmountIsProvided($fromMemberId, $toMemberId)
+    {
+        $request = Mockery::mock(FilteredRequest::class);
+        $request
+            ->shouldReceive('isValid')
+            ->once()
+            ->andReturn(false)
+        ;
+        $request
+            ->shouldReceive('errorMessages')
+            ->once()
+            ->andReturn([
+                'amount' => 'No amount was provided',
+            ])
+        ;
+        $request
+            ->shouldReceive('values')
+            ->once()
+            ->andReturn([
+                'fromMemberId' => $fromMemberId,
+                'toMemberId' => $toMemberId,
+            ])
+        ;
+        $request
+            ->shouldReceive('value')
+            ->with('fromMemberId')
+            ->once()
+            ->andReturn($fromMemberId)
+        ;
+
+        return $request;
+    }
+
+    /**
+     * @param string $fromMemberId
+     * @param string $toMemberId
+     * @param integer $amount
+     * @return FilteredRequest
+     */
+    private function givenThatValidTransferInformationIsProvided(
+        $fromMemberId,
+        $toMemberId,
+        $amount
+    ) {
         $request = Mockery::mock(FilteredRequest::class);
         $request
             ->shouldReceive('isValid')
@@ -67,14 +134,27 @@ class TransferFundsActionTest extends TestCase
             ->shouldReceive('values')
             ->once()
             ->andReturn([
-                'fromMemberId' => 'abc', 'toMemberId' => 'xyz', 'amount' => 100
+                'fromMemberId' => $fromMemberId,
+                'toMemberId' => $toMemberId,
+                'amount' => $amount
             ])
         ;
+        return $request;
+    }
 
-        $controller = new TransferFundsAction($responder, $useCase);
+    /**
+     * @param string $fromMemberId
+     * @param string $toMemberId
+     * @return TransferFunds
+     */
+    private function givenThatMembersAreKnown($fromMemberId, $toMemberId)
+    {
+        $members = new InMemoryMembers();
+        $members->add(
+            A::member()->withId($fromMemberId)->withBalance(20000)->build()
+        );
+        $members->add(A::member()->withId($toMemberId)->build());
 
-        $response = $controller->transfer($request);
-
-        $this->assertEquals(200, $response->getStatusCode());
+        return new TransferFunds($members);
     }
 }

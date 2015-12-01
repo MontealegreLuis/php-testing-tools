@@ -10,7 +10,7 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Responders\Web\ResponseFactory;
 use EwalletModule\Responders\Web\TemplateEngine;
-use EwalletModule\Responders\TransferFundsWebResponder;
+use EwalletModule\Responders\Web\TransferFundsWebResponder;
 
 class TransferFundsFormResponder implements TransferFundsWebResponder
 {

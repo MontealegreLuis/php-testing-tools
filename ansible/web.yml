@@ -1,0 +1,44 @@
+---
+- name: Copy application configuration template.
+  template: src={{ ansible_env.PWD }}/web/templates/.env.j2 dest={{ ansible_env.PWD }}/web/templates/.env
+
+- name: Build data container.
+  command: docker build -t ewallet:data data
+
+# Data containers don't need to be running to be utilized.
+- name: Run ewallet data container.
+  docker:
+    image: ewallet:data
+    name: data
+    state: present
+
+# Initialize the application database and link the data container
+- name: Pull MySQL container.
+  command: docker pull mysql:5.6.27
+
+- name: Run ewallet MySQL container.
+  docker:
+    image: mysql:5.6.27
+    name: db
+    state: running
+    volumes_from: data
+    ports: "3308:3306"
+    env:
+        MYSQL_ROOT_PASSWORD: "{{ MYSQL_ROOT_PASSWORD }}"
+        MYSQL_USER: "{{ MYSQL_USER }}"
+        MYSQL_PASSWORD: "{{ MYSQL_PASSWORD }}"
+        MYSQL_DATABASE: "ewallet_db"
+
+- name: Build PHP and Apache container.
+  command: docker build -t ewallet:web web
+
+- name: Run PHP and Apache container.
+  docker:
+    image: ewallet:web
+    name: app
+    state: running
+    ports: "80:80"
+    volumes:
+      - "{{ ansible_env.PWD }}/../:/usr/src/myapp"
+    links:
+      - db

@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - include: web.yml

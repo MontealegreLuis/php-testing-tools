@@ -6,38 +6,33 @@
  */
 namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
 
-use Ewallet\Accounts\MemberInformation;
-use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsRequest;
-use Ewallet\Wallet\TransferFundsResponse;
-use EwalletModule\View\MemberFormatter;
+use Ewallet\Accounts\Identifier;
+use EwalletModule\Actions\FilteredRequest;
+use EwalletModule\Actions\TransferFundsAction;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TransferFundsCommand extends Command implements TransferFundsNotifier
+class TransferFundsCommand extends Command
 {
-    /** @var TransferFunds */
-    private $useCase;
+    /** @var TransferFundsAction */
+    private $action;
 
-    /** @var MemberFormatter */
-    private $formatter;
-
-    /** @var OutputInterface */
-    private $output;
+    /** @var FilteredRequest */
+    private $request;
 
     /**
-     * @param TransferFunds $useCase
-     * @param EwalletExtension $formatter
+     * @param TransferFundsAction $transferFunds
+     * @param FilteredRequest $request
      */
-    public function __construct(TransferFunds $useCase, MemberFormatter $formatter)
-    {
+    public function __construct(
+        TransferFundsAction $transferFunds,
+        FilteredRequest $request
+    ) {
         parent::__construct();
-        $this->formatter = $formatter;
-        $this->useCase = $useCase;
-        $this->useCase->attach($this);
+        $this->action = $transferFunds;
+        $this->request = $request;
     }
 
     /**
@@ -50,17 +45,17 @@ class TransferFundsCommand extends Command implements TransferFundsNotifier
             ->setDescription('Transfer funds from a member to another')
             ->addArgument(
                 'fromMemberId',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'The ID of the member making the transfer'
             )
             ->addArgument(
                 'toMemberId',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'The ID of the member that will receive funds'
             )
             ->addArgument(
                 'amount',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'The amount to be transferred'
             )
         ;
@@ -73,26 +68,10 @@ class TransferFundsCommand extends Command implements TransferFundsNotifier
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->output = $output;
-
-        $this->useCase->transfer(TransferFundsRequest::from($input->getArguments()));
-    }
-
-    /**
-     * @param TransferFundsResponse $response
-     */
-    public function transferCompleted(TransferFundsResponse $response)
-    {
-        $this->output->writeln('<info>Transfer completed successfully!</info>');
-        $this->printStatement($response->fromMember());
-        $this->printStatement($response->toMember());
-    }
-
-    /**
-     * @param MemberInformation $forMember
-     */
-    private function printStatement(MemberInformation $forMember)
-    {
-        $this->output->writeln("{$this->formatter->formatMember($forMember)}");
+        $fromMemberId = Identifier::fromString('ABC');
+        $input->setArgument('fromMemberId', (string) $fromMemberId);
+        $this->action->enterTransferInformation($fromMemberId);
+        $this->request->populate($input->getArguments());
+        $this->action->transfer($this->request);
     }
 }

@@ -9,11 +9,8 @@ namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 use EwalletApplication\Bridges\Slim\Controllers\TransferFundsController;
 use EwalletApplication\Bridges\Twig\RouterExtension;
 use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
-use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
-use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Actions\TransferFundsAction;
 use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
-use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Bridges\EasyForms\TransferFundsForm;
 use Pimple\Container;
 use Slim\Slim;
@@ -46,18 +43,7 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
         $container['ewallet.transfer_form'] = function () {
             return new TransferFundsForm();
         };
-        $container['ewallet.transfer_filter_request'] = function () use ($container) {
-            return new TransferFundsInputFilterRequest(
-                new TransferFundsFilter(),
-                $container['ewallet.members_configuration']
-            );
-        };
-        $container['ewallet.members_configuration'] = function () use ($container) {
-            return new MembersConfiguration(
-                $container['ewallet.member_repository']
-            );
-        };
-        $container['ewallet.transfer_funds_responder'] = function () use ($container) {
+        $container['ewallet.transfer_funds_web_responder'] = function () use ($container) {
             return new TransferFundsFormResponder(
                 $container['ewallet.template_engine'],
                 new DiactorosResponseFactory(),
@@ -67,13 +53,13 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
         };
         $container['ewallet.transfer_form_controller'] = function () use ($container) {
             return new TransferFundsController(new TransferFundsAction(
-                $container['ewallet.transfer_funds_responder']
+                $container['ewallet.transfer_funds_web_responder']
             ));
         };
         $container['ewallet.transfer_funds_controller'] = function () use ($container) {
             return new TransferFundsController(
                 new TransferFundsAction(
-                    $container['ewallet.transfer_funds_responder'],
+                    $container['ewallet.transfer_funds_web_responder'],
                     $container['ewallet.transfer_funds']
                 ),
                 $container['ewallet.transfer_filter_request']

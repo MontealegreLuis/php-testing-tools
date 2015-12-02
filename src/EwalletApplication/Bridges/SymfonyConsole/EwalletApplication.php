@@ -22,8 +22,8 @@ class EwalletApplication extends Application
         parent::__construct('ewallet', '1.0.0');
         $this
             ->add(new TransferFundsCommand(
-                $container['ewallet.transfer_funds'],
-                $container['ewallet.member_formatter']
+                $container['ewallet.transfer_funds_console_action'],
+                $container['ewallet.transfer_filter_request']
             ))
         ;
         $this

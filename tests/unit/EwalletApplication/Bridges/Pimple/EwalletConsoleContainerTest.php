@@ -11,7 +11,11 @@ use Dotenv\Dotenv;
 use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
+use EwalletModule\Actions\TransferFundsAction;
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
+use EwalletModule\Bridges\SymfonyConsole\TransferFundsConsoleResponder;
+use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\View\MemberFormatter;
 use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\Bridges\Doctrine2\Messaging\MessageTrackerRepository;
@@ -22,6 +26,8 @@ use Hexagonal\Messaging\MessagePublisher;
 use Monolog\Logger;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PHPUnit_Framework_TestCase as TestCase;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class EwalletConsoleContainerTest extends TestCase
 {
@@ -42,12 +48,37 @@ class EwalletConsoleContainerTest extends TestCase
             $container['ewallet.member_repository']
         );
         $this->assertInstanceOf(
+            MembersConfiguration::class,
+            $container['ewallet.members_configuration']
+        );
+        $this->assertInstanceOf(
             MemberFormatter::class,
             $container['ewallet.member_formatter']
         );
         $this->assertInstanceOf(
+            TransferFundsInputFilterRequest::class,
+            $container['ewallet.transfer_filter_request']
+        );
+        $this->assertInstanceOf(
             TransferFundsTransactionally::class,
             $container['ewallet.transfer_funds']
+        );
+        // console objects: 3
+        $this->assertInstanceOf(
+            ArgvInput::class,
+            $container['ewallet.console_input']
+        );
+        $this->assertInstanceOf(
+            ConsoleOutput::class,
+            $container['ewallet.console_output']
+        );
+        $this->assertInstanceOf(
+            TransferFundsConsoleResponder::class,
+            $container['ewallet.transfer_funds_console_responder']
+        );
+        $this->assertInstanceOf(
+            TransferFundsAction::class,
+            $container['ewallet.transfer_funds_console_action']
         );
         $this->assertInstanceOf(
             Logger::class,

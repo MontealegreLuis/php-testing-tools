@@ -7,12 +7,17 @@
 namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
 
 use EwalletApplication\Bridges\SymfonyConsole\Listeners\StoreEventsListener;
+use EwalletModule\Actions\TransferFundsAction;
+use EwalletModule\Bridges\EasyForms\MembersConfiguration;
+use EwalletModule\Bridges\SymfonyConsole\TransferFundsConsoleResponder;
 use EwalletModule\Bridges\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
 use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
 use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
 use EwalletModule\Bridges\Twig\TwigTemplateEngine;
+use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
+use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use EwalletModule\Bridges\Zf2\Mail\TransferFundsZendMailSender;
 use EwalletModule\Bridges\Zf2\Mail\TransportFactory;
 use EwalletModule\View\MemberFormatter;
@@ -25,6 +30,9 @@ use Hexagonal\DomainEvents\StoredEventFactory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
@@ -44,6 +52,17 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
         $container['ewallet.member_repository'] = function () use ($container) {
             return $container['doctrine.em']->getRepository(Member::class);
         };
+        $container['ewallet.members_configuration'] = function () use ($container) {
+            return new MembersConfiguration(
+                $container['ewallet.member_repository']
+            );
+        };
+        $container['ewallet.transfer_filter_request'] = function () use ($container) {
+            return new TransferFundsInputFilterRequest(
+                new TransferFundsFilter(),
+                $container['ewallet.members_configuration']
+            );
+        };
         $container['ewallet.template_engine'] = function () use ($container) {
             return new TwigTemplateEngine($container['twig.environment']);
         };
@@ -57,6 +76,27 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
             $transferFunds->setPublisher($container['ewallet.events_publisher']);
 
             return $transferFunds;
+        };
+        $container['ewallet.console_input'] = function () {
+            return new ArgvInput();
+        };
+        $container['ewallet.console_output'] = function () {
+            return new ConsoleOutput();
+        };
+        $container['ewallet.transfer_funds_console_responder'] = function () use ($container) {
+            return new TransferFundsConsoleResponder(
+                $container['ewallet.console_input'],
+                $container['ewallet.console_output'],
+                new QuestionHelper(),
+                $container['ewallet.members_configuration'],
+                $container['ewallet.member_formatter']
+            );
+        };
+        $container['ewallet.transfer_funds_console_action'] = function () use ($container) {
+            return new TransferFundsAction(
+                $container['ewallet.transfer_funds_console_responder'],
+                $container['ewallet.transfer_funds']
+            );
         };
         $container['ewallet.member_formatter'] = function () {
             return new MemberFormatter();

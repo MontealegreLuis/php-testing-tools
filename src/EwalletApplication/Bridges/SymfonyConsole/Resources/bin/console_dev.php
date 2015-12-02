@@ -14,7 +14,10 @@ $environment = new Dotenv(__DIR__ . '/../../../../../../');
 $environment->load();
 $environment->required(['DOCTRINE_DEV_MODE', 'TWIG_DEBUG']);
 
-$application = new EwalletApplication(new EwalletConsoleContainer(
+$application = new EwalletApplication($container = new EwalletConsoleContainer(
     require __DIR__ . '/../../../../../../app/config_dev.php'
 ));
-$application->run();
+$application->run(
+    $container['ewallet.console_input'],
+    $container['ewallet.console_output']
+);

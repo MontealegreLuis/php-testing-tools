@@ -24,7 +24,7 @@ class MembersConfiguration
 
     /**
      * @param Identifier $memberId
-     * @return array
+     * @return \EWallet\Accounts\MemberInformation[]
      */
     public function getMembersChoicesExcluding(Identifier $memberId)
     {

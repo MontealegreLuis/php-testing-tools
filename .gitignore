@@ -1,4 +1,5 @@
 .env
+/ansible/web/templates/ewallet.conf
 /bin/
 /humbuglog.txt
 /node_modules/

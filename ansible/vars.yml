@@ -1,0 +1,24 @@
+---
+# This configuration defaults to development environment
+
+# Doctrine configuration
+DOCTRINE_DEV_MODE: 1
+
+# Twig configuration
+TWIG_DEBUG: 1
+
+# SMTP configuration
+SMTP_HOST: "127.0.0.1"
+SMTP_PORT: 1025
+
+# RabbitMQ configuration
+RABBIT_MQ_USER: "guest"
+RABBIT_MQ_PASSWORD: "guest"
+
+# MySQL configuration
+MYSQL_ROOT_PASSWORD: "root"
+
+# MySQL application configuration
+MYSQL_USER: "ewallet_user"
+MYSQL_PASSWORD: "ewallet_password"
+MYSQL_HOST: "localhost"

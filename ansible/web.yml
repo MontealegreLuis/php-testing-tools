@@ -1,6 +1,6 @@
 ---
 - name: Copy application configuration template.
-  template: src={{ ansible_env.PWD }}/web/templates/.env.j2 dest={{ ansible_env.PWD }}/web/templates/.env
+  template: src={{ ansible_env.PWD }}/web/templates/ewallet.conf.j2 dest={{ ansible_env.PWD }}/web/templates/ewallet.conf
 
 - name: Build data container.
   command: docker build -t ewallet:data data

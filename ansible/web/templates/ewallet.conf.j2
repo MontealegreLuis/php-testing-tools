@@ -1,5 +1,9 @@
 <VirtualHost *:80>
   DocumentRoot "/usr/src/myapp/src/EwalletApplication/Bridges/Slim/Resources/web"
+  SetEnv DOCTRINE_DEV_MODE {{ DOCTRINE_DEV_MODE }}
+  SetEnv TWIG_DEBUG {{ TWIG_DEBUG }}
+  SetEnv SMTP_HOST {{ SMTP_HOST }}
+  SetEnv SMTP_PORT {{ SMTP_PORT }}
   <Directory "/usr/src/myapp/src/EwalletApplication/Bridges/Slim/Resources/web">
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All

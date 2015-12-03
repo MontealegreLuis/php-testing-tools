@@ -52,7 +52,7 @@ return [
         ],
     ],
     'rabbit_mq' => [
-        'host' => 'localhost',
+        'host' => getenv('RABBIT_MQ_HOST'),
         'port' => 5672,
         'user' => getenv('RABBIT_MQ_USER'),
         'password' => getenv('RABBIT_MQ_PASSWORD'),

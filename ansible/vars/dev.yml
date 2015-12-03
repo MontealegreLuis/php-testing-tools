@@ -14,6 +14,7 @@ SMTP_PORT: 1025
 # RabbitMQ configuration
 RABBIT_MQ_USER: "guest"
 RABBIT_MQ_PASSWORD: "guest"
+RABBIT_MQ_HOST: "messaging"
 
 # MySQL configuration
 MYSQL_ROOT_PASSWORD: "root"

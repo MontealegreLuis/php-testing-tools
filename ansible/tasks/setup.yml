@@ -18,5 +18,22 @@
         MYSQL_PASSWORD: "{{ MYSQL_PASSWORD }}"
         MYSQL_DATABASE: "ewallet_db"
 
+- name: Run ewallet RabbitMQ container.
+  docker:
+    image: rabbitmq:3.5
+    name: messaging
+    state: running
+    ports: "5674:5672"
+    env:
+        RABBITMQ_DEFAULT_USER: "{{ RABBIT_MQ_USER }}"
+        RABBITMQ_DEFAULT_PASS: "{{ RABBIT_MQ_PASSWORD }}"
+
 - name: Run PHP CLI container.
-  command: docker run -t --rm --name setup -v "{{ ansible_env.PWD }}/../:/usr/src/myapp" -w /usr/src/myapp --link db:db ewallet:setup make install
+  command: docker run -t --rm \
+            --name setup \
+            -v "{{ ansible_env.PWD }}/../:/usr/src/myapp" \
+            -w /usr/src/myapp \
+            --link db:db \
+            --link messaging:messaging \
+            ewallet:setup \
+            make install

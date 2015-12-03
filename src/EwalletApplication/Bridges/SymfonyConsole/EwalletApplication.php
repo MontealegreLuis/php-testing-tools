@@ -9,6 +9,7 @@ namespace EwalletApplication\Bridges\SymfonyConsole;
 use EwalletApplication\Bridges\Pimple\EwalletConsoleContainer;
 use EwalletApplication\Bridges\SymfonyConsole\Commands\NotifyTransferByEmailCommand;
 use EwalletApplication\Bridges\SymfonyConsole\Commands\PublishMessagesCommand;
+use EwalletApplication\Bridges\SymfonyConsole\Commands\SeedDatabaseCommand;
 use EwalletApplication\Bridges\SymfonyConsole\Commands\TransferFundsCommand;
 use Symfony\Component\Console\Application;
 
@@ -37,6 +38,7 @@ class EwalletApplication extends Application
                 $container['hexagonal.messages_consumer']
             ))
         ;
+        $this->add(new SeedDatabaseCommand());
         $this->setDispatcher($container['ewallet.console.dispatcher']);
     }
 }

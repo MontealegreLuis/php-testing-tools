@@ -2,7 +2,7 @@
 - hosts: localhost
 
   vars_files:
-    - vars.yml
+    - vars/dev.yml
 
   tasks:
-    - include: web.yml
+    - include: tasks/dev.yml

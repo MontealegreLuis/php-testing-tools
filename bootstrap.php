@@ -7,8 +7,15 @@
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Dotenv\Dotenv;
 
 require __DIR__ . '/vendor/autoload.php';
+
+$environment = new Dotenv(__DIR__);
+$environment->load();
+$environment->required([
+    'DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'SMTP_HOST', 'SMTP_PORT'
+]);
 
 $options = require __DIR__ . '/app/config.php';
 

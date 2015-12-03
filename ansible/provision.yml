@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+
+  vars_files:
+    - vars/dev.yml
+
+  tasks:
+    - name: Copy Apache vhost configuration template.
+      template: src={{ ansible_env.PWD }}/web/templates/ewallet.conf.j2 dest={{ ansible_env.PWD }}/web/templates/ewallet.conf
+
+    - name: Copy .env file for console application
+      template: src={{ ansible_env.PWD }}/setup/templates/.env.j2 dest={{ ansible_env.PWD }}/../.env
+
+    - name: Build data container.
+      command: docker build -t ewallet:data data
+
+    - name: Pull MySQL container.
+      command: docker pull mysql:5.6.27
+
+    - name: Build PHP and Apache container.
+      command: docker build -t ewallet:web web
+
+    - name: Build development setup container.
+      command: docker build -t ewallet:setup setup

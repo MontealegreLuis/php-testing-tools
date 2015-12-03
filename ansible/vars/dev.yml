@@ -21,4 +21,4 @@ MYSQL_ROOT_PASSWORD: "root"
 # MySQL application configuration
 MYSQL_USER: "ewallet_user"
 MYSQL_PASSWORD: "ewallet_password"
-MYSQL_HOST: "localhost"
+MYSQL_HOST: "db"

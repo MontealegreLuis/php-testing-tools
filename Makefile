@@ -1,14 +1,14 @@
 SHELL = /bin/bash
 
-.PHONY: install
+.PHONY: install phantom
 
 install:
 	@echo "Installing PHP dependencies..."
 	@composer install
-	@echo "Installing PhantomJS..."
-	@npm install
 	@echo "Setup database..."
 	@bin/doctrine orm:schema-tool:create
-	@echo "Configuring environment variables for development..."
-	@cp .env.dist .env
 	@echo "Done!"
+
+phantom:
+	@echo "Installing PhantomJS..."
+	@npm install

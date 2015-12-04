@@ -17,14 +17,17 @@
     - name: Pull MySQL container.
       command: docker pull mysql:5.6.27
 
-    - name: Build PHP and Apache container.
+    - name: Pull RabbitMQ container.
+      command: docker pull rabbitmq:3.5
+
+    - name: Build Web application container.
       command: docker build -t ewallet:web web
 
-    - name: Build development setup container.
+    - name: Build console application container.
+      command: docker build -t ewallet:console console
+
+    - name: Build container to setup the applications.
       command: docker build -t ewallet:setup setup
 
     - name: Build tests container.
       command: docker build -t ewallet:tests tests
-
-    - name: Pull RabbitMQ container.
-      command: docker pull rabbitmq:3.5

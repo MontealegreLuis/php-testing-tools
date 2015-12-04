@@ -1,7 +1,0 @@
-{
-  "name": "ewallet",
-  "version": "0.0.1",
-  "devDependencies": {
-    "phantomjs": "~1.9"
-  }
-}

@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: install local phantom
+.PHONY: install local
 
 local:
     @echo "Creating database user..."
@@ -15,7 +15,3 @@ install:
 	@echo "Seed database with initial information..."
 	@src/EwalletApplication/Bridges/SymfonyConsole/Resources/bin/console_dev ewallet:seed
 	@echo "Done!"
-
-phantom:
-	@echo "Installing PhantomJS..."
-	@npm install

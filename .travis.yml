@@ -16,7 +16,7 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - mysql -e 'create database ewallet_db;'
-  - npm install
+  - npm install -g phantomjs
   - cp .env.travis .env
   - bin/doctrine orm:schema-tool:create
   - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then wget https://github.com/digitalkaoz/typehint-to-docblock/releases/download/0.2.2/typehint-to-docblock.phar && php typehint-to-docblock.phar transform tests/specs; fi;'

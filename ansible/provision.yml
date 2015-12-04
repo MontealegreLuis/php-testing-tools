@@ -23,5 +23,8 @@
     - name: Build development setup container.
       command: docker build -t ewallet:setup setup
 
+    - name: Build tests container.
+      command: docker build -t ewallet:tests tests
+
     - name: Pull RabbitMQ container.
       command: docker pull rabbitmq:3.5

@@ -13,12 +13,13 @@ class RoboFile extends \Robo\Tasks
     {
         $this->stopOnFail();
         $this
-            ->taskExec('node_modules/.bin/phantomjs')
+            ->taskExec('phantomjs')
             ->option('webdriver', 4444)
             ->option('webdriver-loglevel', 'WARNING')
             ->background()
             ->run()
         ;
+        sleep(3); // Allow PhantomJS to start
         $this
             ->taskServer(8000)
             ->dir('src/EwalletApplication/Bridges/Slim/Resources/web')
@@ -53,13 +54,11 @@ class RoboFile extends \Robo\Tasks
             ->taskPhpspec('bin/phpspec')
             ->run()
         ;
-
         $this
             ->taskPhpUnit('bin/phpunit')
             ->option('testdox')
             ->run()
         ;
-
         $this->acceptance();
     }
 

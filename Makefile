@@ -1,11 +1,12 @@
 SHELL = /bin/bash
 
-.PHONY: install local
+.PHONY: install local db
 
-local:
-    @echo "Creating database user..."
-    @php create-user.php $(RUSER) $(RPSWD) $(HOST) $(DB) $(USER) $(PSWD)
-    install
+local: db install
+
+db:
+	@echo "Creating database user..."
+	@php setup-database.php $(RUSER) $(RPSWD) $(HOST) $(USER) $(PSWD)
 
 install:
 	@echo "Installing PHP dependencies..."

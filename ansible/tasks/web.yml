@@ -1,0 +1,12 @@
+---
+- name: Run Web application.
+  docker:
+    image: ewallet:web
+    name: web
+    state: running
+    ports: "80:80"
+    volumes:
+      - "{{ ansible_env.PWD }}/../:/usr/src/myapp"
+    links:
+      - db
+      - messaging

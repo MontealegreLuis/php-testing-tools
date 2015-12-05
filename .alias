@@ -1,0 +1,2 @@
+alias console='docker run -it --rm --name console -v "$PWD":/usr/src/myapp --link db:db --link messaging:messaging ewallet:console console_dev'
+alias robo='docker run -it --rm --name tests -v "$PWD":/usr/src/myapp -w /usr/src/myapp --link db:db ewallet:tests php bin/robo'

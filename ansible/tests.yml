@@ -1,8 +1,0 @@
----
-- hosts: localhost
-
-  vars_files:
-    - vars/dev.yml
-
-  tasks:
-    - include: tasks/tests.yml

@@ -26,7 +26,7 @@
     - name: Build console application container.
       command: docker build -t ewallet:console console
 
-    - name: Build container to setup the applications.
+    - name: Build container to setup the application.
       command: docker build -t ewallet:setup setup
 
     - name: Build tests container.

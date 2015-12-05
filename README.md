@@ -48,17 +48,20 @@ The `.env.dist` file contains the environment variables that this application
 needs to run. It uses `localhost` for MySQL, and also default values for
 RabbitMQ (`guest`, `guest`,  `localhost`).
 
+### Docker
+
+You can also run this demo using Docker containers and Ansible. If you have them
+installed, run this command:
+
+```bash
+$ make docker
+```
+
+It will set default hosts, users, and passwords for email, MySQL, and RabbitMQ.
+
 ## Usage
 
 ### Locally
-
-#### Tests
-
-You can run all the tests with this command:
-
-```bash
-$ bin/robo test
-```
 
 #### Web
 
@@ -92,6 +95,63 @@ following consumer:
 $ bin/robo console ewallet:transfer:email
 ```
 
+#### Tests
+
+You can run all the tests with this command:
+
+```bash
+$ bin/robo test
+```
+
+### Docker
+
+#### Web
+
+You can run the Web application with:
+
+```bash
+$ make web
+```
+
+Then browse to [http://localhost/][3]
+
+#### Console
+
+I created some alias to ease the use of the console application. First `source`
+the alias.
+
+```bash
+$ source .alias
+```
+
+Then you can transfer funds to another member like in the web application with:
+
+```bash
+$ console ewallet:transfer
+```
+
+To publish domain events to RabbitMQ after a successful transfer is made,
+execute:
+
+```bash
+$ console ewallet:events:spread
+```
+
+To send notification emails through the published messages, run the following
+consumer:
+
+```bash
+$ console ewallet:transfer:email
+```
+
+#### Tests
+
+You can run all the tests with this command:
+
+```bash
+$ robo test
+```
+
 [1]: http://escuela.it/cursos/php-web-congress-2015/
 [2]: http://bit.ly/php-testing-tools
 [3]: http://localhost:8000/index_dev.php/
@@ -104,3 +164,4 @@ $ bin/robo console ewallet:transfer:email
 [10]: https://github.com/giorgiosironi/eris
 [11]: https://github.com/padraic/humbug
 [12]: http://alistair.cockburn.us/Hexagonal+architecture
+[13]: http://localhost/

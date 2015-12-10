@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: install local db docker docker-build docker-run docker-setup web
+.PHONY: install local db docker docker-build docker-run web
 
 local: db install
 
@@ -12,12 +12,12 @@ install:
 	@echo "Installing PHP dependencies..."
 	@composer install --no-interaction
 	@echo "Setup database..."
-	@bin/doctrine orm:schema-tool:create
+	@bin/doctrine orm:schema-tool:update --force
 	@echo "Seed database with initial information..."
 	@src/EwalletApplication/Bridges/SymfonyConsole/Resources/bin/console_dev ewallet:seed
 	@echo "Done!"
 
-docker: docker-build docker-run docker-setup
+docker: docker-build docker-run
 
 docker-build:
 	@echo "Downloading and building containers."
@@ -26,10 +26,6 @@ docker-build:
 docker-run:
 	@echo "Start containers"
 	@ansible-playbook ansible/start.yml
-
-docker-setup:
-	@echo "Setting up application and starting containers."
-	@ansible-playbook ansible/setup.yml -v
 
 web:
 	@echo "Running container for Web application."

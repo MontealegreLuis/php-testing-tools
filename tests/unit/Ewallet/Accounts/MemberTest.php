@@ -21,7 +21,7 @@ class MemberTest extends TestCase
     function giver_balance_should_decrease_after_funds_have_been_transferred()
     {
         $this
-            ->forAll(Generator\int(1, 10000))
+            ->forAll(Generator\choose(1, 10000))
             ->then(function($amount) {
                 $fromMember = A::member()->withBalance(10000)->build();
                 $toMember = A::member()->build();
@@ -41,7 +41,7 @@ class MemberTest extends TestCase
     function beneficiary_balance_should_increase_after_funds_have_been_transferred()
     {
         $this
-            ->forAll(Generator\int(1, 10000))
+            ->forAll(Generator\choose(1, 10000))
             ->then(function($amount) {
                 $fromMember = A::member()->withBalance(10000)->build();
                 $toMember = A::member()->withBalance(5000)->build();

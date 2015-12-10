@@ -55,6 +55,8 @@ installed, run this command:
 
 ```bash
 $ make docker
+$ source .alias
+$ setup make install
 ```
 
 It will set default hosts, users, and passwords for email, MySQL, and RabbitMQ.

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c17ff2bb47f30b86c906ce6fa9abc6cf",
-    "content-hash": "a5a4078ba06132cfae206380663ceb1b",
+    "hash": "9c9b009fa595feafcfae0e1ed0721946",
+    "content-hash": "7c73006894f75314677af1ad64bbfdd5",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2578,21 +2578,21 @@
         },
         {
             "name": "giorgiosironi/eris",
-            "version": "0.4.0",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/giorgiosironi/eris.git",
-                "reference": "83c426a82e5aed733da0639c475fe4709c2ccfee"
+                "url": "https://github.com/MontealegreLuis/eris.git",
+                "reference": "e5abe4417280d17036876cd4e4a9267a566c80e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giorgiosironi/eris/zipball/83c426a82e5aed733da0639c475fe4709c2ccfee",
-                "reference": "83c426a82e5aed733da0639c475fe4709c2ccfee",
+                "url": "https://api.github.com/repos/MontealegreLuis/eris/zipball/e5abe4417280d17036876cd4e4a9267a566c80e5",
+                "reference": "e5abe4417280d17036876cd4e4a9267a566c80e5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4",
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": ">4,<6"
             },
             "require-dev": {
                 "icomefromthenet/reverse-regex": "v0.0.6.2"
@@ -2609,15 +2609,10 @@
                     "src/Eris/Generator/functions.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
-                {
-                    "name": "Gabriele Lana",
-                    "email": "gabriele.lana@gmail.com"
-                },
                 {
                     "name": "Giorgio Sironi",
                     "email": "info@giorgiosironi.com"
@@ -2625,10 +2620,17 @@
                 {
                     "name": "Mirko Bonadei",
                     "email": "mirko.bonadei@gmail.com"
+                },
+                {
+                    "name": "Gabriele Lana",
+                    "email": "gabriele.lana@gmail.com"
                 }
             ],
             "description": "PHP library for property-based testing. Integrates with PHPUnit.",
-            "time": "2015-05-27 18:49:24"
+            "support": {
+                "source": "https://github.com/MontealegreLuis/eris/tree/0.6.0"
+            },
+            "time": "2015-11-29 09:55:21"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4909,7 +4911,14 @@
             "time": "2015-07-28 14:07:07"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "0.5.0",
+            "alias_normalized": "0.5.0.0",
+            "version": "0.6.0.0",
+            "package": "giorgiosironi/eris"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "humbug/humbug": 20

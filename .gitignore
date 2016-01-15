@@ -1,5 +1,5 @@
 .env
-/ansible/web/templates/ewallet.conf
+/containers/web/templates/ewallet.conf
 /bin/
 /humbuglog.txt
 /vendor/

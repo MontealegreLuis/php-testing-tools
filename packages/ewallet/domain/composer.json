@@ -1,0 +1,41 @@
+{
+    "name": "ewallet/domain",
+    "description": "Ewallet core domain",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ewallet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ewallet\\": "tests/src"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../hexagonal/hexagonal"
+        }
+    ],
+    "require": {
+        "mathiasverraes/money": "^1.2",
+        "beberlei/assert": "^2.3",
+        "hexagonal/hexagonal": "^1.0"
+    },
+    "require-dev": {
+        "behat/behat": "^3.0",
+        "phpspec/phpspec": "^2.2",
+        "phpunit/phpunit": "^4.7"
+    }
+}

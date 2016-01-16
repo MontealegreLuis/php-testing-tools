@@ -8,7 +8,7 @@ namespace EwalletModule\Bridges\SymfonyConsole;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\MemberInformation;
-use Ewallet\Wallet\TransferFundsResponse;
+use Ewallet\Wallet\TransferFundsResult;
 use EwalletModule\Bridges\EasyForms\MembersConfiguration;
 use EwalletModule\Responders\TransferFundsResponder;
 use EwalletModule\View\MemberFormatter;
@@ -112,13 +112,13 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     }
 
     /**
-     * @param TransferFundsResponse $response
+     * @param TransferFundsResult $result
      */
-    public function respondToTransferCompleted(TransferFundsResponse $response)
+    public function respondToTransferCompleted(TransferFundsResult $result)
     {
         $this->output->writeln('<info>Transfer completed successfully!</info>');
-        $this->printStatement($response->fromMember());
-        $this->printStatement($response->toMember());
+        $this->printStatement($result->fromMember());
+        $this->printStatement($result->toMember());
     }
 
     /**

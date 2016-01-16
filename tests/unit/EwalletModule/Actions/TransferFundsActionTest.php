@@ -10,7 +10,7 @@ use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsResponse;
+use Ewallet\Wallet\TransferFundsResult;
 use EwalletModule\Responders\TransferFundsResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -50,7 +50,7 @@ class TransferFundsActionTest extends TestCase
         $responder
             ->shouldHaveReceived('respondToTransferCompleted')
             ->once()
-            ->with(Mockery::type(TransferFundsResponse::class))
+            ->with(Mockery::type(TransferFundsResult::class))
         ;
     }
 

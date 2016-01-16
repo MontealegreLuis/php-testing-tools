@@ -6,7 +6,7 @@
  */
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsResponse;
+use Ewallet\Wallet\TransferFundsResult;
 use Money\Money;
 use PHPUnit_Framework_Assert as Assertion;
 
@@ -20,9 +20,9 @@ class MembersHelper implements TransferFundsNotifier
     /**
      * Record last event triggered
      *
-     * @param TransferFundsResponse $response
+     * @param TransferFundsResult $result
      */
-    public function transferCompleted(TransferFundsResponse $response)
+    public function transferCompleted(TransferFundsResult $result)
     {
         $this->lastEvent = self::TRANSFER_COMPLETED;
     }

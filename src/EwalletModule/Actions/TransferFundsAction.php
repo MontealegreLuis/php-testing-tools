@@ -10,7 +10,7 @@ use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsInformation;
-use Ewallet\Wallet\TransferFundsResponse;
+use Ewallet\Wallet\TransferFundsResult;
 use EwalletModule\Responders\TransferFundsResponder;
 
 class TransferFundsAction implements TransferFundsNotifier
@@ -68,11 +68,11 @@ class TransferFundsAction implements TransferFundsNotifier
     }
 
     /**
-     * @param TransferFundsResponse $response
+     * @param TransferFundsResult $result
      */
-    public function transferCompleted(TransferFundsResponse $response)
+    public function transferCompleted(TransferFundsResult $result)
     {
-        $this->responder->respondToTransferCompleted($response);
+        $this->responder->respondToTransferCompleted($result);
     }
 
     /**

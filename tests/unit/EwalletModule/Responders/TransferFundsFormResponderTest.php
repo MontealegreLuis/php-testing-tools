@@ -8,7 +8,7 @@ namespace EwalletModule\Responders;
 
 use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
-use Ewallet\Wallet\TransferFundsResponse;
+use Ewallet\Wallet\TransferFundsResult;
 use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
 use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
 use EwalletModule\Bridges\EasyForms\MembersConfiguration;
@@ -67,7 +67,7 @@ class TransferFundsFormResponderTest extends TestCase
             ->with(Mockery::type('string'), Mockery::type('array'))
             ->andReturn('')
         ;
-        $result = new TransferFundsResponse(
+        $result = new TransferFundsResult(
             A::member()->build(),
             A::member()->build()
         );

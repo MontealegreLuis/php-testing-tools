@@ -9,7 +9,7 @@ namespace Ewallet\Wallet;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\MemberInformation;
 
-class TransferFundsResponse
+class TransferFundsResult
 {
     /** @var Member */
     private $fromMember;

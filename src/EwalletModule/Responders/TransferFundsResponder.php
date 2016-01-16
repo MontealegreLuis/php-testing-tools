@@ -7,14 +7,14 @@
 namespace EwalletModule\Responders;
 
 use Ewallet\Accounts\Identifier;
-use Ewallet\Wallet\TransferFundsResponse;
+use Ewallet\Wallet\TransferFundsResult;
 
 interface TransferFundsResponder
 {
     /**
-     * @param TransferFundsResponse $result
+     * @param TransferFundsResult $result
      */
-    public function respondToTransferCompleted(TransferFundsResponse $result);
+    public function respondToTransferCompleted(TransferFundsResult $result);
 
     /**
      * @param array $messages

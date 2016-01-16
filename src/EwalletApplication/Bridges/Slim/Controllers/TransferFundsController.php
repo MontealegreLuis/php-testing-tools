@@ -36,7 +36,7 @@ class TransferFundsController
      */
     public function enterTransferInformation()
     {
-        $this->action->enterTransferInformation(Identifier::fromString('ABC'));
+        $this->action->enterTransferInformation(Identifier::with('ABC'));
 
         $this->renderResponseBody();
     }

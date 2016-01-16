@@ -84,7 +84,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myBalanceShouldBeMxn($amount)
     {
-        $forMe = $this->members->with(Identifier::fromString('abc'));
+        $forMe = $this->members->with(Identifier::with('abc'));
         $this->membersHelper->assertBalanceIs($amount, $forMe);
     }
 
@@ -93,7 +93,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn($amount)
     {
-        $forMyFriend = $this->members->with(Identifier::fromString('xyz'));
+        $forMyFriend = $this->members->with(Identifier::with('xyz'));
         $this->membersHelper->assertBalanceIs($amount, $forMyFriend);
     }
 }

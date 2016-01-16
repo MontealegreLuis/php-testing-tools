@@ -27,7 +27,7 @@ class MemberSpec extends ObjectBehavior
     function let()
     {
         $this->beConstructedThrough( 'withAccountBalance', [
-            Identifier::fromString(self::A_VALID_ID),
+            Identifier::with(self::A_VALID_ID),
             self::A_VALID_NAME,
             new Email(self::A_VALID_EMAIL),
             Money::MXN(self::A_VALID_AMOUNT)
@@ -58,7 +58,7 @@ class MemberSpec extends ObjectBehavior
     function it_should_not_allow_an_empty_name()
     {
         $this->beConstructedThrough('withAccountBalance', [
-            Identifier::fromString(self::A_VALID_ID),
+            Identifier::with(self::A_VALID_ID),
             '',
             new Email(self::A_VALID_EMAIL),
             Money::MXN(self::A_VALID_AMOUNT)

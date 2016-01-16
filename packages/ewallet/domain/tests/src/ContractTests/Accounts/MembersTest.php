@@ -43,7 +43,7 @@ abstract class MembersTest extends TestCase
     /** @test */
     function it_should_find_a_registered_member()
     {
-        $member = $this->members->with(Identifier::fromString('abcd'));
+        $member = $this->members->with(Identifier::with('abcd'));
 
         $this->assertTrue(
             $member->equals($this->existingMember),
@@ -54,7 +54,7 @@ abstract class MembersTest extends TestCase
     /** @test */
     function it_should_not_find_a_non_existing_member()
     {
-        $member = $this->members->with(Identifier::fromString('lmno'));
+        $member = $this->members->with(Identifier::with('lmno'));
 
         $this->assertNull($member, 'Non existing member found');
     }
@@ -62,7 +62,7 @@ abstract class MembersTest extends TestCase
     /** @test */
     function it_should_update_the_information_of_a_registered_member()
     {
-        $member = $this->members->with(Identifier::fromString('wxyz'));
+        $member = $this->members->with(Identifier::with('wxyz'));
         $member->transfer(Money::MXN(500), $this->existingMember);
         $this->members->update($this->existingMember);
 

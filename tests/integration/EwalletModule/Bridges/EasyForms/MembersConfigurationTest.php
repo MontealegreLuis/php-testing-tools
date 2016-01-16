@@ -40,7 +40,7 @@ class MembersConfigurationTest extends TestCase
         $configuration = new MembersConfiguration($members);
 
         $options = $configuration->getMembersChoicesExcluding(
-            Identifier::fromString('ABC')
+            Identifier::with('ABC')
         );
 
         $this->assertCount(2, $options);

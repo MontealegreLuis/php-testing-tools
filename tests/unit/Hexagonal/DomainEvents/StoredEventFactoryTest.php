@@ -19,7 +19,7 @@ class StoredEventFactoryTest extends TestCase
     function it_should_create_an_stored_event_from_a_given_domain_event()
     {
         $event = new InstantaneousEvent(
-            Identifier::fromString('abc'),
+            Identifier::with('abc'),
             Money::MXN(500000),
             new DateTime('2015-10-25 19:59:00')
         );

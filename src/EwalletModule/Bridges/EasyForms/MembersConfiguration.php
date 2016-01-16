@@ -48,7 +48,7 @@ class MembersConfiguration
     {
         $memberId = Identifier::any();
         if (!is_null($fromMemberId)) {
-            $memberId = Identifier::fromString($fromMemberId);
+            $memberId = Identifier::with($fromMemberId);
         }
 
         return array_keys(

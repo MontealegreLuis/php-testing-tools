@@ -36,7 +36,7 @@ class IdentifierSpec extends ObjectBehavior
     function it_should_know_when_it_is_equal_to_another_id()
     {
         $this->beConstructedThrough('fromString', ['abcd']);
-        $this->equals(Identifier::fromString('abcd'))->shouldBe(true);
+        $this->equals(Identifier::with('abcd'))->shouldBe(true);
     }
 
     function it_should_be_casted_to_string()

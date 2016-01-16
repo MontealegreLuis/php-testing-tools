@@ -19,7 +19,7 @@ class AccountInformation
     /**
      * @param $balance
      */
-    public function __construct(Money$balance)
+    public function __construct(Money $balance)
     {
         $this->balance = $balance;
     }

@@ -92,7 +92,7 @@ class MembersBuilder
     public function build()
     {
         $member = Member::withAccountBalance(
-            Identifier::fromString($this->id),
+            Identifier::with($this->id),
             $this->name,
             new Email($this->email),
             $this->amount

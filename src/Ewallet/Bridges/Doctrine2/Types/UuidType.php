@@ -45,7 +45,7 @@ class UuidType extends Type
         }
 
         try {
-            $uuid = Identifier::fromString($value);
+            $uuid = Identifier::with($value);
         } catch (InvalidArgumentException $e) {
             throw ConversionException::conversionFailed($value, self::NAME);
         }

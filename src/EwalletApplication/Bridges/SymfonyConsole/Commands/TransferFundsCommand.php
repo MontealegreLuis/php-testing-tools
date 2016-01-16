@@ -7,7 +7,7 @@
 namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\Identifier;
-use EwalletModule\Actions\FilteredRequest;
+use EwalletModule\Actions\TransferFundsRequest;
 use EwalletModule\Actions\TransferFundsAction;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,16 +19,16 @@ class TransferFundsCommand extends Command
     /** @var TransferFundsAction */
     private $action;
 
-    /** @var FilteredRequest */
+    /** @var TransferFundsRequest */
     private $request;
 
     /**
      * @param TransferFundsAction $transferFunds
-     * @param FilteredRequest $request
+     * @param TransferFundsRequest $request
      */
     public function __construct(
         TransferFundsAction $transferFunds,
-        FilteredRequest $request
+        TransferFundsRequest $request
     ) {
         parent::__construct();
         $this->action = $transferFunds;

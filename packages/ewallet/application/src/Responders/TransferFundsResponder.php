@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Responders;
+namespace Ewallet\Responders;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFundsResult;
@@ -19,13 +19,8 @@ interface TransferFundsResponder
     /**
      * @param array $messages
      * @param array $values
-     * @param string $fromMemberId
      */
-    public function respondToInvalidTransferInput(
-        array $messages,
-        array $values,
-        $fromMemberId
-    );
+    public function respondToInvalidTransferInput(array $messages, array $values);
 
     /**
      * @param Identifier $fromMemberId

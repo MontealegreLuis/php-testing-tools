@@ -6,7 +6,7 @@
  */
 namespace EwalletModule\Actions;
 
-interface FilteredRequest
+interface TransferFundsRequest
 {
     /**
      * @return boolean

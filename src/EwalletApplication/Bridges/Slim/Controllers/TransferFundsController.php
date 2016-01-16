@@ -7,7 +7,7 @@
 namespace EwalletApplication\Bridges\Slim\Controllers;
 
 use Ewallet\Accounts\Identifier;
-use EwalletModule\Actions\FilteredRequest;
+use EwalletModule\Actions\TransferFundsRequest;
 use EwalletModule\Actions\TransferFundsAction;
 use Slim\Http\Request;
 
@@ -16,16 +16,16 @@ class TransferFundsController
     /** @var TransferFundsAction */
     private $action;
 
-    /** @var FilteredRequest */
+    /** @var TransferFundsRequest */
     private $request;
 
     /**
      * @param TransferFundsAction $action
-     * @param FilteredRequest $request Only required when transfer is performed
+     * @param TransferFundsRequest $request Only required when transfer is performed
      */
     public function __construct(
         TransferFundsAction $action,
-        FilteredRequest $request = null
+        TransferFundsRequest $request = null
     ) {
         $this->action = $action;
         $this->request = $request;

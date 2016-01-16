@@ -4,14 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Actions;
+namespace Ewallet\Actions;
 
 use Ewallet\Accounts\Identifier;
+use Ewallet\Responders\TransferFundsResponder;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsInformation;
 use Ewallet\Wallet\TransferFundsResult;
-use EwalletModule\Responders\TransferFundsResponder;
 
 class TransferFundsAction implements TransferFundsNotifier
 {
@@ -43,9 +43,9 @@ class TransferFundsAction implements TransferFundsNotifier
     }
 
     /**
-     * @param FilteredRequest $request
+     * @param TransferFundsRequest $request
      */
-    public function transfer(FilteredRequest $request)
+    public function transfer(TransferFundsRequest $request)
     {
         if (!$request->isValid()) {
             $this->validationFailedFor($request);
@@ -55,10 +55,10 @@ class TransferFundsAction implements TransferFundsNotifier
     }
 
     /**
-     * @param FilteredRequest $request
+     * @param TransferFundsRequest $request
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function validationFailedFor(FilteredRequest $request)
+    private function validationFailedFor(TransferFundsRequest $request)
     {
         $this->responder->respondToInvalidTransferInput(
             $request->errorMessages(),

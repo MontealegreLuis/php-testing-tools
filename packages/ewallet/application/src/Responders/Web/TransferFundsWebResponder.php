@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Responders\Web;
+namespace Ewallet\Responders\Web;
 
-use EwalletModule\Responders\TransferFundsResponder;
+use Ewallet\Responders\TransferFundsResponder;
 
 interface TransferFundsWebResponder extends TransferFundsResponder
 {

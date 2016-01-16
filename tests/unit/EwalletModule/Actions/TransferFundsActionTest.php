@@ -78,11 +78,11 @@ class TransferFundsActionTest extends TestCase
     /**
      * @param string $fromMemberId
      * @param string $toMemberId
-     * @return FilteredRequest
+     * @return TransferFundsRequest
      */
     private function givenThatNoAmountIsProvided($fromMemberId, $toMemberId)
     {
-        $request = Mockery::mock(FilteredRequest::class);
+        $request = Mockery::mock(TransferFundsRequest::class);
         $request
             ->shouldReceive('isValid')
             ->once()
@@ -117,14 +117,14 @@ class TransferFundsActionTest extends TestCase
      * @param string $fromMemberId
      * @param string $toMemberId
      * @param integer $amount
-     * @return FilteredRequest
+     * @return TransferFundsRequest
      */
     private function givenThatValidTransferInformationIsProvided(
         $fromMemberId,
         $toMemberId,
         $amount
     ) {
-        $request = Mockery::mock(FilteredRequest::class);
+        $request = Mockery::mock(TransferFundsRequest::class);
         $request
             ->shouldReceive('isValid')
             ->once()

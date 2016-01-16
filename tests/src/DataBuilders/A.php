@@ -6,10 +6,10 @@
  */
 namespace DataBuilders;
 
-use DataBuilders\Ewallet\MembersBuilder;
-use DataBuilders\Ewallet\TransferWasMadeBuilder;
 use DataBuilders\Hexagonal\PublishedMessageBuilder;
 use DataBuilders\Hexagonal\StoredEventBuilder;
+use Ewallet\DataBuilders\MembersBuilder;
+use Ewallet\DataBuilders\TransferWasMadeBuilder;
 
 class A
 {

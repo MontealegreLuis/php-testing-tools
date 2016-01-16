@@ -14,7 +14,7 @@ class IdentifierSpec extends ObjectBehavior
 {
     function it_should_be_created_from_a_string()
     {
-        $this->beConstructedThrough('fromString', ['abcd']);
+        $this->beConstructedThrough('with', ['abcd']);
         $this->__toString()->shouldBe('abcd');
     }
 
@@ -26,7 +26,7 @@ class IdentifierSpec extends ObjectBehavior
 
     function it_should_not_be_created_from_an_empty_string()
     {
-        $this->beConstructedThrough('fromString', ['']);
+        $this->beConstructedThrough('with', ['']);
         $this
             ->shouldThrow(InvalidArgumentException::class)
             ->duringInstantiation()
@@ -35,13 +35,13 @@ class IdentifierSpec extends ObjectBehavior
 
     function it_should_know_when_it_is_equal_to_another_id()
     {
-        $this->beConstructedThrough('fromString', ['abcd']);
+        $this->beConstructedThrough('with', ['abcd']);
         $this->equals(Identifier::with('abcd'))->shouldBe(true);
     }
 
     function it_should_be_casted_to_string()
     {
-        $this->beConstructedThrough('fromString', ['abcd']);
+        $this->beConstructedThrough('with', ['abcd']);
         $this->__toString()->shouldBe('abcd');
     }
 }

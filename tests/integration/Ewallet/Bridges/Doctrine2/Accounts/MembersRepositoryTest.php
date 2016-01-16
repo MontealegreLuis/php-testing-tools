@@ -6,9 +6,9 @@
  */
 namespace Ewallet\Bridges\Doctrine2\Accounts;
 
-use ContractTests\Ewallet\Accounts\MembersTest;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
+use Ewallet\ContractTests\Accounts\MembersTest;
 use TestHelpers\Bridges\ProvidesDoctrineSetup;
 
 class MembersRepositoryTest extends MembersTest

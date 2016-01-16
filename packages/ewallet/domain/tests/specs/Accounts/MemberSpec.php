@@ -11,8 +11,8 @@ use DataBuilders\A;
 use Ewallet\Accounts\Email;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\InvalidTransferAmount;
+use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Money\Money;
-use PhpSpec\Matchers\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
 
 class MemberSpec extends ObjectBehavior

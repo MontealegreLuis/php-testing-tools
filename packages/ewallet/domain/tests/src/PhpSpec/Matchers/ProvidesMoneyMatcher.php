@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace PhpSpec\Matchers;
+namespace Ewallet\PhpSpec\Matchers;
 
 use Money\Money;
 use PhpSpec\Exception\Example\FailureException;

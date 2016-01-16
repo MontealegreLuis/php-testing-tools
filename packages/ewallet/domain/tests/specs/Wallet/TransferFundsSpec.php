@@ -8,10 +8,10 @@ namespace specs\Ewallet\Wallet;
 
 use DataBuilders\A;
 use Ewallet\Accounts\Members;
+use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsInformation;
 use Ewallet\Wallet\TransferFundsResult;
-use PhpSpec\Matchers\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

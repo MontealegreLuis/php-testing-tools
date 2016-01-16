@@ -6,10 +6,10 @@
  */
 namespace Ewallet\ContractTests\Accounts;
 
-use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
+use Ewallet\DataBuilders\A;
+use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
-use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class MembersTest extends TestCase

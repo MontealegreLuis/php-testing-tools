@@ -8,27 +8,9 @@ namespace DataBuilders;
 
 use DataBuilders\Hexagonal\PublishedMessageBuilder;
 use DataBuilders\Hexagonal\StoredEventBuilder;
-use Ewallet\DataBuilders\MembersBuilder;
-use Ewallet\DataBuilders\TransferWasMadeBuilder;
 
 class A
 {
-    /**
-     * @return MembersBuilder
-     */
-    public static function member()
-    {
-        return new MembersBuilder();
-    }
-
-    /**
-     * @return TransferWasMadeBuilder
-     */
-    public static function transferWasMadeEvent()
-    {
-        return new TransferWasMadeBuilder();
-    }
-
     /**
      * @return StoredEventBuilder
      */

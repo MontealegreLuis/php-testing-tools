@@ -6,8 +6,8 @@
  */
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
+use Ewallet\DataBuilders\A;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsInformation;

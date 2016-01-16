@@ -6,8 +6,8 @@
  */
 namespace specs\Ewallet\Wallet;
 
-use DataBuilders\A;
 use Ewallet\Accounts\Members;
+use Ewallet\DataBuilders\A;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsInformation;

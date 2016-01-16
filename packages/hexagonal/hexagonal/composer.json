@@ -1,0 +1,20 @@
+{
+    "name": "hexagonal/hexagonal",
+    "description": "Transactional services, events and messaging.",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hexagonal\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}

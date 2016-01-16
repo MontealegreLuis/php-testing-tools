@@ -6,9 +6,9 @@
  */
 namespace Ewallet\Accounts;
 
-use DataBuilders\A;
 use Eris\Generator;
 use Eris\TestTrait;
+use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

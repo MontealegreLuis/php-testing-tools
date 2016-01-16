@@ -9,7 +9,7 @@ namespace Ewallet\Wallet;
 use Ewallet\Accounts\Identifier;
 use Money\Money;
 
-class TransferFundsRequest
+class TransferFundsInformation
 {
     /** @var Identifier */
     private $fromMemberId;
@@ -32,7 +32,7 @@ class TransferFundsRequest
 
     /**
      * @param array $filteredInput
-     * @return TransferFundsRequest
+     * @return TransferFundsInformation
      */
     public static function from(array $filteredInput)
     {

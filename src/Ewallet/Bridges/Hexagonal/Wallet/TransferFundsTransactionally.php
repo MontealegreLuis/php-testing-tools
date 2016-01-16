@@ -7,7 +7,7 @@
 namespace Ewallet\Bridges\Hexagonal\Wallet;
 
 use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsRequest;
+use Ewallet\Wallet\TransferFundsInformation;
 use Hexagonal\Application\Services\ProvidesTransactionalOperations;
 
 class TransferFundsTransactionally extends TransferFunds
@@ -15,12 +15,12 @@ class TransferFundsTransactionally extends TransferFunds
     use ProvidesTransactionalOperations;
 
     /**
-     * @param TransferFundsRequest $request
+     * @param TransferFundsInformation $information
      */
-    public function transfer(TransferFundsRequest $request)
+    public function transfer(TransferFundsInformation $information)
     {
-        $this->session->executeAtomically(function () use ($request) {
-            parent::transfer($request);
+        $this->session->executeAtomically(function () use ($information) {
+            parent::transfer($information);
         });
     }
 }

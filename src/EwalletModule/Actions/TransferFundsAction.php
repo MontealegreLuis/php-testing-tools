@@ -9,7 +9,7 @@ namespace EwalletModule\Actions;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsRequest;
+use Ewallet\Wallet\TransferFundsInformation;
 use Ewallet\Wallet\TransferFundsResponse;
 use EwalletModule\Responders\TransferFundsResponder;
 
@@ -50,7 +50,7 @@ class TransferFundsAction implements TransferFundsNotifier
         if (!$request->isValid()) {
             $this->validationFailedFor($request);
         } else {
-            $this->useCase->transfer(TransferFundsRequest::from($request->values()));
+            $this->useCase->transfer(TransferFundsInformation::from($request->values()));
         }
     }
 

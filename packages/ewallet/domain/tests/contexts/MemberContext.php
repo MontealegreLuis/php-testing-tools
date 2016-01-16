@@ -10,7 +10,7 @@ use DataBuilders\A;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsRequest;
+use Ewallet\Wallet\TransferFundsInformation;
 
 /**
  * Defines application features from the specific context.
@@ -64,7 +64,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iTransferHimMxn($amount)
     {
-        $this->useCase->transfer(TransferFundsRequest::from([
+        $this->useCase->transfer(TransferFundsInformation::from([
             'fromMemberId' => 'abc',
             'toMemberId' => 'xyz',
             'amount' => round($amount->getAmount() / 100),

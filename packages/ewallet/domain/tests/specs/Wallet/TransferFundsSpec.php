@@ -9,7 +9,7 @@ namespace specs\Ewallet\Wallet;
 use DataBuilders\A;
 use Ewallet\Accounts\Members;
 use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsRequest;
+use Ewallet\Wallet\TransferFundsInformation;
 use Ewallet\Wallet\TransferFundsResponse;
 use PhpSpec\Matchers\ProvidesMoneyMatcher;
 use PhpSpec\ObjectBehavior;
@@ -34,7 +34,7 @@ class TransferFundsSpec extends ObjectBehavior
         $this->beConstructedWith($members);
         $this->attach($notifier);
 
-        $this->transfer(TransferFundsRequest::from([
+        $this->transfer(TransferFundsInformation::from([
             'fromMemberId' => (string) $fromMember->information()->id(),
             'toMemberId' => (string) $toMember->information()->id(),
             'amount' => 5,

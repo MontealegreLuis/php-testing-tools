@@ -37,14 +37,14 @@ class TransferFunds
     }
 
     /**
-     * @param TransferFundsRequest $request
+     * @param TransferFundsInformation $information
      */
-    public function transfer(TransferFundsRequest $request)
+    public function transfer(TransferFundsInformation $information)
     {
-        $fromMember = $this->members->with($request->fromMemberId());
-        $toMember = $this->members->with($request->toMemberId());
+        $fromMember = $this->members->with($information->fromMemberId());
+        $toMember = $this->members->with($information->toMemberId());
 
-        $fromMember->transfer($request->amount(), $toMember);
+        $fromMember->transfer($information->amount(), $toMember);
 
         $this->members->update($fromMember);
         $this->members->update($toMember);

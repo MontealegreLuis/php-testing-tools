@@ -43,7 +43,7 @@ class TransferFundsTest extends TestCase
         $transferBalance = new TransferFunds($members);
         $transferBalance->attach($notifier);
 
-        $transferBalance->transfer($request = TransferFundsRequest::from([
+        $transferBalance->transfer($request = TransferFundsInformation::from([
             'fromMemberId' => 'XYZ',
             'toMemberId' => 'ABC',
             'amount' => 3,

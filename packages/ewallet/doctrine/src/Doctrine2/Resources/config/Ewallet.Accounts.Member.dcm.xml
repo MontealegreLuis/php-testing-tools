@@ -6,7 +6,7 @@
     <entity
         name="Ewallet\Accounts\Member"
         table="members"
-        repository-class="Ewallet\Bridges\Doctrine2\Accounts\MembersRepository"
+        repository-class="Ewallet\Doctrine2\Accounts\MembersRepository"
     >
         <id name="memberId" type="uuid" column="member_id">
             <generator strategy="NONE" />

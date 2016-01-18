@@ -4,12 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Doctrine2\Accounts;
+namespace Ewallet\Doctrine2\Accounts;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use Ewallet\ContractTests\Accounts\MembersTest;
-use TestHelpers\Bridges\ProvidesDoctrineSetup;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class MembersRepositoryTest extends MembersTest
 {

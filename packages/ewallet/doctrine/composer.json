@@ -1,0 +1,46 @@
+{
+    "name": "ewallet/doctrine",
+    "description": "Ewallet persistency port",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ewallet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ewallet\\": [
+                "tests/src",
+                "vendor/ewallet/domain/tests/src"
+            ]
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../domain"
+        },
+        {
+            "type": "path",
+            "url": "../../hexagonal/hexagonal"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.5",
+        "ewallet/domain": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "fzaninotto/faker": "^1.5"
+    }
+}

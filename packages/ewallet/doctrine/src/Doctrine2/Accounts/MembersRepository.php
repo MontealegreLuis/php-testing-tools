@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Doctrine2\Accounts;
+namespace Ewallet\Doctrine2\Accounts;
 
 use Doctrine\ORM\EntityRepository;
 use Ewallet\Accounts\Identifier;

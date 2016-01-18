@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Doctrine2\Types;
+namespace Ewallet\Doctrine2\Types;
 
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;

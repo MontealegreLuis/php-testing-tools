@@ -34,25 +34,9 @@ class MembersConfiguration
         /** @var \EWallet\Accounts\Member $member */
         foreach ($members as $member) {
             $information = $member->information();
-            $options[(string) $information->id()] = $information;
+            $options[(string)$information->id()] = $information;
         }
 
         return $options;
-    }
-
-    /**
-     * @param string $fromMemberId
-     * @return array
-     */
-    public function getMembersWhiteList($fromMemberId)
-    {
-        $memberId = Identifier::any();
-        if (!is_null($fromMemberId)) {
-            $memberId = Identifier::with($fromMemberId);
-        }
-
-        return array_keys(
-            $this->getMembersChoicesExcluding($memberId)
-        );
     }
 }

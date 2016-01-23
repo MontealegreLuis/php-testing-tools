@@ -742,7 +742,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Hexagonal\\": "src/"
+                    "Ewallet\\": "src/"
                 }
             },
             "license": [

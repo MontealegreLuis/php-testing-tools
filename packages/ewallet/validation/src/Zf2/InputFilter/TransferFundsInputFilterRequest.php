@@ -4,30 +4,31 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Zf2\InputFilter;
+namespace Ewallet\Zf2\InputFilter;
 
-use EwalletModule\Bridges\EasyForms\MembersConfiguration;
-use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
-use EwalletModule\Actions\TransferFundsRequest;
+use Ewallet\Accounts\Identifier;
+use Ewallet\Doctrine2\Accounts\MembersRepository;
+use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
+use Ewallet\Actions\TransferFundsRequest;
 
 class TransferFundsInputFilterRequest implements TransferFundsRequest
 {
     /** @var TransferFundsFilter */
     private $filter;
 
-    /** @var MembersConfiguration */
-    private $configuration;
+    /** @var MembersRepository */
+    private $members;
 
     /**
      * @param TransferFundsFilter $filter
-     * @param MembersConfiguration $configuration
+     * @param MembersRepository $members
      */
     public function __construct(
         TransferFundsFilter $filter,
-        MembersConfiguration $configuration
+        MembersRepository $members
     ) {
         $this->filter = $filter;
-        $this->configuration = $configuration;
+        $this->members = $members;
     }
 
     /**
@@ -36,7 +37,9 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
     public function populate(array $input)
     {
         $fromMemberId = isset($input['fromMemberId']) ? $input['fromMemberId']: null;
-        $this->filter->configure($this->configuration, $fromMemberId);
+        $this->filter->configure(
+            $this->members->excluding(Identifier::with($fromMemberId))
+        );
         $this->filter->setData($input);
     }
 

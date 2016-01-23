@@ -4,9 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Zf2\InputFilter\Filters;
+namespace Ewallet\Zf2\InputFilter\Filters;
 
-use EwalletModule\Bridges\EasyForms\MembersConfiguration;
+use Ewallet\Accounts\Member;
+use Ewallet\EasyForms\MembersConfiguration;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\GreaterThan;
@@ -32,17 +33,18 @@ class TransferFundsFilter extends InputFilter
     }
 
     /**
-     * @param MembersConfiguration $configuration
-     * @param string $fromMemberId
+     * @param array $membersAvailableForTransfer
      */
-    public function configure(MembersConfiguration $configuration, $fromMemberId)
+    public function configure(array $membersAvailableForTransfer)
     {
         $toPartnerId = $this->get('toMemberId');
 
         $toPartnerId
             ->getValidatorChain()
             ->attach(new InArray([
-                'haystack' => $configuration->getMembersWhitelist($fromMemberId)
+                'haystack' => array_map(function(Member $member) {
+                    return $member->information()->id();
+                }, $membersAvailableForTransfer)
             ]))
         ;
     }

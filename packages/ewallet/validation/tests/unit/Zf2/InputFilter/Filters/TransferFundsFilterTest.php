@@ -4,9 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Zf2\InputFilter\Filters;
+namespace Ewallet\Zf2\InputFilter\Filters;
 
-use EwalletModule\Bridges\EasyForms\MembersConfiguration;
+use Ewallet\Accounts\Identifier;
+use Ewallet\DataBuilders\A;
+use Ewallet\Doctrine2\Accounts\MembersRepository;
 use PHPUnit_Framework_TestCase as TestCase;
 use Mockery;
 use Zend\Validator\GreaterThan;
@@ -115,15 +117,21 @@ class TransferFundsFilterTest extends TestCase
             'amount' => self::VALID_AMOUNT,
         ]);
 
-        $configuration = Mockery::mock(MembersConfiguration::class);
+        /*$configuration = Mockery::mock(MembersRepository::class);
         $configuration
-            ->shouldReceive('getMembersWhiteList')
+            ->shouldReceive('excluding')
             ->once()
-            ->with(self::VALID_ID)
-            ->andReturn(['abc', 'xyz'])
-        ;
+            ->with(Identifier::with(self::VALID_ID))
+            ->andReturn([
+                A::member()->withId('abc')->build(),
+                A::member()->withId('xyz')->build()
+            ])
+        ;*/
 
-        $filter->configure($configuration, self::VALID_ID);
+        $filter->configure([
+            A::member()->withId('abc')->build(),
+            A::member()->withId('xyz')->build()
+        ]);
 
         $this->assertFalse($filter->isValid(), 'Member ID should be invalid');
         $this->assertArrayHasKey(InArray::NOT_IN_ARRAY, $filter->getMessages()['toMemberId']);

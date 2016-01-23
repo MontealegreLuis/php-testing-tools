@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Bridges\Hexagonal\Wallet;
+namespace Ewallet\Wallet;
 
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsInformation;

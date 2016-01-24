@@ -133,13 +133,5 @@ class EwalletServiceProvider implements ServiceProviderInterface
                 return $loader;
             }
         );*/
-        $container->extend(
-            'twig.environment',
-            function (Environment $twig) use ($container) {
-                $twig->addExtension($container['ewallet.twig.extension']);
-
-                return $twig;
-            }
-        );
     }
 }

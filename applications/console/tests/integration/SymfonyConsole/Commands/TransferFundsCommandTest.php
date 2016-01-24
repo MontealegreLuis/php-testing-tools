@@ -4,23 +4,22 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
+namespace Ewallet\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFunds;
-use EwalletModule\Actions\TransferFundsAction;
-use EwalletModule\Bridges\EasyForms\MembersConfiguration;
-use EwalletModule\Bridges\SymfonyConsole\TransferFundsConsoleResponder;
-use EwalletModule\Bridges\Zf2\InputFilter\Filters\TransferFundsFilter;
-use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use EwalletModule\View\MemberFormatter;
-use Fakes\Symfony\Console\FakeQuestionHelper;
+use Ewallet\Actions\TransferFundsAction;
+use Ewallet\Responders\TransferFundsConsoleResponder;
+use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
+use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
+use Ewallet\View\MemberFormatter;
+use Ewallet\Fakes\Symfony\Console\FakeQuestionHelper;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use TestHelpers\Bridges\ProvidesDoctrineSetup;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class TransferFundsCommandTest extends TestCase
 {
@@ -28,7 +27,7 @@ class TransferFundsCommandTest extends TestCase
 
     public function setUp()
     {
-        $this->_setUpDoctrine();
+        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . Member::class)
@@ -40,7 +39,7 @@ class TransferFundsCommandTest extends TestCase
     function it_should_transfer_funds_between_members()
     {
         Fixtures::load(
-            __DIR__ . '/../../../../../_data/fixtures/members.yml',
+            __DIR__ . '/../../../fixtures/members.yml',
             $this->entityManager
         );
         $useCase = new TransferFunds(
@@ -54,7 +53,7 @@ class TransferFundsCommandTest extends TestCase
                 $input,
                 $output,
                 $question,
-                $configuration = new MembersConfiguration($members),
+                $members,
                 new MemberFormatter()
             ),
             $useCase
@@ -63,7 +62,7 @@ class TransferFundsCommandTest extends TestCase
             $action,
             new TransferFundsInputFilterRequest(
                 new TransferFundsFilter(),
-                $configuration
+                $members
             )
         );
 

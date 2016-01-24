@@ -4,27 +4,27 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Pimple;
+namespace Ewallet\Pimple;
 
 use Doctrine\ORM\EntityManager;
 use Dotenv\Dotenv;
-use Ewallet\Bridges\Doctrine2\Accounts\MembersRepository;
-use Ewallet\Bridges\Hexagonal\Wallet\TransferFundsTransactionally;
-use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
-use EwalletModule\Actions\TransferFundsAction;
-use EwalletModule\Bridges\EasyForms\MembersConfiguration;
-use EwalletModule\Bridges\Monolog\LogTransferWasMadeSubscriber;
-use EwalletModule\Bridges\SymfonyConsole\TransferFundsConsoleResponder;
-use EwalletModule\Bridges\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use EwalletModule\View\MemberFormatter;
-use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;
-use Hexagonal\Bridges\Doctrine2\Messaging\MessageTrackerRepository;
-use Hexagonal\Bridges\RabbitMq\AmqpMessageConsumer;
-use Hexagonal\Bridges\RabbitMq\AmqpMessageProducer;
+use Ewallet\Doctrine2\Accounts\MembersRepository;
+use Ewallet\Wallet\TransferFundsTransactionally;
+//use EwalletModule\Actions\Notifications\TransferFundsEmailNotifier;
+use Ewallet\Actions\TransferFundsAction;
+use Ewallet\EasyForms\MembersConfiguration;
+use Ewallet\Monolog\LogTransferWasMadeSubscriber;
+use Ewallet\Responders\TransferFundsConsoleResponder;
+use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
+use Ewallet\View\MemberFormatter;
+use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
+use Hexagonal\Doctrine2\Messaging\MessageTrackerRepository;
+//use Hexagonal\Bridges\RabbitMq\AmqpMessageConsumer;
+//use Hexagonal\Bridges\RabbitMq\AmqpMessageProducer;
 use Hexagonal\DomainEvents\EventPublisher;
 use Hexagonal\Messaging\MessagePublisher;
 use Monolog\Logger;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+//use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -34,9 +34,9 @@ class EwalletConsoleContainerTest extends TestCase
     /** @test */
     function it_should_create_the_console_application_services()
     {
-        $environment = new Dotenv(__DIR__ . '/../../../../../');
+        $environment = new Dotenv(__DIR__ . '/../../../');
         $environment->load();
-        $options = require __DIR__ . '/../../../../../app/config_dev.php';
+        $options = require __DIR__ . '/../../../config.php';
         $container = new EwalletConsoleContainer($options);
 
         $this->assertInstanceOf(
@@ -47,10 +47,12 @@ class EwalletConsoleContainerTest extends TestCase
             MembersRepository::class,
             $container['ewallet.member_repository']
         );
+        /*
         $this->assertInstanceOf(
             MembersConfiguration::class,
             $container['ewallet.members_configuration']
         );
+        */
         $this->assertInstanceOf(
             MemberFormatter::class,
             $container['ewallet.member_formatter']
@@ -88,14 +90,17 @@ class EwalletConsoleContainerTest extends TestCase
             LogTransferWasMadeSubscriber::class,
             $container['ewallet.transfer_funds_logger']
         );
+        /*
         $this->assertInstanceOf(
             TransferFundsEmailNotifier::class,
             $container['ewallet.transfer_mail_notifier']
         );
+        */
         $this->assertInstanceOf(
             EventPublisher::class,
             $container['ewallet.events_publisher']
         );
+        /*
         $this->assertInstanceOf(
             EventStoreRepository::class,
             $container['hexagonal.event_store_repository']
@@ -123,5 +128,6 @@ class EwalletConsoleContainerTest extends TestCase
             MessagePublisher::class,
             $container['hexagonal.messages_publisher']
         );
+        */
     }
 }

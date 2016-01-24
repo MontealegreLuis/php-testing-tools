@@ -81,6 +81,7 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
         $container->extend(
             'twig.environment',
             function (Environment $twig) use ($container) {
+                $twig->addExtension($container['ewallet.twig.extension']);
                 $twig->addExtension($container['slim.twig_extension']);
 
                 return $twig;

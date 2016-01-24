@@ -40,12 +40,30 @@
         },
         {
             "type": "path",
+            "url": "../../packages/ewallet/validation"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/definitions"
+        },
+        {
+            "type": "path",
             "url": "../../packages/hexagonal/hexagonal"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/doctrine"
         }
     ],
     "require": {
         "symfony/console": "^2.7",
+        "vlucas/phpdotenv": "^2.0",
         "ewallet/application": "^1.0",
-        "ewallet/doctrine": "^1.0"
+        "ewallet/doctrine": "^1.0",
+        "ewallet/validation": "^1.0",
+        "ewallet/definitions": "^1.0",
+        "hexagonal/doctrine": "^1.0",
+        "monolog/monolog": "^1.16",
+        "symfony/event-dispatcher": "^3.0"
     }
 }

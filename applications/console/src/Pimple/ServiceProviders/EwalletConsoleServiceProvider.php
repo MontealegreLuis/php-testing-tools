@@ -8,12 +8,13 @@ namespace Ewallet\Pimple\ServiceProviders;
 
 use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
 use Ewallet\Actions\TransferFundsAction;
-use Ewallet\SymfonyConsole\TransferFundsConsoleResponder;
+use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFundsTransactionally;
 use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Monolog\LogTransferWasMadeSubscriber;
 use Ewallet\View\MemberFormatter;
+use Ewallet\Pimple\ServiceProviders\EwalletServiceProvider;
 use Hexagonal\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;
@@ -30,7 +31,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class EwalletConsoleServiceProvider implements ServiceProviderInterface
+class EwalletConsoleServiceProvider extends EwalletServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register the services for Transfer Funds feature delivered through a
@@ -40,6 +41,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
+        parent::register($container);
         $container['ewallet.console_input'] = function () {
             return new ArgvInput();
         };
@@ -51,7 +53,7 @@ class EwalletConsoleServiceProvider implements ServiceProviderInterface
                 $container['ewallet.console_input'],
                 $container['ewallet.console_output'],
                 new QuestionHelper(),
-                $container['ewallet.ewallet.member_repository'],
+                $container['ewallet.member_repository'],
                 $container['ewallet.member_formatter']
             );
         };

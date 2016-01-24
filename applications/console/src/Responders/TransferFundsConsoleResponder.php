@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\SymfonyConsole;
+namespace Ewallet\Responders;
 
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
@@ -47,7 +47,7 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
         InputInterface $input,
         OutputInterface $output,
         QuestionHelper $question,
-        Members $members,
+        MembersRepository $members,
         MemberFormatter $formatter
     ) {
         $this->input = $input;

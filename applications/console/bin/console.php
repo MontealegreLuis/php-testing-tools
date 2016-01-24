@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Ewallet\Pimple\EwalletConsoleContainer;
 use Ewallet\SymfonyConsole\EwalletApplication;
@@ -20,7 +20,7 @@ $environment->required([
 ]);
 
 $application = new EwalletApplication($container = new EwalletConsoleContainer(
-    require __DIR__ . '/../../config.php'
+    require __DIR__ . '/../config.php'
 ));
 
 $application->run(

@@ -4,10 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Bridges\Monolog;
+namespace Ewallet\Monolog;
 
 use Ewallet\Accounts\TransferWasMade;
-use EwalletModule\View\MemberFormatter;
+use Ewallet\View\MemberFormatter;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSubscriber;
 use Monolog\Logger;

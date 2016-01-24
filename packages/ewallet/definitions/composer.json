@@ -1,6 +1,6 @@
 {
-    "name": "hexagonal/hexagonal",
-    "description": "Transactional services, events and messaging.",
+    "name": "ewallet/definitions",
+    "description": "Ewallet common dependency injection definitions",
     "license": "MIT",
     "version": "1.0",
     "authors": [
@@ -11,15 +11,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "Hexagonal\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Hexagonal\\": "tests/src/"
+            "Ewallet\\": "src/"
         }
     },
     "config": {
         "bin-dir": "bin/"
+    },
+    "require": {
+        "pimple/pimple": "^3.0"
     }
 }

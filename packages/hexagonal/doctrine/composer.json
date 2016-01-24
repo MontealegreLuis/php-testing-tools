@@ -1,0 +1,57 @@
+{
+    "name": "hexagonal/doctrine",
+    "description": "Persistency port for events and messaging.",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hexagonal\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hexagonal\\": [
+                "tests/src",
+                "vendor/hexagonal/hexagonal/tests/src"
+            ],
+            "Ewallet\\": [
+                "vendor/ewallet/domain/tests/src",
+                "vendor/ewallet/doctrine/tests/src"
+            ]
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../ewallet/domain"
+        },
+        {
+            "type": "path",
+            "url": "../../ewallet/doctrine"
+        },
+        {
+            "type": "path",
+            "url": "../hexagonal"
+        }
+    ],
+    "require": {
+        "hexagonal/hexagonal": "^1.0",
+        "doctrine/orm": "^2.5",
+        "jms/serializer": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "mockery/mockery": "^0.9.4",
+        "fzaninotto/faker": "^1.5",
+        "ewallet/doctrine": "^1.0"
+    }
+}

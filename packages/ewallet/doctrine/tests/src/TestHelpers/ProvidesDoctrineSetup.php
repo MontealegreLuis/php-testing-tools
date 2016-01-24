@@ -19,11 +19,11 @@ trait ProvidesDoctrineSetup
      * Setup XML mapping configuration
      * Configure entity manager
      * Add custom types
+     *
+     * @param array $options
      */
-    protected function _setUpDoctrine()
+    protected function _setUpDoctrine(array $options)
     {
-        $options = require __DIR__ . '/../../../config.php';
-
         $configuration = Setup::createXMLMetadataConfiguration(
             $options['doctrine']['mapping_dirs'],
             $options['doctrine']['dev_mode'],

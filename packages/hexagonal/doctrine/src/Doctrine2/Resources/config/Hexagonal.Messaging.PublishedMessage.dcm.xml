@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity
+        name="Hexagonal\Messaging\PublishedMessage"
+        table="published_messages"
+        repository-class="Hexagonal\Doctrine2\Messaging\MessageTrackerRepository"
+    >
+        <id name="id" type="integer" column="message_id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="mostRecentMessageId" column="most_recent_message_id" type="integer" />
+        <field name="exchangeName" column="exchange_name" type="string" />
+    </entity>
+
+</doctrine-mapping>

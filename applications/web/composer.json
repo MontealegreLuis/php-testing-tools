@@ -1,0 +1,68 @@
+{
+    "name": "ewallet/web",
+    "description": "Ewallet web application",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ewallet\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/domain"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/application"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/doctrine"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/validation"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/definitions"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/responder"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/hexagonal"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/doctrine"
+        }
+    ],
+    "require": {
+        "slim/slim": "^2.6",
+        "comphppuebla/slim-modules": "^2.0",
+        "comphppuebla/easy-forms": "^1.0",
+        "twig/twig": "^1.18",
+        "vlucas/phpdotenv": "^2.0",
+        "ewallet/application": "^1.0",
+        "ewallet/doctrine": "^1.0",
+        "ewallet/validation": "^1.0",
+        "ewallet/definitions": "^1.0",
+        "ewallet/responder": "^1.0",
+        "hexagonal/doctrine": "^1.0",
+        "monolog/monolog": "^1.16"
+    }
+}

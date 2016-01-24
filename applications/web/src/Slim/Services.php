@@ -4,10 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Slim;
+namespace Ewallet\Slim;
 
-use EwalletApplication\Bridges\Slim\ServiceProviders\MiddlewareServiceProvider;
-use EwalletApplication\Bridges\Slim\ServiceProviders\ApplicationServiceProvider;
+use Ewallet\Slim\ServiceProviders\MiddlewareServiceProvider;
+use Ewallet\Slim\ServiceProviders\ApplicationServiceProvider;
 
 class Services extends \ComPHPPuebla\Slim\Services
 {

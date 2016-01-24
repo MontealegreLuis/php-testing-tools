@@ -6,12 +6,12 @@
  *
  * @copyright  Mandrágora Web-Based Systems 2015 (http://www.mandragora-web-systems.com)
  */
-namespace EwalletApplication\Bridges\Pimple;
+namespace Ewallet\Pimple;
 
-use EwalletApplication\Bridges\Pimple\ServiceProviders\DoctrineServiceProvider;
-use EwalletApplication\Bridges\Pimple\ServiceProviders\EwalletWebServiceProvider;
-use EwalletApplication\Bridges\Pimple\ServiceProviders\FormsServiceProvider;
-use EwalletApplication\Bridges\Pimple\ServiceProviders\TwigServiceProvider;
+use Ewallet\Pimple\ServiceProviders\DoctrineServiceProvider;
+use Ewallet\Pimple\ServiceProviders\EwalletWebServiceProvider;
+use Ewallet\Pimple\ServiceProviders\FormsServiceProvider;
+use Ewallet\Pimple\ServiceProviders\TwigServiceProvider;
 use Pimple\Container;
 use Slim\Slim;
 

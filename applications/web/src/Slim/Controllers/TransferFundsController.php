@@ -4,11 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Slim\Controllers;
+namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Accounts\Identifier;
-use EwalletModule\Actions\TransferFundsRequest;
-use EwalletModule\Actions\TransferFundsAction;
+use Ewallet\Actions\TransferFundsRequest;
+use Ewallet\Actions\TransferFundsAction;
 use Slim\Http\Request;
 
 class TransferFundsController

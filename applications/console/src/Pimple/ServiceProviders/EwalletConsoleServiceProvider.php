@@ -11,7 +11,6 @@ use Ewallet\Actions\TransferFundsAction;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFundsTransactionally;
-use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Monolog\LogTransferWasMadeSubscriber;
 use Ewallet\View\MemberFormatter;
 use Ewallet\Pimple\ServiceProviders\EwalletServiceProvider;
@@ -68,15 +67,6 @@ class EwalletConsoleServiceProvider extends EwalletServiceProvider implements Se
             $publisher->subscribe($container['ewallet.transfer_funds_logger']);
 
             return $publisher;
-        };
-        $container['ewallet.event_store'] = function () use ($container) {
-            return $container['doctrine.em']->getRepository(StoredEvent::class);
-        };
-        $container['ewallet.event_persist_subscriber'] = function () use ($container) {
-            return new PersistEventsSubscriber(
-                $container['ewallet.event_store'],
-                new StoredEventFactory(new JsonSerializer())
-            );
         };
         $container['ewallet.store_events_listener'] = function () use ($container) {
             return new StoreEventsListener(

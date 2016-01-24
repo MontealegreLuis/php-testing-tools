@@ -86,6 +86,15 @@ class EwalletServiceProvider implements ServiceProviderInterface
 
             return $publisher;
         };
+        $container['ewallet.event_store'] = function () use ($container) {
+            return $container['doctrine.em']->getRepository(StoredEvent::class);
+        };
+        $container['ewallet.event_persist_subscriber'] = function () use ($container) {
+            return new PersistEventsSubscriber(
+                $container['ewallet.event_store'],
+                new StoredEventFactory(new JsonSerializer())
+            );
+        };
         $container['ewallet.transfer_funds_logger'] = function () use ($container) {
             return new LogTransferWasMadeSubscriber(
                 $container['ewallet.logger'], $container['ewallet.member_formatter']
@@ -114,20 +123,16 @@ class EwalletServiceProvider implements ServiceProviderInterface
         $container['ewallet.twig.extension'] = function () {
             return new EwalletExtension(new MemberFormatter());
         };
-        /*
-        $container->extend(
+        /*$container->extend(
             'twig.loader',
             function (Loader $loader) {
-                $loader->addPath(
-                    __DIR__ . '/../../../../Ewallet/Bridges/Twig/Resources/templates'
-                );
                 $loader->addPath(
                     __DIR__ . '/../../SymfonyConsole/Resources/templates'
                 );
 
                 return $loader;
             }
-        );
+        );*/
         $container->extend(
             'twig.environment',
             function (Environment $twig) use ($container) {
@@ -136,6 +141,5 @@ class EwalletServiceProvider implements ServiceProviderInterface
                 return $twig;
             }
         );
-        */
     }
 }

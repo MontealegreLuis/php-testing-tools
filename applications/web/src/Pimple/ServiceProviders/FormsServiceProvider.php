@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
+namespace Ewallet\Pimple\ServiceProviders;
 
 use EasyForms\Bridges\Twig\FormExtension;
 use EasyForms\Bridges\Twig\FormRenderer;
@@ -38,7 +38,7 @@ class FormsServiceProvider implements ServiceProviderInterface
             'twig.loader',
             function (Loader $loader) {
                 $loader->addPath(
-                    __DIR__ . '/../../../../../vendor/comphppuebla/easy-forms/src/EasyForms/Bridges/Twig'
+                    __DIR__ . '/../../../vendor/comphppuebla/easy-forms/src/EasyForms/Bridges/Twig'
                 );
 
                 return $loader;

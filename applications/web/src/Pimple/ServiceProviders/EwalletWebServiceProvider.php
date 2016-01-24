@@ -4,20 +4,20 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Pimple\ServiceProviders;
+namespace Ewallet\Pimple\ServiceProviders;
 
-use EwalletApplication\Bridges\Slim\Controllers\TransferFundsController;
-use EwalletApplication\Bridges\Twig\RouterExtension;
-use EwalletModule\Bridges\Zf2\Diactoros\DiactorosResponseFactory;
-use EwalletModule\Actions\TransferFundsAction;
-use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
-use EwalletModule\Bridges\EasyForms\TransferFundsForm;
+use Ewallet\Slim\Controllers\TransferFundsController;
+use Ewallet\Twig\RouterExtension;
+use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
+use Ewallet\Actions\TransferFundsAction;
+use Ewallet\EasyForms\TransferFundsFormResponder;
+use Ewallet\EasyForms\TransferFundsForm;
 use Pimple\Container;
 use Slim\Slim;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
 
-class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
+class EwalletWebServiceProvider extends EwalletServiceProvider
 {
     /** @var  Slim */
     private $app;
@@ -72,7 +72,9 @@ class EwalletWebServiceProvider extends EwalletConsoleServiceProvider
             'twig.loader',
             function (Loader $loader) {
                 $loader->addPath(__DIR__ . '/../../Slim/Resources/templates');
-
+                $loader->addPath(
+                    __DIR__ . '/../../../vendor/ewallet/responder/src/Twig/Resources/templates'
+                );
                 return $loader;
             }
         );

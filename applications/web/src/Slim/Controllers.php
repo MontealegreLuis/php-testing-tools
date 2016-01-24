@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Slim;
+namespace Ewallet\Slim;
 
-use EwalletApplication\Bridges\Slim\ControllerProviders\EwalletControllerProvider;
+use Ewallet\Slim\ControllerProviders\EwalletControllerProvider;
 
 class Controllers extends \ComPHPPuebla\Slim\Controllers
 {

@@ -16,7 +16,7 @@ $environment->required([
     'DOCTRINE_DEV_MODE',
     'MYSQL_USER',
     'MYSQL_PASSWORD',
-    'MYSQL_HOST'
+    'MYSQL_HOST',
 ]);
 
 $application = new EwalletApplication($container = new EwalletConsoleContainer(

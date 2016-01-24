@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Twig;
+namespace Ewallet\Twig;
 
 use Slim\Http\Request;
 use Slim\Router;

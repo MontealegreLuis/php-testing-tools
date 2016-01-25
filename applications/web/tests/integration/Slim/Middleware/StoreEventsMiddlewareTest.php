@@ -4,10 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Slim\Middleware;
+namespace Ewallet\Slim\Middleware;
 
-use DataBuilders\A;
-use Hexagonal\Bridges\JmsSerializer\JsonSerializer;
+use Ewallet\DataBuilders\A;
+use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use Hexagonal\DomainEvents\StoredEvent;
@@ -16,7 +16,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use SplObjectStorage;
 use Slim\Environment;
 use Slim\Slim;
-use TestHelpers\Bridges\ProvidesDoctrineSetup;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class StoreEventsMiddlewareTest extends TestCase
 {
@@ -36,7 +36,7 @@ class StoreEventsMiddlewareTest extends TestCase
     /** @test */
     function it_should_persist_an_event_published_inside_an_slim_route()
     {
-        /** @var \Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository $store */
+        /** @var \Hexagonal\Doctrine2\DomainEvents\EventStoreRepository $store */
         $store = $this->entityManager->getRepository(StoredEvent::class);
 
         $publisher = new EventPublisher();

@@ -14,6 +14,11 @@
             "Ewallet\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Ewallet\\": "vendor/ewallet/doctrine/tests/src"
+        }
+    },
     "config": {
         "bin-dir": "bin/"
     },
@@ -64,5 +69,12 @@
         "ewallet/responder": "^1.0",
         "hexagonal/doctrine": "^1.0",
         "monolog/monolog": "^1.16"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "nelmio/alice": "^2.0",
+        "mockery/mockery": "^0.9.4",
+        "codeception/codeception": "^2.1",
+        "codegyre/robo": "^0.5.2"
     }
 }

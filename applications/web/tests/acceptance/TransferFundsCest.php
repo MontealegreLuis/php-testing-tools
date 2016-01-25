@@ -4,8 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+use Ewallet\Accounts\Member;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 use Page\TransferFundsPage;
-use TestHelpers\Bridges\ProvidesDoctrineSetup;
+use Nelmio\Alice\Fixtures;
 
 class TransferFundsCest
 {
@@ -13,13 +15,13 @@ class TransferFundsCest
 
     public function _before()
     {
-        $this->_setUpDoctrine();
+        $this->_setUpDoctrine(require __DIR__ . '/../../config.php');
         $this
             ->entityManager
-            ->createQuery('DELETE FROM ' . \Ewallet\Accounts\Member::class)
+            ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;
-        \Nelmio\Alice\Fixtures::load(
+        Fixtures::load(
             __DIR__ . '/../_data/fixtures/members.yml', $this->entityManager
         );
     }

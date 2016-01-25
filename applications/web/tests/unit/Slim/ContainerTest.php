@@ -4,11 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Slim;
+namespace Ewallet\Slim;
 
-use EwalletApplication\Bridges\Slim\Middleware\StoreEventsMiddleware;
-use EwalletApplication\Bridges\Slim\Middleware\RequestLoggingMiddleware;
-use Hexagonal\Bridges\Doctrine2\DomainEvents\EventStoreRepository;
+use Ewallet\Slim\Middleware\StoreEventsMiddleware;
+use Ewallet\Slim\Middleware\RequestLoggingMiddleware;
+use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Log\LoggerInterface;
@@ -18,7 +18,7 @@ class ContainerTest extends TestCase
     /** @test */
     function it_should_create_the_application_services()
     {
-        $app = new Application(require __DIR__ . '/../../../../../app/config.php');
+        $app = new Application(require __DIR__ . '/../../../config.php');
 
         $this->assertInstanceOf(
             LoggerInterface::class,

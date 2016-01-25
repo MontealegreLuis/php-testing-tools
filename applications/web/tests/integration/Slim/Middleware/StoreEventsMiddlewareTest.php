@@ -25,7 +25,7 @@ class StoreEventsMiddlewareTest extends TestCase
     /** @before */
     function cleanUpEvents()
     {
-        $this->_setUpDoctrine();
+        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . StoredEvent::class)

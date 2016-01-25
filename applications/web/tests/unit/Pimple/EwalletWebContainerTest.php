@@ -4,13 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\Pimple;
+namespace Ewallet\Pimple;
 
 use Dotenv\Dotenv;
-use EwalletApplication\Bridges\Slim\Controllers\TransferFundsController;
-use EwalletApplication\Bridges\Twig\RouterExtension;
-use EwalletModule\Bridges\EasyForms\TransferFundsFormResponder;
-use EwalletModule\Bridges\EasyForms\TransferFundsForm;
+use Ewallet\Slim\Controllers\TransferFundsController;
+use Ewallet\Twig\RouterExtension;
+use Ewallet\EasyForms\TransferFundsFormResponder;
+use Ewallet\EasyForms\TransferFundsForm;
 use PHPUnit_Framework_TestCase as TestCase;
 use Slim\Environment;
 use Slim\Slim;
@@ -23,9 +23,9 @@ class EwalletWebContainerTest extends TestCase
     function it_should_create_the_web_application_services()
     {
         Environment::mock(['REQUEST_METHOD' => 'GET']);
-        $environment = new Dotenv(__DIR__ . '/../../../../../');
+        $environment = new Dotenv(__DIR__ . '/../../../');
         $environment->load();
-        $options = require __DIR__ . '/../../../../../app/config_dev.php';
+        $options = require __DIR__ . '/../../../config.php';
         $container = new EwalletWebContainer($options, new Slim());
 
         $this->assertInstanceOf(

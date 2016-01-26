@@ -1,0 +1,66 @@
+{
+    "name": "ewallet/messaging",
+    "description": "Ewallet messaging",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ewallet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ewallet\\": "vendor/ewallet/domain/tests/src"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/domain"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/application"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/doctrine"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/definitions"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/hexagonal"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/doctrine"
+        }
+    ],
+    "require": {
+        "symfony/console": "^2.7",
+        "vlucas/phpdotenv": "^2.0",
+        "ewallet/application": "^1.0",
+        "ewallet/doctrine": "^1.0",
+        "ewallet/definitions": "^1.0",
+        "hexagonal/doctrine": "^1.0",
+        "zendframework/zend-mail": "^2.5",
+        "videlalvaro/php-amqplib": "^2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "mockery/mockery": "^0.9.4",
+        "fzaninotto/faker": "^1.5"
+    }
+}

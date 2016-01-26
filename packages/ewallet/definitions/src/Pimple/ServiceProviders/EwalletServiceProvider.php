@@ -108,30 +108,8 @@ class EwalletServiceProvider implements ServiceProviderInterface
 
             return $logger;
         };
-        $container['ewallet.transfer_mail_sender'] = function () use ($container) {
-            return new TransferFundsZendMailSender(
-                $container['ewallet.template_engine'],
-                (new TransportFactory())->buildTransport($container['mail'])
-            );
-        };
-        $container['ewallet.transfer_mail_notifier'] = function () use ($container) {
-            return new TransferFundsEmailNotifier(
-                $container['ewallet.member_repository'],
-                $container['ewallet.transfer_mail_sender']
-            );
-        };
         $container['ewallet.twig.extension'] = function () {
             return new EwalletExtension(new MemberFormatter());
         };
-        /*$container->extend(
-            'twig.loader',
-            function (Loader $loader) {
-                $loader->addPath(
-                    __DIR__ . '/../../SymfonyConsole/Resources/templates'
-                );
-
-                return $loader;
-            }
-        );*/
     }
 }

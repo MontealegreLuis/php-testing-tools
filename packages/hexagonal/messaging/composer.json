@@ -1,0 +1,34 @@
+{
+    "name": "hexagonal/messaging",
+    "description": "AMQP Messaging port.",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hexagonal\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../doctrine"
+        },
+        {
+            "type": "path",
+            "url": "../hexagonal"
+        }
+    ],
+    "require": {
+        "hexagonal/doctrine": "^1.0",
+        "videlalvaro/php-amqplib": "^2.6"
+    }
+}

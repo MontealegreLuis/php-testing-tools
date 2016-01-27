@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e41025525b1372c2ae74b2ed355a824",
-    "content-hash": "2bf60d4685ed82746f0d6af79d54bb8d",
+    "hash": "7dba6dd6cfe7900e724df9c947543eb6",
+    "content-hash": "3b494c91994dc36ee2b3244fcda81007",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -908,6 +908,36 @@
                 }
             ],
             "description": "Transactional services, events and messaging."
+        },
+        {
+            "name": "hexagonal/messaging",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "../../packages/hexagonal/messaging/",
+                "reference": "5e6add9c3d8e1e50cf3bbbb3cdf29343",
+                "shasum": null
+            },
+            "require": {
+                "hexagonal/doctrine": "^1.0",
+                "videlalvaro/php-amqplib": "^2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hexagonal\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luis Montealegre",
+                    "email": "montealegreluis@gmail.com"
+                }
+            ],
+            "description": "AMQP Messaging port."
         },
         {
             "name": "jms/metadata",

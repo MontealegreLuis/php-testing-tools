@@ -46,6 +46,10 @@
         {
             "type": "path",
             "url": "../../packages/hexagonal/doctrine"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/messaging"
         }
     ],
     "require": {
@@ -54,9 +58,8 @@
         "ewallet/application": "^1.0",
         "ewallet/doctrine": "^1.0",
         "ewallet/definitions": "^1.0",
-        "hexagonal/doctrine": "^1.0",
-        "zendframework/zend-mail": "^2.5",
-        "videlalvaro/php-amqplib": "^2.6"
+        "hexagonal/messaging": "^1.0",
+        "zendframework/zend-mail": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.7",

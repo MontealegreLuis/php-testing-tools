@@ -6,25 +6,8 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\Actions\TransferFundsAction;
-use Ewallet\Accounts\Member;
-use Ewallet\Wallet\TransferFundsTransactionally;
-use Ewallet\Monolog\LogTransferWasMadeSubscriber;
-use Ewallet\View\MemberFormatter;
-use Ewallet\Pimple\ServiceProviders\EwalletServiceProvider;
-use Hexagonal\Doctrine2\Application\Services\DoctrineSession;
-use Hexagonal\JmsSerializer\JsonSerializer;
-use Hexagonal\DomainEvents\EventPublisher;
-use Hexagonal\DomainEvents\PersistEventsSubscriber;
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\DomainEvents\StoredEventFactory;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
+use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

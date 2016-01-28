@@ -18,7 +18,7 @@ class MembersConfigurationTest extends TestCase
 
     public function setUp()
     {
-        $this->_setUpDoctrine();
+        $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . Member::class)

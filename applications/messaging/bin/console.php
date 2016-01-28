@@ -29,7 +29,4 @@ $application = new EwalletApplication($container = new EwalletMessagingContainer
     require __DIR__ . '/../config.php'
 ));
 
-$application->run(
-    $container['ewallet.console_input'],
-    $container['ewallet.console_output']
-);
+$application->run();

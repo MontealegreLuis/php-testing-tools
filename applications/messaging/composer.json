@@ -41,6 +41,10 @@
         },
         {
             "type": "path",
+            "url": "../../packages/ewallet/templating"
+        },
+        {
+            "type": "path",
             "url": "../../packages/hexagonal/hexagonal"
         },
         {
@@ -58,6 +62,7 @@
         "ewallet/application": "^1.0",
         "ewallet/doctrine": "^1.0",
         "ewallet/definitions": "^1.0",
+        "ewallet/templating": "^1.0",
         "hexagonal/messaging": "^1.0",
         "zendframework/zend-mail": "^2.5"
     },

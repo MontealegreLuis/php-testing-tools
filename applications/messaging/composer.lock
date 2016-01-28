@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7dba6dd6cfe7900e724df9c947543eb6",
-    "content-hash": "3b494c91994dc36ee2b3244fcda81007",
+    "hash": "949f5f8413d9f65fb915326efc5299ce",
+    "content-hash": "b97e99a6d6f2daebfb27388afdaa0f76",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -830,6 +830,45 @@
             "description": "Ewallet core domain"
         },
         {
+            "name": "ewallet/templating",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "../../packages/ewallet/templating/",
+                "reference": "d707628812ce87a58a21a9b9264608fc",
+                "shasum": null
+            },
+            "require": {
+                "ewallet/application": "^1.0",
+                "twig/twig": "^1.18"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ewallet\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Ewallet\\": "vendor/ewallet/domain/tests/src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luis Montealegre",
+                    "email": "montealegreluis@gmail.com"
+                }
+            ],
+            "description": "Ewallet templating port."
+        },
+        {
             "name": "hexagonal/doctrine",
             "version": "1.0",
             "dist": {
@@ -1418,6 +1457,67 @@
                 "shim"
             ],
             "time": "2016-01-20 09:13:37"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.24.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "require-dev": {
+                "symfony/debug": "~2.7",
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.24-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2016-01-25 21:22:18"
         },
         {
             "name": "videlalvaro/php-amqplib",

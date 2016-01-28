@@ -8,8 +8,11 @@ namespace Ewallet\Pimple\ServiceProviders;
 
 use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
+use Ewallet\Zf2\Mail\TransportFactory;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Twig_Loader_Filesystem as Loader;
+use Twig_Environment as Environment;
 
 class EwalletMessagingServiceProvider extends EwalletServiceProvider implements ServiceProviderInterface
 {
@@ -40,6 +43,14 @@ class EwalletMessagingServiceProvider extends EwalletServiceProvider implements 
                 $loader->addPath(__DIR__ . '/../../Resources/templates');
 
                 return $loader;
+            }
+        );
+        $container->extend(
+            'twig.environment',
+            function (Environment $twig) use ($container) {
+                $twig->addExtension($container['ewallet.twig.extension']);
+
+                return $twig;
             }
         );
     }

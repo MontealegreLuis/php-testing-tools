@@ -52,6 +52,10 @@
         },
         {
             "type": "path",
+            "url": "../../packages/ewallet/templating"
+        },
+        {
+            "type": "path",
             "url": "../../packages/hexagonal/hexagonal"
         },
         {
@@ -62,8 +66,6 @@
     "require": {
         "slim/slim": "^2.6",
         "comphppuebla/slim-modules": "^2.0",
-        "comphppuebla/easy-forms": "^1.0",
-        "twig/twig": "^1.18",
         "vlucas/phpdotenv": "^2.0",
         "ewallet/application": "^1.0",
         "ewallet/doctrine": "^1.0",

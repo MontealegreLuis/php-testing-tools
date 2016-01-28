@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae763e0278297ef48655aa9f25ec74bc",
-    "content-hash": "ccafd7a5be1e153a71f32cebb8aba751",
+    "hash": "cef6d1fd2a153e27c4b0ed00c55685ef",
+    "content-hash": "7aff23f95558f9bfe674adabde831061",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -925,14 +925,14 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/ewallet/responder/",
-                "reference": "c1797330bf74aa8874df7f7e857b06a0",
+                "reference": "77337e5a356a8bd9c612cc496e657d03",
                 "shasum": null
             },
             "require": {
                 "comphppuebla/easy-forms": "^1.0",
                 "ewallet/application": "^1.0",
                 "ewallet/doctrine": "^1.0",
-                "twig/twig": "^1.18",
+                "ewallet/templating": "^1.0",
                 "zendframework/zend-diactoros": "^1.1"
             },
             "require-dev": {
@@ -965,6 +965,45 @@
                 }
             ],
             "description": "Ewallet Web Responder port."
+        },
+        {
+            "name": "ewallet/templating",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "../../packages/ewallet/templating/",
+                "reference": "d707628812ce87a58a21a9b9264608fc",
+                "shasum": null
+            },
+            "require": {
+                "ewallet/application": "^1.0",
+                "twig/twig": "^1.18"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ewallet\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Ewallet\\": "vendor/ewallet/domain/tests/src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luis Montealegre",
+                    "email": "montealegreluis@gmail.com"
+                }
+            ],
+            "description": "Ewallet templating port."
         },
         {
             "name": "ewallet/validation",
@@ -1720,16 +1759,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
+                "reference": "1289d16209491b584839022f29257ad859b8532d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
-                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
+                "reference": "1289d16209491b584839022f29257ad859b8532d",
                 "shasum": ""
             },
             "require": {
@@ -1741,7 +1780,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1775,20 +1814,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2015-11-20 09:19:13"
+            "time": "2016-01-20 09:13:37"
         },
         {
             "name": "twig/twig",
-            "version": "v1.23.3",
+            "version": "v1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ae53fc2c312fdee63773b75cb570304f85388b08"
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ae53fc2c312fdee63773b75cb570304f85388b08",
-                "reference": "ae53fc2c312fdee63773b75cb570304f85388b08",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
                 "shasum": ""
             },
             "require": {
@@ -1801,7 +1840,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.23-dev"
+                    "dev-master": "1.24-dev"
                 }
             },
             "autoload": {
@@ -1836,7 +1875,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-11 14:02:19"
+            "time": "2016-01-25 21:22:18"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2771,7 +2810,7 @@
             ],
             "authors": [
                 {
-                    "name": "Padraic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },

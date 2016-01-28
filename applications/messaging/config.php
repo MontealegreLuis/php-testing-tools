@@ -25,7 +25,7 @@ return [
     ],
     'twig' => [
         'options' => [
-            'cache' => __DIR__ . '/../var/cache/twig',
+            'cache' => __DIR__ . '/var/cache/twig',
             'debug' => (boolean) getenv('TWIG_DEBUG'),
             'strict_variables' => true,
         ],

@@ -11,7 +11,6 @@ use Ewallet\Accounts\Member;
 use Ewallet\Accounts\MemberInformation;
 use Ewallet\Wallet\TransferFundsResult;
 use Ewallet\Doctrine2\Accounts\MembersRepository;
-use Ewallet\Responders\TransferFundsResponder;
 use Ewallet\View\MemberFormatter;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;

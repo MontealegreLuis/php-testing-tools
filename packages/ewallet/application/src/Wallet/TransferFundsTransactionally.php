@@ -6,8 +6,6 @@
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsInformation;
 use Hexagonal\Application\Services\ProvidesTransactionalOperations;
 
 class TransferFundsTransactionally extends TransferFunds

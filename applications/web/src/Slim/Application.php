@@ -8,8 +8,6 @@ namespace Ewallet\Slim;
 
 use ComPHPPuebla\Slim\Resolver;
 use Ewallet\Pimple\EwalletWebContainer;
-use Ewallet\Slim\Controllers;
-use Ewallet\Slim\Middleware;
 use Slim\Slim;
 
 class Application extends Slim

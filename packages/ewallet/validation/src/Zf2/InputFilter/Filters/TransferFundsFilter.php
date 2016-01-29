@@ -7,7 +7,6 @@
 namespace Ewallet\Zf2\InputFilter\Filters;
 
 use Ewallet\Accounts\Member;
-use Ewallet\EasyForms\MembersConfiguration;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\GreaterThan;
@@ -42,7 +41,7 @@ class TransferFundsFilter extends InputFilter
         $toPartnerId
             ->getValidatorChain()
             ->attach(new InArray([
-                'haystack' => array_map(function(Member $member) {
+                'haystack' => array_map(function (Member $member) {
                     return $member->information()->id();
                 }, $membersAvailableForTransfer)
             ]))

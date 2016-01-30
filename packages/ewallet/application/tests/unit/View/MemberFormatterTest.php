@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\View;
+namespace Ewallet\View;
 
-use DataBuilders\A;
+use Ewallet\DataBuilders\A;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 

@@ -7,12 +7,11 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
-use Ewallet\Accounts\Members;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
-use TestHelpers\Bridges\ProvidesDoctrineSetup;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class TransferFundsTest extends TestCase
 {
@@ -20,7 +19,7 @@ class TransferFundsTest extends TestCase
 
     public function setUp()
     {
-        $this->_setUpDoctrine();
+        $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . Member::class)
@@ -32,7 +31,7 @@ class TransferFundsTest extends TestCase
     function it_should_transfer_funds_between_members()
     {
         Fixtures::load(
-            __DIR__ . '/../../../_data/fixtures/members.yml',
+            __DIR__ . '/../../fixtures/members.yml',
             $this->entityManager
         );
 

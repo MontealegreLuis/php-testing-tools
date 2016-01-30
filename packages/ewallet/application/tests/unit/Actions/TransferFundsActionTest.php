@@ -4,17 +4,16 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletModule\Actions;
+namespace Ewallet\Actions;
 
-use DataBuilders\A;
+use Ewallet\DataBuilders\A;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsResult;
-use EwalletModule\Responders\TransferFundsResponder;
+use Ewallet\Responders\TransferFundsResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Diactoros\Response;
 
 class TransferFundsActionTest extends TestCase
 {

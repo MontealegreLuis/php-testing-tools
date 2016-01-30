@@ -6,7 +6,6 @@ namespace _generated;
 // @codingStandardsIgnoreFile
 
 use Codeception\Module\WebDriver;
-use Helper\Acceptance;
 
 trait AcceptanceTesterActions
 {

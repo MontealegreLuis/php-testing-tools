@@ -6,8 +6,6 @@
  */
 namespace Ewallet\DataBuilders;
 
-use Ewallet\DataBuilders\MembersBuilder;
-use Ewallet\DataBuilders\TransferWasMadeBuilder;
 
 class A
 {

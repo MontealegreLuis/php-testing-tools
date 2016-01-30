@@ -10,7 +10,6 @@ use Ewallet\Accounts\InsufficientFunds;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class AccountSpec extends ObjectBehavior
 {

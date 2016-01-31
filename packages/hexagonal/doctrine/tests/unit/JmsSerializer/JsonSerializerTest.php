@@ -4,11 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\Bridges\JmsSerializer;
+namespace Hexagonal\JmsSerializer;
 
 use DateTime;
 use Ewallet\Accounts\Identifier;
-use Fakes\Hexagonal\DomainEvents\InstantaneousEvent;
+use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 

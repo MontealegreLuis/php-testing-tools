@@ -25,6 +25,14 @@ before_script:
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
   - cd ../application && composer install --prefer-source --no-interaction --dev
   - bin/doctrine orm:schema-tool:create
+  - cd ../doctrine && composer install --prefer-source --no-interaction --dev
+  - bin/doctrine orm:schema-tool:create
+  - cd ../responder && composer install --prefer-source --no-interaction --dev
+  - bin/doctrine orm:schema-tool:create
+  - cd ../templating && composer install --prefer-source --no-interaction --dev
+  - cd ../validation && composer install --prefer-source --no-interaction --dev
+  - cd ../../hexagonal/doctrine && composer install --prefer-source --no-interaction --dev
+  - bin/doctrine orm:schema-tool:create
 
 script:
   - cd ../../../applications/console && bin/phpunit -v
@@ -34,3 +42,8 @@ script:
   - cd ../../packages/ewallet/domain && bin/phpspec run -v
   - bin/behat -v
   - cd ../application && bin/phpunit -v
+  - cd ../doctrine && bin/phpunit -v
+  - cd ../responder && bin/phpunit -v
+  - cd ../templating && bin/phpunit -v
+  - cd ../validation && bin/phpunit -v
+  - cd ../../hexagonal/doctrine && bin/phpunit -v

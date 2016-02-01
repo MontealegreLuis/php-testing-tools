@@ -16,11 +16,11 @@ before_script:
   - composer self-update
   - cd applications/console && composer install --prefer-source --no-interaction --dev
   - mysql -e 'create database ewallet_db;'
-  - cd applications/console && cp .env.travis .env && bin/doctrine orm:schema-tool:create
-  - cd applications/messaging && composer install --prefer-source --no-interaction --dev
-  - cd applications/web && composer install --prefer-source --no-interaction --dev
+  - cp .env.travis .env && bin/doctrine orm:schema-tool:create
+  - cd ../messaging && composer install --prefer-source --no-interaction --dev
+  - cd ../web && composer install --prefer-source --no-interaction --dev
   - npm install -g phantomjs
-  - cd packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
+  - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
 
 script:
   - cd applications/console && bin/phpunit -v

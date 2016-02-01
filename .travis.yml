@@ -18,7 +18,9 @@ before_script:
   - mysql -e 'create database ewallet_db;'
   - cp .env.travis .env && bin/doctrine orm:schema-tool:create
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
+  - cp .env.travis .env
   - cd ../web && composer install --prefer-source --no-interaction --dev
+  - cp .env.travis .env
   - npm install -g phantomjs
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
 

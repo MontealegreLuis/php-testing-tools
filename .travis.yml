@@ -23,9 +23,9 @@ before_script:
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
 
 script:
-  - cd applications/console && bin/phpunit -v
-  - cd applications/messaging && bin/phpunit -v
-  - cd applications/web && bin/phpunit -v
-  - cd applications/web bin/robo acceptance
-  - cd packages/ewallet/domain && bin/phpspec run -v
-  - cd packages/ewallet/domain && bin/behat -v
+  - cd ../../../applications/console && bin/phpunit -v
+  - cd ../messaging && bin/phpunit -v
+  - cd ../web && bin/phpunit -v
+  - bin/robo acceptance
+  - cd ../../packages/ewallet/domain && bin/phpspec run -v
+  - bin/behat -v

@@ -14,15 +14,18 @@ services:
 
 before_script:
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - cd applications/console && composer install --prefer-source --no-interaction --dev
   - mysql -e 'create database ewallet_db;'
+  - cd applications/console && cp .env.travis .env && bin/doctrine orm:schema-tool:create
+  - cd applications/messaging && composer install --prefer-source --no-interaction --dev
+  - cd applications/web && composer install --prefer-source --no-interaction --dev
   - npm install -g phantomjs
-  - cp .env.travis .env
-  - bin/doctrine orm:schema-tool:create
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then wget https://github.com/digitalkaoz/typehint-to-docblock/releases/download/0.2.2/typehint-to-docblock.phar && php typehint-to-docblock.phar transform tests/specs; fi;'
+  - cd packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
 
 script:
-  - bin/phpspec run -v
-  - bin/behat -v
-  - bin/phpunit
-  - bin/robo acceptance
+  - cd applications/console && bin/phpunit -v
+  - cd applications/messaging && bin/phpunit -v
+  - cd applications/web && bin/phpunit -v
+  - cd applications/web bin/robo acceptance
+  - cd packages/ewallet/domain && bin/phpspec run -v
+  - cd packages/ewallet/domain && bin/behat -v

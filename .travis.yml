@@ -23,6 +23,8 @@ before_script:
   - cp .env.travis .env
   - npm install -g phantomjs
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
+  - cd ../application && composer install --prefer-source --no-interaction --dev
+  - bin/doctrine orm:schema-tool:create
 
 script:
   - cd ../../../applications/console && bin/phpunit -v
@@ -31,3 +33,4 @@ script:
   - bin/robo acceptance
   - cd ../../packages/ewallet/domain && bin/phpspec run -v
   - bin/behat -v
+  - cd ../application && bin/phpunit -v

@@ -9,6 +9,7 @@ namespace Ewallet\Wallet\Accounts;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
+use Ewallet\Accounts\UnknownMember;
 use SplObjectStorage;
 
 class InMemoryMembers implements Members
@@ -26,7 +27,8 @@ class InMemoryMembers implements Members
 
     /**
      * @param Identifier $id
-     * @return Member | null
+     * @return Member
+     * @throws UnknownMember
      */
     public function with(Identifier $id)
     {
@@ -36,6 +38,7 @@ class InMemoryMembers implements Members
                 return $member;
             }
         }
+        throw UnknownMember::with($id);
     }
 
     /**

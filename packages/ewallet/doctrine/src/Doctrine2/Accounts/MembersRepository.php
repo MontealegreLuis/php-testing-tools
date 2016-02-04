@@ -10,12 +10,14 @@ use Doctrine\ORM\EntityRepository;
 use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
+use Ewallet\Accounts\UnknownMember;
 
 class MembersRepository extends EntityRepository implements Members
 {
     /**
      * @param Identifier $id
-     * @return Member | null
+     * @return Member
+     * @throws UnknownMember
      */
     public function with(Identifier $id)
     {
@@ -26,7 +28,11 @@ class MembersRepository extends EntityRepository implements Members
             ->setParameter('id', $id)
         ;
 
-        return $builder->getQuery()->getOneOrNullResult();
+        if (!$member = $builder->getQuery()->getOneOrNullResult()) {
+            throw UnknownMember::with($id);
+        }
+
+        return $member;
     }
 
     /**

@@ -51,12 +51,13 @@ abstract class MembersTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Ewallet\Accounts\UnknownMember
+     */
     function it_should_not_find_a_non_existing_member()
     {
-        $member = $this->members->with(Identifier::with('lmno'));
-
-        $this->assertNull($member, 'Non existing member found');
+        $this->members->with(Identifier::with('lmno'));
     }
 
     /** @test */

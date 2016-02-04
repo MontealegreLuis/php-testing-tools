@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Responders;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
 use Ewallet\Wallet\TransferFundsResult;
 use Ewallet\EasyForms\TransferFundsFormResponder;
@@ -28,7 +28,7 @@ class TransferFundsFormResponderTest extends TestCase
         $form
             ->shouldReceive('configure')
             ->once()
-            ->with($configuration, Mockery::type(Identifier::class))
+            ->with($configuration, Mockery::type(MemberId::class))
         ;
         $view = Mockery::mock(TemplateEngine::class);
         $view
@@ -41,7 +41,7 @@ class TransferFundsFormResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $responder->respondToEnterTransferInformation(Identifier::with('abc'));
+        $responder->respondToEnterTransferInformation(MemberId::with('abc'));
 
         $this->assertEquals(200, $responder->response()->getStatusCode());
     }
@@ -54,7 +54,7 @@ class TransferFundsFormResponderTest extends TestCase
         $form
             ->shouldReceive('configure')
             ->once()
-            ->with($configuration, Mockery::type(Identifier::class))
+            ->with($configuration, Mockery::type(MemberId::class))
         ;
         $form
             ->shouldReceive('buildView')
@@ -88,7 +88,7 @@ class TransferFundsFormResponderTest extends TestCase
         $form
             ->shouldReceive('configure')
             ->once()
-            ->with($configuration, Mockery::type(Identifier::class))
+            ->with($configuration, Mockery::type(MemberId::class))
         ;
         $form->shouldReceive('buildView')->once();
         $form

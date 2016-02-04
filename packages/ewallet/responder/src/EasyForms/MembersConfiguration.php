@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Doctrine2\Accounts\MembersRepository;
 
 class MembersConfiguration
@@ -23,10 +23,10 @@ class MembersConfiguration
     }
 
     /**
-     * @param Identifier $memberId
+     * @param MemberId $memberId
      * @return \EWallet\Accounts\MemberInformation[]
      */
-    public function getMembersChoicesExcluding(Identifier $memberId)
+    public function getMembersChoicesExcluding(MemberId $memberId)
     {
         $members = $this->members->excluding($memberId);
         $options = [];

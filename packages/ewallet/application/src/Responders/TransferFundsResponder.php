@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Responders;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Wallet\TransferFundsResult;
 
 interface TransferFundsResponder
@@ -23,7 +23,7 @@ interface TransferFundsResponder
     public function respondToInvalidTransferInput(array $messages, array $values);
 
     /**
-     * @param Identifier $fromMemberId
+     * @param MemberId $fromMemberId
      */
-    public function respondToEnterTransferInformation(Identifier $fromMemberId);
+    public function respondToEnterTransferInformation(MemberId $fromMemberId);
 }

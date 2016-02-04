@@ -6,15 +6,15 @@
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Money\Money;
 
 class TransferFundsInformation
 {
-    /** @var Identifier */
+    /** @var MemberId */
     private $fromMemberId;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $toMemberId;
 
     /** @var Money */
@@ -25,8 +25,8 @@ class TransferFundsInformation
      */
     private function __construct(array $filteredInput)
     {
-        $this->fromMemberId = Identifier::with($filteredInput['fromMemberId']);
-        $this->toMemberId = Identifier::with($filteredInput['toMemberId']);
+        $this->fromMemberId = MemberId::with($filteredInput['fromMemberId']);
+        $this->toMemberId = MemberId::with($filteredInput['toMemberId']);
         $this->amount = Money::MXN((integer) ($filteredInput['amount'] * 100));
     }
 
@@ -40,7 +40,7 @@ class TransferFundsInformation
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
     public function fromMemberId()
     {
@@ -48,7 +48,7 @@ class TransferFundsInformation
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
     public function toMemberId()
     {

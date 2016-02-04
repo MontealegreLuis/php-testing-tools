@@ -20,7 +20,7 @@ return [
             'host' => getenv('MYSQL_HOST'),
         ],
         'types' => [
-            'uuid' => 'Ewallet\Doctrine2\Types\UuidType',
+            'MemberId' => 'Ewallet\Doctrine2\Types\MemberIdType',
         ],
     ],
     'monolog' => [

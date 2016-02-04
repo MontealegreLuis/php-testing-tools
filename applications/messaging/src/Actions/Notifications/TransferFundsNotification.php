@@ -7,7 +7,7 @@
 namespace Ewallet\Actions\Notifications;
 
 use DateTime;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Money\Money;
 
 class TransferFundsNotification
@@ -15,13 +15,13 @@ class TransferFundsNotification
     /** @var DateTime */
     private $occurredOn;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $fromMemberId;
 
     /** @var Money */
     private $amount;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $toMemberId;
 
     /**
@@ -33,9 +33,9 @@ class TransferFundsNotification
     public function __construct($fromMemberId, $amount, $toMemberId, $occurredOn)
     {
         $this->occurredOn = DateTime::createFromFormat('Y-m-d H:i:s', $occurredOn);
-        $this->fromMemberId = Identifier::with($fromMemberId);
+        $this->fromMemberId = MemberId::with($fromMemberId);
         $this->amount = Money::MXN($amount);
-        $this->toMemberId = Identifier::with($toMemberId);
+        $this->toMemberId = MemberId::with($toMemberId);
     }
 
     /**
@@ -47,7 +47,7 @@ class TransferFundsNotification
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
     public function fromMemberId()
     {
@@ -63,7 +63,7 @@ class TransferFundsNotification
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
     public function toMemberId()
     {

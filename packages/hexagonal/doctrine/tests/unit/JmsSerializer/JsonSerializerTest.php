@@ -7,7 +7,7 @@
 namespace Hexagonal\JmsSerializer;
 
 use DateTime;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -19,7 +19,7 @@ class JsonSerializerTest extends TestCase
     {
         $serializer = new JsonSerializer();
         $anEvent = new InstantaneousEvent(
-            Identifier::with('abc'),
+            MemberId::with('abc'),
             Money::MXN(10000),
             new DateTime('2015-10-24 12:39:51')
         );

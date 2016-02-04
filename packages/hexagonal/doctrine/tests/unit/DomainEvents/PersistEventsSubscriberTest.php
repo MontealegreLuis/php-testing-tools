@@ -8,7 +8,7 @@ namespace Hexagonal\DomainEvents;
 
 use Ewallet\DataBuilders\A;
 use DateTime;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Mockery;
@@ -26,7 +26,7 @@ class PersistEventsSubscriberTest extends TestCase
         );
 
         $this->assertTrue($subscriber->isSubscribedTo(new InstantaneousEvent(
-            Identifier::any(), Money::MXN(100000), new DateTime('now')
+            MemberId::any(), Money::MXN(100000), new DateTime('now')
         )));
 
         $this->assertTrue($subscriber->isSubscribedTo(

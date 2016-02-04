@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Wallet\TransferFundsResult;
 use Ewallet\Responders\Web\ResponseFactory;
 use Ewallet\Responders\Web\TemplateEngine;
@@ -74,14 +74,14 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
-        $this->respondToEnterTransferInformation(Identifier::with($values['fromMemberId']));
+        $this->respondToEnterTransferInformation(MemberId::with($values['fromMemberId']));
     }
 
     /**
-     * @param Identifier $fromMemberId
+     * @param MemberId $fromMemberId
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function respondToEnterTransferInformation(Identifier $fromMemberId)
+    public function respondToEnterTransferInformation(MemberId $fromMemberId)
     {
         $this->form->configure($this->configuration, $fromMemberId);
 

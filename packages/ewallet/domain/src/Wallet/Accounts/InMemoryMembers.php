@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Wallet\Accounts;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\Members;
 use Ewallet\Accounts\UnknownMember;
@@ -26,11 +26,11 @@ class InMemoryMembers implements Members
     }
 
     /**
-     * @param Identifier $id
+     * @param MemberId $id
      * @return Member
      * @throws UnknownMember
      */
-    public function with(Identifier $id)
+    public function with(MemberId $id)
     {
         /** @var Member $member */
         foreach ($this->members as $member) {

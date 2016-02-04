@@ -8,7 +8,7 @@
         table="members"
         repository-class="Ewallet\Doctrine2\Accounts\MembersRepository"
     >
-        <id name="memberId" type="uuid" column="member_id">
+        <id name="memberId" type="MemberId" column="member_id">
             <generator strategy="NONE" />
         </id>
         <field name="name" type="string" />

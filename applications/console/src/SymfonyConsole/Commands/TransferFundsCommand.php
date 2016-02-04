@@ -6,7 +6,7 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Actions\TransferFundsRequest;
 use Ewallet\Actions\TransferFundsAction;
 use Symfony\Component\Console\Command\Command;
@@ -68,7 +68,7 @@ class TransferFundsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $fromMemberId = Identifier::with('ABC');
+        $fromMemberId = MemberId::with('ABC');
         $input->setArgument('fromMemberId', (string) $fromMemberId);
         $this->action->enterTransferInformation($fromMemberId);
         $this->request->populate($input->getArguments());

@@ -7,7 +7,7 @@
 namespace Ewallet\Doctrine2\Types;
 
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\GuidType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use EWallet\Accounts\Identifier;
 use InvalidArgumentException;
@@ -16,22 +16,8 @@ use InvalidArgumentException;
  * UUID fields will be stored as a string in the database and converted back to
  * the Identifier value object when querying.
  */
-class UuidType extends Type
+abstract class UuidType extends GuidType
 {
-    /** @type string */
-    const NAME = 'uuid';
-
-    /**
-     * @param  array $fieldDeclaration
-     * @param  AbstractPlatform $platform
-     * @return string
-     */
-    public function getSQLDeclaration(
-        array $fieldDeclaration, AbstractPlatform $platform
-    ) {
-        return $platform->getGuidTypeDeclarationSQL($fieldDeclaration);
-    }
-
     /**
      * @param  string|null $value
      * @param  AbstractPlatform $platform
@@ -45,12 +31,10 @@ class UuidType extends Type
         }
 
         try {
-            $uuid = Identifier::with($value);
+            return $this->identifier($value);
         } catch (InvalidArgumentException $e) {
             throw ConversionException::conversionFailed($value, self::NAME);
         }
-
-        return $uuid;
     }
 
     /**
@@ -75,19 +59,8 @@ class UuidType extends Type
     }
 
     /**
-     * @return string
+     * @param  string|null $value
+     * @return Identifier
      */
-    public function getName()
-    {
-        return self::NAME;
-    }
-
-    /**
-     * @param  \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-     * @return boolean
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
-    {
-        return true;
-    }
+    abstract public function identifier($value);
 }

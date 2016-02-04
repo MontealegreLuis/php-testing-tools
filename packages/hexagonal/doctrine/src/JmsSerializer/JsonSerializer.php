@@ -7,7 +7,7 @@
 namespace Hexagonal\JmsSerializer;
 
 use DateTime;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSerializer;
 use JMS\Serializer\Handler\HandlerRegistry;
@@ -38,9 +38,9 @@ class JsonSerializer implements EventSerializer
                 // We only need the value of the ID
                 $registry->registerHandler(
                     'serialization',
-                    Identifier::class,
+                    MemberId::class,
                     'json',
-                    function ($visitor, Identifier $id, array $type) {
+                    function ($visitor, MemberId $id, array $type) {
                         return (string) $id;
                     }
                 );

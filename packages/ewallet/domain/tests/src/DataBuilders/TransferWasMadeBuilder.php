@@ -6,7 +6,7 @@
  */
 namespace Ewallet\DataBuilders;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\TransferWasMade;
 use Faker\Factory;
 use Money\Money;
@@ -40,9 +40,9 @@ class TransferWasMadeBuilder
     public function build()
     {
         $event = new TransferWasMade(
-            Identifier::with($this->fromId),
+            MemberId::with($this->fromId),
             Money::MXN($this->amount),
-            Identifier::with($this->toId)
+            MemberId::with($this->toId)
         );
 
         $this->reset();

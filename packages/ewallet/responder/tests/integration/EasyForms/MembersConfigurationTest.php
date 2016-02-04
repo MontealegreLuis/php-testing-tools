@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\Member;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -40,7 +40,7 @@ class MembersConfigurationTest extends TestCase
         $configuration = new MembersConfiguration($members);
 
         $options = $configuration->getMembersChoicesExcluding(
-            Identifier::with('ABC')
+            MemberId::with('ABC')
         );
 
         $this->assertCount(2, $options);

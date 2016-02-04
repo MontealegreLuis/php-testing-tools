@@ -7,7 +7,7 @@
 namespace Ewallet\Actions;
 
 use Ewallet\DataBuilders\A;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsResult;
@@ -23,7 +23,7 @@ class TransferFundsActionTest extends TestCase
         $responder = Mockery::spy(TransferFundsResponder::class);
         $action = new TransferFundsAction($responder);
 
-        $action->enterTransferInformation(Identifier::any());
+        $action->enterTransferInformation(MemberId::any());
 
         $responder
             ->shouldHaveReceived('respondToEnterTransferInformation')

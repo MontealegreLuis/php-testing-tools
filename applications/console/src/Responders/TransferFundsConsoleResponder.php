@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Responders;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\MemberInformation;
 use Ewallet\Wallet\TransferFundsResult;
@@ -73,9 +73,9 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     }
 
     /**
-     * @param Identifier $fromMemberId
+     * @param MemberId $fromMemberId
      */
-    public function respondToEnterTransferInformation(Identifier $fromMemberId)
+    public function respondToEnterTransferInformation(MemberId $fromMemberId)
     {
         $members = $this->members->excluding($fromMemberId);
         $table = new Table($this->output);

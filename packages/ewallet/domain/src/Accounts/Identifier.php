@@ -43,7 +43,7 @@ class Identifier
      */
     public static function with($value)
     {
-        return new Identifier($value);
+        return new static($value);
     }
 
     /**
@@ -53,7 +53,7 @@ class Identifier
      */
     public static function any()
     {
-        return new Identifier(uniqid());
+        return new static(uniqid());
     }
 
     /**

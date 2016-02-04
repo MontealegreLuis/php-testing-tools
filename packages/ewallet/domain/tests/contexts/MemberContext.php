@@ -6,7 +6,7 @@
  */
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
 use Ewallet\Wallet\Accounts\InMemoryMembers;
 use Ewallet\Wallet\TransferFunds;
@@ -84,7 +84,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myBalanceShouldBeMxn($amount)
     {
-        $forMe = $this->members->with(Identifier::with('abc'));
+        $forMe = $this->members->with(MemberId::with('abc'));
         $this->membersHelper->assertBalanceIs($amount, $forMe);
     }
 
@@ -93,7 +93,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn($amount)
     {
-        $forMyFriend = $this->members->with(Identifier::with('xyz'));
+        $forMyFriend = $this->members->with(MemberId::with('xyz'));
         $this->membersHelper->assertBalanceIs($amount, $forMyFriend);
     }
 }

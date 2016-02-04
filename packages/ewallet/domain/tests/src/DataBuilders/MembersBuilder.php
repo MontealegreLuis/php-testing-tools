@@ -7,7 +7,7 @@
 namespace Ewallet\DataBuilders;
 
 use Ewallet\Accounts\Email;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\Member;
 use Faker\Factory;
 use Money\Money;
@@ -92,7 +92,7 @@ class MembersBuilder
     public function build()
     {
         $member = Member::withAccountBalance(
-            Identifier::with($this->id),
+            MemberId::with($this->id),
             $this->name,
             new Email($this->email),
             $this->amount

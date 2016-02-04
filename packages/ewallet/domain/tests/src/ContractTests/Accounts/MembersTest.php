@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ContractTests\Accounts;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
@@ -43,7 +43,7 @@ abstract class MembersTest extends TestCase
     /** @test */
     function it_should_find_a_registered_member()
     {
-        $member = $this->members->with(Identifier::with('abcd'));
+        $member = $this->members->with(MemberId::with('abcd'));
 
         $this->assertTrue(
             $member->equals($this->existingMember),
@@ -57,13 +57,13 @@ abstract class MembersTest extends TestCase
      */
     function it_should_not_find_a_non_existing_member()
     {
-        $this->members->with(Identifier::with('lmno'));
+        $this->members->with(MemberId::with('lmno'));
     }
 
     /** @test */
     function it_should_update_the_information_of_a_registered_member()
     {
-        $member = $this->members->with(Identifier::with('wxyz'));
+        $member = $this->members->with(MemberId::with('wxyz'));
         $member->transfer(Money::MXN(500), $this->existingMember);
         $this->members->update($this->existingMember);
 

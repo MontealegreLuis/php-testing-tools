@@ -7,7 +7,7 @@
 namespace Hexagonal\DomainEvents;
 
 use DateTime;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Money\Money;
@@ -19,7 +19,7 @@ class StoredEventFactoryTest extends TestCase
     function it_should_create_an_stored_event_from_a_given_domain_event()
     {
         $event = new InstantaneousEvent(
-            Identifier::with('abc'),
+            MemberId::with('abc'),
             Money::MXN(500000),
             new DateTime('2015-10-25 19:59:00')
         );

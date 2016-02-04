@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Slim\Controllers;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Actions\TransferFundsRequest;
 use Ewallet\Actions\TransferFundsAction;
 use Slim\Http\Request;
@@ -36,7 +36,7 @@ class TransferFundsController
      */
     public function enterTransferInformation()
     {
-        $this->action->enterTransferInformation(Identifier::with('ABC'));
+        $this->action->enterTransferInformation(MemberId::with('ABC'));
 
         $this->renderResponseBody();
     }

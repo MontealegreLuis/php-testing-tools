@@ -16,7 +16,7 @@ return [
             'path' => __DIR__ . '/var/ewallet.sq3',
         ],
         'types' => [
-            'uuid' => 'Ewallet\Doctrine2\Types\UuidType',
+            'MemberId' => 'Ewallet\Doctrine2\Types\MemberIdType',
         ],
     ],
 ];

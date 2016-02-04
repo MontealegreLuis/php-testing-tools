@@ -7,19 +7,19 @@
 namespace Ewallet\Doctrine2\Accounts;
 
 use Doctrine\ORM\EntityRepository;
-use Ewallet\Accounts\Identifier;
 use Ewallet\Accounts\Member;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\Members;
 use Ewallet\Accounts\UnknownMember;
 
 class MembersRepository extends EntityRepository implements Members
 {
     /**
-     * @param Identifier $id
+     * @param MemberId $id
      * @return Member
      * @throws UnknownMember
      */
-    public function with(Identifier $id)
+    public function with(MemberId $id)
     {
         $builder = $this->createQueryBuilder('m');
 
@@ -54,10 +54,10 @@ class MembersRepository extends EntityRepository implements Members
     }
 
     /**
-     * @param Identifier $memberId
+     * @param MemberId $memberId
      * @return array
      */
-    public function excluding(Identifier $memberId)
+    public function excluding(MemberId $memberId)
     {
         $builder = $this->createQueryBuilder('m');
 

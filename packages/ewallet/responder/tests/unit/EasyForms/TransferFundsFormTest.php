@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -45,7 +45,7 @@ class TransferFundsFormTest extends TestCase
     function it_should_initialize_the_member_id_making_the_transfer()
     {
         $form = new TransferFundsForm();
-        $fromMemberId = Identifier::with('abc');
+        $fromMemberId = MemberId::with('abc');
         $configuration = Mockery::mock(MembersConfiguration::class);
         $configuration
             ->shouldReceive('getMembersChoicesExcluding')
@@ -64,7 +64,7 @@ class TransferFundsFormTest extends TestCase
     function it_should_exclude_from_choices_the_member_making_the_transfer()
     {
         $form = new TransferFundsForm();
-        $fromMemberId = Identifier::with('abc');
+        $fromMemberId = MemberId::with('abc');
         $configuration = Mockery::mock(MembersConfiguration::class);
         $configuration
             ->shouldReceive('getMembersChoicesExcluding')

@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Zf2\InputFilter;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Actions\TransferFundsRequest;
@@ -38,7 +38,7 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
     {
         $fromMemberId = isset($input['fromMemberId']) ? $input['fromMemberId']: null;
         $this->filter->configure(
-            $this->members->excluding(Identifier::with($fromMemberId))
+            $this->members->excluding(MemberId::with($fromMemberId))
         );
         $this->filter->setData($input);
     }

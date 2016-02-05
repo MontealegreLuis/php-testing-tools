@@ -11,7 +11,7 @@ use Assert\Assertion;
 /**
  * All members have a unique identifier
  */
-class Identifier
+abstract class Identifier
 {
     /** @var string */
     private $id;

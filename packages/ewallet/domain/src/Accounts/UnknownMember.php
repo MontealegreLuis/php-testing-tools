@@ -14,10 +14,10 @@ use RuntimeException;
 class UnknownMember extends RuntimeException
 {
     /**
-     * @param Identifier $memberId
+     * @param MemberId $memberId
      * @return UnknownMember
      */
-    public static function with(Identifier $memberId)
+    public static function with(MemberId $memberId)
     {
         return new self("Member with ID {$memberId} cannot be found");
     }

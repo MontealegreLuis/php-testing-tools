@@ -6,6 +6,9 @@
  */
 namespace Ewallet\Accounts;
 
+/**
+ * All members have a unique identifier
+ */
 class MemberId extends Identifier
 {
 }

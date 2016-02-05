@@ -102,9 +102,9 @@ class Member implements CanRecordEvents
     {
         $toMember->applyDeposit($amount);
         $this->account->withdraw($amount);
-        $this->recordThat(
-            new TransferWasMade($this->memberId, $amount, $toMember->memberId)
-        );
+        $this->recordThat(new TransferWasMade(
+            $this->memberId, $amount, $toMember->memberId
+        ));
     }
 
     /**
@@ -116,10 +116,8 @@ class Member implements CanRecordEvents
      */
     protected function applyDeposit(Money $amount)
     {
-        if ($amount->isNegative()) {
-            throw new InvalidTransferAmount(
-                "Cannot transfer negative amount {$amount->getAmount()}"
-            );
+        if ($amount->isNegative() || $amount->isZero()) {
+            throw InvalidTransfer::with($amount);
         }
 
         $this->account->deposit($amount);

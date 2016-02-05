@@ -6,6 +6,7 @@
  */
 namespace Ewallet\Accounts;
 
+use Money\Money;
 use RuntimeException;
 
 /**
@@ -13,4 +14,8 @@ use RuntimeException;
  */
 class InsufficientFunds extends RuntimeException
 {
+    public static function withdrawing(Money $amount)
+    {
+        return new self("Cannot withdraw {$amount->getAmount()}");
+    }
 }

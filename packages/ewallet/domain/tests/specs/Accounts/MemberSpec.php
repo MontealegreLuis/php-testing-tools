@@ -9,7 +9,7 @@ namespace specs\Ewallet\Accounts;
 use Assert\InvalidArgumentException;
 use Ewallet\Accounts\Email;
 use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\InvalidTransferAmount;
+use Ewallet\Accounts\InvalidTransfer;
 use Ewallet\DataBuilders\A;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Money\Money;
@@ -72,7 +72,7 @@ class MemberSpec extends ObjectBehavior
     function it_should_not_allow_to_transfer_a_negative_amount()
     {
         $this
-            ->shouldThrow(InvalidTransferAmount::class)
+            ->shouldThrow(InvalidTransfer::class)
             ->duringTransfer(Money::MXN(-5000), A::member()->build())
         ;
     }

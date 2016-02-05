@@ -63,7 +63,7 @@ class Account
     public function withdraw(Money $amount)
     {
         if ($amount->greaterThan($this->balance)) {
-            throw new InsufficientFunds("Cannot withdraw {$amount->getAmount()}");
+            throw InsufficientFunds::withdrawing($amount);
         }
         $this->balance = $this->balance->subtract($amount);
     }

@@ -8,9 +8,6 @@ namespace Ewallet\Accounts;
 
 use Assert\Assertion;
 
-/**
- * All members have a unique identifier
- */
 abstract class Identifier
 {
     /** @var string */

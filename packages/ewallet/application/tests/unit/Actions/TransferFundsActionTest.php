@@ -23,7 +23,7 @@ class TransferFundsActionTest extends TestCase
         $responder = Mockery::spy(TransferFundsResponder::class);
         $action = new TransferFundsAction($responder);
 
-        $action->enterTransferInformation(MemberId::any());
+        $action->enterTransferInformation(MemberId::with('any'));
 
         $responder
             ->shouldHaveReceived('respondToEnterTransferInformation')

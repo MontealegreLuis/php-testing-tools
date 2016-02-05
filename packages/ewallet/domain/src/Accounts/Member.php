@@ -124,11 +124,11 @@ class Member implements CanRecordEvents
     }
 
     /**
-     * @param Member $member
+     * @param Member $anotherMember
      * @return bool
      */
-    public function equals(Member $member)
+    public function equals(Member $anotherMember)
     {
-        return $this->memberId->equals($member->memberId);
+        return $this->memberId->equals($anotherMember->memberId);
     }
 }

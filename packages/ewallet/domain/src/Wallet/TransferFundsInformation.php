@@ -21,22 +21,22 @@ class TransferFundsInformation
     private $amount;
 
     /**
-     * @param array $filteredInput
+     * @param array $validInput
      */
-    private function __construct(array $filteredInput)
+    private function __construct(array $validInput)
     {
-        $this->fromMemberId = MemberId::with($filteredInput['fromMemberId']);
-        $this->toMemberId = MemberId::with($filteredInput['toMemberId']);
-        $this->amount = Money::MXN((integer) ($filteredInput['amount'] * 100));
+        $this->fromMemberId = MemberId::with($validInput['fromMemberId']);
+        $this->toMemberId = MemberId::with($validInput['toMemberId']);
+        $this->amount = Money::MXN((integer) ($validInput['amount'] * 100));
     }
 
     /**
-     * @param array $filteredInput
+     * @param array $validInput
      * @return TransferFundsInformation
      */
-    public static function from(array $filteredInput)
+    public static function from(array $validInput)
     {
-        return new self($filteredInput);
+        return new self($validInput);
     }
 
     /**

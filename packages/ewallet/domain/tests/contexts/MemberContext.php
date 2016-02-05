@@ -25,7 +25,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /** @var MembersHelper */
     private $membersHelper;
 
-    /** @var  TransferFunds */
+    /** @var TransferFunds */
     private $useCase;
 
     /**

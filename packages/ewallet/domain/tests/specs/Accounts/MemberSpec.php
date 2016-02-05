@@ -77,6 +77,14 @@ class MemberSpec extends ObjectBehavior
         ;
     }
 
+    function it_should_not_allow_to_transfer_zero()
+    {
+        $this
+            ->shouldThrow(InvalidTransfer::class)
+            ->duringTransfer(Money::MXN(0), A::member()->build())
+        ;
+    }
+
     function it_should_record_that_a_transfer_was_made()
     {
         $this->transfer(Money::MXN(500), A::member()->build());

@@ -14,6 +14,10 @@ use RuntimeException;
  */
 class InsufficientFunds extends RuntimeException
 {
+    /**
+     * @param Money $amount
+     * @return InsufficientFunds
+     */
     public static function withdrawing(Money $amount)
     {
         return new self("Cannot withdraw {$amount->getAmount()}");

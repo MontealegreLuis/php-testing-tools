@@ -15,13 +15,13 @@ class MemberIdSpec extends ObjectBehavior
     function it_should_be_created_from_a_string()
     {
         $this->beConstructedThrough('with', ['abcd']);
-        $this->__toString()->shouldBe('abcd');
+        $this->value()->shouldBe('abcd');
     }
 
     function it_should_be_created_randomly_using_any_non_empty_value()
     {
         $this->beConstructedThrough('any', []);
-        $this->__toString()->shouldNotBe('');
+        $this->value()->shouldNotBe('');
     }
 
     function it_should_not_be_created_from_an_empty_string()

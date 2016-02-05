@@ -9,7 +9,7 @@ Money\Money (local):
         amount: 1000
         currency: '@mxn'
 
-Ewallet\Accounts\Identifier (local):
+Ewallet\Accounts\MemberId (local):
     id0:
         __construct: { with: ["XYZ"] }
     id1:

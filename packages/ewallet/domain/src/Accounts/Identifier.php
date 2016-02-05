@@ -11,25 +11,25 @@ use Assert\Assertion;
 abstract class Identifier
 {
     /** @var string */
-    private $id;
+    private $value;
 
     /**
-     * @param string $id
+     * @param string $value
      */
-    private function __construct($id)
+    private function __construct($value)
     {
-        $this->setId($id);
+        $this->setId($value);
     }
 
     /**
-     * @param string $id
+     * @param string $value
      */
-    private function setId($id)
+    private function setId($value)
     {
-        Assertion::string($id, "Identifiers should be strings");
-        Assertion::notEmpty(trim($id), "An identifier cannot be empty");
+        Assertion::string($value, "Identifiers should be strings");
+        Assertion::notEmpty(trim($value), "An identifier cannot be empty");
 
-        $this->id = $id;
+        $this->value = $value;
     }
 
     /**
@@ -54,12 +54,20 @@ abstract class Identifier
     }
 
     /**
-     * @param Identifier $id
+     * @param Identifier $anotherId
      * @return bool
      */
-    public function equals(Identifier $id)
+    public function equals(Identifier $anotherId)
     {
-        return $this->id === $id->id;
+        return $this->value === $anotherId->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function value()
+    {
+        return $this->value;
     }
 
     /**
@@ -67,6 +75,6 @@ abstract class Identifier
      */
     public function __toString()
     {
-        return (string) $this->id;
+        return (string) $this->value;
     }
 }

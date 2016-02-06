@@ -68,7 +68,7 @@ class TransferFundsActionTest extends TestCase
         $responder
             ->shouldHaveReceived('respondToInvalidTransferInput')
             ->once()
-            ->with(Mockery::type('array'), Mockery::type('array'), Mockery::type('string'))
+            ->with(Mockery::type('array'), Mockery::type('array'))
         ;
 
         $useCase->shouldNotHaveReceived('transfer');

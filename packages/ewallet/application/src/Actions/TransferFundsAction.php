@@ -6,13 +6,20 @@
  */
 namespace Ewallet\Actions;
 
-use Ewallet\Accounts\Identifier;
+use Ewallet\Accounts\MemberId;
 use Ewallet\Responders\TransferFundsResponder;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Wallet\TransferFundsNotifier;
 use Ewallet\Wallet\TransferFundsInformation;
 use Ewallet\Wallet\TransferFundsResult;
 
+/**
+ * This is a two steps action. First, the member making the transfer enters the
+ * information needed to perform it. Once information is provided, the transfer
+ * is attempted. If the information is invalid, the member receives the
+ * appropriate feedback in order to fix the errors. Otherwise the transfer
+ * completes.
+ */
 class TransferFundsAction implements TransferFundsNotifier
 {
     /** @var TransferFunds */
@@ -35,9 +42,9 @@ class TransferFundsAction implements TransferFundsNotifier
     }
 
     /**
-     * @param Identifier $fromMemberId
+     * @param MemberId $fromMemberId
      */
-    public function enterTransferInformation(Identifier $fromMemberId)
+    public function enterTransferInformation(MemberId $fromMemberId)
     {
         $this->responder->respondToEnterTransferInformation($fromMemberId);
     }
@@ -62,8 +69,7 @@ class TransferFundsAction implements TransferFundsNotifier
     {
         $this->responder->respondToInvalidTransferInput(
             $request->errorMessages(),
-            $request->values(),
-            $request->value('fromMemberId')
+            $request->values()
         );
     }
 

@@ -22,10 +22,4 @@ interface TransferFundsRequest
      * @return array
      */
     public function values();
-
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    public function value($key);
 }

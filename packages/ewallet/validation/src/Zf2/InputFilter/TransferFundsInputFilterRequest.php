@@ -66,13 +66,4 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
     {
         return $this->filter->getValues();
     }
-
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    public function value($key)
-    {
-        return $this->filter->getValue($key);
-    }
 }

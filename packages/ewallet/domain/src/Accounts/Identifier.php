@@ -44,16 +44,6 @@ abstract class Identifier
     }
 
     /**
-     * Generates a random identifier using `uniqid` function
-     *
-     * @return Identifier
-     */
-    public static function any()
-    {
-        return new static(uniqid());
-    }
-
-    /**
      * @param Identifier $anotherId
      * @return bool
      */

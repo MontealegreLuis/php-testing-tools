@@ -55,9 +55,9 @@ class MembersRepository extends EntityRepository implements Members
 
     /**
      * @param MemberId $memberId
-     * @return array
+     * @return Member[]
      */
-    public function excluding(MemberId $memberId)
+    public function excluding(MemberId $memberId = null)
     {
         $builder = $this->createQueryBuilder('m');
 

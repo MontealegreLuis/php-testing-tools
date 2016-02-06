@@ -36,10 +36,14 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
      */
     public function populate(array $input)
     {
-        $fromMemberId = isset($input['fromMemberId']) ? $input['fromMemberId']: null;
-        $this->filter->configure(
-            $this->members->excluding(MemberId::with($fromMemberId))
-        );
+        if (isset($input['fromMemberId']) && !empty($input['fromMemberId'])) {
+            $membersToTransferTo = $this->members->excluding(
+                MemberId::with($input['fromMemberId'])
+            );
+        } else {
+            $membersToTransferTo = $this->members->excluding();
+        }
+        $this->filter->configure($membersToTransferTo);
         $this->filter->setData($input);
     }
 

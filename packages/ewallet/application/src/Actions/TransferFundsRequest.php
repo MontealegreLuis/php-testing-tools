@@ -9,6 +9,11 @@ namespace Ewallet\Actions;
 interface TransferFundsRequest
 {
     /**
+     * @param array $rawInput
+     */
+    public function populate(array $rawInput);
+
+    /**
      * @return boolean
      */
     public function isValid();

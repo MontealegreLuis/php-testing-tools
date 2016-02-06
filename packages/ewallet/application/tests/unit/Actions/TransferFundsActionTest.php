@@ -102,12 +102,6 @@ class TransferFundsActionTest extends TestCase
                 'toMemberId' => $toMemberId,
             ])
         ;
-        $request
-            ->shouldReceive('value')
-            ->with('fromMemberId')
-            ->once()
-            ->andReturn($fromMemberId)
-        ;
 
         return $request;
     }

@@ -26,7 +26,7 @@ class PersistEventsSubscriberTest extends TestCase
         );
 
         $this->assertTrue($subscriber->isSubscribedTo(new InstantaneousEvent(
-            MemberId::any(), Money::MXN(100000), new DateTime('now')
+            MemberId::with('any'), Money::MXN(100000), new DateTime('now')
         )));
 
         $this->assertTrue($subscriber->isSubscribedTo(

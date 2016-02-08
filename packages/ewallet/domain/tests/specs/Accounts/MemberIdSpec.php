@@ -18,12 +18,6 @@ class MemberIdSpec extends ObjectBehavior
         $this->value()->shouldBe('abcd');
     }
 
-    function it_should_be_created_randomly_using_any_non_empty_value()
-    {
-        $this->beConstructedThrough('any', []);
-        $this->value()->shouldNotBe('');
-    }
-
     function it_should_not_be_created_from_an_empty_string()
     {
         $this->beConstructedThrough('with', ['']);

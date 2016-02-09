@@ -18,22 +18,22 @@ class TransferWasMade implements Event
     /** @var DateTime */
     private $occurredOn;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $fromMemberId;
 
     /** @var Money */
     private $amount;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $toMemberId;
 
     /**
-     * @param Identifier $fromMemberId
+     * @param MemberId $fromMemberId
      * @param Money $amount
-     * @param Identifier $toMemberId
+     * @param MemberId $toMemberId
      */
     public function __construct(
-        Identifier $fromMemberId, Money $amount, Identifier $toMemberId
+        MemberId $fromMemberId, Money $amount, MemberId $toMemberId
     ) {
         $this->occurredOn = new DateTime('now');
         $this->fromMemberId = $fromMemberId;
@@ -50,7 +50,7 @@ class TransferWasMade implements Event
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
     public function fromMemberId()
     {
@@ -66,7 +66,7 @@ class TransferWasMade implements Event
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
     public function toMemberId()
     {

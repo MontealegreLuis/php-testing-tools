@@ -6,7 +6,6 @@
  */
 namespace Ewallet\DataBuilders;
 
-
 class A
 {
     /**

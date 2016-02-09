@@ -15,18 +15,31 @@ use PhpSpec\Exception\Example\FailureException;
  */
 trait ProvidesMoneyMatcher
 {
+    /**
+     * @return array
+     */
     public function getMatchers()
     {
         return [
-            'amount' => function(Money $subject, $expectedAmount) {
-                if ($subject->getAmount() !== $expectedAmount) {
-                    throw new FailureException(sprintf(
-                        'Current money amount should be "%s" not "%s".',
-                        $expectedAmount, $subject->getAmount()
-                    ));
-                }
-                return true;
-            }
+            'amount' => [$this, 'amountMatches'],
         ];
+    }
+
+    /**
+     * @param Money $subject
+     * @param int $expectedAmount
+     * @return bool
+     * @throws FailureException
+     */
+    public function amountMatches(Money $subject, $expectedAmount)
+    {
+        if ($subject->getAmount() !== $expectedAmount) {
+            throw new FailureException(sprintf(
+                'Current money amount should be "%s" not "%s".',
+                $expectedAmount,
+                $subject->getAmount()
+            ));
+        }
+        return true;
     }
 }

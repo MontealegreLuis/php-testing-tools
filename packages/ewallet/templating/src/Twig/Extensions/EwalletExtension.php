@@ -7,7 +7,7 @@
 namespace Ewallet\Twig\Extensions;
 
 use Ewallet\Accounts\MemberInformation;
-use Ewallet\View\MemberFormatter;
+use Ewallet\Presenters\MemberFormatter;
 use Money\Money;
 use Twig_Extension as Extension;
 use Twig_SimpleFunction as SimpleFunction;

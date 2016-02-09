@@ -7,7 +7,7 @@
 namespace Ewallet\Monolog;
 
 use Ewallet\Accounts\TransferWasMade;
-use Ewallet\View\MemberFormatter;
+use Ewallet\Presenters\MemberFormatter;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSubscriber;
 use Monolog\Logger;

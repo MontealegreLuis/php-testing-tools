@@ -15,7 +15,7 @@ use Ewallet\EasyForms\MembersConfiguration;
 use Ewallet\Monolog\LogTransferWasMadeSubscriber;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use Ewallet\View\MemberFormatter;
+use Ewallet\Presenters\MemberFormatter;
 use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\Doctrine2\Messaging\MessageTrackerRepository;
 use Hexagonal\DomainEvents\EventPublisher;

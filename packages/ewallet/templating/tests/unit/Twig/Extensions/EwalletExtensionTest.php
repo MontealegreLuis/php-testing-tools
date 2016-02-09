@@ -9,7 +9,7 @@
 namespace Ewallet\Twig\Extensions;
 
 use Ewallet\DataBuilders\A;
-use Ewallet\View\MemberFormatter;
+use Ewallet\Presenters\MemberFormatter;
 use Mockery;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

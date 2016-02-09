@@ -12,7 +12,7 @@ use Ewallet\Actions\TransferFundsAction;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use Ewallet\View\MemberFormatter;
+use Ewallet\Presenters\MemberFormatter;
 use Ewallet\Fakes\Symfony\Console\FakeQuestionHelper;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;

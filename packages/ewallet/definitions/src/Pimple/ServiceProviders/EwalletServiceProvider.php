@@ -14,7 +14,7 @@ use Ewallet\Monolog\LogTransferWasMadeSubscriber;
 use Ewallet\Twig\TwigTemplateEngine;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use Ewallet\View\MemberFormatter;
+use Ewallet\Presenters\MemberFormatter;
 use Hexagonal\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;

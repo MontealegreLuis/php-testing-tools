@@ -12,7 +12,7 @@ use Ewallet\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Wallet\TransferFundsTransactionally;
 use Ewallet\Actions\TransferFundsAction;
 use Ewallet\EasyForms\MembersConfiguration;
-use Ewallet\Monolog\LogTransferWasMadeSubscriber;
+use Ewallet\Listeners\LogTransferWasMadeSubscriber;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use Ewallet\Presenters\MemberFormatter;

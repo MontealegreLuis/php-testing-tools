@@ -4,17 +4,17 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Monolog;
+namespace Ewallet\Listeners;
 
 use Ewallet\Accounts\TransferWasMade;
 use Ewallet\Presenters\MemberFormatter;
 use Hexagonal\DomainEvents\Event;
 use Hexagonal\DomainEvents\EventSubscriber;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 class LogTransferWasMadeSubscriber implements EventSubscriber
 {
-    /** @var Logger */
+    /** @var LoggerInterface */
     private $logger;
 
     /** @var MemberFormatter */
@@ -24,7 +24,7 @@ class LogTransferWasMadeSubscriber implements EventSubscriber
      * @param Logger $logger
      * @param MemberFormatter $formatter
      */
-    public function __construct(Logger $logger, MemberFormatter $formatter)
+    public function __construct(LoggerInterface $logger, MemberFormatter $formatter)
     {
         $this->logger = $logger;
         $this->formatter = $formatter;

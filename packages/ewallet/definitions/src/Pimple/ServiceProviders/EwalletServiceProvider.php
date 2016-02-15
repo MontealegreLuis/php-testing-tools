@@ -10,7 +10,7 @@ use Ewallet\EasyForms\MembersConfiguration;
 use Ewallet\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFundsTransactionally;
-use Ewallet\Monolog\LogTransferWasMadeSubscriber;
+use Ewallet\Listeners\LogTransferWasMadeSubscriber;
 use Ewallet\Twig\TwigTemplateEngine;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;

@@ -10,7 +10,7 @@ use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Twig\RouterExtension;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
 use Ewallet\Actions\TransferFundsAction;
-use Ewallet\EasyForms\TransferFundsFormResponder;
+use Ewallet\Responders\TransferFundsFormResponder;
 use Ewallet\EasyForms\TransferFundsForm;
 use Pimple\Container;
 use Slim\Slim;

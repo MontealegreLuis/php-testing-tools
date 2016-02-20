@@ -9,7 +9,7 @@ namespace Ewallet\Pimple;
 use Dotenv\Dotenv;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Twig\RouterExtension;
-use Ewallet\EasyForms\TransferFundsFormResponder;
+use Ewallet\Responders\TransferFundsFormResponder;
 use Ewallet\EasyForms\TransferFundsForm;
 use PHPUnit_Framework_TestCase as TestCase;
 use Slim\Environment;

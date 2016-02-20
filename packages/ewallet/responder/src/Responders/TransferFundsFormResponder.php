@@ -4,12 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\EasyForms;
+namespace Ewallet\Responders;
 
 use Ewallet\Accounts\MemberId;
+use Ewallet\EasyForms\MembersConfiguration;
+use Ewallet\EasyForms\TransferFundsForm;
 use Ewallet\Wallet\TransferFundsResult;
 use Ewallet\Responders\Web\ResponseFactory;
-use Ewallet\Responders\Web\TemplateEngine;
+use Ewallet\Templating\TemplateEngine;
 use Ewallet\Responders\Web\TransferFundsWebResponder;
 
 class TransferFundsFormResponder implements TransferFundsWebResponder

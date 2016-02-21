@@ -6,16 +6,16 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\EasyForms\MembersConfiguration;
-use Ewallet\Twig\Extensions\EwalletExtension;
 use Ewallet\Accounts\Member;
-use Ewallet\Wallet\TransferFundsTransactionally;
+use Ewallet\Doctrine2\Application\Services\DoctrineSession;
+use Ewallet\EasyForms\MembersConfiguration;
 use Ewallet\Listeners\LogTransferWasMadeSubscriber;
+use Ewallet\Presenters\MemberFormatter;
+use Ewallet\Twig\Extensions\EwalletExtension;
 use Ewallet\Twig\TwigTemplateEngine;
+use Ewallet\Wallet\TransferFundsTransactionally;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
-use Ewallet\Presenters\MemberFormatter;
-use Hexagonal\Doctrine2\Application\Services\DoctrineSession;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\EventPublisher;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;

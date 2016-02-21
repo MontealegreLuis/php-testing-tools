@@ -7,11 +7,14 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
+use Ewallet\Doctrine2\Application\Services\DoctrineSession;
+use Ewallet\Fakes\FakeNotifier;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Exception;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class TransferFundsTest extends TestCase
 {
@@ -39,10 +42,13 @@ class TransferFundsTest extends TestCase
         $members = $this->entityManager->getRepository(Member::class);
         $notifier = Mockery::mock(TransferFundsNotifier::class)->shouldIgnoreMissing();
 
-        $transferBalance = new TransferFunds($members);
-        $transferBalance->attach($notifier);
+        $useCase = new TransferFundsTransactionally($members);
+        $useCase->setTransactionalSession(
+            new DoctrineSession($this->entityManager)
+        );
+        $useCase->attach($notifier);
 
-        $transferBalance->transfer($request = TransferFundsInformation::from([
+        $useCase->transfer($request = TransferFundsInformation::from([
             'fromMemberId' => 'XYZ',
             'toMemberId' => 'ABC',
             'amount' => 3,
@@ -53,5 +59,37 @@ class TransferFundsTest extends TestCase
 
         $toMember = $members->with($request->toMemberId());
         $this->assertBalanceAmounts(1300, $toMember);
+    }
+
+    /** @test */
+    function it_should_rollback_an_incomplete_transfer()
+    {
+        Fixtures::load(
+            __DIR__ . '/../../fixtures/members.yml',
+            $this->entityManager
+        );
+
+        /** @var Members $members */
+        $members = $this->entityManager->getRepository(Member::class);
+
+        $useCase = new TransferFundsTransactionally($members);
+        $useCase->setTransactionalSession(
+            new DoctrineSession($this->entityManager)
+        );
+        $useCase->attach(new FakeNotifier()); // Throw exception before completing transfer
+
+        try {
+            $useCase->transfer($request = TransferFundsInformation::from([
+                'fromMemberId' => 'XYZ',
+                'toMemberId' => 'ABC',
+                'amount' => 3,
+            ]));
+        } catch(Exception $ignore) {}
+
+        $fromMember = $members->with($request->fromMemberId());
+        $this->assertBalanceAmounts(1000, $fromMember); // Should remain equal
+
+        $toMember = $members->with($request->toMemberId());
+        $this->assertBalanceAmounts(1000, $toMember); // Should not have changed
     }
 }

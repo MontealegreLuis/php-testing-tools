@@ -8,7 +8,7 @@ namespace Ewallet\Pimple;
 
 use Doctrine\ORM\EntityManager;
 use Dotenv\Dotenv;
-use Ewallet\Doctrine2\Accounts\MembersRepository;
+use Ewallet\Doctrine2\Accounts\DoctrineMembers;
 use Ewallet\Wallet\TransferFundsTransactionally;
 use Ewallet\Actions\TransferFundsAction;
 use Ewallet\EasyForms\MembersConfiguration;
@@ -40,7 +40,7 @@ class EwalletConsoleContainerTest extends TestCase
             $container['doctrine.em']
         );
         $this->assertInstanceOf(
-            MembersRepository::class,
+            DoctrineMembers::class,
             $container['ewallet.member_repository']
         );
         /*

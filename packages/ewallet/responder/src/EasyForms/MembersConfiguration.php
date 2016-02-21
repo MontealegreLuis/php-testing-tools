@@ -7,7 +7,7 @@
 namespace Ewallet\EasyForms;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Doctrine2\Accounts\MembersRepository;
+use Ewallet\Accounts\MembersRepository;
 
 class MembersConfiguration
 {

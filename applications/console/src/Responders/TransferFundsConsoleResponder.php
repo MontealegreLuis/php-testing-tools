@@ -9,8 +9,8 @@ namespace Ewallet\Responders;
 use Ewallet\Accounts\MemberId;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\MemberInformation;
+use Ewallet\Accounts\MembersRepository;
 use Ewallet\Wallet\TransferFundsResult;
-use Ewallet\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Presenters\MemberFormatter;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;
@@ -39,7 +39,7 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param QuestionHelper $question
-     * @param Members|MembersConfiguration $members
+     * @param MembersRepository $members
      * @param MemberFormatter $formatter
      */
     public function __construct(

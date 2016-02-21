@@ -6,9 +6,9 @@
  */
 namespace Ewallet\Actions;
 
+use Ewallet\Accounts\MembersRepository;
 use Ewallet\ContractTests\TransferFundsRequestTest;
 use Ewallet\DataBuilders\A;
-use Ewallet\Doctrine2\Accounts\MembersRepository;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
 use Mockery;

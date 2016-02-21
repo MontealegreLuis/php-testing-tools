@@ -9,10 +9,10 @@ namespace Ewallet\Doctrine2\Accounts;
 use Doctrine\ORM\EntityRepository;
 use Ewallet\Accounts\Member;
 use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\Members;
+use Ewallet\Accounts\MembersRepository;
 use Ewallet\Accounts\UnknownMember;
 
-class MembersRepository extends EntityRepository implements Members
+class DoctrineMembers extends EntityRepository implements MembersRepository
 {
     /**
      * @param MemberId $id

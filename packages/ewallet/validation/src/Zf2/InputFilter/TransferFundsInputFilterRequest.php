@@ -7,7 +7,7 @@
 namespace Ewallet\Zf2\InputFilter;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Doctrine2\Accounts\MembersRepository;
+use Ewallet\Accounts\MembersRepository;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
 use Ewallet\Actions\TransferFundsRequest;
 

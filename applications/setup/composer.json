@@ -1,0 +1,58 @@
+{
+    "name": "ewallet/setup",
+    "description": "Ewallet applications setup",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Luis Montealegre",
+            "email": "montealegreluis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ewallet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ewallet\\": "vendor/ewallet/doctrine/tests/src"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/domain"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/application"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/doctrine"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/ewallet/definitions"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/hexagonal"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/hexagonal/doctrine"
+        }
+    ],
+    "require": {
+        "symfony/console": "^2.7",
+        "vlucas/phpdotenv": "^2.0",
+        "nelmio/alice": "^2.0",
+        "ewallet/doctrine": "^1.0",
+        "hexagonal/doctrine": "^1.0"
+    }
+}

@@ -4,13 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace EwalletApplication\Bridges\SymfonyConsole\Commands;
+namespace Ewallet\SymfonyConsole\Commands;
 
 use Nelmio\Alice\Fixtures;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TestHelpers\Bridges\ProvidesDoctrineSetup;
+use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class SeedDatabaseCommand extends Command
 {
@@ -22,7 +22,7 @@ class SeedDatabaseCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ewallet:seed')
+            ->setName('ewallet:db:seed')
             ->setDescription('Seed the database with some initial information')
         ;
     }
@@ -36,9 +36,9 @@ class SeedDatabaseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->_setUpDoctrine();
+        $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         Fixtures::load(
-            __DIR__ . '/../../../../../tests/_data/fixtures/members.yml',
+            __DIR__ . '/../../../fixtures/members.yml',
             $this->entityManager
         );
     }

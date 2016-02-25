@@ -7,24 +7,11 @@
 namespace Hexagonal\Doctrine2\DomainEvents;
 
 use Doctrine\ORM\EntityRepository;
-use Hexagonal\DomainEvents\EventSerializer;
 use Hexagonal\DomainEvents\EventStore;
 use Hexagonal\DomainEvents\StoredEvent;
-use LogicException;
 
 class EventStoreRepository extends EntityRepository implements EventStore
 {
-    /** @var EventSerializer */
-    private $serializer;
-
-    /**
-     * @param EventSerializer $serializer
-     */
-    public function setSerializer(EventSerializer $serializer)
-    {
-        $this->serializer = $serializer;
-    }
-
     /**
      * @param StoredEvent $anEvent
      */
@@ -58,17 +45,5 @@ class EventStoreRepository extends EntityRepository implements EventStore
         $query = $this->createQueryBuilder('e')->orderBy('e.id');
 
         return $query->getQuery()->getResult();
-    }
-
-    /**
-     * @return EventSerializer
-     * @throws LogicException If no `EventSerializer` is set
-     */
-    public function serializer()
-    {
-        if ($this->serializer) {
-            return $this->serializer;
-        }
-        throw new LogicException('No serializer was provided');
     }
 }

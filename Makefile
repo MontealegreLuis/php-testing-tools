@@ -21,12 +21,12 @@ docker: docker-build docker-run
 
 docker-build:
 	@echo "Downloading and building containers."
-	@ansible-playbook ansible/provision.yml
+	@ansible-playbook containers/provision.yml --extra-vars "GITHUB_TOKEN=$(GTOKEN)"
 
 docker-run:
 	@echo "Start containers"
-	@ansible-playbook ansible/start.yml
+	@ansible-playbook containers/start.yml
 
 web:
 	@echo "Running container for Web application."
-	@ansible-playbook ansible/web.yml
+	@ansible-playbook containers/web.yml

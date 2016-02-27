@@ -1,3 +1,4 @@
 .env
 /containers/web/templates/ewallet.conf
+/containers/setup/config/auth.json
 /humbuglog.txt

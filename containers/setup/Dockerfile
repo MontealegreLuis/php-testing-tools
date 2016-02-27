@@ -1,6 +1,7 @@
 FROM php:5.6-cli
 
 COPY ./config/php.ini /usr/local/etc/php/
+COPY ./config/auth.json $HOME/.composer/
 
 # Install modules
 RUN apt-get update && apt-get install -y \

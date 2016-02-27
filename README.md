@@ -50,11 +50,12 @@ RabbitMQ (`guest`, `guest`,  `localhost`).
 
 ### Docker
 
-You can also run this demo using Docker containers and Ansible. If you have them
-installed, run this command:
+You can also run this demo using Docker containers and Ansible. You will need
+a [Github token][14] as you will be running `composer install` for several
+applications. If you have everything configured, run this command:
 
 ```bash
-$ make docker
+$ make docker GTOKEN=YOUR_GITHUB_TOKEN_FOR_COMPOSER
 $ source .alias
 $ setup make install
 ```
@@ -167,3 +168,4 @@ $ robo test
 [11]: https://github.com/padraic/humbug
 [12]: http://alistair.cockburn.us/Hexagonal+architecture
 [13]: http://localhost/
+[14]: https://github.com/settings/tokens

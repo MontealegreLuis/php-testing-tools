@@ -11,6 +11,9 @@
     - name: Copy .env file for console application
       template: src={{ ansible_env.PWD }}/setup/templates/.env.j2 dest={{ ansible_env.PWD }}/../.env
 
+    - name: Copy auth.json to ease composer installation
+      template: src={{ ansible_env.PWD }}/setup/templates/auth.json.j2 dest={{ ansible_env.PWD }}/setup/config/auth.json
+
     - name: Build data container.
       command: docker build -t ewallet:data data
 

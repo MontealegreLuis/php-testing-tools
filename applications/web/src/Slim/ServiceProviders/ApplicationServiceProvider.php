@@ -8,7 +8,7 @@ namespace Ewallet\Slim\ServiceProviders;
 
 use ComPHPPuebla\Slim\Resolver;
 use ComPHPPuebla\Slim\ServiceProvider;
-use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogHandler;
 use Monolog\Logger;
 use Slim\Slim;
 
@@ -26,8 +26,10 @@ class ApplicationServiceProvider implements ServiceProvider
             'slim.logger',
             function () use ($options) {
                 $logger = new Logger($options['monolog']['app']['channel']);
-                $logger->pushHandler(new StreamHandler(
-                    $options['monolog']['app']['path'], Logger::DEBUG
+                $logger->pushHandler(new SyslogHandler(
+                    $options['monolog']['app']['channel'],
+                    LOG_USER,
+                    Logger::DEBUG
                 ));
 
                 return $logger;

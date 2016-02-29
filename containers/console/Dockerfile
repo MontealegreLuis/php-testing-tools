@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install bcmath
 
 # Create alias to run the console application
-ENV PATH /usr/src/myapp/src/EwalletApplication/Bridges/SymfonyConsole/Resources/bin:$PATH
+ENV PATH /usr/src/myapp/applications/console/bin:$PATH

@@ -23,34 +23,9 @@ might look like in PHP.
 
 ## Installation
 
-### Locally
-
-In order to run this demo you will need to install PHP 5.6, MySQL, PhantomJS
-and Composer (globally). If you have everything installed just execute the
-following command:
-
-```bash
-$ cp .env.dist .env
-$ source .env
-$ make local \
-    RUSER="root" \
-    RPSWD="root" \
-    HOST=$MYSQL_HOST \
-    USER=$MYSQL_USER \
-    PSWD=$MYSQL_PASSWORD
-```
-
-Where the values of `RUSER` and `RPSWD` are the credentials of a user with
-permission to create users (`root` and `root` respectively, for this example).
-All the other values are taken from `.env` file
-
-The `.env.dist` file contains the environment variables that this application
-needs to run. It uses `localhost` for MySQL, and also default values for
-RabbitMQ (`guest`, `guest`,  `localhost`).
-
 ### Docker
 
-You can also run this demo using Docker containers and Ansible. You will need
+You run this demo using Docker containers and Ansible. You will need
 a [Github token][14] as you will be running `composer install` for several
 applications. If you have everything configured, run this command:
 
@@ -64,48 +39,6 @@ It will set default hosts, users, and passwords for email, MySQL, and RabbitMQ.
 
 ## Usage
 
-### Locally
-
-#### Web
-
-You can run the Web application with:
-
-```bash
-$ bin/robo run
-```
-
-Then browse to [http://localhost:8000/index_dev.php/][3]
-
-#### Console
-
-You can transfer funds to another member like in the web application with:
-
-```bash
-$ bin/robo console ewallet:transfer
-```
-
-The application raises a domain event when a transfer is made and can be
-published to RabbitMQ with the command:
-
-```bash
-$ bin/robo console ewallet:events:spread
-```
-
-Members are notified by email through the published message, by running the
-following consumer:
-
-```bash
-$ bin/robo console ewallet:transfer:email
-```
-
-#### Tests
-
-You can run all the tests with this command:
-
-```bash
-$ bin/robo test
-```
-
 ### Docker
 
 #### Web
@@ -116,12 +49,12 @@ You can run the Web application with:
 $ make web
 ```
 
-Then browse to [http://localhost/][3]
+Then browse to [http://localhost/][13]
 
 #### Console
 
-I created some alias to ease the use of the console application. First `source`
-the alias.
+I created some aliases to ease the use of the console application. First `source`
+the aliases.
 
 ```bash
 $ source .alias
@@ -157,7 +90,6 @@ $ robo test
 
 [1]: http://escuela.it/cursos/php-web-congress-2015/
 [2]: http://bit.ly/php-testing-tools
-[3]: http://localhost:8000/index_dev.php/
 [4]: http://behat.readthedocs.org/en/latest/
 [5]: http://www.phpspec.net/en/latest/
 [6]: https://phpunit.de/

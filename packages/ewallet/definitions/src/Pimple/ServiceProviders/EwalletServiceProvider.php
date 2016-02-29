@@ -21,7 +21,7 @@ use Hexagonal\DomainEvents\EventPublisher;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use Hexagonal\DomainEvents\StoredEvent;
 use Hexagonal\DomainEvents\StoredEventFactory;
-use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogHandler;
 use Monolog\Logger;
 use Twig_Environment as Environment;
 use Pimple\Container;
@@ -90,8 +90,10 @@ class EwalletServiceProvider implements ServiceProviderInterface
         };
         $container['ewallet.logger'] = function () use ($container) {
             $logger = new Logger($container['monolog']['ewallet']['channel']);
-            $logger->pushHandler(new StreamHandler(
-                $container['monolog']['ewallet']['path'], Logger::DEBUG
+            $logger->pushHandler(new SyslogHandler(
+                $container['monolog']['ewallet']['channel'],
+                LOG_USER,
+                Logger::DEBUG
             ));
 
             return $logger;

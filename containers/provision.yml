@@ -23,6 +23,12 @@
     - name: Pull RabbitMQ container.
       command: docker pull rabbitmq:3.5
 
+    - name: Pull Ruby container.
+      command: docker pull ruby:2.3
+
+    - name: Build MailCatcher container.
+      command: docker build -t ewallet:mail mail
+
     - name: Build Web application container.
       command: docker build -t ewallet:web web
 

@@ -33,3 +33,10 @@
         env:
             RABBITMQ_DEFAULT_USER: "{{ RABBIT_MQ_USER }}"
             RABBITMQ_DEFAULT_PASS: "{{ RABBIT_MQ_PASSWORD }}"
+
+    - name: Run ewallet MailCatcher container.
+      docker:
+        image: ewallet:mail
+        name: mail
+        state: running
+        ports: "8080:8080"

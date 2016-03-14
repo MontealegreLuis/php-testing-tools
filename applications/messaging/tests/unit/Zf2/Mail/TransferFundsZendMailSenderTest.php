@@ -8,7 +8,7 @@ namespace Ewallet\Zf2\Mail;
 
 use Ewallet\DataBuilders\A;
 use DateTime;
-use Ewallet\Responders\Web\TemplateEngine;
+use Ewallet\Templating\TemplateEngine;
 use Mockery;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

@@ -1,9 +1,23 @@
-FROM ubuntu:latest
+FROM php:5.6-cli
 
 RUN echo "America/Mexico_City" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
+
+COPY ./config/php.ini /usr/local/etc/php/
+
+# Install modules
+RUN apt-get update && apt-get install -y \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install bcmath
+
+# Create alias to run the messaging application
+ENV PATH /usr/src/myapp/applications/messaging/bin:$PATH
 
 COPY ./config/messaging-cron /etc/cron.d/messaging-cron
 RUN chmod 0644 /etc/cron.d/messaging-cron
 
-RUN touch /var/log/cron.log
-CMD cron && tail -f /var/log/cron.log
+RUN apt-get install -y ssmtp && \
+    echo "sendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini && \
+    echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
+
+CMD cron -f

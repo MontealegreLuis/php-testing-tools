@@ -1,1 +1,2 @@
-* * * * * root echo "Hello world" >> /var/log/cron.log 2>&1
+* * * * * root console ewallet:events:spread >> /var/log/cron.log 2>&1
+* * * * * root console ewallet:transfer:email >> /var/log/cron.log 2>&1

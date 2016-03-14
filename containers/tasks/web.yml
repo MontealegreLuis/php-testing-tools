@@ -9,4 +9,5 @@
       - "{{ ansible_env.PWD }}/../:/usr/src/myapp"
     links:
       - db
+      - queue
       - messaging

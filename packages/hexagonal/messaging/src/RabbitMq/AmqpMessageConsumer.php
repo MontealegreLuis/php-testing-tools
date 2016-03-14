@@ -21,6 +21,9 @@ class AmqpMessageConsumer implements MessageConsumer
     /** @var callable */
     private $callback;
 
+    /** @var boolean Only consume 1 message */
+    private $consumed = false;
+
     /**
      * AmqpMessageProducer constructor.
      * @param $connection
@@ -56,7 +59,10 @@ class AmqpMessageConsumer implements MessageConsumer
         );
 
         while (count($this->channel->callbacks)) {
-            $this->channel->wait();
+            if ($this->consumed) {
+                break;
+            }
+            $this->channel->wait(null, false, $idle = 30); // Only wait 30 seconds
         }
     }
 
@@ -69,6 +75,7 @@ class AmqpMessageConsumer implements MessageConsumer
             json_decode($message->body),
             $message->get('type')
         ]);
+        $this->consumed = true;
     }
 
     /**

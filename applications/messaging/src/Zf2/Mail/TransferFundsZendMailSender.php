@@ -9,7 +9,7 @@ namespace Ewallet\Zf2\Mail;
 use DateTime;
 use Ewallet\Accounts\MemberInformation;
 use Ewallet\Actions\Notifications\TransferFundsEmailSender;
-use Ewallet\Responders\Web\TemplateEngine;
+use Ewallet\Templating\TemplateEngine;
 use Money\Money;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;

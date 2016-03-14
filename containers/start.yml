@@ -27,7 +27,7 @@
     - name: Run ewallet RabbitMQ container.
       docker:
         image: rabbitmq:3.5
-        name: messaging
+        name: queue
         state: running
         ports: "5674:5672"
         env:

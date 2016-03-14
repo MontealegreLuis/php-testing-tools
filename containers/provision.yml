@@ -29,6 +29,9 @@
     - name: Build MailCatcher container.
       command: docker build -t ewallet:mail mail
 
+    - name: Build messaging container.
+      command: docker build -t ewallet:messaging messaging
+
     - name: Build Web application container.
       command: docker build -t ewallet:web web
 

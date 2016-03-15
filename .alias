@@ -1,3 +1,4 @@
-alias console='docker run -it --rm --name console -v "$PWD":/usr/src/myapp --link db:db --link messaging:messaging ewallet:console console'
+alias console='docker run -it --rm --name console -v "$PWD":/usr/src/myapp --link db:db ewallet:console console'
+alias messaging='docker run -it --rm --name messaging -v "$PWD":/usr/src/myapp --link db:db --link mail:mail --link queue:queue ewallet:messaging console'
 alias robo='docker run -it --rm --name tests -v "$PWD":/usr/src/myapp -w /usr/src/myapp --link db:db --link messaging:messaging ewallet:tests php bin/robo'
-alias setup='docker run -it --rm  --name setup  -v "$PWD":/usr/src/myapp -w /usr/src/myapp --link db:db --link messaging:messaging ewallet:setup'
+alias setup='docker run -it --rm  --name setup  -v "$PWD":/usr/src/myapp -w /usr/src/myapp --link db:db --link ewallet:setup'

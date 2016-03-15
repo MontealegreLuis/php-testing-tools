@@ -31,13 +31,6 @@ return [
         ],
         'loader_paths' => [],
     ],
-    'mail' => [
-        'type' => 'smtp',
-        'options' => [
-            'host' => getenv('SMTP_HOST'),
-            'port' => (integer) getenv('SMTP_PORT'),
-        ],
-    ],
     'rabbit_mq' => [
         'host' => getenv('RABBIT_MQ_HOST'),
         'port' => 5672,

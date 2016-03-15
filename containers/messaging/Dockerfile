@@ -10,9 +10,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath
 
-# Create alias to run the messaging application
-ENV PATH /usr/src/myapp/applications/messaging/bin:$PATH
-
 COPY ./config/messaging-cron /etc/cron.d/messaging-cron
 RUN chmod 0644 /etc/cron.d/messaging-cron
 
@@ -20,4 +17,10 @@ RUN apt-get install -y ssmtp && \
     echo "sendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini && \
     echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
 
-CMD cron -f
+RUN apt-get install -y cron
+
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+
+# Run the command on container startup
+CMD cron && tail -f /var/log/cron.log

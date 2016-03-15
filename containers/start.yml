@@ -40,3 +40,10 @@
         name: mail
         state: running
         ports: "8080:8080"
+
+    - name: Run messaging container.
+      docker:
+        image: ewallet:messaging
+        name: messaging
+        state: running
+        ports: "8080:8080"

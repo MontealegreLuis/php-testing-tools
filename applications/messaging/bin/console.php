@@ -18,8 +18,6 @@ $environment->required([
     'MYSQL_PASSWORD',
     'MYSQL_HOST',
     'TWIG_DEBUG',
-    'SMTP_HOST',
-    'SMTP_PORT',
     'RABBIT_MQ_USER',
     'RABBIT_MQ_PASSWORD',
     'RABBIT_MQ_HOST'

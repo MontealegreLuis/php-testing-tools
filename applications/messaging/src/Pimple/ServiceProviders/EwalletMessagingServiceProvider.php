@@ -8,11 +8,11 @@ namespace Ewallet\Pimple\ServiceProviders;
 
 use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
-use Ewallet\Zf2\Mail\TransportFactory;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
+use Zend\Mail\Transport\Sendmail;
 
 class EwalletMessagingServiceProvider extends EwalletServiceProvider implements ServiceProviderInterface
 {
@@ -28,7 +28,7 @@ class EwalletMessagingServiceProvider extends EwalletServiceProvider implements 
         $container['ewallet.transfer_mail_sender'] = function () use ($container) {
             return new TransferFundsZendMailSender(
                 $container['ewallet.template_engine'],
-                (new TransportFactory())->buildTransport($container['mail'])
+                new Sendmail()
             );
         };
         $container['ewallet.transfer_mail_notifier'] = function () use ($container) {

@@ -1,2 +1,2 @@
-* * * * * root console ewallet:events:spread >> /var/log/cron.log 2>&1
-* * * * * root console ewallet:transfer:email >> /var/log/cron.log 2>&1
+* * * * * root /usr/local/bin/php /usr/src/myapp/applications/messaging/bin/console ewallet:events:spread >> /var/log/cron.log 2>&1
+* * * * * root /usr/local/bin/php /usr/src/myapp/applications/messaging/bin/console ewallet:transfer:email >> /var/log/cron.log 2>&1

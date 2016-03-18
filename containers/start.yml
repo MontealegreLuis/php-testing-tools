@@ -47,3 +47,8 @@
         name: messaging
         state: running
         ports: "8080:8080"
+        volumes: '{{ ansible_env.PWD }}/../:/usr/src/myapp'
+        links:
+              - db
+              - queue
+              - mail

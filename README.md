@@ -43,13 +43,15 @@ It will set default hosts, users, and passwords for email, MySQL, and RabbitMQ.
 
 #### Web
 
-You can run the Web application with:
+You can run the applications (web, console and messaging) with:
 
 ```bash
-$ make web
+$ make start
 ```
 
-Then browse to [http://localhost/][13]
+Browse to [http://localhost/][13] to see the web interface. Browse to
+[http://localhost:8080/][15] to see the emails that are sent after
+transferring funds either from the console or the web application.
 
 #### Console
 
@@ -60,24 +62,10 @@ the aliases.
 $ source .alias
 ```
 
-Then you can transfer funds to another member like in the web application with:
+You can transfer funds to another member like in the web application with:
 
 ```bash
 $ console ewallet:transfer
-```
-
-To publish domain events to RabbitMQ after a successful transfer is made,
-execute:
-
-```bash
-$ console ewallet:events:spread
-```
-
-To send notification emails through the published messages, run the following
-consumer:
-
-```bash
-$ console ewallet:transfer:email
 ```
 
 #### Tests
@@ -101,3 +89,4 @@ $ robo test
 [12]: http://alistair.cockburn.us/Hexagonal+architecture
 [13]: http://localhost/
 [14]: https://github.com/settings/tokens
+[15]: http://localhost:8080/

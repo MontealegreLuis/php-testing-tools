@@ -27,7 +27,7 @@ might look like in PHP.
 
 You will need to have installed Docker and Ansible to run this example. You'll
 also need a [Github token][14] as you will be running `composer install` for
-several applications. If you have everything configured, run this command:
+several applications. If you have everything configured, run these commands:
 
 ```bash
 $ make docker GTOKEN=YOUR_GITHUB_TOKEN_FOR_COMPOSER

@@ -1,9 +1,10 @@
 SHELL = /bin/bash
 
-.PHONY: install docker docker-build docker-run web
+.PHONY: install docker provision start
 
 install:
 	@echo "Installing PHP dependencies..."
+	@echo "Setup application..."
 	@composer install --no-interaction -d applications/setup
 	@echo "Messaging application..."
 	@composer install --no-interaction -d applications/messaging
@@ -19,12 +20,12 @@ install:
 	@cd applications/setup && bin/console ewallet:db:seed
 	@echo "Done!"
 
-docker: docker-build docker-run
+docker: provision start
 
-docker-build:
+provision:
 	@echo "Downloading and building containers."
 	@ansible-playbook containers/provision.yml --extra-vars "GITHUB_TOKEN=$(GTOKEN)"
 
 start:
-	@echo "Start containers"
+	@echo "Starting containers"
 	@ansible-playbook containers/start.yml

@@ -6,6 +6,9 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
+use Ewallet\Accounts\Member;
+use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\Messaging\PublishedMessage;
 use Nelmio\Alice\Fixtures;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,9 +40,26 @@ class SeedDatabaseCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
+        $this->truncateTable(Member::class);
+        $this->truncateTable(StoredEvent::class);
+        $this->truncateTable(PublishedMessage::class);
         Fixtures::load(
             __DIR__ . '/../../../fixtures/members.yml',
             $this->entityManager
         );
+    }
+
+    /**
+     * @param string $entity
+     */
+    private function truncateTable($entity)
+    {
+        $metadata = $this->entityManager->getClassMetadata($entity);
+        $connection = $this->entityManager->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $connection->query('SET FOREIGN_KEY_CHECKS=0');
+        $truncate = $platform->getTruncateTableSql($metadata->getTableName());
+        $connection->executeUpdate($truncate);
+        $connection->query('SET FOREIGN_KEY_CHECKS=1');
     }
 }

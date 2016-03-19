@@ -1,3 +1,3 @@
 alias console='docker run -it --rm --name console -v "$PWD":/usr/src/myapp --link db:db ewallet:console console'
 alias robo='docker run -it --rm --name tests -v "$PWD":/usr/src/myapp -w /usr/src/myapp --link db:db --link messaging:messaging ewallet:tests php bin/robo'
-alias setup='docker run -it --rm  --name setup  -v "$PWD":/usr/src/myapp -w /usr/src/myapp --link db:db ewallet:setup'
+alias setup='docker run -it --rm  --name setup -v "$PWD":/usr/src/myapp -w /usr/src/myapp -u `stat -c "%u:%g" .` --link db:db ewallet:setup'

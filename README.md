@@ -73,7 +73,7 @@ $ console ewallet:transfer
 You can run all the tests with this command:
 
 ```bash
-$ robo test
+$ run tests
 ```
 
 [1]: http://escuela.it/cursos/php-web-congress-2015/

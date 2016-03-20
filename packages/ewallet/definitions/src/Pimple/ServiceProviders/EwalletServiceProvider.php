@@ -23,7 +23,6 @@ use Hexagonal\DomainEvents\StoredEvent;
 use Hexagonal\DomainEvents\StoredEventFactory;
 use Monolog\Handler\SyslogHandler;
 use Monolog\Logger;
-use Twig_Environment as Environment;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

@@ -23,11 +23,9 @@ might look like in PHP.
 
 ## Installation
 
-### Docker
-
-You will need to have installed Docker and Ansible to run this example. You'll
+You will need to install Docker and Ansible to run this example. You'll
 also need a [Github token][14] as you will be running `composer install` for
-several applications. If you have everything configured, run these commands:
+several applications. Once you have everything configured, run these commands:
 
 ```bash
 $ make docker GTOKEN=YOUR_GITHUB_TOKEN_FOR_COMPOSER
@@ -39,9 +37,7 @@ It will set default hosts, users, and passwords for email, MySQL, and RabbitMQ.
 
 ## Usage
 
-### Docker
-
-#### Web
+### Web
 
 You can run the applications (web, console and messaging) with:
 
@@ -53,7 +49,7 @@ Browse to [http://localhost/][13] to see the web interface. Browse to
 [http://localhost:8080/][15] to see the emails that are sent after
 transferring funds either from the console or the web application.
 
-#### Console
+### Console
 
 I created some aliases to ease the use of the console application. First `source`
 the aliases.
@@ -68,7 +64,7 @@ You can transfer funds to another member like in the web application with:
 $ console ewallet:transfer
 ```
 
-#### Tests
+### Tests
 
 You can run all the tests with this command:
 

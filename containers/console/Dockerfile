@@ -8,5 +8,5 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath
 
-# Create alias to run the console application
+# Add the console `bin` folder to the PATH environment variable
 ENV PATH /usr/src/myapp/applications/console/bin:$PATH

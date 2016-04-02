@@ -1,7 +1,7 @@
 FROM php:5.6-apache
 
 COPY ./config/entrypoint.sh /entrypoint.sh
-COPY ./templates/ewallet.conf /etc/apache2/sites-available/
+COPY ./config/ewallet.conf /etc/apache2/sites-available/
 COPY ./config/php.ini /usr/local/etc/php/
 
 # Install modules

@@ -26,7 +26,7 @@ class TransferFundsCommandTest extends TestCase
 
     public function setUp()
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
+        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.tests.php');
         $this
             ->entityManager
             ->createQuery('DELETE FROM ' . Member::class)

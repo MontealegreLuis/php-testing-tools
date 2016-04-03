@@ -13,11 +13,8 @@ return [
         'dev_mode' => (boolean) getenv('DOCTRINE_DEV_MODE'),
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
-            'driver' => 'pdo_mysql',
-            'dbname' => 'ewallet_db',
-            'user' => getenv('MYSQL_USER'),
-            'password' => getenv('MYSQL_PASSWORD'),
-            'host' => getenv('MYSQL_HOST'),
+            'driver' => 'pdo_sqlite',
+            'path' => __DIR__ . '/var/ewallet.sq3',
         ],
         'types' => [
             'MemberId' => 'Ewallet\Doctrine2\Types\MemberIdType',

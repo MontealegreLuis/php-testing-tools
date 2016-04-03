@@ -11,16 +11,26 @@ use Dotenv\Dotenv;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$environment = new Dotenv(__DIR__);
-$environment->load();
-$environment->required([
-    'DOCTRINE_DEV_MODE',
-    'MYSQL_USER',
-    'MYSQL_PASSWORD',
-    'MYSQL_HOST'
-]);
+if (getenv('ENV') == 'testing') {
+    $environment = new Dotenv(__DIR__, '.env.tests');
+    $environment->load();
+    $environment->required([
+        'DOCTRINE_DEV_MODE',
+    ]);
 
-$options = require __DIR__ . '/config.php';
+    $options = require __DIR__ . '/config.tests.php';
+} else {
+    $environment = new Dotenv(__DIR__);
+    $environment->load();
+    $environment->required([
+        'DOCTRINE_DEV_MODE',
+        'MYSQL_USER',
+        'MYSQL_PASSWORD',
+        'MYSQL_HOST'
+    ]);
+
+    $options = require __DIR__ . '/config.php';
+}
 
 $configuration = Setup::createXMLMetadataConfiguration(
     $options['doctrine']['mapping_dirs'],

@@ -21,7 +21,7 @@ before_script:
   - cp .env.travis .env
   - cd ../web && composer install --prefer-source --no-interaction --dev
   - cp .env.travis .env
-  - npm install -g phantomjs
+  - npm install -g phantomjs-prebuilt
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
   - cd ../application && composer install --prefer-source --no-interaction --dev
   - cd ../doctrine && composer install --prefer-source --no-interaction --dev

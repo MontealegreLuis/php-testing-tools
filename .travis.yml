@@ -20,7 +20,7 @@ before_script:
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
   - cp .env.travis .env
   - cd ../web && composer install --prefer-source --no-interaction --dev
-  - cp .env.travis .env
+  - cp .env.travis .env && bin/doctrine orm:schema-tool:create
   - npm install -g phantomjs-prebuilt
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
   - cd ../application && composer install --prefer-source --no-interaction --dev

@@ -1,4 +1,4 @@
-FROM php:5.6-cli
+FROM php:7.0-cli
 
 COPY ./config/php.ini /usr/local/etc/php/
 

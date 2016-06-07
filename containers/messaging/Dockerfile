@@ -1,4 +1,4 @@
-FROM php:5.6-cli
+FROM php:7.0-cli
 
 RUN echo "America/Mexico_City" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
 

@@ -1,6 +1,15 @@
 SHELL = /bin/bash
 
-.PHONY: install docker provision start
+.PHONY: install docker provision start compose
+
+compose:
+	@echo "Generating configuration files for the containers..."
+	@source containers/.env.sh; rm -f containers/docker-compose.yml; CONTAINER_VARS='$$CONTAINERS_PREFIX:$$MYSQL_ROOT_PASSWORD:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_DATABASE'; envsubst "$$CONTAINER_VARS" < "containers/templates/docker-compose.yml.template" > "containers/docker-compose.yml";
+	@source containers/.env.sh; rm -f containers/dev/Dockerfile; CONTAINER_VARS='$$DEV_USER_ID:$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/Dockerfile.template" > "containers/dev/Dockerfile";
+	@source containers/.env.sh; rm -f containers/dev/config/group.sh; CONTAINER_VARS='$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/group.sh.template" > "containers/dev/config/group.sh";
+	@source containers/.env.sh; rm -f containers/dev/config/.bashrc; CONTAINER_VARS='$$DEV_HOSTNAME'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/.bashrc.template" > "containers/dev/config/.bashrc";
+	@source containers/.env.sh; rm -f containers/dev/config/auth.json; CONTAINER_VARS='$$GITHUB_TOKEN'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/auth.json.template" > "containers/dev/config/auth.json";
+	@source containers/.env.sh; rm -f applications/setup/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/.env.template" > "applications/setup/.env";
 
 install:
 	@echo "Installing PHP dependencies..."

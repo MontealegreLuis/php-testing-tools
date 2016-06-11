@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  dev:
+    container_name: ${CONTAINERS_PREFIX}_dev
+    build:
+      context: ./dev
+    image: ${CONTAINERS_PREFIX}/dev
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    volumes:
+      - .:/usr/src/myapp
+  data:
+    container_name: ${CONTAINERS_PREFIX}_data
+    build:
+      context: ./data
+    image: ${CONTAINERS_PREFIX}/data
+  db:
+    container_name: ${CONTAINERS_PREFIX}_db
+    build:
+      context: ./db
+    image: ${CONTAINERS_PREFIX}/db
+    volumes_from:
+      - data
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}

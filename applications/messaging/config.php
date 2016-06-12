@@ -10,7 +10,7 @@ return [
             __DIR__ . '/vendor/ewallet/doctrine/src/Doctrine2/Resources/config',
             __DIR__ . '/vendor/hexagonal/doctrine/src/Doctrine2/Resources/config',
         ],
-        'dev_mode' => (boolean) getenv('DOCTRINE_DEV_MODE'),
+        'dev_mode' => (boolean) getenv('APP_ENV') !== 'production',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
             'driver' => 'pdo_mysql',
@@ -26,7 +26,7 @@ return [
     'twig' => [
         'options' => [
             'cache' => __DIR__ . '/var/cache/twig',
-            'debug' => (boolean) getenv('TWIG_DEBUG'),
+            'debug' => (boolean) getenv('APP_ENV') !== 'production',
             'strict_variables' => true,
         ],
         'loader_paths' => [],

@@ -32,6 +32,34 @@ services:
       - db
     volumes:
       - ./../:/usr/src/myapp
+  messaging:
+    container_name: ${CONTAINERS_PREFIX}_messaging
+    build:
+      context: ./messaging
+    image: ${CONTAINERS_PREFIX}/messaging
+    links:
+      - db
+      - queue
+      - mail
+    volumes:
+      - ./../:/usr/src/myapp
+  queue:
+    container_name: ${CONTAINERS_PREFIX}_queue
+    build:
+      context: ./queue
+    image: ${CONTAINERS_PREFIX}/queue
+    ports:
+      - "5674:5672"
+    environment:
+        RABBITMQ_DEFAULT_USER: ${RABBIT_MQ_USER}
+        RABBITMQ_DEFAULT_PASS: ${RABBIT_MQ_PASSWORD}
+  mail:
+    container_name: ${CONTAINERS_PREFIX}_mail
+    build:
+      context: ./mail
+    image: ${CONTAINERS_PREFIX}/mail
+    ports:
+      - "8080:8080"
   data:
     container_name: ${CONTAINERS_PREFIX}_data
     build:

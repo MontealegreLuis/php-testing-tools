@@ -15,7 +15,7 @@ if (getenv('ENV') == 'testing') {
     $environment = new Dotenv(__DIR__, '.env.tests');
     $environment->load();
     $environment->required([
-        'DOCTRINE_DEV_MODE',
+        'APP_ENV',
     ]);
 
     $options = require __DIR__ . '/config.tests.php';
@@ -23,7 +23,7 @@ if (getenv('ENV') == 'testing') {
     $environment = new Dotenv(__DIR__);
     $environment->load();
     $environment->required([
-        'DOCTRINE_DEV_MODE',
+        'APP_ENV',
         'MYSQL_USER',
         'MYSQL_PASSWORD',
         'MYSQL_HOST'

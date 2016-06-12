@@ -16,6 +16,9 @@ compose:
 	@source containers/.env.sh; rm -f containers/web/config/entrypoint.sh; CONTAINER_VARS='$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/web/templates/entrypoint.sh.template" > "containers/web/config/entrypoint.sh";
 	@source containers/.env.sh; rm -f containers/web/config/ewallet.conf; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/web/templates/ewallet.conf.template" > "containers/web/config/ewallet.conf";
 	@cp containers/web/templates/php.ini containers/web/config/php.ini
+	@echo "Generating configuration for the 'console' image/container/application..."
+	@source containers/.env.sh; rm -f applications/console/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/console/templates/.env.template" > "applications/console/.env";
+	@cp containers/console/templates/php.ini containers/console/config/php.ini
 	@echo "Building containers..."
 	@docker-compose -f containers/docker-compose.yml up -d
 

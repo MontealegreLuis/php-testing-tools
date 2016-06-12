@@ -23,6 +23,15 @@ services:
       - db
     volumes:
       - ./../:/usr/src/myapp
+  console:
+    container_name: ${CONTAINERS_PREFIX}_console
+    build:
+      context: ./console
+    image: ${CONTAINERS_PREFIX}/console
+    links:
+      - db
+    volumes:
+      - ./../:/usr/src/myapp
   data:
     container_name: ${CONTAINERS_PREFIX}_data
     build:

@@ -11,7 +11,7 @@ use Dotenv\Loader;
 use Dotenv\Validator;
 
 $validator = new Validator(
-    ['DOCTRINE_DEV_MODE', 'TWIG_DEBUG', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_HOST'],
+    ['APP_ENV', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_HOST'],
     new Loader(null)
 );
 

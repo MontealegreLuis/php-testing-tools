@@ -11,7 +11,7 @@ use Ewallet\Slim\Application;
 
 $environment = new Dotenv(__DIR__ . '/../');
 $environment->load();
-$environment->required(['DOCTRINE_DEV_MODE', 'TWIG_DEBUG']);
+$environment->required(['APP_ENV']);
 
 $app = new Application(require __DIR__ . '/../config.php');
 $app->run();

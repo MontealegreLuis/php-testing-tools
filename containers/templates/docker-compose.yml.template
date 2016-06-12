@@ -12,6 +12,17 @@ services:
       - db
     volumes:
       - ./../:/usr/src/myapp
+  web:
+    container_name: ${CONTAINERS_PREFIX}_web
+    build:
+      context: ./web
+    image: ${CONTAINERS_PREFIX}/web
+    ports:
+      - "80:80"
+    links:
+      - db
+    volumes:
+      - ./../:/usr/src/myapp
   data:
     container_name: ${CONTAINERS_PREFIX}_data
     build:

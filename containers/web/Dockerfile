@@ -4,6 +4,9 @@ COPY ./config/entrypoint.sh /entrypoint.sh
 COPY ./config/ewallet.conf /etc/apache2/sites-available/
 COPY ./config/php.ini /usr/local/etc/php/
 
+# Set permissions for entrypoint
+RUN chmod a+x /entrypoint.sh
+
 # Install modules
 RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql \

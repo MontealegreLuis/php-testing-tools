@@ -1,10 +1,9 @@
 <VirtualHost *:80>
   DocumentRoot "/usr/src/myapp/applications/web/public"
-  SetEnv DOCTRINE_DEV_MODE {{ DOCTRINE_DEV_MODE }}
-  SetEnv TWIG_DEBUG {{ TWIG_DEBUG }}
-  SetEnv MYSQL_USER {{ MYSQL_USER }}
-  SetEnv MYSQL_PASSWORD {{ MYSQL_PASSWORD }}
-  SetEnv MYSQL_HOST {{ MYSQL_HOST }}
+  SetEnv APP_ENV ${APP_ENV}
+  SetEnv MYSQL_USER ${MYSQL_USER}
+  SetEnv MYSQL_PASSWORD ${MYSQL_PASSWORD}
+  SetEnv MYSQL_HOST ${MYSQL_HOST}
   <Directory "/usr/src/myapp/applications/web/public">
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All

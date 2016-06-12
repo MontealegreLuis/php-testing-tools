@@ -23,7 +23,7 @@ might look like in PHP.
 
 ## Installation
 
-You will need to install Docker and Ansible to run this example. You'll
+You will need Docker and Docker Compose to run this example. You'll
 also need a [Github token][14] as you will be running `composer install` for
 several applications. Once you have everything configured, run these commands:
 

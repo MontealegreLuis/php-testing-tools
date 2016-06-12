@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: install docker provision start compose
+.PHONY: install compose tests
 
 compose:
 	@echo "Generating docker-compose.yml..."
@@ -79,13 +79,3 @@ tests:
 	@echo "hexagonal/doctrine..."
 	@cd packages/hexagonal/doctrine && bin/phpunit --testdox
 	@echo "Done!"
-
-docker: provision start
-
-provision:
-	@echo "Downloading and building containers."
-	@ansible-playbook containers/provision.yml --extra-vars "GITHUB_TOKEN=$(GTOKEN)"
-
-start:
-	@echo "Starting containers"
-	@ansible-playbook containers/start.yml

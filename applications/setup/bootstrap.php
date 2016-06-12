@@ -14,7 +14,7 @@ require __DIR__ . '/vendor/autoload.php';
 $environment = new Dotenv(__DIR__);
 $environment->load();
 $environment->required([
-    'DOCTRINE_DEV_MODE',
+    'APP_ENV',
     'MYSQL_USER',
     'MYSQL_PASSWORD',
     'MYSQL_HOST'

@@ -11,7 +11,7 @@ services:
     links:
       - db
     volumes:
-      - .:/usr/src/myapp
+      - ./../:/usr/src/myapp
   data:
     container_name: ${CONTAINERS_PREFIX}_data
     build:

@@ -12,8 +12,7 @@ Autoload::addNamespace('Page', __DIR__. '/_support/_pages');
 $environment = new Dotenv(__DIR__ . '/../');
 $environment->load();
 $environment->required([
-    'DOCTRINE_DEV_MODE',
-    'TWIG_DEBUG',
+    'APP_ENV',
     'MYSQL_USER',
     'MYSQL_PASSWORD',
     'MYSQL_HOST',

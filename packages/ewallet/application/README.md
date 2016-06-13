@@ -1,10 +1,10 @@
-# Ewallet Console Application
+# Ewallet Application Package
 
 The following commands are meant to be run from the `dev` container in this
 folder.
 
 ```bash
-$ cd applications/console
+$ cd packages/ewallet/application
 ```
 
 ## Setup
@@ -14,14 +14,6 @@ $ composer install
 ```
 
 ## Tests
-
-Setup the testing database
-
-```bash
-$ ENV=testing bin/doctrine orm:schema-tool:update --force
-```
-
-Run the tests
 
 ```bash
 $ bin/phpunit --testdox

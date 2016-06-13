@@ -7,3 +7,4 @@ modules:
         WebDriver:
             url: 'http://localhost:8000/index_dev.php/'
             browser: phantomjs
+            http_proxy: direct

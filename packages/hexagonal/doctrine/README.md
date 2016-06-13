@@ -1,10 +1,10 @@
-# Ewallet Console Application
+# Hexagonal Doctrine Package
 
 The following commands are meant to be run from the `dev` container in this
 folder.
 
 ```bash
-$ cd applications/console
+$ cd packages/hexagonal/doctrine
 ```
 
 ## Setup
@@ -18,7 +18,7 @@ $ composer install
 Setup the testing database
 
 ```bash
-$ ENV=testing bin/doctrine orm:schema-tool:update --force
+$ bin/doctrine orm:schema-tool:update --force
 ```
 
 Run the tests

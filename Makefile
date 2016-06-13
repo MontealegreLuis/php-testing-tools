@@ -2,6 +2,11 @@ SHELL = /bin/bash
 
 .PHONY: install compose tests
 
+env:
+	@echo "Copying default settings for the containers.."
+	@cp containers/templates/.env.sh.template containers/.env.sh
+	@echo "Do not forget to set your Github token in 'containers/.env.sh'"
+
 compose:
 	@echo "Generating docker-compose.yml..."
 	@source containers/.env.sh; rm -f containers/docker-compose.yml; CONTAINER_VARS='$$CONTAINERS_PREFIX:$$MYSQL_ROOT_PASSWORD:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_DATABASE:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD'; envsubst "$$CONTAINER_VARS" < "containers/templates/docker-compose.yml.template" > "containers/docker-compose.yml";

@@ -16,61 +16,84 @@ using some of the coolest tools for testing and design in PHP.
 * [Eris][10]
 * [Humbug][11]
 
-It was used for a testing [class][1], the slides are available [here][2].
+It was used for a testing [class][1]. The slides are available [here][2].
 
 I'm also starting to use it to describe how an [hexagonal architecture][12]
 might look like in PHP.
 
 ## Installation
 
-You will need Docker and Docker Compose to run this example. You'll
-also need a [Github token][14] as you will be running `composer install` for
-several applications. Once you have everything configured, run these commands:
+You will need [Docker][16] and [Docker Compose][17] to run this example. This is
+now, a monolithic repository using [Composer's path feature][18].
+
+You can customize most of the settings for the containers using the file
+[.env.sh.template](containers/templates/.env.sh.template) as a guide.
+
+Run the following command to use the default settings (recommended):
 
 ```bash
-$ make docker GTOKEN=YOUR_GITHUB_TOKEN_FOR_COMPOSER
-$ source .alias
-$ setup make install
+$ make env
 ```
 
-It will set default hosts, users, and passwords for email, MySQL, and RabbitMQ.
+The only key that you need to modify in the new file `containers/.env.sh` is
+`GITHUB_TOKEN`. You'll need a [Github token][14] as you will be running
+`composer install` for several applications.
+
+Once you have everything configured, run this command:
+
+```bash
+$ make compose
+```
 
 ## Usage
 
-### Web
-
-You can run the applications (web, console and messaging) with:
-
-```bash
-$ make start
-```
-
-Browse to [http://localhost/][13] to see the web interface. Browse to
-[http://localhost:8080/][15] to see the emails that are sent after
-transferring funds either from the console or the web application.
-
-### Console
-
-I created some aliases to ease the use of the console application. First `source`
-the aliases.
+I created some aliases to ease the use of the containers.
 
 ```bash
 $ source .alias
 ```
 
-You can transfer funds to another member like in the web application with:
+### Web
+
+You can run the Web application with this command:
+
+```bash
+$ web
+```
+
+Browse to [http://localhost/][13] to see the web interface.
+
+### Console
+
+You can transfer funds to another member like in the web application with this
+command:
 
 ```bash
 $ console ewallet:transfer
 ```
 
-### Tests
+### Messaging
 
-You can run all the tests with this command:
+Both the Web and the console application generate domain events, those events
+trigger email notifications. Browse to [http://localhost:8080/][15] to see the
+emails that are sent after transferring funds either from the console or the web
+application. To start the messaging container run this command:
 
 ```bash
-$ run tests
+$ messaging
 ```
+
+### Tests
+
+You can start a `bash` session and run the tests of all the applications and
+packages with this command:
+
+```bash
+$ dev
+```
+
+Each folder in the `applications` and `packages` directories, has its own
+`README` file. See them for more details.
 
 [1]: http://escuela.it/cursos/php-web-congress-2015/
 [2]: http://bit.ly/php-testing-tools
@@ -86,3 +109,6 @@ $ run tests
 [13]: http://localhost/
 [14]: https://github.com/settings/tokens
 [15]: http://localhost:8080/
+[16]: https://www.docker.com/
+[17]: https://docs.docker.com/compose/
+[18]: https://getcomposer.org/doc/05-repositories.md#path

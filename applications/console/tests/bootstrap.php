@@ -11,5 +11,5 @@ use Dotenv\Dotenv;
 $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
 $environment->required([
-    'DOCTRINE_DEV_MODE',
+    'APP_ENV',
 ]);

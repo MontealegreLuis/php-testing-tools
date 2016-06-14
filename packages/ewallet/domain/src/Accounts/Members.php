@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,7 +16,7 @@ interface Members
      * @return Member
      * @throws UnknownMember
      */
-    public function with(MemberId $id);
+    public function with(MemberId $id): Member;
 
     /**
      * @param Member $member

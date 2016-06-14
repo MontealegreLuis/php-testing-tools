@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -44,7 +44,7 @@ class TransferWasMade implements Event
     /**
      * @return DateTime
      */
-    public function occurredOn()
+    public function occurredOn(): DateTime
     {
         return $this->occurredOn;
     }
@@ -52,7 +52,7 @@ class TransferWasMade implements Event
     /**
      * @return MemberId
      */
-    public function fromMemberId()
+    public function fromMemberId(): MemberId
     {
         return $this->fromMemberId;
     }
@@ -60,7 +60,7 @@ class TransferWasMade implements Event
     /**
      * @return Money
      */
-    public function amount()
+    public function amount(): Money
     {
         return $this->amount;
     }
@@ -68,7 +68,7 @@ class TransferWasMade implements Event
     /**
      * @return MemberId
      */
-    public function toMemberId()
+    public function toMemberId(): MemberId
     {
         return $this->toMemberId;
     }

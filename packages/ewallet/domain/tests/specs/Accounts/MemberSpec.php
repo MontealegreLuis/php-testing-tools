@@ -1,15 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace specs\Ewallet\Accounts;
 
 use Assert\InvalidArgumentException;
-use Ewallet\Accounts\Email;
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\InvalidTransfer;
+use Ewallet\Accounts\{Email, MemberId, InvalidTransfer};
 use Ewallet\DataBuilders\A;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Money\Money;

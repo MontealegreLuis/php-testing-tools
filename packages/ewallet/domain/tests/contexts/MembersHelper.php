@@ -1,12 +1,14 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\Accounts\Member;
-use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\{
+    Accounts\Member,
+    Wallet\TransferFundsNotifier,
+    Wallet\TransferFundsResult
+};
 use Money\Money;
 use PHPUnit_Framework_Assert as Assertion;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -34,7 +34,7 @@ class TransferFundsInformation
      * @param array $validInput
      * @return TransferFundsInformation
      */
-    public static function from(array $validInput)
+    public static function from(array $validInput): TransferFundsInformation
     {
         return new self($validInput);
     }
@@ -42,7 +42,7 @@ class TransferFundsInformation
     /**
      * @return MemberId
      */
-    public function fromMemberId()
+    public function fromMemberId(): MemberId
     {
         return $this->fromMemberId;
     }
@@ -50,7 +50,7 @@ class TransferFundsInformation
     /**
      * @return MemberId
      */
-    public function toMemberId()
+    public function toMemberId(): MemberId
     {
         return $this->toMemberId;
     }
@@ -58,7 +58,7 @@ class TransferFundsInformation
     /**
      * @return Money
      */
-    public function amount()
+    public function amount(): Money
     {
         return $this->amount;
     }

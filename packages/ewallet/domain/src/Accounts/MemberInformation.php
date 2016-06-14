@@ -1,10 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Accounts;
+
+use Money\Money;
 
 /**
  * This class enables access to a member information
@@ -31,7 +33,7 @@ class MemberInformation
      */
     public function __construct(
         Identifier $memberId,
-        $name,
+        string $name,
         Email $email,
         Account $account
     ) {
@@ -45,15 +47,15 @@ class MemberInformation
     /**
      * @return Money
      */
-    public function accountBalance()
+    public function accountBalance(): Money
     {
         return $this->account->balance();
     }
 
     /**
-     * @return Identifier
+     * @return MemberId
      */
-    public function id()
+    public function id(): MemberId
     {
         return $this->memberId;
     }
@@ -61,7 +63,7 @@ class MemberInformation
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -69,7 +71,7 @@ class MemberInformation
     /**
      * @return Email
      */
-    public function email()
+    public function email(): Email
     {
         return $this->email;
     }

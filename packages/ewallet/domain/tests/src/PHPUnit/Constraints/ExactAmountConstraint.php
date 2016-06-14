@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -15,11 +15,11 @@ class ExactAmountConstraint extends Constraint
     private $amountExpected;
 
     /**
-     * @param integer $expected
+     * @param int $expected
      */
-    public function __construct($expected)
+    public function __construct(int $expected)
     {
-        $this->amountExpected = (integer) $expected;
+        $this->amountExpected = $expected;
         parent::__construct();
     }
 

@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Accounts;
 
-use Eris\Generator;
-use Eris\TestTrait;
+use Eris\{Generator, TestTrait};
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
@@ -22,7 +21,7 @@ class MemberTest extends TestCase
     {
         $this
             ->forAll(Generator\choose(1, 10000))
-            ->then(function($amount) {
+            ->then(function(int $amount) {
                 $fromMember = A::member()->withBalance(10000)->build();
                 $toMember = A::member()->build();
 
@@ -42,7 +41,7 @@ class MemberTest extends TestCase
     {
         $this
             ->forAll(Generator\choose(1, 10000))
-            ->then(function($amount) {
+            ->then(function(int $amount) {
                 $fromMember = A::member()->withBalance(10000)->build();
                 $toMember = A::member()->withBalance(5000)->build();
 

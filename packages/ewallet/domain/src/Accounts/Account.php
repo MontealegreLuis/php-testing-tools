@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -30,7 +30,7 @@ class Account
      * @param Money $amount
      * @return Account
      */
-    public static function withBalance(Money $amount)
+    public static function withBalance(Money $amount): Account
     {
         return new Account($amount);
     }
@@ -38,7 +38,7 @@ class Account
     /**
      * @return AccountInformation
      */
-    public function information()
+    public function information(): AccountInformation
     {
         return new AccountInformation($this->balance);
     }

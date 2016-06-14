@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Accounts\Member;
-use Ewallet\Accounts\MemberInformation;
+use Ewallet\Accounts\{Member, MemberInformation};
 
 class TransferFundsResult
 {
@@ -30,7 +29,7 @@ class TransferFundsResult
     /**
      * @return MemberInformation
      */
-    public function fromMember()
+    public function fromMember(): MemberInformation
     {
         return $this->fromMember->information();
     }
@@ -38,7 +37,7 @@ class TransferFundsResult
     /**
      * @return MemberInformation
      */
-    public function toMember()
+    public function toMember(): MemberInformation
     {
         return $this->toMember->information();
     }

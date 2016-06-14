@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\DataBuilders;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\TransferWasMade;
+use Ewallet\Accounts\{MemberId, TransferWasMade};
 use Faker\Factory;
 use Money\Money;
 
@@ -37,7 +36,7 @@ class TransferWasMadeBuilder
     /**
      * @return TransferWasMade
      */
-    public function build()
+    public function build(): TransferWasMade
     {
         $event = new TransferWasMade(
             MemberId::with($this->fromId),

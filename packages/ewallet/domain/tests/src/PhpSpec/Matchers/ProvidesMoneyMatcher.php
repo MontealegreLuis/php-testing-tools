@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -31,7 +31,7 @@ trait ProvidesMoneyMatcher
      * @return bool
      * @throws FailureException
      */
-    public function amountMatches(Money $subject, $expectedAmount)
+    public function amountMatches(Money $subject, int $expectedAmount): bool
     {
         if ($subject->getAmount() !== $expectedAmount) {
             throw new FailureException(sprintf(

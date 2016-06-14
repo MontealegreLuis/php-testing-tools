@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,7 +16,7 @@ abstract class Identifier
     /**
      * @param string $value
      */
-    private function __construct($value)
+    private function __construct(string $value)
     {
         $this->setId($value);
     }
@@ -24,7 +24,7 @@ abstract class Identifier
     /**
      * @param string $value
      */
-    private function setId($value)
+    private function setId(string $value)
     {
         Assertion::string($value, "Identifiers should be strings");
         Assertion::notEmpty(trim($value), "An identifier cannot be empty");
@@ -38,7 +38,7 @@ abstract class Identifier
      * @param string $value
      * @return Identifier
      */
-    public static function with($value)
+    public static function with(string $value): Identifier
     {
         return new static($value);
     }
@@ -47,7 +47,7 @@ abstract class Identifier
      * @param Identifier $anotherId
      * @return bool
      */
-    public function equals(Identifier $anotherId)
+    public function equals(Identifier $anotherId): bool
     {
         return $this->value === $anotherId->value;
     }
@@ -55,7 +55,7 @@ abstract class Identifier
     /**
      * @return string
      */
-    public function value()
+    public function value(): string
     {
         return $this->value;
     }

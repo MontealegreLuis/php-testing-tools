@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Accounts;
 
 use Assert\Assertion;
-use Hexagonal\DomainEvents\CanRecordEvents;
-use Hexagonal\DomainEvents\RecordsEvents;
+use Hexagonal\DomainEvents\{CanRecordEvents, RecordsEvents};
 use Money\Money;
 
 /**
@@ -38,7 +37,7 @@ class Member implements CanRecordEvents
      */
     private function __construct(
         Identifier $id,
-        $name,
+        string $name,
         Email $email,
         Account $account
     ) {
@@ -53,7 +52,7 @@ class Member implements CanRecordEvents
      *
      * @param string $name
      */
-    protected function setName($name)
+    protected function setName(string $name)
     {
         Assertion::string($name, "A member's name should be a string");
         Assertion::notEmpty(trim($name), "A member's name cannot be empty");
@@ -72,17 +71,17 @@ class Member implements CanRecordEvents
      */
     public static function withAccountBalance(
         Identifier $id,
-        $name,
+        string $name,
         Email $email,
         Money $amount
-    ) {
+    ): Member {
         return new Member($id, $name, $email, Account::withBalance($amount));
     }
 
     /**
      * @return MemberInformation
      */
-    public function information()
+    public function information(): MemberInformation
     {
         return new MemberInformation(
             $this->memberId,
@@ -127,7 +126,7 @@ class Member implements CanRecordEvents
      * @param Member $anotherMember
      * @return bool
      */
-    public function equals(Member $anotherMember)
+    public function equals(Member $anotherMember): bool
     {
         return $this->memberId->equals($anotherMember->memberId);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -19,7 +19,7 @@ class Email
     /**
      * @param string $address A valid e-mail address
      */
-    public function __construct($address)
+    public function __construct(string $address)
     {
         $this->setAddress($address);
     }
@@ -29,7 +29,7 @@ class Email
      *
      * @param $address
      */
-    protected function setAddress($address)
+    protected function setAddress(string $address)
     {
         Assertion::email($address, "{$address} is not a valid email address");
         $this->address = $address;
@@ -38,7 +38,7 @@ class Email
     /**
      * @return string
      */
-    public function address()
+    public function address(): string
     {
         return $this->address;
     }

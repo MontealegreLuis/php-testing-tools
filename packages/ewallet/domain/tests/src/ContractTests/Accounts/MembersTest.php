@@ -1,12 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\ContractTests\Accounts;
 
-use Ewallet\Accounts\MemberId;
+use Ewallet\Accounts\{MemberId, Members};
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
@@ -25,7 +25,7 @@ abstract class MembersTest extends TestCase
     /**
      * @return Members
      */
-    abstract protected function membersInstance();
+    abstract protected function membersInstance(): Members;
 
     /** @before */
     function generateFixtures()

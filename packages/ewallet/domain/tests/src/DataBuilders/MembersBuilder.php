@@ -1,14 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\DataBuilders;
 
-use Ewallet\Accounts\Email;
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\Member;
+use Ewallet\Accounts\{Email, MemberId, Member};
 use Faker\Factory;
 use Money\Money;
 
@@ -39,10 +37,10 @@ class MembersBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return MembersBuilder
      */
-    public function withName($name)
+    public function withName(string $name): MembersBuilder
     {
         $this->name = $name;
 
@@ -53,7 +51,7 @@ class MembersBuilder
      * @param string $email
      * @return MembersBuilder
      */
-    public function withEmail($email)
+    public function withEmail(string $email): MembersBuilder
     {
         $this->email = $email;
 
@@ -64,7 +62,7 @@ class MembersBuilder
      * @param integer|Money $amount
      * @return MembersBuilder
      */
-    public function withBalance($amount)
+    public function withBalance($amount): MembersBuilder
     {
         if (is_int($amount)) {
             $amount = Money::MXN($amount);
@@ -79,7 +77,7 @@ class MembersBuilder
      * @param string $id
      * @return MembersBuilder
      */
-    public function withId($id)
+    public function withId(string $id): MembersBuilder
     {
         $this->id = $id;
 
@@ -89,7 +87,7 @@ class MembersBuilder
     /**
      * @return Member
      */
-    public function build()
+    public function build(): Member
     {
         $member = Member::withAccountBalance(
             MemberId::with($this->id),

@@ -1,15 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Wallet\Accounts;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\Member;
-use Ewallet\Accounts\Members;
-use Ewallet\Accounts\UnknownMember;
+use Ewallet\Accounts\{MemberId, Member, Members, UnknownMember};
 use SplObjectStorage;
 
 class InMemoryMembers implements Members
@@ -30,7 +27,7 @@ class InMemoryMembers implements Members
      * @return Member
      * @throws UnknownMember
      */
-    public function with(MemberId $id)
+    public function with(MemberId $id): Member
     {
         /** @var Member $member */
         foreach ($this->members as $member) {

@@ -19,6 +19,18 @@ class SeedDatabaseCommand extends Command
 {
     use ProvidesDoctrineSetup;
 
+    /** @var array */
+    private $options;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(array $options)
+    {
+        parent::__construct();
+        $this->options = $options;
+    }
+
     /**
      * Configures the current command.
      */
@@ -39,7 +51,7 @@ class SeedDatabaseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
+        $this->_setUpDoctrine($this->options);
         $this->truncateTable(Member::class);
         $this->truncateTable(StoredEvent::class);
         $this->truncateTable(PublishedMessage::class);

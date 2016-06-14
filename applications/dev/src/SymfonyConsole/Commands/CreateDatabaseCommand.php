@@ -14,6 +14,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateDatabaseCommand extends Command
 {
+    /** @var array */
+    private $options;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(array $options)
+    {
+        parent::__construct();
+        $this->options = $options;
+    }
+
     /**
      * @inheritDoc
      */
@@ -30,8 +42,7 @@ class CreateDatabaseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configuration = require __DIR__ . '/../../../config.php';
-        $options = $configuration['doctrine']['connection'];
+        $options = $this->options['doctrine']['connection'];
         $hasPath = isset($options['path']);
         $name = $hasPath ? $options['path']: $options['dbname'];
         unset($options['dbname'], $options['path']);

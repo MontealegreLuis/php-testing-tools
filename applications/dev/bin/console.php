@@ -20,8 +20,10 @@ $environment->required([
     'MYSQL_HOST',
 ]);
 
+$options = require __DIR__ . '/../config.php';
+
 $application = new Application();
-$application->add(new SeedDatabaseCommand());
-$application->add(new CreateDatabaseCommand());
+$application->add(new SeedDatabaseCommand($options));
+$application->add(new CreateDatabaseCommand($options));
 
 $application->run();

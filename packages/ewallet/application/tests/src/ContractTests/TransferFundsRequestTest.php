@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\ContractTests;
 
-use Ewallet\Actions\TransferFundsRequest;
-use Ewallet\DataBuilders\A;
+use Ewallet\{Actions\TransferFundsRequest, DataBuilders\A};
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class TransferFundsRequestTest extends TestCase
@@ -25,14 +24,14 @@ abstract class TransferFundsRequestTest extends TestCase
      * This method should assign an implementation of the TransferFundsRequest
      * interface to the variable $request
      */
-    abstract function requestInstance();
+    abstract function requestInstance(): TransferFundsRequest;
 
     /**
-     * @param integer $validAmount
+     * @param int $validAmount
      * @test
      * @dataProvider validAmountsProvider
      */
-    function it_should_pass_validation_with_a_valid_amount($validAmount)
+    function it_should_pass_validation_with_a_valid_amount(int $validAmount)
     {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
@@ -63,12 +62,13 @@ abstract class TransferFundsRequestTest extends TestCase
     }
 
     /**
-     * @param integer $invalidAmount
+     * @param int $invalidAmount
      * @test
      * @dataProvider invalidAmountsProvider
      */
-    function it_should_not_pass_validation_if_amount_is_negative_or_zero($invalidAmount)
-    {
+    function it_should_not_pass_validation_if_amount_is_negative_or_zero(
+        int $invalidAmount
+    ) {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
             'toMemberId' => self::VALID_ID,

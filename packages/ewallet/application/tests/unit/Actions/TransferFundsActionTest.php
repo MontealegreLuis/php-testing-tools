@@ -1,17 +1,19 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Actions;
 
-use Ewallet\DataBuilders\A;
-use Ewallet\Accounts\MemberId;
-use Ewallet\Wallet\Accounts\InMemoryMembers;
-use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsResult;
-use Ewallet\Responders\TransferFundsResponder;
+use Ewallet\{
+    DataBuilders\A,
+    Accounts\MemberId,
+    Wallet\Accounts\InMemoryMembers,
+    Wallet\TransferFunds,
+    Wallet\TransferFundsResult,
+    Responders\TransferFundsResponder
+};
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -79,7 +81,10 @@ class TransferFundsActionTest extends TestCase
      * @param string $toMemberId
      * @return TransferFundsRequest
      */
-    private function givenThatNoAmountIsProvided($fromMemberId, $toMemberId)
+    private function givenThatNoAmountIsProvided(
+        string $fromMemberId,
+        string $toMemberId
+    ): TransferFundsRequest
     {
         $request = Mockery::mock(TransferFundsRequest::class);
         $request
@@ -109,14 +114,15 @@ class TransferFundsActionTest extends TestCase
     /**
      * @param string $fromMemberId
      * @param string $toMemberId
-     * @param integer $amount
+     * @param int $amount
      * @return TransferFundsRequest
      */
     private function givenThatValidTransferInformationIsProvided(
-        $fromMemberId,
-        $toMemberId,
-        $amount
-    ) {
+        string $fromMemberId,
+        string $toMemberId,
+        int $amount
+    ): TransferFundsRequest
+    {
         $request = Mockery::mock(TransferFundsRequest::class);
         $request
             ->shouldReceive('isValid')
@@ -140,7 +146,10 @@ class TransferFundsActionTest extends TestCase
      * @param string $toMemberId
      * @return TransferFunds
      */
-    private function givenThatMembersAreKnown($fromMemberId, $toMemberId)
+    private function givenThatMembersAreKnown(
+        string $fromMemberId,
+        string $toMemberId
+    ): TransferFunds
     {
         $members = new InMemoryMembers();
         $members->add(

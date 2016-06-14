@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Listeners;
 
-use Ewallet\DataBuilders\A;
-use Ewallet\Presenters\MemberFormatter;
+use Ewallet\{DataBuilders\A, Presenters\MemberFormatter};
 use Hexagonal\DomainEvents\Event;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;

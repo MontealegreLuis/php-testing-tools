@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -21,17 +21,17 @@ interface TransferFundsRequest
     public function populate(array $rawInput);
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isValid();
+    public function isValid(): bool;
 
     /**
      * @return array
      */
-    public function errorMessages();
+    public function errorMessages(): array;
 
     /**
      * @return array
      */
-    public function values();
+    public function values(): array;
 }

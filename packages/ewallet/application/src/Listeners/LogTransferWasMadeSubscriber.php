@@ -1,15 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Listeners;
 
-use Ewallet\Accounts\TransferWasMade;
-use Ewallet\Presenters\MemberFormatter;
-use Hexagonal\DomainEvents\Event;
-use Hexagonal\DomainEvents\EventSubscriber;
+use Ewallet\{Accounts\TransferWasMade, Presenters\MemberFormatter};
+use Hexagonal\DomainEvents\{Event, EventSubscriber};
 use Psr\Log\LoggerInterface;
 
 class LogTransferWasMadeSubscriber implements EventSubscriber
@@ -24,8 +22,10 @@ class LogTransferWasMadeSubscriber implements EventSubscriber
      * @param Logger $logger
      * @param MemberFormatter $formatter
      */
-    public function __construct(LoggerInterface $logger, MemberFormatter $formatter)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        MemberFormatter $formatter
+    ) {
         $this->logger = $logger;
         $this->formatter = $formatter;
     }
@@ -34,14 +34,14 @@ class LogTransferWasMadeSubscriber implements EventSubscriber
      * @param Event $event
      * @return boolean
      */
-    public function isSubscribedTo(Event $event)
+    public function isSubscribedTo(Event $event): bool
     {
         return TransferWasMade::class === get_class($event);
     }
 
     /**
      * @param Event $event
-     * @return boolean
+     * @return void
      */
     public function handle(Event $event)
     {

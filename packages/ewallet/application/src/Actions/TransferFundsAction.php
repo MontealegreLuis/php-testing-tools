@@ -1,17 +1,19 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Actions;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Responders\TransferFundsResponder;
-use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsInformation;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\{
+    Accounts\MemberId,
+    Responders\TransferFundsResponder,
+    Wallet\TransferFunds,
+    Wallet\TransferFundsNotifier,
+    Wallet\TransferFundsInformation,
+    Wallet\TransferFundsResult
+};
 
 /**
  * This is a two steps action. First, the member making the transfer enters the
@@ -63,7 +65,6 @@ class TransferFundsAction implements TransferFundsNotifier
 
     /**
      * @param TransferFundsRequest $request
-     * @return \Psr\Http\Message\ResponseInterface
      */
     private function validationFailedFor(TransferFundsRequest $request)
     {
@@ -84,7 +85,7 @@ class TransferFundsAction implements TransferFundsNotifier
     /**
      * @return TransferFundsResponder
      */
-    public function responder()
+    public function responder(): TransferFundsResponder
     {
         return $this->responder;
     }

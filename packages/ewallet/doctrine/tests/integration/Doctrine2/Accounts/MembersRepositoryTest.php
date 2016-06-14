@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Doctrine2\Accounts;
 
-use Ewallet\Accounts\Member;
-use Ewallet\Accounts\Members;
+use Ewallet\Accounts\{Member, Members};
 use Ewallet\ContractTests\Accounts\MembersTest;
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
@@ -30,7 +29,7 @@ class MembersRepositoryTest extends MembersTest
     /**
      * @return Members
      */
-    protected function membersInstance()
+    protected function membersInstance(): Members
     {
         return $this->entityManager->getRepository(Member::class);
     }

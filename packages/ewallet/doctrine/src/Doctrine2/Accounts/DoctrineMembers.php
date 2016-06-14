@@ -1,16 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Doctrine2\Accounts;
 
 use Doctrine\ORM\EntityRepository;
-use Ewallet\Accounts\Member;
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\MembersRepository;
-use Ewallet\Accounts\UnknownMember;
+use Ewallet\Accounts\{Member, MemberId, MembersRepository, UnknownMember};
 
 class DoctrineMembers extends EntityRepository implements MembersRepository
 {
@@ -19,7 +16,7 @@ class DoctrineMembers extends EntityRepository implements MembersRepository
      * @return Member
      * @throws UnknownMember
      */
-    public function with(MemberId $id)
+    public function with(MemberId $id): Member
     {
         $builder = $this->createQueryBuilder('m');
 

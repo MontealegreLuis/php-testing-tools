@@ -1,18 +1,17 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Responders;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\EasyForms\MembersConfiguration;
-use Ewallet\EasyForms\TransferFundsForm;
+use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
 use Ewallet\Wallet\TransferFundsResult;
-use Ewallet\Responders\Web\ResponseFactory;
+use Ewallet\Responders\Web\{ResponseFactory, TransferFundsWebResponder};
 use Ewallet\Templating\TemplateEngine;
-use Ewallet\Responders\Web\TransferFundsWebResponder;
+use Psr\Http\Message\ResponseInterface;
 
 class TransferFundsFormResponder implements TransferFundsWebResponder
 {
@@ -51,7 +50,6 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
 
     /**
      * @param TransferFundsResult $result
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function respondToTransferCompleted(TransferFundsResult $result)
     {
@@ -69,10 +67,11 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
     /**
      * @param array $messages
      * @param array $values
-     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function respondToInvalidTransferInput(array $messages, array $values)
-    {
+    public function respondToInvalidTransferInput(
+        array $messages,
+        array $values
+    ) {
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
@@ -81,7 +80,6 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
 
     /**
      * @param MemberId $fromMemberId
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function respondToEnterTransferInformation(MemberId $fromMemberId)
     {
@@ -95,9 +93,9 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    public function response()
+    public function response(): ResponseInterface
     {
         return $this->response;
     }

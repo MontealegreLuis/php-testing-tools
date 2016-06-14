@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -9,8 +9,7 @@ namespace Ewallet\Responders;
 use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
 use Ewallet\Wallet\TransferFundsResult;
-use Ewallet\EasyForms\MembersConfiguration;
-use Ewallet\EasyForms\TransferFundsForm;
+use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
 use Ewallet\Templating\TemplateEngine;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
 use Mockery;

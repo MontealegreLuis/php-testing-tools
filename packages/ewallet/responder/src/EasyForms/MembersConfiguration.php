@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\MembersRepository;
+use Ewallet\Accounts\{MemberId, MembersRepository};
 
 class MembersConfiguration
 {
@@ -26,7 +25,7 @@ class MembersConfiguration
      * @param MemberId $memberId
      * @return \EWallet\Accounts\MemberInformation[]
      */
-    public function getMembersChoicesExcluding(MemberId $memberId)
+    public function getMembersChoicesExcluding(MemberId $memberId): array
     {
         $members = $this->members->excluding($memberId);
         $options = [];

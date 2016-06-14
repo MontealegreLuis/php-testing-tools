@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\Member;
+use Ewallet\Accounts\{MemberId, Member};
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;

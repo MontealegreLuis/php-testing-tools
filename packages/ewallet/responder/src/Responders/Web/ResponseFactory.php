@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,5 +16,5 @@ interface ResponseFactory
      * @param string $html
      * @return ResponseInterface
      */
-    public function buildResponse($html);
+    public function buildResponse(string $html): ResponseInterface;
 }

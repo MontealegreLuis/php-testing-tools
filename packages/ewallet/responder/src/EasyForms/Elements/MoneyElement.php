@@ -1,14 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\EasyForms\Elements;
 
-use EasyForms\Elements\Element;
-use EasyForms\Elements\Text;
-use EasyForms\View\ElementView;
+use EasyForms\{Elements\Element, Elements\Text, View\ElementView};
 use Ewallet\EasyForms\Elements\Views\MoneyView;
 
 class MoneyElement extends Element
@@ -22,7 +20,7 @@ class MoneyElement extends Element
     /**
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct($name);
         $this->amount = new Text("{$name}[amount]");

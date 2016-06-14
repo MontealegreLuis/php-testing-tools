@@ -1,14 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\EasyForms;
 
-use EasyForms\Elements\Hidden;
-use EasyForms\Elements\Select;
-use EasyForms\Form;
+use EasyForms\{Elements\Hidden, Elements\Select, Form};
 use EWallet\Accounts\Identifier;
 use Ewallet\EasyForms\Elements\MoneyElement;
 
@@ -32,7 +30,8 @@ class TransferFundsForm extends Form
      * @param Identifier $memberId
      */
     public function configure(
-        MembersConfiguration $configuration, Identifier $memberId
+        MembersConfiguration $configuration,
+        Identifier $memberId
     ) {
         $this->get('fromMemberId')->setValue($memberId);
         $this

@@ -1,16 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Doctrine\{DBAL\Types\Type, ORM\EntityManager, ORM\Tools\Setup};
+use Pimple\{Container, ServiceProviderInterface};
 
 class DoctrineServiceProvider implements ServiceProviderInterface
 {

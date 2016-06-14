@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,20 +11,18 @@ use Ewallet\Doctrine2\Application\Services\DoctrineSession;
 use Ewallet\EasyForms\MembersConfiguration;
 use Ewallet\Listeners\LogTransferWasMadeSubscriber;
 use Ewallet\Presenters\MemberFormatter;
-use Ewallet\Twig\Extensions\EwalletExtension;
-use Ewallet\Twig\TwigTemplateEngine;
+use Ewallet\Twig\{Extensions\EwalletExtension, TwigTemplateEngine};
 use Ewallet\Wallet\TransferFundsTransactionally;
-use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
-use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
+use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilterRequest};
 use Hexagonal\JmsSerializer\JsonSerializer;
-use Hexagonal\DomainEvents\EventPublisher;
-use Hexagonal\DomainEvents\PersistEventsSubscriber;
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\DomainEvents\StoredEventFactory;
-use Monolog\Handler\SyslogHandler;
-use Monolog\Logger;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Hexagonal\DomainEvents\{
+    EventPublisher,
+    PersistEventsSubscriber,
+    StoredEvent,
+    StoredEventFactory
+};
+use Monolog\{Handler\SyslogHandler, Logger};
+use Pimple\{Container, ServiceProviderInterface};
 
 class EwalletServiceProvider implements ServiceProviderInterface
 {

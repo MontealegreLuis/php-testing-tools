@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: install compose tests
+.PHONY: env compose composer db tests
 
 env:
 	@echo "Copying default settings for the containers.."
@@ -31,11 +31,11 @@ compose:
 	@echo "Building containers..."
 	@docker-compose -f containers/docker-compose.yml up -d
 
-install:
+composer:
 	@echo "Installing PHP dependencies..."
 	@echo "Setting up applications..."
-	@echo "Setup application..."
-	@composer install --no-interaction -d applications/setup
+	@echo "Dev application..."
+	@composer install --no-interaction -d applications/dev
 	@echo "Messaging application..."
 	@composer install --no-interaction -d applications/messaging
 	@echo "Console application..."
@@ -57,12 +57,14 @@ install:
 	@composer install --no-interaction -d packages/ewallet/doctrine
 	@echo "ewallet/hexagonal..."
 	@composer install --no-interaction -d packages/hexagonal/doctrine
+
+db:
 	@echo "Creating database..."
-	@cd applications/setup && bin/console ewallet:db:create
+	@cd applications/dev && bin/console ewallet:db:create
 	@echo "Creating tables..."
-	@cd applications/setup && bin/doctrine orm:schema-tool:update --force
+	@cd applications/dev && bin/doctrine orm:schema-tool:update --force
 	@echo "Seeding database with initial information..."
-	@cd applications/setup && bin/console ewallet:db:seed
+	@cd applications/dev && bin/console ewallet:db:seed
 	@echo "Done!"
 
 tests:

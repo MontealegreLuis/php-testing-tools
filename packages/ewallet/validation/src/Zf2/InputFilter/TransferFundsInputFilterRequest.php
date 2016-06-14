@@ -48,9 +48,9 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->filter->isValid();
     }
@@ -58,7 +58,7 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
     /**
      * @return array
      */
-    public function errorMessages()
+    public function errorMessages(): array
     {
         return $this->filter->getMessages();
     }
@@ -66,7 +66,7 @@ class TransferFundsInputFilterRequest implements TransferFundsRequest
     /**
      * @return array
      */
-    public function values()
+    public function values(): array
     {
         return $this->filter->getValues();
     }

@@ -24,7 +24,7 @@ abstract class TransferFundsRequestTest extends TestCase
      * This method should assign an implementation of the TransferFundsRequest
      * interface to the variable $request
      */
-    abstract function requestInstance(): TransferFundsRequest;
+    abstract function requestInstance();
 
     /**
      * @param int $validAmount

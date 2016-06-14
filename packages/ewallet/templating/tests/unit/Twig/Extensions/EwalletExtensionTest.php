@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Twig\Extensions;
 
-use Ewallet\DataBuilders\A;
-use Ewallet\Presenters\MemberFormatter;
+use Ewallet\{DataBuilders\A, Presenters\MemberFormatter};
 use Mockery;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -20,6 +19,9 @@ class EwalletExtensionTest extends TestCase
     /** @var EwalletExtension */
     private $extension;
 
+    /** @var int */
+    private $amount = 300000;
+
     /** @before */
     public function configureExtension()
     {
@@ -28,40 +30,43 @@ class EwalletExtensionTest extends TestCase
     }
 
     /** @test */
-    function it_should_delegate_formatting_a_money_object()
+    function it_delegates_formatting_a_money_object()
     {
-        $this->extension->formatMoney($amount = Money::MXN(300000));
+        $amount = Money::MXN($this->amount);
 
         $this->formatter
-            ->shouldHaveReceived('formatMoney')
+            ->shouldReceive('formatMoney')
             ->once()
             ->with($amount)
+            ->andReturn("\${$this->amount}.00 MXN")
         ;
+
+        $this->extension->formatMoney($amount);
     }
 
     /** @test */
     function it_should_delegate_formatting_a_money_amount()
     {
-        $this->extension->formatMoneyAmount($amount = 300000);
-
         $this->formatter
-            ->shouldHaveReceived('formatMoneyAmount')
+            ->shouldReceive('formatMoneyAmount')
             ->once()
-            ->with($amount)
+            ->with($this->amount)
+            ->andReturn("{$this->amount}.00")
         ;
+        $this->extension->formatMoneyAmount($this->amount);
     }
 
+    /** @test */
     function it_should_delegate_formatting_a_member()
     {
         $member = A::member()->build()->information();
-
-        $this->extension->formatMember($member);
-
         $this->formatter
-            ->shouldHaveReceived('formatMember')
+            ->shouldReceive('formatMember')
             ->once()
             ->with($member)
         ;
+
+        $this->extension->formatMember($member);
     }
 
     /** @test */

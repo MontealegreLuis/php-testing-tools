@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,9 +8,11 @@ namespace Ewallet\SymfonyConsole\Commands;
 
 use Doctrine\DBAL\DriverManager;
 use Exception;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\{
+    Command\Command,
+    Input\InputInterface,
+    Output\OutputInterface
+};
 
 class CreateDatabaseCommand extends Command
 {
@@ -18,7 +20,7 @@ class CreateDatabaseCommand extends Command
     private $options;
 
     /**
-     * @inheritDoc
+     * @array $options
      */
     public function __construct(array $options)
     {

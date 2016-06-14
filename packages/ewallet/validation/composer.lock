@@ -665,7 +665,7 @@
             "dist": {
                 "type": "path",
                 "url": "../application/",
-                "reference": "f7ad37c7b58f2e0a946850b4d98c359b",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -708,7 +708,7 @@
             "dist": {
                 "type": "path",
                 "url": "../doctrine/",
-                "reference": "146486046f321470ed48a33cbc140bda",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -750,7 +750,7 @@
             "dist": {
                 "type": "path",
                 "url": "../domain/",
-                "reference": "41e3a6a8854a884c77542a093f911faa",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -793,7 +793,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../hexagonal/hexagonal/",
-                "reference": "81780007fab6db7f418ad7a9d2a065e9",
+                "reference": null,
                 "shasum": null
             },
             "type": "library",
@@ -1381,16 +1381,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.4",
+            "version": "0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b"
+                "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/70bba85e4aabc9449626651f48b9018ede04f86b",
-                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
+                "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "shasum": ""
             },
             "require": {
@@ -1442,7 +1442,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-04-02 19:54:00"
+            "time": "2016-05-22 21:52:33"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

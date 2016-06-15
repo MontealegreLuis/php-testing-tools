@@ -6,8 +6,8 @@
  */
 namespace Hexagonal\Messaging;
 
+use Exception;
 use Hexagonal\DataBuilders\A;
-use Hexagonal\Fakes\Messaging\MessageProducerThatThrowsException;
 use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -152,7 +152,17 @@ class MessagePublisherTest extends TestCase
         ;
         $this->givenMostRecentPublishedMessageIs($tracker, $message, $nonEmptyExchangeName);
         $this->expectToTrackUpdatedMessage($tracker, $message);
-        $producer = new MessageProducerThatThrowsException();
+        $producer = new class() implements MessageProducer
+        {
+            public function open(string $exchangeName) {}
+
+            public function send(string $exchangeName, StoredEvent $notification)
+            {
+                if (11000 === $notification->id()) throw new Exception();
+            }
+
+            public function close() {}
+        };
 
         $publisher = new MessagePublisher($store, $tracker, $producer);
 

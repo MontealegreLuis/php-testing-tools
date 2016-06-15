@@ -85,4 +85,12 @@ tests:
 	@cd packages/ewallet/doctrine && bin/phpunit --testdox
 	@echo "hexagonal/doctrine..."
 	@cd packages/hexagonal/doctrine && bin/phpunit --testdox
+	@echo "Running tests for applications..."
+	@echo "Console application"
+	@cd applications/console && bin/phpunit --testdox
+	@echo "Messaging application"
+	@cd applications/messaging && bin/phpunit --testdox
+	@echo "Web application"
+	@cd applications/web && bin/phpunit --testdox
+	@cd applications/web && bin/robo acceptance
 	@echo "Done!"

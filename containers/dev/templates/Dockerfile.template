@@ -8,7 +8,7 @@ RUN chmod a+x /group.sh
 
 # Create custom user and group to match the ones in the host machine
 RUN /group.sh
-RUN useradd -ms /bin/bash -g ${DEV_USER_ID} -u ${DEV_GROUP_ID} ${DEV_USER}
+RUN useradd -ms /bin/bash -g ${DEV_GROUP_ID} -u ${DEV_USER_ID} ${DEV_USER}
 RUN mv /home/${DEV_USER}/.bashrc /etc/bashrc
 COPY ./config/.bashrc /home/${DEV_USER}/.bashrc
 

@@ -1,13 +1,14 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Pimple;
 
-use Ewallet\Pimple\ServiceProviders\DoctrineServiceProvider;
-use Ewallet\Pimple\ServiceProviders\EwalletConsoleServiceProvider;
+use Ewallet\Pimple\ServiceProviders\{
+    DoctrineServiceProvider, EwalletConsoleServiceProvider
+};
 use Pimple\Container;
 
 class EwalletConsoleContainer extends Container

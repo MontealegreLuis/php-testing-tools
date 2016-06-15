@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,14 +10,21 @@ use Ewallet\Accounts\Member;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Actions\TransferFundsAction;
 use Ewallet\Responders\TransferFundsConsoleResponder;
-use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
-use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
+use Ewallet\Zf2\InputFilter\{
+    Filters\TransferFundsFilter, TransferFundsInputFilterRequest
+};
 use Ewallet\Presenters\MemberFormatter;
 use Ewallet\Fakes\Symfony\Console\FakeQuestionHelper;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\{
+    Helper\QuestionHelper,
+    Input\ArrayInput,
+    Input\InputInterface,
+    Output\BufferedOutput,
+    Output\OutputInterface,
+    Question\Question
+};
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class TransferFundsCommandTest extends TestCase
@@ -35,7 +42,7 @@ class TransferFundsCommandTest extends TestCase
     }
 
     /** @test */
-    function it_should_transfer_funds_between_members()
+    function it_transfers_funds_between_members()
     {
         Fixtures::load(
             __DIR__ . '/../../../fixtures/members.yml',
@@ -46,7 +53,16 @@ class TransferFundsCommandTest extends TestCase
         );
         $input = new ArrayInput([]);
         $output = new BufferedOutput();
-        $question =  new FakeQuestionHelper();
+        $question =  new class() extends QuestionHelper {
+            public function ask(
+                InputInterface $input,
+                OutputInterface $output,
+                Question $question
+            ) {
+                if ($question->getQuestion() === 'Transfer to ID: ') return 'LMN';
+                return 5;
+            }
+        };
         $action = new TransferFundsAction(
             new TransferFundsConsoleResponder(
                 $input,

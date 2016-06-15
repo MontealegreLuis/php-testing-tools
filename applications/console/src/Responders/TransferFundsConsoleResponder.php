@@ -1,22 +1,21 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Responders;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Accounts\Member;
-use Ewallet\Accounts\MemberInformation;
-use Ewallet\Accounts\MembersRepository;
+use Ewallet\Accounts\{MemberId, Member, MemberInformation, MembersRepository};
 use Ewallet\Wallet\TransferFundsResult;
 use Ewallet\Presenters\MemberFormatter;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\{
+    Helper\QuestionHelper,
+    Helper\Table,
+    Input\InputInterface,
+    Output\OutputInterface,
+    Question\Question
+};
 
 class TransferFundsConsoleResponder implements TransferFundsResponder
 {

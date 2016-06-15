@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,10 +10,9 @@ use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
 use Ewallet\Actions\TransferFundsAction;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Hexagonal\DomainEvents\EventPublisher;
-use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\{
+    ConsoleEvents, Helper\QuestionHelper, Input\ArgvInput, Output\ConsoleOutput
+};
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;

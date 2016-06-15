@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Actions\TransferFundsRequest;
-use Ewallet\Actions\TransferFundsAction;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Ewallet\Actions\{TransferFundsRequest, TransferFundsAction};
+use Symfony\Component\Console\{
+    Command\Command,
+    Input\InputArgument,
+    Input\InputInterface,
+    Output\OutputInterface
+};
 
 class TransferFundsCommand extends Command
 {

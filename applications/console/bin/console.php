@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Ewallet\Pimple\EwalletConsoleContainer;
-use Ewallet\SymfonyConsole\EwalletApplication;
+use Ewallet\{Pimple\EwalletConsoleContainer, SymfonyConsole\EwalletApplication};
 use Dotenv\Dotenv;
 
 $environment = new Dotenv(__DIR__ . '/../');

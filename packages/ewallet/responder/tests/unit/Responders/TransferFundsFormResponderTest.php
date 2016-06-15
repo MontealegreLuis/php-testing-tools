@@ -18,7 +18,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class TransferFundsFormResponderTest extends TestCase
 {
     /** @test */
-    function it_should_build_a_response_to_show_the_transfer_form()
+    function it_builds_a_response_to_show_the_transfer_form()
     {
         $configuration = Mockery::mock(MembersConfiguration::class);
         $form = Mockery::mock(TransferFundsForm::class);
@@ -45,7 +45,7 @@ class TransferFundsFormResponderTest extends TestCase
     }
 
     /** @test */
-    function it_should_build_a_response_to_show_that_a_transfer_was_successful()
+    function it_builds_a_response_to_show_that_a_transfer_was_successful()
     {
         $configuration = Mockery::mock(MembersConfiguration::class);
         $form = Mockery::mock(TransferFundsForm::class);
@@ -79,7 +79,7 @@ class TransferFundsFormResponderTest extends TestCase
     }
 
     /** @test */
-    function it_should_build_a_response_to_show_the_transfer_form_with_validation_errors()
+    function it_builds_a_response_to_show_the_transfer_form_with_validation_errors()
     {
         $configuration = Mockery::mock(MembersConfiguration::class);
         $form = Mockery::mock(TransferFundsForm::class);

@@ -13,7 +13,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class TransferFundsFormTest extends TestCase
 {
     /** @test */
-    function it_should_populate_the_form_with_the_transfer_values()
+    function it_populates_the_form_with_the_transfer_values()
     {
         $form = new TransferFundsForm();
         $form->submit([
@@ -30,7 +30,7 @@ class TransferFundsFormTest extends TestCase
     }
 
     /** @test */
-    function it_should_create_the_view_elements_to_make_the_transfer()
+    function it_creates_the_view_elements_to_make_the_transfer()
     {
         $form = new TransferFundsForm();
         $view = $form->buildView();
@@ -42,7 +42,7 @@ class TransferFundsFormTest extends TestCase
     }
 
     /** @test */
-    function it_should_initialize_the_member_id_making_the_transfer()
+    function it_initializes_the_member_id_making_the_transfer()
     {
         $form = new TransferFundsForm();
         $fromMemberId = MemberId::with('abc');
@@ -61,7 +61,7 @@ class TransferFundsFormTest extends TestCase
     }
 
     /** @test */
-    function it_should_exclude_from_choices_the_member_making_the_transfer()
+    function it_excludes_from_choices_the_member_making_the_transfer()
     {
         $form = new TransferFundsForm();
         $fromMemberId = MemberId::with('abc');

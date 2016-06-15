@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class DiactorosResponseFactoryTest extends TestCase
 {
     /** @test */
-    function it_should_create_a_response_with_an_http_ok_code()
+    function it_creates_a_response_with_an_http_ok_code()
     {
         $factory = new DiactorosResponseFactory();
 

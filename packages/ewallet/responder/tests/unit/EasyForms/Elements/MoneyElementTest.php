@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class MoneyElementTest extends TestCase
 {
     /** @test */
-    function it_should_set_its_value_as_a_pair_amount_currency()
+    function it_sets_its_value_as_a_pair_amount_currency()
     {
         $money = new MoneyElement('amount');
 
@@ -23,7 +23,7 @@ class MoneyElementTest extends TestCase
     }
 
     /** @test */
-    function it_should_pass_value_to_the_amount_text_element()
+    function it_passes_value_to_the_amount_text_element()
     {
         $money = new MoneyElement('amount');
 

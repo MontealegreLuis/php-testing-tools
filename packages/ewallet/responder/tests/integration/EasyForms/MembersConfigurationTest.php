@@ -26,7 +26,7 @@ class MembersConfigurationTest extends TestCase
     }
 
     /** @test */
-    function it_should_generate_options_excluding_the_member_transferring_funds()
+    function it_generates_options_excluding_the_member_transferring_funds()
     {
         Fixtures::load(
             __DIR__ . '/../../fixtures/members.yml',

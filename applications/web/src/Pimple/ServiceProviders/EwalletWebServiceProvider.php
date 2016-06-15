@@ -1,17 +1,17 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
+use Ewallet\Actions\TransferFundsAction;
+use Ewallet\EasyForms\TransferFundsForm;
+use Ewallet\Responders\TransferFundsFormResponder;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Twig\RouterExtension;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
-use Ewallet\Actions\TransferFundsAction;
-use Ewallet\Responders\TransferFundsFormResponder;
-use Ewallet\EasyForms\TransferFundsForm;
 use Pimple\Container;
 use Slim\Slim;
 use Twig_Loader_Filesystem as Loader;

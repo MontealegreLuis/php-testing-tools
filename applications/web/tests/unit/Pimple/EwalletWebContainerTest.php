@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -12,15 +12,14 @@ use Ewallet\Twig\RouterExtension;
 use Ewallet\Responders\TransferFundsFormResponder;
 use Ewallet\EasyForms\TransferFundsForm;
 use PHPUnit_Framework_TestCase as TestCase;
-use Slim\Environment;
-use Slim\Slim;
+use Slim\{Environment, Slim};
 use Twig_Environment as TwigEnvironment;
 use Twig_Loader_Filesystem as Loader;
 
 class EwalletWebContainerTest extends TestCase
 {
     /** @test */
-    function it_should_create_the_web_application_services()
+    function it_creates_the_web_application_services()
     {
         Environment::mock(['REQUEST_METHOD' => 'GET']);
         $environment = new Dotenv(__DIR__ . '/../../../');

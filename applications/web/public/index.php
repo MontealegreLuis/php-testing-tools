@@ -1,21 +1,18 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 require __DIR__ . '/../vendor/autoload.php';
 
 use Ewallet\Slim\Application;
-use Dotenv\Loader;
-use Dotenv\Validator;
+use Dotenv\{Loader, Validator};
 
 $validator = new Validator(
     ['APP_ENV', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_HOST'],
     new Loader(null)
 );
 
-$app = new Application(
-    require __DIR__ . '/../config.php'
-);
+$app = new Application(require __DIR__ . '/../config.php');
 $app->run();

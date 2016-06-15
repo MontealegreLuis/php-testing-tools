@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Twig;
 
-use Slim\Http\Request;
-use Slim\Router;
+use Slim\{Http\Request, Router};
 use Twig_SimpleFunction as SimpleFunction;
 use Twig_Extension as Extension;
 
@@ -48,7 +47,7 @@ class RouterExtension extends Extension
      * @param array $arguments
      * @return string
      */
-    public function urlFor($routeName, array $arguments = [])
+    public function urlFor(string $routeName, array $arguments = []): string
     {
         return sprintf(
             '%s%s',
@@ -61,7 +60,7 @@ class RouterExtension extends Extension
      * @param string $path
      * @return string
      */
-    public function asset($path)
+    public function asset(string $path): string
     {
         return preg_replace(
             '#/+#',

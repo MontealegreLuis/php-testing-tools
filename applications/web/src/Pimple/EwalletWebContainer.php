@@ -1,15 +1,17 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Pimple;
 
-use Ewallet\Pimple\ServiceProviders\DoctrineServiceProvider;
-use Ewallet\Pimple\ServiceProviders\EwalletWebServiceProvider;
-use Ewallet\Pimple\ServiceProviders\FormsServiceProvider;
-use Ewallet\Pimple\ServiceProviders\TwigServiceProvider;
+use Ewallet\Pimple\ServiceProviders\{
+    DoctrineServiceProvider,
+    EwalletWebServiceProvider,
+    FormsServiceProvider,
+    TwigServiceProvider
+};
 use Pimple\Container;
 use Slim\Slim;
 

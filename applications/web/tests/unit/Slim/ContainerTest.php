@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Slim;
 
-use Ewallet\Slim\Middleware\StoreEventsMiddleware;
-use Ewallet\Slim\Middleware\RequestLoggingMiddleware;
+use Ewallet\Slim\Middleware\{StoreEventsMiddleware, RequestLoggingMiddleware};
 use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -16,7 +15,7 @@ use Psr\Log\LoggerInterface;
 class ContainerTest extends TestCase
 {
     /** @test */
-    function it_should_create_the_application_services()
+    function it_creates_the_application_services()
     {
         $app = new Application(require __DIR__ . '/../../../config.php');
 

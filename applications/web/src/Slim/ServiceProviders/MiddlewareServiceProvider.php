@@ -1,15 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Slim\ServiceProviders;
 
-use ComPHPPuebla\Slim\Resolver;
-use ComPHPPuebla\Slim\ServiceProvider;
-use Ewallet\Slim\Middleware\StoreEventsMiddleware;
-use Ewallet\Slim\Middleware\RequestLoggingMiddleware;
+use ComPHPPuebla\Slim\{Resolver, ServiceProvider};
+use Ewallet\Slim\Middleware\{StoreEventsMiddleware, RequestLoggingMiddleware};
 use Slim\Slim;
 
 class MiddlewareServiceProvider implements ServiceProvider

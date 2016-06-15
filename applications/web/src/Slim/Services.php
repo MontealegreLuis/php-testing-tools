@@ -1,13 +1,15 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Slim;
 
-use Ewallet\Slim\ServiceProviders\MiddlewareServiceProvider;
-use Ewallet\Slim\ServiceProviders\ApplicationServiceProvider;
+use Ewallet\Slim\ServiceProviders\{
+    MiddlewareServiceProvider,
+    ApplicationServiceProvider
+};
 
 class Services extends \ComPHPPuebla\Slim\Services
 {

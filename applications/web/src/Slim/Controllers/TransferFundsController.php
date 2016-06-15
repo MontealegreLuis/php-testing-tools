@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Actions\TransferFundsRequest;
-use Ewallet\Actions\TransferFundsAction;
+use Ewallet\Actions\{TransferFundsRequest, TransferFundsAction};
 use Slim\Http\Request;
 
 class TransferFundsController

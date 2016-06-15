@@ -1,11 +1,10 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\Accounts\Member;
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\{Accounts\Member, TestHelpers\ProvidesDoctrineSetup};
 use Page\TransferFundsPage;
 use Nelmio\Alice\Fixtures;
 

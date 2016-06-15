@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Actions\Notifications;
 
-use Ewallet\Accounts\Members;
-use Ewallet\Accounts\TransferWasMade;
+use Ewallet\Accounts\{Members, TransferWasMade};
 
 class TransferFundsEmailNotifier
 {
@@ -31,9 +30,9 @@ class TransferFundsEmailNotifier
 
     /**
      * @param string $event
-     * @return boolean
+     * @return bool
      */
-    public function shouldNotifyOn($event)
+    public function shouldNotifyOn(string $event): bool
     {
         return TransferWasMade::class === $event;
     }
@@ -45,7 +44,6 @@ class TransferFundsEmailNotifier
      * transaction
      *
      * @param TransferFundsNotification $notification
-     * @return bool
      */
     public function notify(TransferFundsNotification $notification)
     {

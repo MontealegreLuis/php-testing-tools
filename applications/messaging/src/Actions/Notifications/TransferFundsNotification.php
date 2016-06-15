@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -30,8 +30,12 @@ class TransferFundsNotification
      * @param string $toMemberId
      * @param string $occurredOn
      */
-    public function __construct($fromMemberId, $amount, $toMemberId, $occurredOn)
-    {
+    public function __construct(
+        string $fromMemberId,
+        string $amount,
+        string $toMemberId,
+        string $occurredOn
+    ) {
         $this->occurredOn = DateTime::createFromFormat('Y-m-d H:i:s', $occurredOn);
         $this->fromMemberId = MemberId::with($fromMemberId);
         $this->amount = Money::MXN($amount);
@@ -41,7 +45,7 @@ class TransferFundsNotification
     /**
      * @return DateTime
      */
-    public function occurredOn()
+    public function occurredOn(): DateTime
     {
         return $this->occurredOn;
     }
@@ -49,7 +53,7 @@ class TransferFundsNotification
     /**
      * @return MemberId
      */
-    public function fromMemberId()
+    public function fromMemberId(): MemberId
     {
         return $this->fromMemberId;
     }
@@ -57,7 +61,7 @@ class TransferFundsNotification
     /**
      * @return Money
      */
-    public function amount()
+    public function amount(): Money
     {
         return $this->amount;
     }
@@ -65,7 +69,7 @@ class TransferFundsNotification
     /**
      * @return MemberId
      */
-    public function toMemberId()
+    public function toMemberId(): MemberId
     {
         return $this->toMemberId;
     }

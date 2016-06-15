@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,7 +10,7 @@ return [
             __DIR__ . '/vendor/ewallet/doctrine/src/Doctrine2/Resources/config',
             __DIR__ . '/vendor/hexagonal/doctrine/src/Doctrine2/Resources/config',
         ],
-        'dev_mode' => (boolean) getenv('APP_ENV') !== 'production',
+        'dev_mode' => getenv('APP_ENV') !== 'production',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
             'driver' => 'pdo_mysql',
@@ -26,7 +26,7 @@ return [
     'twig' => [
         'options' => [
             'cache' => __DIR__ . '/var/cache/twig',
-            'debug' => (boolean) getenv('APP_ENV') !== 'production',
+            'debug' => getenv('APP_ENV') !== 'production',
             'strict_variables' => true,
         ],
         'loader_paths' => [],

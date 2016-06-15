@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,7 +17,7 @@ use Zend\Mail\Transport\InMemory;
 class TransferFundsZendMailSenderTest extends TestCase
 {
     /** @test */
-    function it_should_send_funds_transferred_email()
+    function it_sends_funds_transferred_email()
     {
         $template = Mockery::mock(TemplateEngine::class);
         $template
@@ -48,7 +48,7 @@ class TransferFundsZendMailSenderTest extends TestCase
     }
 
     /** @test */
-    function it_should_send_deposit_received_email()
+    function it_sends_deposit_received_email()
     {
         $template = Mockery::mock(TemplateEngine::class);
         $template

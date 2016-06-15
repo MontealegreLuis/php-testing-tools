@@ -1,15 +1,17 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Pimple;
 
-use Ewallet\Pimple\ServiceProviders\DoctrineServiceProvider;
-use Ewallet\Pimple\ServiceProviders\EwalletMessagingServiceProvider;
-use Ewallet\Pimple\ServiceProviders\HexagonalServiceProvider;
-use Ewallet\Pimple\ServiceProviders\TwigServiceProvider;
+use Ewallet\Pimple\ServiceProviders\{
+    DoctrineServiceProvider,
+    EwalletMessagingServiceProvider,
+    HexagonalServiceProvider,
+    TwigServiceProvider
+};
 use Pimple\Container;
 
 class EwalletMessagingContainer extends Container

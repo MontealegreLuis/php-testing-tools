@@ -692,7 +692,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/ewallet/application/",
-                "reference": "d2ea4f3e397eeca7f1c332571a559df1",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -721,7 +721,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/ewallet/definitions/",
-                "reference": "499d71479616e7a9c2f3a2b98170ef8f",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -750,7 +750,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/ewallet/doctrine/",
-                "reference": "146486046f321470ed48a33cbc140bda",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -792,7 +792,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/ewallet/domain/",
-                "reference": "41e3a6a8854a884c77542a093f911faa",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -835,7 +835,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/ewallet/templating/",
-                "reference": "d707628812ce87a58a21a9b9264608fc",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -874,7 +874,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/hexagonal/doctrine/",
-                "reference": "b7ee9ca64c58bd3911ee881ddcac7615",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -923,7 +923,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/hexagonal/hexagonal/",
-                "reference": "81780007fab6db7f418ad7a9d2a065e9",
+                "reference": null,
                 "shasum": null
             },
             "type": "library",
@@ -954,7 +954,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/hexagonal/messaging/",
-                "reference": "5e6add9c3d8e1e50cf3bbbb3cdf29343",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1143,12 +1143,12 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mathiasverraes/money.git",
+                "url": "https://github.com/moneyphp/money.git",
                 "reference": "b9e258119041fed20e4704f72e3ebb94ed10bea2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mathiasverraes/money/zipball/b9e258119041fed20e4704f72e3ebb94ed10bea2",
+                "url": "https://api.github.com/repos/moneyphp/money/zipball/b9e258119041fed20e4704f72e3ebb94ed10bea2",
                 "reference": "b9e258119041fed20e4704f72e3ebb94ed10bea2",
                 "shasum": ""
             },
@@ -1524,12 +1524,12 @@
             "version": "v2.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/videlalvaro/php-amqplib.git",
+                "url": "https://github.com/php-amqplib/php-amqplib.git",
                 "reference": "8a6e89ad46130eb365b7f57d313f2a795f5e3269"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/8a6e89ad46130eb365b7f57d313f2a795f5e3269",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/8a6e89ad46130eb365b7f57d313f2a795f5e3269",
                 "reference": "8a6e89ad46130eb365b7f57d313f2a795f5e3269",
                 "shasum": ""
             },
@@ -1571,7 +1571,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "abandoned": true,
+            "abandoned": "php-amqplib/php-amqplib",
             "time": "2015-09-23 02:25:31"
         },
         {
@@ -2209,16 +2209,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.4",
+            "version": "0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b"
+                "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/70bba85e4aabc9449626651f48b9018ede04f86b",
-                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
+                "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "shasum": ""
             },
             "require": {
@@ -2246,7 +2246,7 @@
             ],
             "authors": [
                 {
-                    "name": "Padraic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
@@ -2270,7 +2270,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-04-02 19:54:00"
+            "time": "2016-05-22 21:52:33"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

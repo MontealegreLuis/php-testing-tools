@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,8 +8,7 @@ namespace Ewallet\Pimple\ServiceProviders;
 
 use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Pimple\{Container, ServiceProviderInterface};
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
 use Zend\Mail\Transport\Sendmail;

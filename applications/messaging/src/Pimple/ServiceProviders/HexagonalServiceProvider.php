@@ -1,19 +1,16 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Hexagonal\RabbitMq\AmqpMessageProducer;
-use Hexagonal\RabbitMq\AmqpMessageConsumer;
+use Hexagonal\RabbitMq\{AmqpMessageProducer, AmqpMessageConsumer};
 use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\Messaging\MessagePublisher;
-use Hexagonal\Messaging\PublishedMessage;
+use Hexagonal\Messaging\{MessagePublisher, PublishedMessage};
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Pimple\{Container, ServiceProviderInterface};
 
 class HexagonalServiceProvider implements ServiceProviderInterface
 {

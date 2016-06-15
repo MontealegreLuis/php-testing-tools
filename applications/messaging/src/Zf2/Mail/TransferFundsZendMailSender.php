@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,8 +11,7 @@ use Ewallet\Accounts\MemberInformation;
 use Ewallet\Actions\Notifications\TransferFundsEmailSender;
 use Ewallet\Templating\TemplateEngine;
 use Money\Money;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\TransportInterface;
+use Zend\Mail\{Message, Transport\TransportInterface};
 
 class TransferFundsZendMailSender implements TransferFundsEmailSender
 {

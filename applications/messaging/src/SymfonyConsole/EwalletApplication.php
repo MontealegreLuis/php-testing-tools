@@ -1,14 +1,15 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\SymfonyConsole;
 
 use Ewallet\Pimple\EwalletMessagingContainer;
-use Ewallet\SymfonyConsole\Commands\NotifyTransferByEmailCommand;
-use Ewallet\SymfonyConsole\Commands\PublishMessagesCommand;
+use Ewallet\SymfonyConsole\Commands\{
+    NotifyTransferByEmailCommand, PublishMessagesCommand
+};
 use Symfony\Component\Console\Application;
 
 class EwalletApplication extends Application

@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Twig\Extensions;
 
-use Ewallet\Accounts\MemberInformation;
-use Ewallet\Presenters\MemberFormatter;
+use Ewallet\{Accounts\MemberInformation, Presenters\MemberFormatter};
 use Money\Money;
 use Twig_Extension as Extension;
 use Twig_SimpleFunction as SimpleFunction;
@@ -41,7 +40,7 @@ class EwalletExtension extends Extension
      * @param MemberInformation $member
      * @return string
      */
-    public function formatMember(MemberInformation $member)
+    public function formatMember(MemberInformation $member): string
     {
         return $this->formatter->formatMember($member);
     }
@@ -50,16 +49,16 @@ class EwalletExtension extends Extension
      * @param Money $money
      * @return string
      */
-    public function formatMoney(Money $money)
+    public function formatMoney(Money $money): string
     {
         return $this->formatter->formatMoney($money);
     }
 
     /**
-     * @param integer $amount
+     * @param int $amount
      * @return string
      */
-    public function formatMoneyAmount($amount)
+    public function formatMoneyAmount(int $amount): string
     {
         return $this->formatter->formatMoneyAmount($amount);
     }

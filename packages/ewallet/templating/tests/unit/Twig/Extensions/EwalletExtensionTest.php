@@ -45,7 +45,7 @@ class EwalletExtensionTest extends TestCase
     }
 
     /** @test */
-    function it_should_delegate_formatting_a_money_amount()
+    function it_delegates_formatting_a_money_amount()
     {
         $this->formatter
             ->shouldReceive('formatMoneyAmount')
@@ -57,7 +57,7 @@ class EwalletExtensionTest extends TestCase
     }
 
     /** @test */
-    function it_should_delegate_formatting_a_member()
+    function it_delegates_formatting_a_member()
     {
         $member = A::member()->build()->information();
         $this->formatter
@@ -70,7 +70,7 @@ class EwalletExtensionTest extends TestCase
     }
 
     /** @test */
-    function it_should_register_three_twig_simple_functions()
+    function it_registers_three_twig_simple_functions()
     {
         $functions = $this->extension->getFunctions();
 

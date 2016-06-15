@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -9,8 +9,10 @@ namespace Ewallet\Actions;
 use Ewallet\Accounts\MembersRepository;
 use Ewallet\ContractTests\TransferFundsRequestTest;
 use Ewallet\DataBuilders\A;
-use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
-use Ewallet\Zf2\InputFilter\TransferFundsInputFilterRequest;
+use Ewallet\Zf2\InputFilter\{
+    Filters\TransferFundsFilter,
+    TransferFundsInputFilterRequest
+};
 use Mockery;
 
 class TransferFundsInputFilterRequestTest extends TransferFundsRequestTest

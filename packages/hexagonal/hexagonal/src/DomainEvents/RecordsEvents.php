@@ -1,12 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\DomainEvents;
 
 use SplObjectStorage;
+use Traversable;
 
 trait RecordsEvents
 {
@@ -26,9 +27,9 @@ trait RecordsEvents
     }
 
     /**
-     * @return SplObjectStorage
+     * @return Traversable
      */
-    public function events()
+    public function events(): Traversable
     {
         return $this->events;
     }

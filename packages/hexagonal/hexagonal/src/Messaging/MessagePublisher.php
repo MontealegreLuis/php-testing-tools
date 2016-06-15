@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -37,9 +37,9 @@ class MessagePublisher
 
     /**
      * @param string $exchangeName
-     * @return integer
+     * @return int
      */
-    public function publishTo($exchangeName)
+    public function publishTo(string $exchangeName): int
     {
         if (!$this->tracker->hasPublishedMessages($exchangeName)) {
             $mostRecentMessage = null;

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -30,7 +30,7 @@ class PublishedMessageBuilder
      * @param string $name
      * @return PublishedMessageBuilder
      */
-    public function withExchangeName($name)
+    public function withExchangeName(string $name): PublishedMessageBuilder
     {
         $this->exchangeName = $name;
 
@@ -38,10 +38,10 @@ class PublishedMessageBuilder
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return PublishedMessageBuilder
      */
-    public function withMostRecentMessageId($id)
+    public function withMostRecentMessageId(int $id): PublishedMessageBuilder
     {
         $this->mostRecentMessageId = $id;
 
@@ -51,7 +51,7 @@ class PublishedMessageBuilder
     /**
      * @return PublishedMessage
      */
-    public function build()
+    public function build(): PublishedMessage
     {
         $message = new PublishedMessage(
             $this->exchangeName, $this->mostRecentMessageId

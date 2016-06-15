@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,7 +16,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class StoredEventFactoryTest extends TestCase
 {
     /** @test */
-    function it_should_create_an_stored_event_from_a_given_domain_event()
+    function it_creates_an_stored_event_from_a_given_domain_event()
     {
         $event = new InstantaneousEvent(
             MemberId::with('abc'),

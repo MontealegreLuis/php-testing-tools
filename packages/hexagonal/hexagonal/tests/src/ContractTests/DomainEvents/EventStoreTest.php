@@ -1,16 +1,14 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\ContractTests\DomainEvents;
 
 use Ewallet\DataBuilders\A;
-use Hexagonal\DomainEvents\EventStore;
-use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\{EventStore, StoredEvent, StoredEventFactory};
 use Hexagonal\JmsSerializer\JsonSerializer;
-use Hexagonal\DomainEvents\StoredEventFactory;
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class EventStoreTest extends TestCase
@@ -42,7 +40,7 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @test */
-    function it_should_retrieve_all_stored_events()
+    function it_retrieves_all_stored_events()
     {
         $events = $this->store->allEvents();
 
@@ -50,7 +48,7 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @test */
-    function it_should_retrieve_2_out_of_4_events_if_second_event_id_is_provided()
+    function it_retrieves_2_out_of_4_events_if_second_event_id_is_provided()
     {
         $events = $this->store->eventsStoredAfter($this->event2->id());
 
@@ -58,7 +56,7 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @test */
-    function it_should_retrieve_0_events_if_last_event_id_is_provided()
+    function it_retrieves_0_events_if_last_event_id_is_provided()
     {
         $events = $this->store->eventsStoredAfter($this->event4->id());
 
@@ -68,5 +66,5 @@ abstract class EventStoreTest extends TestCase
     /**
      * @return EventStore
      */
-    abstract function storeInstance();
+    abstract function storeInstance(): EventStore;
 }

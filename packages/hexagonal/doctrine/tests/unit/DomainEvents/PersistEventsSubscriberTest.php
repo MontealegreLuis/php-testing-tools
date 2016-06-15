@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\DomainEvents;
 
-use Ewallet\DataBuilders\A;
 use DateTime;
-use Ewallet\Accounts\MemberId;
+use Ewallet\{DataBuilders\A, Accounts\MemberId};
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Mockery;
@@ -18,7 +17,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class PersistEventsSubscriberTest extends TestCase
 {
     /** @test */
-    function it_should_subscribe_to_all_event_types()
+    function it_subscribes_to_all_event_types()
     {
         $subscriber = new PersistEventsSubscriber(
             Mockery::mock(EventStore::class),
@@ -35,7 +34,7 @@ class PersistEventsSubscriberTest extends TestCase
     }
 
     /** @test */
-    function it_should_persist_an_event()
+    function it_persists_an_event()
     {
         $store = Mockery::mock(EventStore::class);
         $subscriber = new PersistEventsSubscriber(

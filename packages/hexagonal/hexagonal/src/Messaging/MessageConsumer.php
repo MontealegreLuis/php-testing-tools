@@ -11,13 +11,13 @@ interface MessageConsumer
     /**
      * @param string $exchangeName
      */
-    public function open($exchangeName);
+    public function open(string $exchangeName);
 
     /**
      * @param string $exchangeName
      * @param callable $callback
      */
-    public function consume($exchangeName, callable $callback);
+    public function consume(string $exchangeName, callable $callback);
 
     /**
      * Close channel and connection

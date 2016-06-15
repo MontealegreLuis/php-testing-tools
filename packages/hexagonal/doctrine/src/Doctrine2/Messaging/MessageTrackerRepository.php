@@ -1,25 +1,26 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\Doctrine2\Messaging;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
-use Hexagonal\Messaging\EmptyExchange;
-use Hexagonal\Messaging\InvalidPublishedMessageToTrack;
-use Hexagonal\Messaging\MessageTracker;
-use Hexagonal\Messaging\PublishedMessage;
+use Doctrine\ORM\{EntityRepository, NoResultException};
+use Hexagonal\Messaging\{
+    EmptyExchange,
+    InvalidPublishedMessageToTrack,
+    MessageTracker,
+    PublishedMessage
+};
 
 class MessageTrackerRepository extends EntityRepository implements MessageTracker
 {
     /**
      * @param string $exchangeName
-     * @return boolean
+     * @return bool
      */
-    public function hasPublishedMessages($exchangeName)
+    public function hasPublishedMessages(string $exchangeName): bool
     {
         $builder = $this->createQueryBuilder('p');
         $builder
@@ -36,7 +37,9 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
      * @return PublishedMessage
      * @throws EmptyExchange
      */
-    public function mostRecentPublishedMessage($exchangeName)
+    public function mostRecentPublishedMessage(
+        string $exchangeName
+    ): PublishedMessage
     {
         $builder = $this->createQueryBuilder('p');
         $builder

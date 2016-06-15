@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\Doctrine2\DomainEvents;
 
 use Hexagonal\ContractTests\DomainEvents\EventStoreTest;
-use Hexagonal\DomainEvents\EventStore;
-use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class EventStoreRepositoryTest extends EventStoreTest
@@ -30,7 +29,7 @@ class EventStoreRepositoryTest extends EventStoreTest
     /**
      * @return EventStore
      */
-    function storeInstance()
+    function storeInstance(): EventStore
     {
         return $this->entityManager->getRepository(StoredEvent::class);
     }

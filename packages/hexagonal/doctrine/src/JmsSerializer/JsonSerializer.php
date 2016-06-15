@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,10 +8,8 @@ namespace Hexagonal\JmsSerializer;
 
 use DateTime;
 use Ewallet\Accounts\MemberId;
-use Hexagonal\DomainEvents\Event;
-use Hexagonal\DomainEvents\EventSerializer;
-use JMS\Serializer\Handler\HandlerRegistry;
-use JMS\Serializer\SerializerBuilder;
+use Hexagonal\DomainEvents\{Event, EventSerializer};
+use JMS\Serializer\{Handler\HandlerRegistry, SerializerBuilder};
 use Money\Money;
 
 class JsonSerializer implements EventSerializer
@@ -62,7 +60,7 @@ class JsonSerializer implements EventSerializer
      * @param Event $anEvent
      * @return string
      */
-    public function serialize(Event $anEvent)
+    public function serialize(Event $anEvent): string
     {
         return $this->serializer->serialize($anEvent, 'json');
     }

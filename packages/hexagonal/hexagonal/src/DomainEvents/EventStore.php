@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -18,13 +18,13 @@ interface EventStore
     public function append(StoredEvent $anEvent);
 
     /**
-     * @param $lastStoredEventId
+     * @param int $lastStoredEventId
      * @return StoredEvent[]
      */
-    public function eventsStoredAfter($lastStoredEventId);
+    public function eventsStoredAfter(int $lastStoredEventId): array;
 
     /**
      * @return StoredEvent[]
      */
-    public function allEvents();
+    public function allEvents(): array;
 }

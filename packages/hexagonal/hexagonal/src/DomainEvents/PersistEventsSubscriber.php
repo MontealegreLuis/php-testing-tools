@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -28,16 +28,16 @@ class PersistEventsSubscriber implements EventSubscriber
 
     /**
      * @param Event $event
-     * @return boolean
+     * @return bool
      */
-    public function isSubscribedTo(Event $event)
+    public function isSubscribedTo(Event $event): bool
     {
         return true;
     }
 
     /**
      * @param Event $event
-     * @return boolean
+     * @return void
      */
     public function handle(Event $event)
     {

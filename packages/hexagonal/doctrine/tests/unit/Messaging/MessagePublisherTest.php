@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,15 +8,14 @@ namespace Hexagonal\Messaging;
 
 use Hexagonal\DataBuilders\A;
 use Hexagonal\Fakes\Messaging\MessageProducerThatThrowsException;
-use Hexagonal\DomainEvents\EventStore;
-use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class MessagePublisherTest extends TestCase
 {
     /** @test */
-    function it_should_publish_single_message_to_empty_exchange()
+    function it_publishes_a_single_message_to_an_empty_exchange()
     {
         $emptyExchangeName = 'empty_exchange_name';
         $aSingleMessage = [
@@ -40,7 +39,7 @@ class MessagePublisherTest extends TestCase
     }
 
     /** @test */
-    function it_should_publish_several_messages_to_empty_exchange()
+    function it_publishes_several_messages_to_an_empty_exchange()
     {
         $emptyExchangeName = 'empty_exchange_name';
         $severalMessages = [
@@ -66,7 +65,7 @@ class MessagePublisherTest extends TestCase
     }
 
     /** @test */
-    function it_should_publish_single_message_to_non_empty_exchange()
+    function it_publishes_a_single_message_to_a_non_empty_exchange()
     {
         $nonEmptyExchangeName = 'non_empty_exchange_name';
         $aSingleMessage = [
@@ -100,7 +99,7 @@ class MessagePublisherTest extends TestCase
     }
 
     /** @test */
-    function it_should_publish_several_messages_to_non_empty_exchange()
+    function it_publishes_several_messages_to_a_non_empty_exchange()
     {
         $nonEmptyExchangeName = 'non_empty_exchange_name';
         $severalMessages = [
@@ -136,7 +135,7 @@ class MessagePublisherTest extends TestCase
     }
 
     /** @test */
-    function it_should_update_last_published_message_when_publisher_fails_before_last_one()
+    function it_updates_last_published_message_when_publisher_fails_before_last_one()
     {
         $nonEmptyExchangeName = 'non_empty_exchange_name';
         $severalMessages = [
@@ -175,7 +174,7 @@ class MessagePublisherTest extends TestCase
      * @param string $name
      * @return Mockery\MockInterface
      */
-    protected function givenAnEmptyExchange($name)
+    protected function givenAnEmptyExchange(string $name)
     {
         $tracker = Mockery::mock(MessageTracker::class);
         $tracker
@@ -192,7 +191,7 @@ class MessagePublisherTest extends TestCase
      * @param string $name
      * @return Mockery\MockInterface
      */
-    protected function givenANonEmptyExchange($name)
+    protected function givenANonEmptyExchange(string $name)
     {
         $tracker = Mockery::mock(MessageTracker::class);
         $tracker
@@ -269,7 +268,10 @@ class MessagePublisherTest extends TestCase
      * @param string $emptyExchangeName
      * @return Mockery\MockInterface
      */
-    protected function expectToProcessSingle(StoredEvent $message, $emptyExchangeName)
+    protected function expectToProcessSingle(
+        StoredEvent $message,
+        string $emptyExchangeName
+    )
     {
         $producer = Mockery::mock(MessageProducer::class);
         $producer
@@ -325,7 +327,7 @@ class MessagePublisherTest extends TestCase
     protected function givenMostRecentPublishedMessageIs(
         $tracker,
         PublishedMessage $message,
-        $exchangeName
+        string $exchangeName
     ) {
         $tracker
             ->shouldReceive('mostRecentPublishedMessage')

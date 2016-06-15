@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,23 +14,23 @@ class PublishedMessage
     /** @var string */
     private $exchangeName;
 
-    /** @var integer */
+    /** @var int */
     private $mostRecentMessageId;
 
     /**
      * @param string $exchangeName
-     * @param integer $mostRecentMessageId
+     * @param int $mostRecentMessageId
      */
-    public function __construct($exchangeName, $mostRecentMessageId)
+    public function __construct(string $exchangeName, int $mostRecentMessageId)
     {
         $this->exchangeName = $exchangeName;
         $this->mostRecentMessageId = $mostRecentMessageId;
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
@@ -38,23 +38,23 @@ class PublishedMessage
     /**
      * @return string
      */
-    public function exchangeName()
+    public function exchangeName(): string
     {
         return $this->exchangeName;
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function mostRecentMessageId()
+    public function mostRecentMessageId(): int
     {
         return $this->mostRecentMessageId;
     }
 
     /**
-     * @param integer $mostRecentMessageId
+     * @param int $mostRecentMessageId
      */
-    public function updateMostRecentMessageId($mostRecentMessageId)
+    public function updateMostRecentMessageId(int $mostRecentMessageId)
     {
         $this->mostRecentMessageId = $mostRecentMessageId;
     }
@@ -63,9 +63,9 @@ class PublishedMessage
      * 2 messages are equal if they have the same ID
      *
      * @param PublishedMessage $message
-     * @return boolean
+     * @return bool
      */
-    public function equals(PublishedMessage $message)
+    public function equals(PublishedMessage $message): bool
     {
         return $this->id == $message->id;
     }

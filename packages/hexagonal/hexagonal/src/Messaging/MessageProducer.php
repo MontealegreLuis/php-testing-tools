@@ -13,13 +13,13 @@ interface MessageProducer
     /**
      * @param string $exchangeName
      */
-    public function open($exchangeName);
+    public function open(string $exchangeName);
 
     /**
      * @param string $exchangeName
      * @param StoredEvent $notification
      */
-    public function send($exchangeName, StoredEvent $notification);
+    public function send(string $exchangeName, StoredEvent $notification);
 
     /**
      * Close channel and connection

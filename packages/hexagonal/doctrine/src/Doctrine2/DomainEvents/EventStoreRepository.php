@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\Doctrine2\DomainEvents;
 
 use Doctrine\ORM\EntityRepository;
-use Hexagonal\DomainEvents\EventStore;
-use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 
 class EventStoreRepository extends EntityRepository implements EventStore
 {
@@ -22,10 +21,10 @@ class EventStoreRepository extends EntityRepository implements EventStore
     }
 
     /**
-     * @param integer $lastStoredEventId
+     * @param int $lastStoredEventId
      * @return StoredEvent[]
      */
-    public function eventsStoredAfter($lastStoredEventId)
+    public function eventsStoredAfter(int $lastStoredEventId): array
     {
         $query = $this->createQueryBuilder('e');
         $query
@@ -40,7 +39,7 @@ class EventStoreRepository extends EntityRepository implements EventStore
     /**
      * @return StoredEvent[]
      */
-    public function allEvents()
+    public function allEvents(): array
     {
         $query = $this->createQueryBuilder('e')->orderBy('e.id');
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -40,7 +40,7 @@ class InstantaneousEvent implements Event
     /**
      * @return DateTime
      */
-    public function occurredOn()
+    public function occurredOn(): DateTime
     {
         return $this->occurredOn;
     }

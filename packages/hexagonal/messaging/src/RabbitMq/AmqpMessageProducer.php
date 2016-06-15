@@ -1,15 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\RabbitMq;
 
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\Messaging\MessageProducer;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
+use Hexagonal\{DomainEvents\StoredEvent, Messaging\MessageProducer};
+use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
 
 class AmqpMessageProducer implements MessageProducer
 {
@@ -31,7 +29,7 @@ class AmqpMessageProducer implements MessageProducer
     /**
      * @param string $exchangeName
      */
-    public function open($exchangeName)
+    public function open(string $exchangeName)
     {
         if (null !== $this->channel) {
             return;
@@ -48,7 +46,7 @@ class AmqpMessageProducer implements MessageProducer
      * @param string $exchangeName
      * @param StoredEvent $notification
      */
-    public function send($exchangeName, StoredEvent $notification)
+    public function send(string $exchangeName, StoredEvent $notification)
     {
         $this->channel->basic_publish(
             new AMQPMessage($notification->body(), [

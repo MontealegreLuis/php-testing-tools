@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\Doctrine2\Messaging;
 
 use Hexagonal\ContractTests\Messaging\MessageTrackerTest;
-use Hexagonal\Messaging\MessageTracker;
-use Hexagonal\Messaging\PublishedMessage;
+use Hexagonal\Messaging\{MessageTracker, PublishedMessage};
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest
@@ -30,7 +29,7 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
     /**
      * @return MessageTracker
      */
-    function messageTracker()
+    function messageTracker(): MessageTracker
     {
         return $this->entityManager->getRepository(PublishedMessage::class);
     }

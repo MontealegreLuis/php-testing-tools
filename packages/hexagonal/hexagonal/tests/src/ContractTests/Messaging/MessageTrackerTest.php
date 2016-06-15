@@ -1,11 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\ContractTests\Messaging;
 
+use Hexagonal\Messaging\MessageTracker;
 use Hexagonal\Messaging\PublishedMessage;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -14,7 +15,7 @@ abstract class MessageTrackerTest extends TestCase
     const LAST_PUBLISHED_MESSAGE_ID = 5;
 
     /** @test */
-    function it_should_recognize_empty_exchanges()
+    function it_recognize_empty_exchanges()
     {
         $tracker = $this->messageTracker();
 
@@ -22,7 +23,7 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /** @test */
-    function it_should_recognize_non_empty_exchanges()
+    function it_recognizes_non_empty_exchanges()
     {
         $tracker = $this->messageTracker();
         $message = new PublishedMessage('non_empty_exchange', $arbitraryId = 1);
@@ -35,14 +36,14 @@ abstract class MessageTrackerTest extends TestCase
      * @test
      * @expectedException \Hexagonal\Messaging\EmptyExchange
      */
-    function it_should_throw_exception_when_trying_to_get_the_last_message_from_an_empty_exchange()
+    function it_throws_exception_when_trying_to_get_the_last_message_from_an_empty_exchange()
     {
         $tracker = $this->messageTracker();
         $tracker->mostRecentPublishedMessage('non_empty_exchange');
     }
 
     /** @test */
-    function it_should_return_last_published_message_in_a_given_exchange()
+    function it_returns_last_published_message_in_a_given_exchange()
     {
         $tracker = $this->messageTracker();
         $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);
@@ -66,7 +67,7 @@ abstract class MessageTrackerTest extends TestCase
      * @test
      * @expectedException \Hexagonal\Messaging\InvalidPublishedMessageToTrack
      */
-    function it_should_not_allow_more_than_one_last_message_for_each_exchange()
+    function it_does_not_allow_more_than_one_last_message_for_each_exchange()
     {
         $tracker = $this->messageTracker();
         $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);
@@ -79,5 +80,5 @@ abstract class MessageTrackerTest extends TestCase
     /**
      * @return MessageTracker
      */
-    abstract function messageTracker();
+    abstract function messageTracker(): MessageTracker;
 }

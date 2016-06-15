@@ -1,14 +1,13 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\RabbitMq;
 
 use Hexagonal\Messaging\MessageConsumer;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
 
 class AmqpMessageConsumer implements MessageConsumer
 {
@@ -36,7 +35,7 @@ class AmqpMessageConsumer implements MessageConsumer
     /**
      * @param string $exchangeName
      */
-    public function open($exchangeName)
+    public function open(string $exchangeName)
     {
         if (null !== $this->channel) {
             return;
@@ -51,7 +50,7 @@ class AmqpMessageConsumer implements MessageConsumer
      * @param string $exchangeName
      * @param callable $callback
      */
-    public function consume($exchangeName, callable $callback)
+    public function consume(string $exchangeName, callable $callback)
     {
         $this->callback = $callback;
         $this->channel->basic_consume(

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,19 +10,22 @@ interface MessageTracker
 {
     /**
      * @param string $exchangeName
-     * @return boolean
+     * @return bool
      */
-    public function hasPublishedMessages($exchangeName);
+    public function hasPublishedMessages(string $exchangeName): bool;
 
     /**
      * @param string $exchangeName
      * @return PublishedMessage
      * @throws EmptyExchange
      */
-    public function mostRecentPublishedMessage($exchangeName);
+    public function mostRecentPublishedMessage(
+        string $exchangeName
+    ): PublishedMessage;
 
     /**
      * @param PublishedMessage $mostRecentPublishedMessage
+     * @throws InvalidPublishedMessageToTrack
      */
     public function track(PublishedMessage $mostRecentPublishedMessage);
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -30,7 +30,7 @@ class StoredEvent implements Event
      * @param string $type
      * @param DateTime $occurredOn
      */
-    public function __construct($body, $type, DateTime $occurredOn)
+    public function __construct(string $body, string $type, DateTime $occurredOn)
     {
         $this->body = $body;
         $this->type = $type;
@@ -38,17 +38,17 @@ class StoredEvent implements Event
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function id()
+    public function id(): int
     {
-        return $this->id;
+        return (int) $this->id;
     }
 
     /**
      * @return string
      */
-    public function body()
+    public function body(): string
     {
         return $this->body;
     }
@@ -56,7 +56,7 @@ class StoredEvent implements Event
     /**
      * @return string
      */
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }
@@ -64,7 +64,7 @@ class StoredEvent implements Event
     /**
      * @return DateTime
      */
-    public function occurredOn()
+    public function occurredOn(): DateTime
     {
         return $this->occurredOn;
     }

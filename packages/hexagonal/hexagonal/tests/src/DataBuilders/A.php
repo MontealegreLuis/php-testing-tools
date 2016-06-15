@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,7 +11,7 @@ class A
     /**
      * @return StoredEventBuilder
      */
-    public static function storedEvent()
+    public static function storedEvent(): StoredEventBuilder
     {
         return new StoredEventBuilder();
     }
@@ -19,7 +19,7 @@ class A
     /**
      * @return PublishedMessageBuilder
      */
-    public static function publishedMessage()
+    public static function publishedMessage(): PublishedMessageBuilder
     {
         return new PublishedMessageBuilder();
     }

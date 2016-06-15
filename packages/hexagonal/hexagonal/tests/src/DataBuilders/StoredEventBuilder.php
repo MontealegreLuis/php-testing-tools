@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,8 +10,7 @@ use Ewallet\DataBuilders\TransferWasMadeBuilder;
 use Ewallet\Accounts\TransferWasMade;
 use Faker\Factory;
 use Hexagonal\JmsSerializer\JsonSerializer;
-use Hexagonal\DomainEvents\EventSerializer;
-use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\{EventSerializer, StoredEvent};
 use ReflectionClass;
 
 class StoredEventBuilder
@@ -50,10 +49,10 @@ class StoredEventBuilder
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return StoredEventBuilder
      */
-    public function withId($id)
+    public function withId(int $id)
     {
         $this->id = $id;
 
@@ -63,7 +62,7 @@ class StoredEventBuilder
     /**
      * @return StoredEvent
      */
-    public function build()
+    public function build(): StoredEvent
     {
         $event = new StoredEvent($this->body, $this->type, $this->occurredOn);
         $class = new ReflectionClass($event);

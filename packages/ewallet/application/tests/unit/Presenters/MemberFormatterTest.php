@@ -22,19 +22,19 @@ class MemberFormatterTest extends TestCase
     }
 
     /** @test */
-    function it_should_add_thousands_separator_to_a_money_amount()
+    function it_adds_thousands_separator_to_a_money_amount()
     {
         $this->assertEquals('1,234.25', $this->formatter->formatMoneyAmount(1234.25));
     }
 
     /** @test */
-    function it_should_add_2_decimal_places_to_an_integer_money_amount()
+    function it_adds_2_decimal_places_to_an_integer_money_amount()
     {
         $this->assertEquals('546.00', $this->formatter->formatMoneyAmount(546));
     }
 
     /** @test */
-    function it_should_format_a_money_object_information()
+    function it_formats_a_money_object_information()
     {
         $this->assertEquals(
             '$5,987.29 MXN',
@@ -43,7 +43,7 @@ class MemberFormatterTest extends TestCase
     }
 
     /** @test */
-    function it_should_format_a_member_information()
+    function it_formats_a_member_information()
     {
         $aMember = A::member()
             ->withName('Mario Montealegre')

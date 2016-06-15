@@ -19,7 +19,7 @@ class LogTransferWasMadeSubscriber implements EventSubscriber
     private $formatter;
 
     /**
-     * @param Logger $logger
+     * @param LoggerInterface $logger
      * @param MemberFormatter $formatter
      */
     public function __construct(

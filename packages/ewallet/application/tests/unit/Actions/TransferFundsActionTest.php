@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 class TransferFundsActionTest extends TestCase
 {
     /** @test */
-    function it_should_allow_to_enter_transfer_information()
+    function it_allows_to_enter_transfer_information()
     {
         $responder = Mockery::spy(TransferFundsResponder::class);
         $action = new TransferFundsAction($responder);
@@ -34,7 +34,7 @@ class TransferFundsActionTest extends TestCase
     }
 
     /** @test */
-    function it_should_allow_to_transfer_funds()
+    function it_allows_to_transfer_funds()
     {
         $responder = Mockery::spy(TransferFundsResponder::class);
         $useCase = $this->givenThatMembersAreKnown(
@@ -56,7 +56,7 @@ class TransferFundsActionTest extends TestCase
     }
 
     /** @test */
-    function it_should_notify_when_transfer_funds_information_is_invalid()
+    function it_notifies_when_transfer_funds_information_is_invalid()
     {
         $responder = Mockery::spy(TransferFundsResponder::class);
         $useCase = Mockery::spy(TransferFunds::class);

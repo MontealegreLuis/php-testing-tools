@@ -27,11 +27,10 @@ abstract class TransferFundsRequestTest extends TestCase
     abstract function requestInstance();
 
     /**
-     * @param int $validAmount
      * @test
      * @dataProvider validAmountsProvider
      */
-    function it_should_pass_validation_with_a_valid_amount(int $validAmount)
+    function it_passes_validation_with_a_valid_amount(int $validAmount)
     {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
@@ -42,13 +41,13 @@ abstract class TransferFundsRequestTest extends TestCase
         $this->assertTrue($this->request->isValid(), 'Amount should be valid');
     }
 
-    public function validAmountsProvider()
+    function validAmountsProvider()
     {
         return [[1], [500], [12000.34], [1000000]];
     }
 
     /** @test */
-    function it_should_not_pass_validation_if_amount_is_empty()
+    function it_does_not_pass_validation_if_amount_is_empty()
     {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
@@ -62,11 +61,10 @@ abstract class TransferFundsRequestTest extends TestCase
     }
 
     /**
-     * @param int $invalidAmount
      * @test
      * @dataProvider invalidAmountsProvider
      */
-    function it_should_not_pass_validation_if_amount_is_negative_or_zero(
+    function it_does_not_pass_validation_if_amount_is_negative_or_zero(
         int $invalidAmount
     ) {
         $this->request->populate([
@@ -80,13 +78,13 @@ abstract class TransferFundsRequestTest extends TestCase
         $this->assertInternalType('array', $this->request->errorMessages()['amount']);
     }
 
-    public function invalidAmountsProvider()
+    function invalidAmountsProvider()
     {
         return [[0], [-500], [-12000.34]];
     }
 
     /** @test */
-    function it_should_pass_validation_with_valid_member_id()
+    function it_passes_validation_with_valid_member_id()
     {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
@@ -98,7 +96,7 @@ abstract class TransferFundsRequestTest extends TestCase
     }
 
     /** @test */
-    function it_should_not_pass_validation_with_an_empty_member_id_to_transfer_to()
+    function it_does_not_pass_validation_with_an_empty_member_id_to_transfer_to()
     {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
@@ -112,7 +110,7 @@ abstract class TransferFundsRequestTest extends TestCase
     }
 
     /** @test */
-    function it_should_not_pass_validation_if_member_id_is_not_in_white_list()
+    function it_does_not_pass_validation_if_member_id_is_not_in_white_list()
     {
         $this->request->populate([
             'fromMemberId' => self::VALID_ID,
@@ -126,7 +124,7 @@ abstract class TransferFundsRequestTest extends TestCase
     }
 
     /** @test */
-    function it_should_not_pass_validation_if_the_member_making_the_transfer_is_not_specified()
+    function it_does_not_pass_validation_if_the_member_making_the_transfer_is_not_specified()
     {
         $this->request->populate([
             'fromMemberId' => '',

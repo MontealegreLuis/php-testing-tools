@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 class LogTransferWasMadeSubscriberTest extends TestCase
 {
     /** @test */
-    function it_should_log_when_a_transfer_has_been_made()
+    function it_logs_when_a_transfer_has_been_made()
     {
         $logger = Mockery::spy(LoggerInterface::class);
         $subscriber = new LogTransferWasMadeSubscriber(
@@ -34,7 +34,7 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     }
 
     /** @test */
-    function it_should_only_log_transfer_was_made_events()
+    function it_logs_transfer_was_made_events_only()
     {
         $logger = Mockery::mock(LoggerInterface::class);
         $subscriber = new LogTransferWasMadeSubscriber(
@@ -48,7 +48,7 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     }
 
     /** @test */
-    function it_should_not_log_events_other_than_the_transfer_was_made_event()
+    function it_does_not_log_events_other_than_the_transfer_was_made_event()
     {
         $event = Mockery::mock(Event::class);
         $subscriber = new LogTransferWasMadeSubscriber(

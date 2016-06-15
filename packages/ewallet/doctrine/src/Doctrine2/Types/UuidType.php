@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Doctrine2\Types;
 
-use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\GuidType;
+use Doctrine\DBAL\Types\{ConversionException, GuidType};
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use EWallet\Accounts\Identifier;
 use InvalidArgumentException;
@@ -59,8 +58,8 @@ abstract class UuidType extends GuidType
     }
 
     /**
-     * @param  string|null $value
+     * @param  string $value
      * @return Identifier
      */
-    abstract public function identifier($value);
+    abstract public function identifier(string $value): Identifier;
 }

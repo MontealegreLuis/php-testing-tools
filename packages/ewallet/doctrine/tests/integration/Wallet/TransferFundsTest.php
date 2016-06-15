@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,13 +8,13 @@ namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Doctrine2\Application\Services\DoctrineSession;
-use Ewallet\Fakes\FakeNotifier;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 use Exception;
 use Mockery;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
+use RuntimeException;
 
 class TransferFundsTest extends TestCase
 {
@@ -31,7 +31,7 @@ class TransferFundsTest extends TestCase
     }
 
     /** @test */
-    function it_should_transfer_funds_between_members()
+    function it_transfers_funds_between_members()
     {
         Fixtures::load(
             __DIR__ . '/../../fixtures/members.yml',
@@ -62,7 +62,7 @@ class TransferFundsTest extends TestCase
     }
 
     /** @test */
-    function it_should_rollback_an_incomplete_transfer()
+    function it_rollbacks_an_incomplete_transfer()
     {
         Fixtures::load(
             __DIR__ . '/../../fixtures/members.yml',
@@ -73,10 +73,13 @@ class TransferFundsTest extends TestCase
         $members = $this->entityManager->getRepository(Member::class);
 
         $useCase = new TransferFundsTransactionally($members);
-        $useCase->setTransactionalSession(
-            new DoctrineSession($this->entityManager)
-        );
-        $useCase->attach(new FakeNotifier()); // Throw exception before completing transfer
+        $useCase->setTransactionalSession(new DoctrineSession($this->entityManager));
+        $useCase->attach(new class() implements TransferFundsNotifier {
+            public function transferCompleted(TransferFundsResult $result)
+            {
+                throw new RuntimeException("Transfer failed.");
+            }
+        });
 
         try {
             $useCase->transfer($request = TransferFundsInformation::from([

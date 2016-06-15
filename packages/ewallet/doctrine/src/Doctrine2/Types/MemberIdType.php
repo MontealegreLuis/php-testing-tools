@@ -1,13 +1,12 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Doctrine2\Types;
 
-use Ewallet\Accounts\Identifier;
-use EWallet\Accounts\MemberId;
+use Ewallet\Accounts\{Identifier, MemberId};
 
 /**
  * UUID fields will be stored as a string in the database and converted back to
@@ -16,10 +15,10 @@ use EWallet\Accounts\MemberId;
 class MemberIdType extends UuidType
 {
     /**
-     * @param  string|null $value
+     * @param  string $value
      * @return Identifier
      */
-    public function identifier($value)
+    public function identifier(string $value): Identifier
     {
         return MemberId::with($value);
     }

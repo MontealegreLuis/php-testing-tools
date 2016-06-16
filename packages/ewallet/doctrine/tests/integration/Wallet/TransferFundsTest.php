@@ -8,6 +8,7 @@ namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Doctrine2\Application\Services\DoctrineSession;
+use Ewallet\Fixtures\ThreeMembersWithSameBalance;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Ewallet\TestHelpers\ProvidesDoctrineSetup;
 use Exception;
@@ -33,10 +34,8 @@ class TransferFundsTest extends TestCase
     /** @test */
     function it_transfers_funds_between_members()
     {
-        Fixtures::load(
-            __DIR__ . '/../../fixtures/members.yml',
-            $this->entityManager
-        );
+        $fixtures = new ThreeMembersWithSameBalance($this->entityManager);
+        $fixtures->load();
 
         /** @var Members $members */
         $members = $this->entityManager->getRepository(Member::class);
@@ -64,10 +63,8 @@ class TransferFundsTest extends TestCase
     /** @test */
     function it_rollbacks_an_incomplete_transfer()
     {
-        Fixtures::load(
-            __DIR__ . '/../../fixtures/members.yml',
-            $this->entityManager
-        );
+        $fixtures = new ThreeMembersWithSameBalance($this->entityManager);
+        $fixtures->load();
 
         /** @var Members $members */
         $members = $this->entityManager->getRepository(Member::class);

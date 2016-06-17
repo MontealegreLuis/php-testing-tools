@@ -28,6 +28,14 @@ compose:
 	@source containers/.env.sh; rm -f applications/messaging/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD:$$RABBIT_MQ_HOST'; envsubst "$$CONTAINER_VARS" < "containers/messaging/templates/.env.template" > "applications/messaging/.env";
 	@cp containers/messaging/templates/php.ini containers/messaging/config/php.ini
 	@cp containers/messaging/templates/messaging-cron containers/messaging/config/messaging-cron
+	@echo "Copying shared database configuration files.."
+	@cp containers/templates/cli-config.php applications/console/cli-config.php
+	@cp containers/templates/cli-config.php applications/dev/cli-config.php
+	@cp containers/templates/cli-config.php applications/messaging/cli-config.php
+	@cp containers/templates/cli-config.php applications/web/cli-config.php
+	@cp containers/templates/cli-config.php packages/ewallet/doctrine/cli-config.php
+	@cp containers/templates/cli-config.php packages/ewallet/responder/cli-config.php
+	@cp containers/templates/cli-config.php packages/hexagonal/doctrine/cli-config.php
 	@echo "Building containers..."
 	@docker-compose -f containers/docker-compose.yml up -d
 

@@ -4,15 +4,23 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\TestHelpers;
+namespace Ewallet\Doctrine2;
 
 use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\{EntityManager, Tools\Setup};
+use Doctrine\ORM\{EntityManager, EntityManagerInterface, Tools\Setup};
 
 trait ProvidesDoctrineSetup
 {
-    /** @var EntityManager */
+    /** @var EntityManagerInterface */
     protected $entityManager;
+
+    /**
+     * @return EntityManagerInterface
+     */
+    public function entityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
+    }
 
     /**
      * Setup XML mapping configuration
@@ -21,7 +29,7 @@ trait ProvidesDoctrineSetup
      *
      * @param array $options
      */
-    protected function _setUpDoctrine(array $options)
+    public function _setUpDoctrine(array $options)
     {
         $configuration = Setup::createXMLMetadataConfiguration(
             $options['doctrine']['mapping_dirs'],

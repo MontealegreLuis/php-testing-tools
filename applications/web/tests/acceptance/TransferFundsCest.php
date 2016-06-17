@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\{Accounts\Member, TestHelpers\ProvidesDoctrineSetup};
+use Ewallet\{Accounts\Member, Doctrine2\ProvidesDoctrineSetup};
 use Page\TransferFundsPage;
 use Nelmio\Alice\Fixtures;
 

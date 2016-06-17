@@ -14,7 +14,7 @@ use Symfony\Component\Console\{
     Input\InputInterface,
     Output\OutputInterface
 };
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class SeedDatabaseCommand extends Command
 {

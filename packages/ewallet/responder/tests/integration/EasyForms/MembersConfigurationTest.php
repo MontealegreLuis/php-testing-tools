@@ -9,7 +9,7 @@ namespace Ewallet\EasyForms;
 use Ewallet\Accounts\{MemberId, Member};
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class MembersConfigurationTest extends TestCase
 {

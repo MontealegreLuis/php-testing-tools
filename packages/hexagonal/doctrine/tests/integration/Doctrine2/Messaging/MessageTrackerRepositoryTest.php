@@ -8,7 +8,7 @@ namespace Hexagonal\Doctrine2\Messaging;
 
 use Hexagonal\ContractTests\Messaging\MessageTrackerTest;
 use Hexagonal\Messaging\{MessageTracker, PublishedMessage};
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest
 {

@@ -25,7 +25,7 @@ use Symfony\Component\Console\{
     Output\OutputInterface,
     Question\Question
 };
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class TransferFundsCommandTest extends TestCase
 {

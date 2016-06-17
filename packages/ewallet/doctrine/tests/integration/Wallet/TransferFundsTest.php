@@ -8,9 +8,9 @@ namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
 use Ewallet\Doctrine2\Application\Services\DoctrineSession;
-use Ewallet\Fixtures\ThreeMembersWithSameBalance;
+use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Exception;
 use Mockery;
 use Nelmio\Alice\Fixtures;
@@ -34,7 +34,7 @@ class TransferFundsTest extends TestCase
     /** @test */
     function it_transfers_funds_between_members()
     {
-        $fixtures = new ThreeMembersWithSameBalance($this->entityManager);
+        $fixtures = new ThreeMembersWithSameBalanceFixture($this->entityManager);
         $fixtures->load();
 
         /** @var Members $members */
@@ -63,7 +63,7 @@ class TransferFundsTest extends TestCase
     /** @test */
     function it_rollbacks_an_incomplete_transfer()
     {
-        $fixtures = new ThreeMembersWithSameBalance($this->entityManager);
+        $fixtures = new ThreeMembersWithSameBalanceFixture($this->entityManager);
         $fixtures->load();
 
         /** @var Members $members */

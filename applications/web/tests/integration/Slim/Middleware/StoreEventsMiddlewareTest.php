@@ -14,7 +14,7 @@ use Hexagonal\DomainEvents\{
 use PHPUnit_Framework_TestCase as TestCase;
 use SplObjectStorage;
 use Slim\{Environment, Slim};
-use Ewallet\TestHelpers\ProvidesDoctrineSetup;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class StoreEventsMiddlewareTest extends TestCase
 {

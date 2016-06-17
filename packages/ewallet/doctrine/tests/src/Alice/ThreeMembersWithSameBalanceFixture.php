@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Fixtures;
+namespace Ewallet\Alice;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Nelmio\Alice\Fixtures;
@@ -13,7 +13,7 @@ use Nelmio\Alice\Fixtures;
  * Fixture with 3 members, one with predefined information, 2 random. All of
  * them have a balance of $1000.00 MXN
  */
-class ThreeMembersWithSameBalance
+class ThreeMembersWithSameBalanceFixture
 {
     /** @var ObjectManager */
     private $objectManager;

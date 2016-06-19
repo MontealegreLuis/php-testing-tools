@@ -7,14 +7,14 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\Member;
-use Ewallet\Wallet\TransferFunds;
+use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Actions\TransferFundsAction;
 use Ewallet\Responders\TransferFundsConsoleResponder;
+use Ewallet\Wallet\TransferFunds;
 use Ewallet\Zf2\InputFilter\{
     Filters\TransferFundsFilter, TransferFundsInputFilterRequest
 };
 use Ewallet\Presenters\MemberFormatter;
-use Ewallet\Fakes\Symfony\Console\FakeQuestionHelper;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\{
@@ -44,10 +44,8 @@ class TransferFundsCommandTest extends TestCase
     /** @test */
     function it_transfers_funds_between_members()
     {
-        Fixtures::load(
-            __DIR__ . '/../../../fixtures/members.yml',
-            $this->entityManager
-        );
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture->load();
         $useCase = new TransferFunds(
             $members = $this->entityManager->getRepository(Member::class)
         );

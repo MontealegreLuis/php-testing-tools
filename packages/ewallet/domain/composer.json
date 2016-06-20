@@ -26,10 +26,6 @@
         {
             "type": "path",
             "url": "../../hexagonal/hexagonal"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/MontealegreLuis/eris"
         }
     ],
     "require": {
@@ -40,8 +36,8 @@
     "require-dev": {
         "behat/behat": "^3.0",
         "phpspec/phpspec": "^2.2",
-        "phpunit/phpunit": "^4.7",
-        "giorgiosironi/eris": "0.6.0 as 0.5.0",
+        "phpunit/phpunit": "^5.4",
+        "giorgiosironi/eris": "^0.8",
         "fzaninotto/faker": "^1.5"
     }
 }

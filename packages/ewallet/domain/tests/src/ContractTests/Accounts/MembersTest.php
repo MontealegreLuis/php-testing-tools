@@ -19,7 +19,7 @@ abstract class MembersTest extends TestCase
     /** @var Members */
     protected $members;
 
-    /** @var Member */
+    /** @var \Ewallet\Accounts\Member */
     protected $existingMember;
 
     /**
@@ -41,7 +41,7 @@ abstract class MembersTest extends TestCase
     }
 
     /** @test */
-    function it_should_find_a_registered_member()
+    function it_finds_a_registered_member()
     {
         $member = $this->members->with(MemberId::with('abcd'));
 
@@ -55,13 +55,13 @@ abstract class MembersTest extends TestCase
      * @test
      * @expectedException \Ewallet\Accounts\UnknownMember
      */
-    function it_should_not_find_a_non_existing_member()
+    function it_does_not_find_a_non_existing_member()
     {
         $this->members->with(MemberId::with('lmno'));
     }
 
     /** @test */
-    function it_should_update_the_information_of_a_registered_member()
+    function it_updates_the_information_of_a_registered_member()
     {
         $member = $this->members->with(MemberId::with('wxyz'));
         $member->transfer(Money::MXN(500), $this->existingMember);

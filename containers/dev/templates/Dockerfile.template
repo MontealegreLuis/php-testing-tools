@@ -41,7 +41,7 @@ RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
 RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer && rm -rf /tmp/composer-setup.php
 
 # Copy Composer's Github token
-COPY ./config/auth.json /home/${DEV_USER}/.composer/
+COPY ./config/auth.json /composer/
 
 RUN composer --version
 

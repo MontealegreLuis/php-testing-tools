@@ -15,14 +15,14 @@ class AccountSpec extends ObjectBehavior
 {
     use ProvidesMoneyMatcher;
 
-    function it_should_be_created_with_a_specific_balance()
+    function it_can_be_created_with_a_specific_balance()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 
         $this->information()->balance()->shouldAmount(3000);
     }
 
-    function it_should_increase_balance_after_a_deposit()
+    function it_increases_its_balance_after_a_deposit()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 
@@ -31,7 +31,7 @@ class AccountSpec extends ObjectBehavior
         $this->information()->balance()->shouldAmount(3500);
     }
 
-    function it_should_decrease_balance_after_a_withdrawal()
+    function it_decreases_its_balance_after_a_withdrawal()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 
@@ -40,7 +40,7 @@ class AccountSpec extends ObjectBehavior
         $this->information()->balance()->shouldAmount(2500);
     }
 
-    function it_should_not_allow_withdrawing_more_than_the_current_balance()
+    function it_does_not_allow_withdrawing_more_than_the_current_balance()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 

@@ -4,13 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Behat\Behat\Context\Context;
-use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Context\{Context, SnippetAcceptingContext};
 use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
-use Ewallet\Wallet\Accounts\InMemoryMembers;
-use Ewallet\Wallet\TransferFunds;
-use Ewallet\Wallet\TransferFundsInformation;
+use Ewallet\Wallet\{Accounts\InMemoryMembers, TransferFunds, TransferFundsInformation};
 
 /**
  * Defines application features from the specific context.

@@ -12,13 +12,13 @@ use PhpSpec\ObjectBehavior;
 
 class MemberIdSpec extends ObjectBehavior
 {
-    function it_should_be_created_from_a_string()
+    function it_can_be_created_from_a_string()
     {
         $this->beConstructedThrough('with', ['abcd']);
         $this->value()->shouldBe('abcd');
     }
 
-    function it_should_not_be_created_from_an_empty_string()
+    function it_cannot_be_created_from_an_empty_string()
     {
         $this->beConstructedThrough('with', ['']);
         $this
@@ -27,13 +27,13 @@ class MemberIdSpec extends ObjectBehavior
         ;
     }
 
-    function it_should_know_when_it_is_equal_to_another_id()
+    function it_knows_when_it_is_equal_to_another_id()
     {
         $this->beConstructedThrough('with', ['abcd']);
         $this->equals(MemberId::with('abcd'))->shouldBe(true);
     }
 
-    function it_should_be_casted_to_string()
+    function it_can_be_converted_to_string()
     {
         $this->beConstructedThrough('with', ['abcd']);
         $this->__toString()->shouldBe('abcd');

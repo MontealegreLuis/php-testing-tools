@@ -11,7 +11,7 @@ use PhpSpec\ObjectBehavior;
 
 class EmailSpec extends ObjectBehavior
 {
-    function it_should_throw_exception_if_an_invalid_email_address_is_provided()
+    function it_throws_exception_if_an_invalid_email_address_is_provided()
     {
         $this->beConstructedWith('invalid email address');
         $this
@@ -20,7 +20,7 @@ class EmailSpec extends ObjectBehavior
         ;
     }
 
-    function it_should_have_access_to_its_address()
+    function it_has_access_to_its_address()
     {
         $this->beConstructedWith('montealegreluis@gmail.com');
         $this->address()->shouldBe('montealegreluis@gmail.com');

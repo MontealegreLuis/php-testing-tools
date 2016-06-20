@@ -4,11 +4,8 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\{
-    Accounts\Member,
-    Wallet\TransferFundsNotifier,
-    Wallet\TransferFundsResult
-};
+use Ewallet\Accounts\Member;
+use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsResult};
 use Money\Money;
 use PHPUnit_Framework_Assert as Assertion;
 

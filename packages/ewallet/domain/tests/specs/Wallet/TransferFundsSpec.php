@@ -9,9 +9,7 @@ namespace specs\Ewallet\Wallet;
 use Ewallet\Accounts\Members;
 use Ewallet\DataBuilders\A;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
-use Ewallet\Wallet\TransferFundsNotifier;
-use Ewallet\Wallet\TransferFundsInformation;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsInformation, TransferFundsResult};
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -19,7 +17,7 @@ class TransferFundsSpec extends ObjectBehavior
 {
     use ProvidesMoneyMatcher;
 
-    function it_should_transfer_funds_between_accounts(
+    function it_transfers_funds_between_accounts(
         Members $members,
         TransferFundsNotifier $notifier
     ) {

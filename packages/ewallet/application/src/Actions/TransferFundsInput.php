@@ -13,7 +13,7 @@ namespace Ewallet\Actions;
  * @see \Ewallet\ContractTests\TransferFundsRequestTest in order to know the
  * details about the rules that the input must satisfy.
  */
-interface TransferFundsRequest
+interface TransferFundsInput
 {
     /**
      * @param array $rawInput

@@ -79,27 +79,27 @@ class TransferFundsActionTest extends TestCase
     /**
      * @param string $fromMemberId
      * @param string $toMemberId
-     * @return TransferFundsRequest
+     * @return TransferFundsInput
      */
     private function givenThatNoAmountIsProvided(
         string $fromMemberId,
         string $toMemberId
-    ): TransferFundsRequest
+    ): TransferFundsInput
     {
-        $request = Mockery::mock(TransferFundsRequest::class);
-        $request
+        $input = Mockery::mock(TransferFundsInput::class);
+        $input
             ->shouldReceive('isValid')
             ->once()
             ->andReturn(false)
         ;
-        $request
+        $input
             ->shouldReceive('errorMessages')
             ->once()
             ->andReturn([
                 'amount' => 'No amount was provided',
             ])
         ;
-        $request
+        $input
             ->shouldReceive('values')
             ->once()
             ->andReturn([
@@ -108,7 +108,7 @@ class TransferFundsActionTest extends TestCase
             ])
         ;
 
-        return $request;
+        return $input;
     }
 
     /**
@@ -121,15 +121,15 @@ class TransferFundsActionTest extends TestCase
         string $fromMemberId,
         string $toMemberId,
         int $amount
-    ): TransferFundsRequest
+    ): TransferFundsInput
     {
-        $request = Mockery::mock(TransferFundsRequest::class);
-        $request
+        $input = Mockery::mock(TransferFundsInput::class);
+        $input
             ->shouldReceive('isValid')
             ->once()
             ->andReturn(true)
         ;
-        $request
+        $input
             ->shouldReceive('values')
             ->once()
             ->andReturn([
@@ -138,7 +138,7 @@ class TransferFundsActionTest extends TestCase
                 'amount' => $amount
             ])
         ;
-        return $request;
+        return $input;
     }
 
     /**

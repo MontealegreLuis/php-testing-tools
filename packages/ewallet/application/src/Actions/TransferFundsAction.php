@@ -52,25 +52,25 @@ class TransferFundsAction implements TransferFundsNotifier
     }
 
     /**
-     * @param TransferFundsRequest $request
+     * @param TransferFundsInput $input
      */
-    public function transfer(TransferFundsRequest $request)
+    public function transfer(TransferFundsInput $input)
     {
-        if (!$request->isValid()) {
-            $this->validationFailedFor($request);
+        if (!$input->isValid()) {
+            $this->validationFailedFor($input);
         } else {
-            $this->useCase->transfer(TransferFundsInformation::from($request->values()));
+            $this->useCase->transfer(TransferFundsInformation::from($input->values()));
         }
     }
 
     /**
-     * @param TransferFundsRequest $request
+     * @param TransferFundsInput $input
      */
-    private function validationFailedFor(TransferFundsRequest $request)
+    private function validationFailedFor(TransferFundsInput $input)
     {
         $this->responder->respondToInvalidTransferInput(
-            $request->errorMessages(),
-            $request->values()
+            $input->errorMessages(),
+            $input->values()
         );
     }
 

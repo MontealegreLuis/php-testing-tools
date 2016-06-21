@@ -13,10 +13,7 @@ use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Ewallet\Presenters\MemberFormatter;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Wallet\TransferFunds;
-use Ewallet\Zf2\InputFilter\{
-    Filters\TransferFundsFilter, TransferFundsInputFilterRequest
-};
-use Nelmio\Alice\Fixtures;
+use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\{
     Helper\QuestionHelper,
@@ -71,7 +68,7 @@ class TransferFundsCommandTest extends TestCase
         );
         $command = new TransferFundsCommand(
             $action,
-            new TransferFundsInputFilterRequest(
+            new TransferFundsInputFilter(
                 new TransferFundsFilter(),
                 $members
             )

@@ -7,20 +7,20 @@
 namespace Ewallet\Actions;
 
 use Ewallet\Accounts\MembersRepository;
-use Ewallet\ContractTests\TransferFundsRequestTest;
+use Ewallet\ContractTests\TransferFundsInputTest;
 use Ewallet\DataBuilders\A;
 use Ewallet\Zf2\InputFilter\{
     Filters\TransferFundsFilter,
-    TransferFundsInputFilterRequest
+    TransferFundsInputFilter
 };
 use Mockery;
 
-class TransferFundsInputFilterRequestTest extends TransferFundsRequestTest
+class TransferFundsInputFilterTest extends TransferFundsInputTest
 {
     /**
      * @before
      */
-    function requestInstance()
+    function inputInstance()
     {
         $members = Mockery::mock(MembersRepository::class);
         $members
@@ -30,7 +30,7 @@ class TransferFundsInputFilterRequestTest extends TransferFundsRequestTest
                 A::member()->withId('xyz')->build()
             ])
         ;
-        $this->request = new TransferFundsInputFilterRequest(
+        $this->input = new TransferFundsInputFilter(
             new TransferFundsFilter(),
             $members
         );

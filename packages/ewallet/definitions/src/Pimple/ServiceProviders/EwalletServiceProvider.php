@@ -13,7 +13,7 @@ use Ewallet\Listeners\LogTransferWasMadeSubscriber;
 use Ewallet\Presenters\MemberFormatter;
 use Ewallet\Twig\{Extensions\EwalletExtension, TwigTemplateEngine};
 use Ewallet\Wallet\TransferFundsTransactionally;
-use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilterRequest};
+use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\{
     EventPublisher,
@@ -43,7 +43,7 @@ class EwalletServiceProvider implements ServiceProviderInterface
             );
         };
         $container['ewallet.transfer_filter_request'] = function () use ($container) {
-            return new TransferFundsInputFilterRequest(
+            return new TransferFundsInputFilter(
                 new TransferFundsFilter(),
                 $container['ewallet.member_repository']
             );

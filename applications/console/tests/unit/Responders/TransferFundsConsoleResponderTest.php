@@ -7,7 +7,7 @@
 namespace Ewallet\Responders;
 
 use Ewallet\Accounts\{MemberId, MembersRepository};
-use Ewallet\Actions\{TransferFundsAction, TransferFundsRequest};
+use Ewallet\Actions\{TransferFundsAction, TransferFundsInput};
 use Ewallet\DataBuilders\A;
 use Ewallet\Presenters\MemberFormatter;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
@@ -70,7 +70,7 @@ class TransferFundsConsoleResponderTest extends TestCase
         ;
         $definition = (new TransferFundsCommand(
             Mockery::mock(TransferFundsAction::class),
-            Mockery::mock(TransferFundsRequest::class)
+            Mockery::mock(TransferFundsInput::class)
         ))->getDefinition();
         $responder = new TransferFundsConsoleResponder(
             $input = new ArrayInput([], $definition),

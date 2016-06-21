@@ -8,9 +8,9 @@ namespace Ewallet\Zf2\InputFilter;
 
 use Ewallet\Accounts\{MemberId, MembersRepository};
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
-use Ewallet\Actions\TransferFundsRequest;
+use Ewallet\Actions\TransferFundsInput;
 
-class TransferFundsInputFilterRequest implements TransferFundsRequest
+class TransferFundsInputFilter implements TransferFundsInput
 {
     /** @var TransferFundsFilter */
     private $filter;

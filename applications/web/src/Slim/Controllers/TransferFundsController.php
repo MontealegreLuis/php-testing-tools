@@ -7,7 +7,7 @@
 namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Actions\{TransferFundsRequest, TransferFundsAction};
+use Ewallet\Actions\{TransferFundsInput, TransferFundsAction};
 use Slim\Http\Request;
 
 class TransferFundsController
@@ -15,19 +15,19 @@ class TransferFundsController
     /** @var TransferFundsAction */
     private $action;
 
-    /** @var TransferFundsRequest */
-    private $request;
+    /** @var TransferFundsInput */
+    private $input;
 
     /**
      * @param TransferFundsAction $action
-     * @param TransferFundsRequest $request Only required when transfer is performed
+     * @param TransferFundsInput $input Only required when transfer is performed
      */
     public function __construct(
         TransferFundsAction $action,
-        TransferFundsRequest $request = null
+        TransferFundsInput $input = null
     ) {
         $this->action = $action;
-        $this->request = $request;
+        $this->input = $input;
     }
 
     /**
@@ -47,8 +47,8 @@ class TransferFundsController
      */
     public function transfer(Request $request)
     {
-        $this->request->populate($request->post());
-        $this->action->transfer($this->request);
+        $this->input->populate($request->post());
+        $this->action->transfer($this->input);
 
         $this->renderResponseBody();
     }

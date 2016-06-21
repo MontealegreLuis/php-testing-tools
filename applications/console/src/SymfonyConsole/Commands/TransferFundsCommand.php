@@ -7,7 +7,7 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Actions\{TransferFundsRequest, TransferFundsAction};
+use Ewallet\Actions\{TransferFundsInput, TransferFundsAction};
 use Symfony\Component\Console\{
     Command\Command,
     Input\InputArgument,
@@ -20,20 +20,20 @@ class TransferFundsCommand extends Command
     /** @var TransferFundsAction */
     private $action;
 
-    /** @var TransferFundsRequest */
-    private $request;
+    /** @var TransferFundsInput */
+    private $input;
 
     /**
      * @param TransferFundsAction $transferFunds
-     * @param TransferFundsRequest $request
+     * @param TransferFundsInput $input
      */
     public function __construct(
         TransferFundsAction $transferFunds,
-        TransferFundsRequest $request
+        TransferFundsInput $input
     ) {
         parent::__construct();
         $this->action = $transferFunds;
-        $this->request = $request;
+        $this->input = $input;
     }
 
     /**
@@ -72,7 +72,7 @@ class TransferFundsCommand extends Command
         $fromMemberId = MemberId::with('ABC');
         $input->setArgument('fromMemberId', (string) $fromMemberId);
         $this->action->enterTransferInformation($fromMemberId);
-        $this->request->populate($input->getArguments());
-        $this->action->transfer($this->request);
+        $this->input->populate($input->getArguments());
+        $this->action->transfer($this->input);
     }
 }

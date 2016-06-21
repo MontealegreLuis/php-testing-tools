@@ -20,12 +20,12 @@ class EwalletWebContainer extends Container
     /**
      * Add service providers and application options.
      *
-     * @param array $values
+     * @param array $arguments
      * @param Slim $app
      */
-    public function __construct(array $values = [], Slim $app)
+    public function __construct(array $arguments = [], Slim $app)
     {
-        parent::__construct($values);
+        parent::__construct($arguments);
         $this->register(new DoctrineServiceProvider());
         $this->register(new TwigServiceProvider());
         $this->register(new FormsServiceProvider());

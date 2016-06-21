@@ -9,12 +9,13 @@ namespace Ewallet\SymfonyConsole\Commands;
 use Ewallet\Accounts\Member;
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Actions\TransferFundsAction;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Ewallet\Presenters\MemberFormatter;
 use Ewallet\Responders\TransferFundsConsoleResponder;
 use Ewallet\Wallet\TransferFunds;
 use Ewallet\Zf2\InputFilter\{
     Filters\TransferFundsFilter, TransferFundsInputFilterRequest
 };
-use Ewallet\Presenters\MemberFormatter;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\{
@@ -25,7 +26,6 @@ use Symfony\Component\Console\{
     Output\OutputInterface,
     Question\Question
 };
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class TransferFundsCommandTest extends TestCase
 {
@@ -44,11 +44,9 @@ class TransferFundsCommandTest extends TestCase
     /** @test */
     function it_transfers_funds_between_members()
     {
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
-        $fixture->load();
-        $useCase = new TransferFunds(
-            $members = $this->entityManager->getRepository(Member::class)
-        );
+        (new ThreeMembersWithSameBalanceFixture($this->entityManager))->load();
+        $members = $this->entityManager->getRepository(Member::class);
+        $useCase = new TransferFunds($members);
         $input = new ArrayInput([]);
         $output = new BufferedOutput();
         $question =  new class() extends QuestionHelper {

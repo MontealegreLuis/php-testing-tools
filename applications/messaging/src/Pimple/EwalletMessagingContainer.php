@@ -19,11 +19,11 @@ class EwalletMessagingContainer extends Container
     /**
      * Add service providers and application options.
      *
-     * @param array $values
+     * @param array $arguments
      */
-    public function __construct(array $values = [])
+    public function __construct(array $arguments = [])
     {
-        parent::__construct($values);
+        parent::__construct($arguments);
         $this->register(new DoctrineServiceProvider());
         $this->register(new TwigServiceProvider());
         $this->register(new HexagonalServiceProvider());

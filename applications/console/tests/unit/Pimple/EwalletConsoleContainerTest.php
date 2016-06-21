@@ -21,8 +21,8 @@ class EwalletConsoleContainerTest extends TestCase
     function it_creates_the_console_application_services()
     {
         (new Dotenv(__DIR__ . '/../../../', '.env.tests'))->load();
-        $options = require __DIR__ . '/../../../config.tests.php';
-        $container = new EwalletConsoleContainer($options);
+        $arguments = require __DIR__ . '/../../../config.tests.php';
+        $container = new EwalletConsoleContainer($arguments);
 
         $this->assertInstanceOf(
             ArgvInput::class,

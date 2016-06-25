@@ -43,7 +43,7 @@ The only key that you need to modify in the new file `containers/.env.sh` is
 Once you have everything configured, run this command:
 
 ```bash
-$ make compose
+$ make containers
 ```
 
 ## Usage

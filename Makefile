@@ -11,23 +11,23 @@ compose:
 	@echo "Generating docker-compose.yml..."
 	@source containers/.env.sh; rm -f containers/docker-compose.yml; CONTAINER_VARS='$$CONTAINERS_PREFIX:$$MYSQL_ROOT_PASSWORD:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_DATABASE:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD'; envsubst "$$CONTAINER_VARS" < "containers/templates/docker-compose.yml.template" > "containers/docker-compose.yml";
 	@echo "Generating configuration for the 'dev' image/container/application..."
-	@source containers/.env.sh; rm -f containers/dev/Dockerfile; CONTAINER_VARS='$$DEV_USER_ID:$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/Dockerfile.template" > "containers/dev/Dockerfile";
-	@source containers/.env.sh; rm -f containers/dev/config/group.sh; CONTAINER_VARS='$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/group.sh.template" > "containers/dev/config/group.sh";
-	@source containers/.env.sh; rm -f containers/dev/config/.bashrc; CONTAINER_VARS='$$DEV_HOSTNAME'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/.bashrc.template" > "containers/dev/config/.bashrc";
-	@source containers/.env.sh; rm -f containers/dev/config/auth.json; CONTAINER_VARS='$$GITHUB_TOKEN'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/auth.json.template" > "containers/dev/config/auth.json";
-	@source containers/.env.sh; rm -f applications/dev/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/dev/templates/.env.template" > "applications/dev/.env";
-	@cp containers/dev/templates/php.ini containers/dev/config/php.ini
+	@source containers/.env.sh; rm -f containers/images/dev/Dockerfile; CONTAINER_VARS='$$DEV_USER_ID:$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/images/dev/templates/Dockerfile.template" > "containers/images/dev/Dockerfile";
+	@source containers/.env.sh; rm -f containers/images/dev/config/group.sh; CONTAINER_VARS='$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/images/dev/templates/group.sh.template" > "containers/images/dev/config/group.sh";
+	@source containers/.env.sh; rm -f containers/images/dev/config/.bashrc; CONTAINER_VARS='$$DEV_HOSTNAME'; envsubst "$$CONTAINER_VARS" < "containers/images/dev/templates/.bashrc.template" > "containers/images/dev/config/.bashrc";
+	@source containers/.env.sh; rm -f containers/images/dev/config/auth.json; CONTAINER_VARS='$$GITHUB_TOKEN'; envsubst "$$CONTAINER_VARS" < "containers/images/dev/templates/auth.json.template" > "containers/images/dev/config/auth.json";
+	@source containers/.env.sh; rm -f applications/dev/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/dev/templates/.env.template" > "applications/dev/.env";
+	@cp containers/images/dev/templates/php.ini containers/images/dev/config/php.ini
 	@echo "Generating configuration for the 'web' image/container/application..."
-	@source containers/.env.sh; rm -f containers/web/config/entrypoint.sh; CONTAINER_VARS='$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/web/templates/entrypoint.sh.template" > "containers/web/config/entrypoint.sh";
-	@source containers/.env.sh; rm -f containers/web/config/ewallet.conf; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/web/templates/ewallet.conf.template" > "containers/web/config/ewallet.conf";
-	@cp containers/web/templates/php.ini containers/web/config/php.ini
+	@source containers/.env.sh; rm -f containers/images/web/config/entrypoint.sh; CONTAINER_VARS='$$DEV_GROUP_ID:$$DEV_USER'; envsubst "$$CONTAINER_VARS" < "containers/images/web/templates/entrypoint.sh.template" > "containers/images/web/config/entrypoint.sh";
+	@source containers/.env.sh; rm -f containers/images/web/config/ewallet.conf; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/web/templates/ewallet.conf.template" > "containers/images/web/config/ewallet.conf";
+	@cp containers/images/web/templates/php.ini containers/images/web/config/php.ini
 	@echo "Generating configuration for the 'console' image/container/application..."
-	@source containers/.env.sh; rm -f applications/console/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/console/templates/.env.template" > "applications/console/.env";
-	@cp containers/console/templates/php.ini containers/console/config/php.ini
+	@source containers/.env.sh; rm -f applications/console/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/console/templates/.env.template" > "applications/console/.env";
+	@cp containers/images/console/templates/php.ini containers/images/console/config/php.ini
 	@echo "Generating configuration for the 'messaging' image/container/application..."
-	@source containers/.env.sh; rm -f applications/messaging/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD:$$RABBIT_MQ_HOST'; envsubst "$$CONTAINER_VARS" < "containers/messaging/templates/.env.template" > "applications/messaging/.env";
-	@cp containers/messaging/templates/php.ini containers/messaging/config/php.ini
-	@cp containers/messaging/templates/messaging-cron containers/messaging/config/messaging-cron
+	@source containers/.env.sh; rm -f applications/messaging/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD:$$RABBIT_MQ_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/messaging/templates/.env.template" > "applications/messaging/.env";
+	@cp containers/images/messaging/templates/php.ini containers/images/messaging/config/php.ini
+	@cp containers/images/messaging/templates/messaging-cron containers/images/messaging/config/messaging-cron
 	@echo "Copying shared database configuration files.."
 	@cp containers/templates/cli-config.php applications/console/cli-config.php
 	@cp containers/templates/cli-config.php applications/dev/cli-config.php

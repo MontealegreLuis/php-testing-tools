@@ -4,7 +4,7 @@ services:
   dev:
     container_name: ${CONTAINERS_PREFIX}_dev
     build:
-      context: ./dev
+      context: ./images/dev
     image: ${CONTAINERS_PREFIX}/dev
     ports:
       - "8000:8000"
@@ -15,7 +15,7 @@ services:
   web:
     container_name: ${CONTAINERS_PREFIX}_web
     build:
-      context: ./web
+      context: ./images/web
     image: ${CONTAINERS_PREFIX}/web
     ports:
       - "80:80"
@@ -26,7 +26,7 @@ services:
   console:
     container_name: ${CONTAINERS_PREFIX}_console
     build:
-      context: ./console
+      context: ./images/console
     image: ${CONTAINERS_PREFIX}/console
     links:
       - db
@@ -35,7 +35,7 @@ services:
   messaging:
     container_name: ${CONTAINERS_PREFIX}_messaging
     build:
-      context: ./messaging
+      context: ./images/messaging
     image: ${CONTAINERS_PREFIX}/messaging
     links:
       - db
@@ -46,7 +46,7 @@ services:
   queue:
     container_name: ${CONTAINERS_PREFIX}_queue
     build:
-      context: ./queue
+      context: ./images/queue
     image: ${CONTAINERS_PREFIX}/queue
     ports:
       - "5674:5672"
@@ -56,19 +56,19 @@ services:
   mail:
     container_name: ${CONTAINERS_PREFIX}_mail
     build:
-      context: ./mail
+      context: ./images/mail
     image: ${CONTAINERS_PREFIX}/mail
     ports:
       - "8080:8080"
   data:
     container_name: ${CONTAINERS_PREFIX}_data
     build:
-      context: ./data
+      context: ./images/data
     image: ${CONTAINERS_PREFIX}/data
   db:
     container_name: ${CONTAINERS_PREFIX}_db
     build:
-      context: ./db
+      context: ./images/db
     image: ${CONTAINERS_PREFIX}/db
     volumes_from:
       - data

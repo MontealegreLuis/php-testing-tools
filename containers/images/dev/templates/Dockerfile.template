@@ -47,6 +47,9 @@ RUN composer --version
 
 RUN chown -R ${DEV_USER} /composer
 
+# Install MySQL's client
+RUN apt-get -y install mysql-client
+
 # Install PhantomJS
 RUN apt-get install -y libfreetype6 libfontconfig bzip2
 RUN apt-get install -y nodejs-legacy

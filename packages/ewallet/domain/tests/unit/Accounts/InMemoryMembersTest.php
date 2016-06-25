@@ -4,9 +4,8 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Wallet\Accounts;
+namespace Ewallet\Accounts;
 
-use Ewallet\Accounts\Members;
 use Ewallet\ContractTests\Accounts\MembersTest;
 
 class InMemoryMembersTest extends MembersTest

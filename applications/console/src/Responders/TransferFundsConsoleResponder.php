@@ -7,7 +7,7 @@
 namespace Ewallet\Responders;
 
 use Ewallet\Accounts\{MemberId, Member, MemberInformation, MembersRepository};
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsSummary;
 use Ewallet\Presenters\MemberFormatter;
 use Symfony\Component\Console\{
     Helper\QuestionHelper,
@@ -108,13 +108,13 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     }
 
     /**
-     * @param TransferFundsResult $result
+     * @param TransferFundsSummary $summary
      */
-    public function respondToTransferCompleted(TransferFundsResult $result)
+    public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
         $this->output->writeln('<info>Transfer completed successfully!</info>');
-        $this->printStatement($result->fromMember());
-        $this->printStatement($result->toMember());
+        $this->printStatement($summary->fromMember());
+        $this->printStatement($summary->toMember());
     }
 
     /**

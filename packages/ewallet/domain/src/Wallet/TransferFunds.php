@@ -52,7 +52,7 @@ class TransferFunds
         $this->publisher()->publish($fromMember->events());
 
         $this->notifier()->transferCompleted(
-            new TransferFundsResult($fromMember, $toMember)
+            new TransferFundsSummary($fromMember, $toMember)
         );
     }
 

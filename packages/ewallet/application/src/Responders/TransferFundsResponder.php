@@ -6,14 +6,14 @@
  */
 namespace Ewallet\Responders;
 
-use Ewallet\{Accounts\MemberId, Wallet\TransferFundsResult};
+use Ewallet\{Accounts\MemberId, Wallet\TransferFundsSummary};
 
 interface TransferFundsResponder
 {
     /**
-     * @param TransferFundsResult $result
+     * @param TransferFundsSummary $summary
      */
-    public function respondToTransferCompleted(TransferFundsResult $result);
+    public function respondToTransferCompleted(TransferFundsSummary $summary);
 
     /**
      * @param array $messages

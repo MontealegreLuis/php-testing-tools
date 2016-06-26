@@ -11,7 +11,7 @@ use Ewallet\Actions\{TransferFundsAction, TransferFundsInput};
 use Ewallet\DataBuilders\A;
 use Ewallet\Presenters\MemberFormatter;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsSummary;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -113,7 +113,7 @@ class TransferFundsConsoleResponderTest extends TestCase
             new MemberFormatter()
         );
 
-        $responder->respondToTransferCompleted(new TransferFundsResult(
+        $responder->respondToTransferCompleted(new TransferFundsSummary(
             A::member()->withName('Luis Montealegre')->build(),
             A::member()->withName('Misraim Mendoza')->build()
         ));

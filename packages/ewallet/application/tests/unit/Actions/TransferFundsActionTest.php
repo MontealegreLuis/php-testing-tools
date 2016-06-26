@@ -6,14 +6,10 @@
  */
 namespace Ewallet\Actions;
 
-use Ewallet\{
-    DataBuilders\A,
-    Accounts\MemberId,
-    Wallet\Accounts\InMemoryMembers,
-    Wallet\TransferFunds,
-    Wallet\TransferFundsResult,
-    Responders\TransferFundsResponder
-};
+use Ewallet\DataBuilders\A;
+use Ewallet\Accounts\{MemberId, InMemoryMembers};
+use Ewallet\Wallet\{TransferFunds, TransferFundsSummary};
+use Ewallet\Responders\TransferFundsResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -51,7 +47,7 @@ class TransferFundsActionTest extends TestCase
         $responder
             ->shouldHaveReceived('respondToTransferCompleted')
             ->once()
-            ->with(Mockery::type(TransferFundsResult::class))
+            ->with(Mockery::type(TransferFundsSummary::class))
         ;
     }
 

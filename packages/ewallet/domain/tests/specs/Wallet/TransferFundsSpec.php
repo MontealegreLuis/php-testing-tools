@@ -9,7 +9,7 @@ namespace specs\Ewallet\Wallet;
 use Ewallet\Accounts\Members;
 use Ewallet\DataBuilders\A;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
-use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsInformation, TransferFundsResult};
+use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsInformation, TransferFundsSummary};
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -39,7 +39,7 @@ class TransferFundsSpec extends ObjectBehavior
         ]));
 
         $notifier
-            ->transferCompleted(Argument::type(TransferFundsResult::class))
+            ->transferCompleted(Argument::type(TransferFundsSummary::class))
             ->shouldHaveBeenCalled()
         ;
     }

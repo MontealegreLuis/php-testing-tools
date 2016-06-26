@@ -72,7 +72,7 @@ class TransferFundsTest extends TestCase
         $useCase = new TransferFundsTransactionally($members);
         $useCase->setTransactionalSession(new DoctrineSession($this->entityManager));
         $useCase->attach(new class() implements TransferFundsNotifier {
-            public function transferCompleted(TransferFundsResult $result)
+            public function transferCompleted(TransferFundsSummary $summary)
             {
                 throw new RuntimeException("Transfer failed.");
             }

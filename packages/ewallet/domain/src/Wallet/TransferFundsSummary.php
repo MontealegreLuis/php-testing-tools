@@ -8,7 +8,7 @@ namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\{Member, MemberInformation};
 
-class TransferFundsResult
+class TransferFundsSummary
 {
     /** @var Member */
     private $fromMember;

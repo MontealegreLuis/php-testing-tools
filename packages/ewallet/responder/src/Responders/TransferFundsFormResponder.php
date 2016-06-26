@@ -8,7 +8,7 @@ namespace Ewallet\Responders;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsSummary;
 use Ewallet\Responders\Web\{ResponseFactory, TransferFundsWebResponder};
 use Ewallet\Templating\TemplateEngine;
 use Psr\Http\Message\ResponseInterface;
@@ -49,16 +49,16 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
     }
 
     /**
-     * @param TransferFundsResult $result
+     * @param TransferFundsSummary $summary
      */
-    public function respondToTransferCompleted(TransferFundsResult $result)
+    public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
-        $this->form->configure($this->configuration, $result->fromMember()->id());
+        $this->form->configure($this->configuration, $summary->fromMember()->id());
 
         $html = $this->template->render('member/transfer-funds.html', [
             'form' => $this->form->buildView(),
-            'fromMember' => $result->fromMember(),
-            'toMember' => $result->toMember(),
+            'fromMember' => $summary->fromMember(),
+            'toMember' => $summary->toMember(),
         ]);
 
         $this->response = $this->factory->buildResponse($html);

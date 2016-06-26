@@ -6,14 +6,9 @@
  */
 namespace Ewallet\Actions;
 
-use Ewallet\{
-    Accounts\MemberId,
-    Responders\TransferFundsResponder,
-    Wallet\TransferFunds,
-    Wallet\TransferFundsNotifier,
-    Wallet\TransferFundsInformation,
-    Wallet\TransferFundsResult
-};
+use Ewallet\Accounts\MemberId;
+use Ewallet\Responders\TransferFundsResponder;
+use Ewallet\Wallet\{TransferFunds, TransferFundsNotifier, TransferFundsInformation, TransferFundsSummary};
 
 /**
  * This is a two steps action. First, the member making the transfer enters the
@@ -75,11 +70,11 @@ class TransferFundsAction implements TransferFundsNotifier
     }
 
     /**
-     * @param TransferFundsResult $result
+     * @param TransferFundsSummary $summary
      */
-    public function transferCompleted(TransferFundsResult $result)
+    public function transferCompleted(TransferFundsSummary $summary)
     {
-        $this->responder->respondToTransferCompleted($result);
+        $this->responder->respondToTransferCompleted($summary);
     }
 
     /**

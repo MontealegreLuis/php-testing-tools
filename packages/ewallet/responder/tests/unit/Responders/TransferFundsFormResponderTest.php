@@ -8,7 +8,7 @@ namespace Ewallet\Responders;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
-use Ewallet\Wallet\TransferFundsResult;
+use Ewallet\Wallet\TransferFundsSummary;
 use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
 use Ewallet\Templating\TemplateEngine;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
@@ -65,7 +65,7 @@ class TransferFundsFormResponderTest extends TestCase
             ->with(Mockery::type('string'), Mockery::type('array'))
             ->andReturn('')
         ;
-        $result = new TransferFundsResult(
+        $summary = new TransferFundsSummary(
             A::member()->build(),
             A::member()->build()
         );
@@ -73,7 +73,7 @@ class TransferFundsFormResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $responder->respondToTransferCompleted($result);
+        $responder->respondToTransferCompleted($summary);
 
         $this->assertEquals(200, $responder->response()->getStatusCode());
     }

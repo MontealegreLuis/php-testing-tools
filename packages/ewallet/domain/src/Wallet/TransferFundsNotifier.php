@@ -9,7 +9,7 @@ namespace Ewallet\Wallet;
 interface TransferFundsNotifier
 {
     /**
-     * @param TransferFundsResult $result
+     * @param TransferFundsSummary $summary
      */
-    public function transferCompleted(TransferFundsResult $result);
+    public function transferCompleted(TransferFundsSummary $summary);
 }

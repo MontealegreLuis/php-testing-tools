@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 use Ewallet\Accounts\Member;
-use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsResult};
+use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsSummary};
 use Money\Money;
 use PHPUnit_Framework_Assert as Assertion;
 
@@ -19,9 +19,9 @@ class MembersHelper implements TransferFundsNotifier
     /**
      * Record last event triggered
      *
-     * @param TransferFundsResult $result
+     * @param TransferFundsSummary $summary
      */
-    public function transferCompleted(TransferFundsResult $result)
+    public function transferCompleted(TransferFundsSummary $summary)
     {
         $this->lastEvent = self::TRANSFER_COMPLETED;
     }

@@ -30,10 +30,8 @@ if (getenv('ENV') == 'testing') {
     $options = require __DIR__ . '/config.php';
 }
 
-$setup = new class() {
-    use ProvidesDoctrineSetup;
-};
+$setup = new class() { use ProvidesDoctrineSetup; };
 $setup->_setUpDoctrine($options);
 
-return $setup->entityManager();
+return $setup->_entityManager();
 

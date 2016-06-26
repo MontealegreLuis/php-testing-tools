@@ -17,7 +17,7 @@ trait ProvidesDoctrineSetup
     /**
      * @return EntityManagerInterface
      */
-    public function entityManager(): EntityManagerInterface
+    public function _entityManager(): EntityManagerInterface
     {
         return $this->entityManager;
     }

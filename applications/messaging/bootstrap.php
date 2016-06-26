@@ -23,4 +23,4 @@ $setup = new class() {
 };
 $setup->_setUpDoctrine(require __DIR__ . '/config.php');
 
-return $setup->entityManager();
+return $setup->_entityManager();

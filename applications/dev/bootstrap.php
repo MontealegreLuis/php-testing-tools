@@ -18,9 +18,7 @@ $environment->required([
     'MYSQL_HOST'
 ]);
 
-$setup = new class() {
-    use ProvidesDoctrineSetup;
-};
+$setup = new class() { use ProvidesDoctrineSetup; };
 $setup->_setUpDoctrine(require __DIR__ . '/config.php');
 
-return $setup->entityManager();
+return $setup->_entityManager();

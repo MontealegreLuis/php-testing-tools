@@ -29,6 +29,6 @@
     ],
     "require": {
         "hexagonal/doctrine": "^1.0",
-        "videlalvaro/php-amqplib": "^2.6"
+        "php-amqplib/php-amqplib": "^2.6"
     }
 }

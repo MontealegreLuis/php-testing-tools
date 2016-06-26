@@ -691,17 +691,28 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/ewallet/application/",
-                "reference": null,
+                "url": "../../packages/ewallet/application",
+                "reference": "1d8251a7b004ebf7b329048e65d785221d0c129c",
                 "shasum": null
             },
             "require": {
-                "ewallet/domain": "^1.0"
+                "ewallet/domain": "^1.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.5",
+                "mockery/mockery": "^0.9",
+                "phpunit/phpunit": "^5.4"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Ewallet\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Ewallet\\": "vendor/ewallet/domain/tests/src"
                 }
             },
             "license": [
@@ -720,8 +731,8 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/ewallet/definitions/",
-                "reference": null,
+                "url": "../../packages/ewallet/definitions",
+                "reference": "e854e3d73c2d33f0d9faf143dbd997ec2f12b22f",
                 "shasum": null
             },
             "require": {
@@ -749,17 +760,18 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/ewallet/doctrine/",
-                "reference": null,
+                "url": "../../packages/ewallet/doctrine",
+                "reference": "348431c9815164b05a6982ca0d71647cbb9fd194",
                 "shasum": null
             },
             "require": {
                 "doctrine/orm": "^2.5",
-                "ewallet/domain": "^1.0"
+                "ewallet/application": "^1.0"
             },
             "require-dev": {
-                "fzaninotto/faker": "^1.5",
-                "phpunit/phpunit": "^4.7"
+                "mockery/mockery": "^0.9",
+                "nelmio/alice": "^2.0",
+                "phpunit/phpunit": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -791,8 +803,8 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/ewallet/domain/",
-                "reference": null,
+                "url": "../../packages/ewallet/domain",
+                "reference": "05b67af6e2059937ec1c24cf56024e4703787d12",
                 "shasum": null
             },
             "require": {
@@ -803,9 +815,9 @@
             "require-dev": {
                 "behat/behat": "^3.0",
                 "fzaninotto/faker": "^1.5",
-                "giorgiosironi/eris": "0.6.0 as 0.5.0",
+                "giorgiosironi/eris": "^0.8",
                 "phpspec/phpspec": "^2.2",
-                "phpunit/phpunit": "^4.7"
+                "phpunit/phpunit": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -834,8 +846,8 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/ewallet/templating/",
-                "reference": null,
+                "url": "../../packages/ewallet/templating",
+                "reference": "1601ade95ef6347fb7c11a29a45a811cc2848ea4",
                 "shasum": null
             },
             "require": {
@@ -843,8 +855,9 @@
                 "twig/twig": "^1.18"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.7"
+                "fzaninotto/faker": "^1.5",
+                "mockery/mockery": "^0.9",
+                "phpunit/phpunit": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -873,8 +886,8 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/hexagonal/doctrine/",
-                "reference": null,
+                "url": "../../packages/hexagonal/doctrine",
+                "reference": "922214881fb8ec79c36f6898e51a56217d2fc158",
                 "shasum": null
             },
             "require": {
@@ -885,8 +898,8 @@
             "require-dev": {
                 "ewallet/doctrine": "^1.0",
                 "fzaninotto/faker": "^1.5",
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.7"
+                "mockery/mockery": "^0.9",
+                "phpunit/phpunit": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -922,8 +935,8 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/hexagonal/hexagonal/",
-                "reference": null,
+                "url": "../../packages/hexagonal/hexagonal",
+                "reference": "3030a58444d3afff3c78eed0efb0d2714ec99da3",
                 "shasum": null
             },
             "type": "library",
@@ -953,13 +966,13 @@
             "version": "1.0",
             "dist": {
                 "type": "path",
-                "url": "../../packages/hexagonal/messaging/",
-                "reference": null,
+                "url": "../../packages/hexagonal/messaging",
+                "reference": "396cdb2540940a61e5702dd6c6be25e05cd7a76f",
                 "shasum": null
             },
             "require": {
                 "hexagonal/doctrine": "^1.0",
-                "videlalvaro/php-amqplib": "^2.6"
+                "php-amqplib/php-amqplib": "^2.6"
             },
             "type": "library",
             "autoload": {
@@ -1194,6 +1207,76 @@
             "time": "2016-01-16 22:03:46"
         },
         {
+            "name": "php-amqplib/php-amqplib",
+            "version": "v2.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-amqplib/php-amqplib.git",
+                "reference": "fa2f0d4410a11008cb36b379177291be7ee9e4f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/fa2f0d4410a11008cb36b379177291be7ee9e4f6",
+                "reference": "fa2f0d4410a11008cb36b379177291be7ee9e4f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "replace": {
+                "videlalvaro/php-amqplib": "self.version"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8",
+                "scrutinizer/ocular": "^1.1",
+                "squizlabs/php_codesniffer": "^2.5"
+            },
+            "suggest": {
+                "ext-sockets": "Use AMQPSocketConnection"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpAmqpLib\\": "PhpAmqpLib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Alvaro Videla",
+                    "role": "Original Maintainer"
+                },
+                {
+                    "name": "John Kelly",
+                    "email": "johnmkelly86@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Raúl Araya",
+                    "email": "nubeiro@gmail.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Formerly videlalvaro/php-amqplib.  This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
+            "homepage": "https://github.com/php-amqplib/php-amqplib/",
+            "keywords": [
+                "message",
+                "queue",
+                "rabbitmq"
+            ],
+            "time": "2016-04-11 14:30:01"
+        },
+        {
             "name": "phpcollection/phpcollection",
             "version": "0.4.0",
             "source": {
@@ -1340,6 +1423,44 @@
             "time": "2015-09-11 15:10:35"
         },
         {
+            "name": "psr/log",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
+        },
+        {
             "name": "symfony/console",
             "version": "v3.1.1",
             "source": {
@@ -1460,16 +1581,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3566d311a92aae4deec6e48682dc5a4528c4a512",
+                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512",
                 "shasum": ""
             },
             "require": {
@@ -1517,62 +1638,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-25 21:22:18"
-        },
-        {
-            "name": "videlalvaro/php-amqplib",
-            "version": "v2.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-amqplib/php-amqplib.git",
-                "reference": "8a6e89ad46130eb365b7f57d313f2a795f5e3269"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/8a6e89ad46130eb365b7f57d313f2a795f5e3269",
-                "reference": "8a6e89ad46130eb365b7f57d313f2a795f5e3269",
-                "shasum": ""
-            },
-            "require": {
-                "ext-bcmath": "*",
-                "ext-mbstring": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "suggest": {
-                "ext-sockets": "Use AMQPSocketConnection"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpAmqpLib\\": "PhpAmqpLib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Alvaro Videla"
-                }
-            ],
-            "description": "This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
-            "homepage": "https://github.com/videlalvaro/php-amqplib/",
-            "keywords": [
-                "message",
-                "queue",
-                "rabbitmq"
-            ],
-            "abandoned": "php-amqplib/php-amqplib",
-            "time": "2015-09-23 02:25:31"
+            "time": "2016-05-30 09:11:59"
         },
         {
             "name": "vlucas/phpdotenv",

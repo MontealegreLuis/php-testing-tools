@@ -7,6 +7,7 @@
 namespace Ewallet\EasyForms;
 
 use Ewallet\Accounts\{MemberId, Member};
+use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
@@ -28,10 +29,8 @@ class MembersConfigurationTest extends TestCase
     /** @test */
     function it_generates_options_excluding_the_member_transferring_funds()
     {
-        Fixtures::load(
-            __DIR__ . '/../../fixtures/members.yml',
-            $this->entityManager
-        );
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture->load();
 
         /** @var MembersRepository $members */
         $members = $this->entityManager->getRepository(Member::class);

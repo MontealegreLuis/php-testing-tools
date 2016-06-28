@@ -4,11 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Actions;
+namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\Responders\TransferFundsResponder;
-use Ewallet\Wallet\{TransferFunds, CanTransferFunds, TransferFundsInformation, TransferFundsSummary};
 
 /**
  * This is a two steps action. First, the member making the transfer enters the

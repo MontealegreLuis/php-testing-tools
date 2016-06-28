@@ -4,11 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Actions;
+namespace Ewallet\Wallet;
 
 use Ewallet\DataBuilders\A;
 use Ewallet\Accounts\{MemberId, InMemoryMembers};
-use Ewallet\Wallet\{TransferFunds, TransferFundsSummary};
 use Ewallet\Responders\TransferFundsResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;

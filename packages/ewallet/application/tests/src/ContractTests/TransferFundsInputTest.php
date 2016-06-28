@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ContractTests;
 
-use Ewallet\{Actions\TransferFundsInput, DataBuilders\A};
+use Ewallet\{Wallet\TransferFundsInput, DataBuilders\A};
 use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class TransferFundsInputTest extends TestCase

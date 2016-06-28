@@ -6,10 +6,8 @@
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Accounts\{MemberId, MembersRepository};
-use Ewallet\Actions\{TransferFundsAction, TransferFundsInput};
+use Ewallet\Accounts\{MemberId, MemberFormatter, MembersRepository};
 use Ewallet\DataBuilders\A;
-use Ewallet\Presenters\MemberFormatter;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;

@@ -6,8 +6,7 @@
  */
 namespace Ewallet\Wallet;
 
-use Ewallet\Accounts\{MemberId, Member, MemberInformation, MembersRepository};
-use Ewallet\Presenters\MemberFormatter;
+use Ewallet\Accounts\{MemberId, Member, MemberFormatter, MemberInformation, MembersRepository};
 use Symfony\Component\Console\{
     Helper\QuestionHelper,
     Helper\Table,

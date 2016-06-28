@@ -9,7 +9,7 @@ namespace specs\Ewallet\Wallet;
 use Ewallet\Accounts\Members;
 use Ewallet\DataBuilders\A;
 use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
-use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsInformation, TransferFundsSummary};
+use Ewallet\Wallet\{CanTransferFunds, TransferFundsInformation, TransferFundsSummary};
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -19,7 +19,7 @@ class TransferFundsSpec extends ObjectBehavior
 
     function it_transfers_funds_between_accounts(
         Members $members,
-        TransferFundsNotifier $notifier
+        CanTransferFunds $action
     ) {
         $fromMember = A::member()->withBalance(2000)->build();
         $toMember = A::member()->withBalance(1000)->build();
@@ -30,7 +30,7 @@ class TransferFundsSpec extends ObjectBehavior
         $members->update($toMember)->shouldBeCalled();
 
         $this->beConstructedWith($members);
-        $this->attach($notifier);
+        $this->attach($action);
 
         $this->transfer(TransferFundsInformation::from([
             'fromMemberId' => (string) $fromMember->information()->id(),
@@ -38,7 +38,7 @@ class TransferFundsSpec extends ObjectBehavior
             'amount' => 5,
         ]));
 
-        $notifier
+        $action
             ->transferCompleted(Argument::type(TransferFundsSummary::class))
             ->shouldHaveBeenCalled()
         ;

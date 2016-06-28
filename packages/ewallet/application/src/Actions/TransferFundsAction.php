@@ -8,7 +8,7 @@ namespace Ewallet\Actions;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\Responders\TransferFundsResponder;
-use Ewallet\Wallet\{TransferFunds, TransferFundsNotifier, TransferFundsInformation, TransferFundsSummary};
+use Ewallet\Wallet\{TransferFunds, CanTransferFunds, TransferFundsInformation, TransferFundsSummary};
 
 /**
  * This is a two steps action. First, the member making the transfer enters the
@@ -17,7 +17,7 @@ use Ewallet\Wallet\{TransferFunds, TransferFundsNotifier, TransferFundsInformati
  * appropriate feedback in order to fix the errors. Otherwise the transfer
  * completes.
  */
-class TransferFundsAction implements TransferFundsNotifier
+class TransferFundsAction implements CanTransferFunds
 {
     /** @var TransferFunds */
     private $useCase;

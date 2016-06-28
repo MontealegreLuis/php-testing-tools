@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Wallet;
 
-interface TransferFundsNotifier
+interface CanTransferFunds
 {
     /**
      * @param TransferFundsSummary $summary

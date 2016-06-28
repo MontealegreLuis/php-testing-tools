@@ -5,11 +5,11 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 use Ewallet\Accounts\Member;
-use Ewallet\Wallet\{TransferFundsNotifier, TransferFundsSummary};
+use Ewallet\Wallet\{CanTransferFunds, TransferFundsSummary};
 use Money\Money;
 use PHPUnit_Framework_Assert as Assertion;
 
-class MembersHelper implements TransferFundsNotifier
+class MembersHelper implements CanTransferFunds
 {
     const TRANSFER_COMPLETED = 1;
 

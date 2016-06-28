@@ -17,8 +17,8 @@ class TransferFunds
     /** @var Members */
     private $members;
 
-    /** @var TransferFundsNotifier */
-    private $notifier;
+    /** @var CanTransferFunds */
+    private $action;
 
     /**
      * @param Members $members
@@ -29,11 +29,11 @@ class TransferFunds
     }
 
     /**
-     * @param TransferFundsNotifier $notifier
+     * @param CanTransferFunds $action
      */
-    public function attach(TransferFundsNotifier $notifier)
+    public function attach(CanTransferFunds $action)
     {
-        $this->notifier = $notifier;
+        $this->action = $action;
     }
 
     /**
@@ -51,20 +51,20 @@ class TransferFunds
 
         $this->publisher()->publish($fromMember->events());
 
-        $this->notifier()->transferCompleted(
+        $this->action()->transferCompleted(
             new TransferFundsSummary($fromMember, $toMember)
         );
     }
 
     /**
-     * @return TransferFundsNotifier
+     * @return CanTransferFunds
      * @throws LogicException
      */
-    private function notifier(): TransferFundsNotifier
+    private function action(): CanTransferFunds
     {
-        if ($this->notifier) {
-            return $this->notifier;
+        if ($this->action) {
+            return $this->action;
         }
-        throw new LogicException('No notifier was attached');
+        throw new LogicException('No action was attached');
     }
 }

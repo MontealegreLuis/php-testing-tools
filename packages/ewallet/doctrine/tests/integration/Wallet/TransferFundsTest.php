@@ -39,13 +39,13 @@ class TransferFundsTest extends TestCase
 
         /** @var Members $members */
         $members = $this->entityManager->getRepository(Member::class);
-        $notifier = Mockery::mock(TransferFundsNotifier::class)->shouldIgnoreMissing();
+        $action = Mockery::mock(CanTransferFunds::class)->shouldIgnoreMissing();
 
         $useCase = new TransferFundsTransactionally($members);
         $useCase->setTransactionalSession(
             new DoctrineSession($this->entityManager)
         );
-        $useCase->attach($notifier);
+        $useCase->attach($action);
 
         $useCase->transfer($request = TransferFundsInformation::from([
             'fromMemberId' => 'XYZ',
@@ -71,10 +71,9 @@ class TransferFundsTest extends TestCase
 
         $useCase = new TransferFundsTransactionally($members);
         $useCase->setTransactionalSession(new DoctrineSession($this->entityManager));
-        $useCase->attach(new class() implements TransferFundsNotifier {
-            public function transferCompleted(TransferFundsSummary $summary)
-            {
-                throw new RuntimeException("Transfer failed.");
+        $useCase->attach(new class() implements CanTransferFunds {
+            public function transferCompleted(TransferFundsSummary $summary) {
+                throw new RuntimeException('Transfer failed.');
             }
         });
 

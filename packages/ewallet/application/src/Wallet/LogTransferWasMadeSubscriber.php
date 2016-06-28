@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Listeners;
+namespace Ewallet\Wallet;
 
-use Ewallet\{Accounts\TransferWasMade, Presenters\MemberFormatter};
+use Ewallet\Accounts\{TransferWasMade, MemberFormatter};
 use Hexagonal\DomainEvents\{Event, EventSubscriber};
 use Psr\Log\LoggerInterface;
 

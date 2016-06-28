@@ -63,6 +63,8 @@ composer:
 	@composer install --no-interaction -d packages/ewallet/validation
 	@echo "ewallet/doctrine..."
 	@composer install --no-interaction -d packages/ewallet/doctrine
+	@echo "ewallet/definitions..."
+	@composer install --no-interaction -d packages/ewallet/definitions
 	@echo "ewallet/hexagonal..."
 	@composer install --no-interaction -d packages/hexagonal/doctrine
 
@@ -91,6 +93,8 @@ tests:
 	@cd packages/ewallet/validation && bin/phpunit --testdox
 	@echo "ewallet/doctrine..."
 	@cd packages/ewallet/doctrine && bin/phpunit --testdox
+	@echo "ewallet/definitions..."
+	@cd packages/ewallet/definitions && bin/phpunit --testdox
 	@echo "hexagonal/doctrine..."
 	@cd packages/hexagonal/doctrine && bin/phpunit --testdox
 	@echo "Running tests for applications..."

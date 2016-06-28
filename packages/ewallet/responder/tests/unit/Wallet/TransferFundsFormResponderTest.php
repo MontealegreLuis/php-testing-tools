@@ -4,11 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Responders;
+namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\DataBuilders\A;
-use Ewallet\Wallet\TransferFundsSummary;
 use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
 use Ewallet\Templating\TemplateEngine;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;

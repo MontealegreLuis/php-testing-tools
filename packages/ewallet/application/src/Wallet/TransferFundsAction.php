@@ -7,7 +7,6 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Responders\TransferFundsResponder;
 
 /**
  * This is a two steps action. First, the member making the transfer enters the

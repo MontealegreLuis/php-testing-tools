@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Responders;
+namespace Ewallet\Wallet;
 
-use Ewallet\{Accounts\MemberId, Wallet\TransferFundsSummary};
+use Ewallet\Accounts\MemberId;
 
 interface TransferFundsResponder
 {

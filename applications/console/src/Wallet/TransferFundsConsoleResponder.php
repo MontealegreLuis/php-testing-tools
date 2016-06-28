@@ -4,10 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Responders;
+namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\{MemberId, Member, MemberInformation, MembersRepository};
-use Ewallet\Wallet\TransferFundsSummary;
 use Ewallet\Presenters\MemberFormatter;
 use Symfony\Component\Console\{
     Helper\QuestionHelper,

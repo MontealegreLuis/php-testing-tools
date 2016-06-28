@@ -4,12 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Responders;
+namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
-use Ewallet\Wallet\TransferFundsSummary;
-use Ewallet\Responders\Web\{ResponseFactory, TransferFundsWebResponder};
+use Ewallet\Wallet\Web\{ResponseFactory, TransferFundsWebResponder};
 use Ewallet\Templating\TemplateEngine;
 use Psr\Http\Message\ResponseInterface;
 

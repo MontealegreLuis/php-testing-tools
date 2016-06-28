@@ -4,14 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Responders;
+namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\{MemberId, MembersRepository};
 use Ewallet\Actions\{TransferFundsAction, TransferFundsInput};
 use Ewallet\DataBuilders\A;
 use Ewallet\Presenters\MemberFormatter;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
-use Ewallet\Wallet\TransferFundsSummary;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Helper\QuestionHelper;

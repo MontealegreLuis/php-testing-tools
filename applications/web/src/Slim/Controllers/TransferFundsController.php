@@ -59,7 +59,7 @@ class TransferFundsController
      */
     private function renderResponseBody()
     {
-        /** @var \Ewallet\Responders\Web\TransferFundsWebResponder $responder */
+        /** @var \Ewallet\Wallet\Web\TransferFundsWebResponder $responder */
         $responder = $this->action->responder();
 
         echo $responder->response()->getBody();

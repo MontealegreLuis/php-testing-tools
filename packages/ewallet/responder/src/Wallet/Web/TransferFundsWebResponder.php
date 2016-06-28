@@ -4,17 +4,15 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Responders\Web;
+namespace Ewallet\Wallet\Web;
 
+use Ewallet\Wallet\TransferFundsResponder;
 use Psr\Http\Message\ResponseInterface;
 
-interface ResponseFactory
+interface TransferFundsWebResponder extends TransferFundsResponder
 {
     /**
-     * Builds an HTTP response with a 200 (OK) status code
-     *
-     * @param string $html
      * @return ResponseInterface
      */
-    public function buildResponse(string $html): ResponseInterface;
+    public function response(): ResponseInterface;
 }

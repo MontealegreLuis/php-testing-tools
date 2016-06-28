@@ -8,7 +8,6 @@ namespace Ewallet\Wallet;
 
 use Ewallet\DataBuilders\A;
 use Ewallet\Accounts\{MemberId, InMemoryMembers};
-use Ewallet\Responders\TransferFundsResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 

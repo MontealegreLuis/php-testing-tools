@@ -7,13 +7,10 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Actions\{TransferFundsInput, TransferFundsAction};
-use Symfony\Component\Console\{
-    Command\Command,
-    Input\InputArgument,
-    Input\InputInterface,
-    Output\OutputInterface
-};
+use Ewallet\Wallet\{TransferFundsInput, TransferFundsAction};
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\{InputArgument, InputInterface};
+use Symfony\Component\Console\Output\OutputInterface;
 
 class TransferFundsCommand extends Command
 {

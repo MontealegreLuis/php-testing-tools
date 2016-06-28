@@ -7,8 +7,8 @@
 namespace Ewallet\Zf2\InputFilter;
 
 use Ewallet\Accounts\{MemberId, MembersRepository};
+use Ewallet\Wallet\TransferFundsInput;
 use Ewallet\Zf2\InputFilter\Filters\TransferFundsFilter;
-use Ewallet\Actions\TransferFundsInput;
 
 class TransferFundsInputFilter implements TransferFundsInput
 {

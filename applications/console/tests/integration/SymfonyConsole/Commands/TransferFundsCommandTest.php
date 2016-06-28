@@ -6,23 +6,16 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Accounts\Member;
+use Ewallet\Accounts\{Member, MemberFormatter};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Actions\TransferFundsAction;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
-use Ewallet\Presenters\MemberFormatter;
-use Ewallet\Responders\TransferFundsConsoleResponder;
-use Ewallet\Wallet\TransferFunds;
+use Ewallet\Wallet\{TransferFundsAction, TransferFundsConsoleResponder, TransferFunds};
 use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use PHPUnit_Framework_TestCase as TestCase;
-use Symfony\Component\Console\{
-    Helper\QuestionHelper,
-    Input\ArrayInput,
-    Input\InputInterface,
-    Output\BufferedOutput,
-    Output\OutputInterface,
-    Question\Question
-};
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\{ArrayInput, InputInterface};
+use Symfony\Component\Console\Output\{BufferedOutput, OutputInterface};
+use Symfony\Component\Console\Question\Question;
 
 class TransferFundsCommandTest extends TestCase
 {

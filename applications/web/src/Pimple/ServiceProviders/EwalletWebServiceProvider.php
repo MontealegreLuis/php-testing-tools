@@ -6,11 +6,10 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\Actions\TransferFundsAction;
 use Ewallet\EasyForms\TransferFundsForm;
-use Ewallet\Responders\TransferFundsFormResponder;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Twig\RouterExtension;
+use Ewallet\Wallet\{TransferFundsAction, TransferFundsFormResponder};
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
 use Pimple\Container;
 use Slim\Slim;

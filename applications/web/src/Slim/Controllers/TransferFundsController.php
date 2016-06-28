@@ -7,7 +7,7 @@
 namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Accounts\MemberId;
-use Ewallet\Actions\{TransferFundsInput, TransferFundsAction};
+use Ewallet\Wallet\{TransferFundsInput, TransferFundsAction};
 use Slim\Http\Request;
 
 class TransferFundsController

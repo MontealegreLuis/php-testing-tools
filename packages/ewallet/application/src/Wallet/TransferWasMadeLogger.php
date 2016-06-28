@@ -10,7 +10,7 @@ use Ewallet\Accounts\{TransferWasMade, MemberFormatter};
 use Hexagonal\DomainEvents\{Event, EventSubscriber};
 use Psr\Log\LoggerInterface;
 
-class LogTransferWasMadeSubscriber implements EventSubscriber
+class TransferWasMadeLogger implements EventSubscriber
 {
     /** @var LoggerInterface */
     private $logger;

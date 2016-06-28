@@ -10,7 +10,7 @@ use Ewallet\Accounts\{Member, MemberFormatter};
 use Ewallet\Doctrine2\Application\Services\DoctrineSession;
 use Ewallet\EasyForms\MembersConfiguration;
 use Ewallet\Twig\{Extensions\EwalletExtension, TwigTemplateEngine};
-use Ewallet\Wallet\{LogTransferWasMadeSubscriber, TransferFundsTransactionally};
+use Ewallet\Wallet\{TransferWasMadeLogger, TransferFundsTransactionally};
 use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\{
@@ -79,7 +79,7 @@ class EwalletServiceProvider implements ServiceProviderInterface
             );
         };
         $container['ewallet.transfer_funds_logger'] = function () use ($container) {
-            return new LogTransferWasMadeSubscriber(
+            return new TransferWasMadeLogger(
                 $container['ewallet.logger'], $container['ewallet.member_formatter']
             );
         };

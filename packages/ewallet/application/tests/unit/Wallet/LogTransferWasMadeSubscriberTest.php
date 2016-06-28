@@ -18,7 +18,7 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     function it_logs_when_a_transfer_has_been_made()
     {
         $logger = Mockery::spy(LoggerInterface::class);
-        $subscriber = new LogTransferWasMadeSubscriber(
+        $subscriber = new TransferWasMadeLogger(
             $logger,
             new MemberFormatter()
         );
@@ -37,7 +37,7 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     function it_logs_transfer_was_made_events_only()
     {
         $logger = Mockery::mock(LoggerInterface::class);
-        $subscriber = new LogTransferWasMadeSubscriber(
+        $subscriber = new TransferWasMadeLogger(
             $logger,
             new MemberFormatter()
         );
@@ -51,7 +51,7 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     function it_does_not_log_events_other_than_the_transfer_was_made_event()
     {
         $event = Mockery::mock(Event::class);
-        $subscriber = new LogTransferWasMadeSubscriber(
+        $subscriber = new TransferWasMadeLogger(
             Mockery::mock(LoggerInterface::class),
             new MemberFormatter()
         );

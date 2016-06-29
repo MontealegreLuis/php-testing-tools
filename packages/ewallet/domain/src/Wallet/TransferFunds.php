@@ -41,19 +41,19 @@ class TransferFunds
      */
     public function transfer(TransferFundsInformation $information)
     {
-        $fromMember = $this->members->with($information->fromMemberId());
-        $toMember = $this->members->with($information->toMemberId());
+        $sender = $this->members->with($information->senderId());
+        $recipient = $this->members->with($information->recipientId());
 
-        $fromMember->transfer($information->amount(), $toMember);
+        $sender->transfer($information->amount(), $recipient);
 
-        $this->members->update($fromMember);
-        $this->members->update($toMember);
+        $this->members->update($sender);
+        $this->members->update($recipient);
 
-        $this->publisher()->publish($fromMember->events());
+        $this->publisher()->publish($sender->events());
 
-        $this->action()->transferCompleted(
-            new TransferFundsSummary($fromMember, $toMember)
-        );
+        $this->action()->transferCompleted(new TransferFundsSummary(
+            $sender, $recipient
+        ));
     }
 
     /**

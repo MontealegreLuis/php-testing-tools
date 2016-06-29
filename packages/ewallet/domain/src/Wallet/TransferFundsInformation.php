@@ -12,10 +12,10 @@ use Money\Money;
 class TransferFundsInformation
 {
     /** @var MemberId */
-    private $fromMemberId;
+    private $senderId;
 
     /** @var MemberId */
-    private $toMemberId;
+    private $recipientId;
 
     /** @var Money */
     private $amount;
@@ -25,8 +25,8 @@ class TransferFundsInformation
      */
     private function __construct(array $validInput)
     {
-        $this->fromMemberId = MemberId::with($validInput['fromMemberId']);
-        $this->toMemberId = MemberId::with($validInput['toMemberId']);
+        $this->senderId = MemberId::with($validInput['fromMemberId']);
+        $this->recipientId = MemberId::with($validInput['toMemberId']);
         $this->amount = Money::MXN((integer) ($validInput['amount'] * 100));
     }
 
@@ -42,17 +42,17 @@ class TransferFundsInformation
     /**
      * @return MemberId
      */
-    public function fromMemberId(): MemberId
+    public function senderId(): MemberId
     {
-        return $this->fromMemberId;
+        return $this->senderId;
     }
 
     /**
      * @return MemberId
      */
-    public function toMemberId(): MemberId
+    public function recipientId(): MemberId
     {
-        return $this->toMemberId;
+        return $this->recipientId;
     }
 
     /**

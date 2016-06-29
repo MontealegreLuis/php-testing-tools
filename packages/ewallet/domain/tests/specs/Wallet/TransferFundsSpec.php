@@ -21,20 +21,20 @@ class TransferFundsSpec extends ObjectBehavior
         Members $members,
         CanTransferFunds $action
     ) {
-        $fromMember = A::member()->withBalance(2000)->build();
-        $toMember = A::member()->withBalance(1000)->build();
+        $sender = A::member()->withBalance(2000)->build();
+        $recipient = A::member()->withBalance(1000)->build();
 
-        $members->with($fromMember->information()->id())->willReturn($fromMember);
-        $members->with($toMember->information()->id())->willReturn($toMember);
-        $members->update($fromMember)->shouldBeCalled();
-        $members->update($toMember)->shouldBeCalled();
+        $members->with($sender->information()->id())->willReturn($sender);
+        $members->with($recipient->information()->id())->willReturn($recipient);
+        $members->update($sender)->shouldBeCalled();
+        $members->update($recipient)->shouldBeCalled();
 
         $this->beConstructedWith($members);
         $this->attach($action);
 
         $this->transfer(TransferFundsInformation::from([
-            'fromMemberId' => (string) $fromMember->information()->id(),
-            'toMemberId' => (string) $toMember->information()->id(),
+            'fromMemberId' => (string) $sender->information()->id(),
+            'toMemberId' => (string) $recipient->information()->id(),
             'amount' => 5,
         ]));
 

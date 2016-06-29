@@ -6,14 +6,10 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Actions\Notifications\{
-    TransferFundsEmailNotifier, TransferFundsNotification
-};
+use Ewallet\Wallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
 use Hexagonal\Messaging\MessageConsumer;
 use stdClass;
-use Symfony\Component\Console\{
-    Command\Command, Input\InputInterface, Output\OutputInterface
-};
+use Symfony\Component\Console\{Command\Command, Input\InputInterface, Output\OutputInterface};
 
 class NotifyTransferByEmailCommand extends Command
 {

@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\Actions\Notifications\TransferFundsEmailNotifier;
+use Ewallet\Wallet\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
 use Pimple\{Container, ServiceProviderInterface};
 use Twig_Loader_Filesystem as Loader;

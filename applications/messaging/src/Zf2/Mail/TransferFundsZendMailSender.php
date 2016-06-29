@@ -8,7 +8,7 @@ namespace Ewallet\Zf2\Mail;
 
 use DateTime;
 use Ewallet\Accounts\MemberInformation;
-use Ewallet\Actions\Notifications\TransferFundsEmailSender;
+use Ewallet\Wallet\Notifications\TransferFundsEmailSender;
 use Ewallet\Templating\TemplateEngine;
 use Money\Money;
 use Zend\Mail\{Message, Transport\TransportInterface};

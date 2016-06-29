@@ -4,7 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\{Accounts\Member, Doctrine2\ProvidesDoctrineSetup};
+use Ewallet\Accounts\Member;
+use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Page\TransferFundsPage;
 use Nelmio\Alice\Fixtures;
 
@@ -20,9 +22,8 @@ class TransferFundsCest
             ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;
-        Fixtures::load(
-            __DIR__ . '/../_data/fixtures/members.yml', $this->entityManager
-        );
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture->load();
     }
 
     public function tryToTransferFundsBetweenMembers(AcceptanceTester $I)

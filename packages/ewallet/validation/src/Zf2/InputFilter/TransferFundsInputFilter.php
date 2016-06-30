@@ -35,14 +35,6 @@ class TransferFundsInputFilter implements TransferFundsInput
      */
     public function populate(array $input)
     {
-        if (isset($input['senderId']) && !empty($input['senderId'])) {
-            $membersToTransferTo = $this->members->excluding(
-                MemberId::with($input['senderId'])
-            );
-        } else {
-            $membersToTransferTo = $this->members->excluding();
-        }
-        $this->filter->configure($membersToTransferTo);
         $this->filter->setData($input);
     }
 
@@ -51,6 +43,12 @@ class TransferFundsInputFilter implements TransferFundsInput
      */
     public function isValid(): bool
     {
+        $senderId = $this->filter->getRawValue('senderId');
+        if ($senderId) {
+            $recipients = $this->members->excluding(MemberId::with($senderId));
+            $this->filter->configure($recipients);
+        }
+
         return $this->filter->isValid();
     }
 

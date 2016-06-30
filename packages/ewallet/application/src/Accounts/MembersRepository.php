@@ -12,5 +12,5 @@ interface MembersRepository extends Members
      * @param MemberId $memberId
      * @return Member[]
      */
-    public function excluding(MemberId $memberId = null): array;
+    public function excluding(MemberId $memberId): array;
 }

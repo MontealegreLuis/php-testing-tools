@@ -42,12 +42,12 @@ class TransferFundsCommand extends Command
             ->setName('ewallet:transfer')
             ->setDescription('Transfer funds from a member to another')
             ->addArgument(
-                'fromMemberId',
+                'senderId',
                 InputArgument::OPTIONAL,
                 'The ID of the member making the transfer'
             )
             ->addArgument(
-                'toMemberId',
+                'recipientId',
                 InputArgument::OPTIONAL,
                 'The ID of the member that will receive funds'
             )
@@ -66,9 +66,9 @@ class TransferFundsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $fromMemberId = MemberId::with('ABC');
-        $input->setArgument('fromMemberId', (string) $fromMemberId);
-        $this->action->enterTransferInformation($fromMemberId);
+        $senderId = MemberId::with('ABC');
+        $input->setArgument('senderId', (string) $senderId);
+        $this->action->enterTransferInformation($senderId);
         $this->input->populate($input->getArguments());
         $this->action->transfer($this->input);
     }

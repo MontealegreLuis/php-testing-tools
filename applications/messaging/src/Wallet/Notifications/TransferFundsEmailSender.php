@@ -17,27 +17,27 @@ use Money\Money;
 interface TransferFundsEmailSender
 {
     /**
-     * @param MemberInformation $fromMember
-     * @param MemberInformation $toMember
+     * @param MemberInformation $sender
+     * @param MemberInformation $recipient
      * @param Money $amount
      * @param DateTime $occurredOn
      */
     public function sendFundsTransferredEmail(
-        MemberInformation $fromMember,
-        MemberInformation $toMember,
+        MemberInformation $sender,
+        MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
     );
 
     /**
-     * @param MemberInformation $fromMember
-     * @param MemberInformation $toMember
+     * @param MemberInformation $sender
+     * @param MemberInformation $recipient
      * @param Money $amount
      * @param DateTime $occurredOn
      */
     public function sendDepositReceivedEmail(
-        MemberInformation $fromMember,
-        MemberInformation $toMember,
+        MemberInformation $sender,
+        MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
     );

@@ -17,14 +17,14 @@ class TransferFundsFormTest extends TestCase
     {
         $form = new TransferFundsForm();
         $form->submit([
-            'fromMemberId' => 'abc',
-            'toMemberId' => 'xyz',
+            'senderId' => 'abc',
+            'recipientId' => 'xyz',
             'amount' => 100,
         ]);
 
         $this->assertEquals([
-            'fromMemberId' => 'abc',
-            'toMemberId' => 'xyz',
+            'senderId' => 'abc',
+            'recipientId' => 'xyz',
             'amount' => ['amount' => 100, 'currency' => 'MXN'],
         ], $form->values());
     }
@@ -36,8 +36,8 @@ class TransferFundsFormTest extends TestCase
         $view = $form->buildView();
 
         $this->assertCount(3, $view);
-        $this->assertTrue($view->offsetExists('fromMemberId'));
-        $this->assertTrue($view->offsetExists('toMemberId'));
+        $this->assertTrue($view->offsetExists('senderId'));
+        $this->assertTrue($view->offsetExists('recipientId'));
         $this->assertTrue($view->offsetExists('amount'));
     }
 
@@ -45,7 +45,7 @@ class TransferFundsFormTest extends TestCase
     function it_initializes_the_member_id_making_the_transfer()
     {
         $form = new TransferFundsForm();
-        $fromMemberId = MemberId::with('abc');
+        $senderId = MemberId::with('abc');
         $configuration = Mockery::mock(MembersConfiguration::class);
         $configuration
             ->shouldReceive('getMembersChoicesExcluding')
@@ -54,32 +54,32 @@ class TransferFundsFormTest extends TestCase
             ->andReturn([])
         ;
 
-        $form->configure($configuration, $fromMemberId);
+        $form->configure($configuration, $senderId);
         $view = $form->buildView();
 
-        $this->assertEquals($fromMemberId, $view->fromMemberId->value);
+        $this->assertEquals($senderId, $view->senderId->value);
     }
 
     /** @test */
     function it_excludes_from_choices_the_member_making_the_transfer()
     {
         $form = new TransferFundsForm();
-        $fromMemberId = MemberId::with('abc');
+        $senderId = MemberId::with('abc');
         $configuration = Mockery::mock(MembersConfiguration::class);
         $configuration
             ->shouldReceive('getMembersChoicesExcluding')
             ->once()
-            ->with($fromMemberId)
+            ->with($senderId)
             ->andReturn([
                 'lmn' => null,
                 'xyz' => null,
             ])
         ;
 
-        $form->configure($configuration, $fromMemberId);
+        $form->configure($configuration, $senderId);
         $view = $form->buildView();
 
-        $this->assertCount(2, $view->toMemberId->choices);
-        $this->assertArrayNotHasKey('abc', $view->toMemberId->choices);
+        $this->assertCount(2, $view->recipientId->choices);
+        $this->assertArrayNotHasKey('abc', $view->recipientId->choices);
     }
 }

@@ -112,7 +112,7 @@ class TransferFundsFormResponderTest extends TestCase
         $responder->respondToInvalidTransferInput(
             $messages = [],
             $values = [
-                'fromMemberId' => 'xyz'
+                'senderId' => 'xyz'
             ]
         );
 

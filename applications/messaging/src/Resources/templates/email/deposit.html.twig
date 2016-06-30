@@ -1,5 +1,5 @@
 {% extends 'layouts/email.html.twig' %}
-{% set title = 'You have received a deposit from ' ~ fromMember.name %}
+{% set title = 'You have received a deposit from ' ~ sender.name %}
 {% block content %}
 <center>
     <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
@@ -12,7 +12,7 @@
                                 <tr>
                                     <td valign="top" align="center">
                                         <div style="color:#777777;font-family:Arial;font-size:10px;line-height:100%;">
-                                            You have received a deposit from {{ fromMember.name }}
+                                            You have received a deposit from {{ sender.name }}
                                         </div>
                                     </td>
                                 </tr>
@@ -34,7 +34,7 @@
                                                         <tr>
                                                             <td valign="top" align="left">
                                                                 <div style="line-height:20px;font-size:12px;font-family:Arial;color:#505050;font-style:italic;">
-                                                                    <h1>Hi {{ toMember.name }}</h1>
+                                                                    <h1>Hi {{ recipient.name }}</h1>
                                                                     <h3>The following transaction has been completed</h3>
                                                                 </div>
                                                             </td>
@@ -70,7 +70,7 @@
                                                                                             From member:
                                                                                         </td>
                                                                                         <td valign="top" align="left" style="padding:3px 10px;font-size:11px;width:400px;" bgcolor="ffffff">
-                                                                                            {{ fromMember.name }}
+                                                                                            {{ sender.name }}
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>

@@ -11,34 +11,34 @@ use Ewallet\Accounts\{Member, MemberInformation};
 class TransferFundsSummary
 {
     /** @var Member */
-    private $fromMember;
+    private $sender;
 
     /** @var Member */
-    private $toMember;
+    private $recipient;
 
     /**
-     * @param Member $fromMember
-     * @param Member $toMember
+     * @param Member $sender
+     * @param Member $recipient
      */
-    public function __construct(Member $fromMember, Member $toMember)
+    public function __construct(Member $sender, Member $recipient)
     {
-        $this->fromMember = $fromMember;
-        $this->toMember = $toMember;
+        $this->sender = $sender;
+        $this->recipient = $recipient;
     }
 
     /**
      * @return MemberInformation
      */
-    public function fromMember(): MemberInformation
+    public function sender(): MemberInformation
     {
-        return $this->fromMember->information();
+        return $this->sender->information();
     }
 
     /**
      * @return MemberInformation
      */
-    public function toMember(): MemberInformation
+    public function recipient(): MemberInformation
     {
-        return $this->toMember->information();
+        return $this->recipient->information();
     }
 }

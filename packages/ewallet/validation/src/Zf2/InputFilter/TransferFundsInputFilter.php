@@ -35,9 +35,9 @@ class TransferFundsInputFilter implements TransferFundsInput
      */
     public function populate(array $input)
     {
-        if (isset($input['fromMemberId']) && !empty($input['fromMemberId'])) {
+        if (isset($input['senderId']) && !empty($input['senderId'])) {
             $membersToTransferTo = $this->members->excluding(
-                MemberId::with($input['fromMemberId'])
+                MemberId::with($input['senderId'])
             );
         } else {
             $membersToTransferTo = $this->members->excluding();

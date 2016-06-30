@@ -48,16 +48,16 @@ class TransferFundsTest extends TestCase
         $useCase->attach($action);
 
         $useCase->transfer($request = TransferFundsInformation::from([
-            'fromMemberId' => 'XYZ',
-            'toMemberId' => 'ABC',
+            'senderId' => 'XYZ',
+            'recipientId' => 'ABC',
             'amount' => 3,
         ]));
 
-        $fromMember = $members->with($request->fromMemberId());
-        $this->assertBalanceAmounts(700, $fromMember);
+        $sender = $members->with($request->senderId());
+        $this->assertBalanceAmounts(700, $sender);
 
-        $toMember = $members->with($request->toMemberId());
-        $this->assertBalanceAmounts(1300, $toMember);
+        $recipient = $members->with($request->recipientId());
+        $this->assertBalanceAmounts(1300, $recipient);
     }
 
     /** @test */
@@ -79,16 +79,16 @@ class TransferFundsTest extends TestCase
 
         try {
             $useCase->transfer($request = TransferFundsInformation::from([
-                'fromMemberId' => 'XYZ',
-                'toMemberId' => 'ABC',
+                'senderId' => 'XYZ',
+                'recipientId' => 'ABC',
                 'amount' => 3,
             ]));
         } catch(Exception $ignore) {}
 
-        $fromMember = $members->with($request->fromMemberId());
-        $this->assertBalanceAmounts(1000, $fromMember); // Should remain equal
+        $sender = $members->with($request->senderId());
+        $this->assertBalanceAmounts(1000, $sender); // Should remain equal
 
-        $toMember = $members->with($request->toMemberId());
-        $this->assertBalanceAmounts(1000, $toMember); // Should not have changed
+        $recipient = $members->with($request->recipientId());
+        $this->assertBalanceAmounts(1000, $recipient); // Should not have changed
     }
 }

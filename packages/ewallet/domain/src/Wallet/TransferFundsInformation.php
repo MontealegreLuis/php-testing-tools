@@ -25,9 +25,9 @@ class TransferFundsInformation
      */
     private function __construct(array $validInput)
     {
-        $this->senderId = MemberId::with($validInput['fromMemberId']);
-        $this->recipientId = MemberId::with($validInput['toMemberId']);
-        $this->amount = Money::MXN((integer) ($validInput['amount'] * 100));
+        $this->senderId = MemberId::with($validInput['senderId']);
+        $this->recipientId = MemberId::with($validInput['recipientId']);
+        $this->amount = Money::MXN((int) ($validInput['amount'] * 100));
     }
 
     /**

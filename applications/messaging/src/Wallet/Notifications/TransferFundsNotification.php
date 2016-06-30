@@ -16,30 +16,30 @@ class TransferFundsNotification
     private $occurredOn;
 
     /** @var MemberId */
-    private $fromMemberId;
+    private $senderId;
 
     /** @var Money */
     private $amount;
 
     /** @var MemberId */
-    private $toMemberId;
+    private $recipientId;
 
     /**
-     * @param string $fromMemberId
+     * @param string $senderId
      * @param string $amount
-     * @param string $toMemberId
+     * @param string $recipientId
      * @param string $occurredOn
      */
     public function __construct(
-        string $fromMemberId,
+        string $senderId,
         string $amount,
-        string $toMemberId,
+        string $recipientId,
         string $occurredOn
     ) {
         $this->occurredOn = DateTime::createFromFormat('Y-m-d H:i:s', $occurredOn);
-        $this->fromMemberId = MemberId::with($fromMemberId);
+        $this->senderId = MemberId::with($senderId);
         $this->amount = Money::MXN($amount);
-        $this->toMemberId = MemberId::with($toMemberId);
+        $this->recipientId = MemberId::with($recipientId);
     }
 
     /**
@@ -53,9 +53,9 @@ class TransferFundsNotification
     /**
      * @return MemberId
      */
-    public function fromMemberId(): MemberId
+    public function senderId(): MemberId
     {
-        return $this->fromMemberId;
+        return $this->senderId;
     }
 
     /**
@@ -69,8 +69,8 @@ class TransferFundsNotification
     /**
      * @return MemberId
      */
-    public function toMemberId(): MemberId
+    public function recipientId(): MemberId
     {
-        return $this->toMemberId;
+        return $this->recipientId;
     }
 }

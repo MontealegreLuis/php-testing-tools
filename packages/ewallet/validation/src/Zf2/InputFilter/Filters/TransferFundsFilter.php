@@ -1,32 +1,29 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Zf2\InputFilter\Filters;
 
 use Ewallet\Accounts\Member;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
-use Zend\Validator\GreaterThan;
-use Zend\Validator\InArray;
-use Zend\Validator\NotEmpty;
+use Zend\InputFilter\{Input, InputFilter};
+use Zend\Validator\{GreaterThan, InArray, NotEmpty};
 
 class TransferFundsFilter extends InputFilter
 {
     /**
      * Configure validations for fields
      *
-     * - fromMemberId
-     * - toMemberId
+     * - senderId
+     * - recipientId
      * - amount
      */
     public function __construct()
     {
         $this
-            ->add($this->buildFromMemberIdInput())
-            ->add($this->buildToMemberIdInput())
+            ->add($this->buildSenderIdInput())
+            ->add($this->buildRecipientIdInput())
             ->add($this->buildAmountInput())
         ;
     }
@@ -36,9 +33,9 @@ class TransferFundsFilter extends InputFilter
      */
     public function configure(array $membersAvailableForTransfer)
     {
-        $toPartnerId = $this->get('toMemberId');
+        $recipientId = $this->get('recipientId');
 
-        $toPartnerId
+        $recipientId
             ->getValidatorChain()
             ->attach(new InArray([
                 'haystack' => array_map(function (Member $member) {
@@ -51,29 +48,29 @@ class TransferFundsFilter extends InputFilter
     /**
      * @return Input
      */
-    protected function buildFromMemberIdInput()
+    protected function buildSenderIdInput()
     {
-        $fromMemberId = new Input('fromMemberId');
-        $fromMemberId
+        $senderId = new Input('senderId');
+        $senderId
             ->getValidatorChain()
             ->attach(new NotEmpty())
         ;
 
-        return $fromMemberId;
+        return $senderId;
     }
 
     /**
      * @return Input
      */
-    protected function buildToMemberIdInput()
+    protected function buildRecipientIdInput()
     {
-        $toMemberId = new Input('toMemberId');
-        $toMemberId
+        $recipientId = new Input('recipientId');
+        $recipientId
             ->getValidatorChain()
             ->attach(new NotEmpty())
         ;
 
-        return $toMemberId;
+        return $recipientId;
     }
 
     /**

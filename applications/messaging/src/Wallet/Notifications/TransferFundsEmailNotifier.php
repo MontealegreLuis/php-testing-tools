@@ -47,19 +47,19 @@ class TransferFundsEmailNotifier
      */
     public function notify(TransferFundsNotification $notification)
     {
-        $fromMember = $this->members->with($notification->fromMemberId());
-        $toMember = $this->members->with($notification->toMemberId());
+        $sender = $this->members->with($notification->senderId());
+        $recipient = $this->members->with($notification->recipientId());
 
         $this->sender->sendFundsTransferredEmail(
-            $fromMember->information(),
-            $toMember->information(),
+            $sender->information(),
+            $recipient->information(),
             $notification->amount(),
             $notification->occurredOn()
         );
 
         $this->sender->sendDepositReceivedEmail(
-            $fromMember->information(),
-            $toMember->information(),
+            $sender->information(),
+            $recipient->information(),
             $notification->amount(),
             $notification->occurredOn()
         );

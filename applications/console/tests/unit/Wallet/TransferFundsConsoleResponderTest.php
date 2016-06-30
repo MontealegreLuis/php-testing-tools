@@ -29,10 +29,10 @@ class TransferFundsConsoleResponderTest extends TestCase
         );
 
         $responder->respondToInvalidTransferInput([
-            'fromMemberId' => ['Unknown member'],
+            'senderId' => ['Unknown member'],
             'amount' => ['Amount must not be negative'],
         ], [
-            'fromMemberId' => ['This ID does not belong to any known member'],
+            'senderId' => ['This ID does not belong to any known member'],
             'amount' => [-100],
         ]);
 
@@ -80,12 +80,12 @@ class TransferFundsConsoleResponderTest extends TestCase
         $responder->respondToEnterTransferInformation(MemberId::with('LMV'));
 
         $this->assertTrue(
-            $input->hasArgument('toMemberId'),
+            $input->hasArgument('recipientId'),
             'The ID of the member receiving the funds was not set'
         );
         $this->assertEquals(
             'LMV',
-            $input->getArgument('toMemberId'),
+            $input->getArgument('recipientId'),
             'The ID of the member receiving the funds is incorrect'
         );
         $this->assertTrue(

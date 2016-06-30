@@ -7,7 +7,7 @@
 namespace Ewallet\EasyForms;
 
 use EasyForms\{Elements\Hidden, Elements\Select, Form};
-use EWallet\Accounts\Identifier;
+use EWallet\Accounts\MemberId;
 use Ewallet\EasyForms\Elements\MoneyElement;
 
 class TransferFundsForm extends Form
@@ -19,23 +19,23 @@ class TransferFundsForm extends Form
     public function __construct()
     {
         $this
-            ->add(new Hidden('fromMemberId'))
-            ->add(new Select('toMemberId'))
+            ->add(new Hidden('senderId'))
+            ->add(new Select('recipientId'))
             ->add(new MoneyElement('amount'))
         ;
     }
 
     /**
      * @param MembersConfiguration $configuration
-     * @param Identifier $memberId
+     * @param MemberId $memberId
      */
     public function configure(
         MembersConfiguration $configuration,
-        Identifier $memberId
+        MemberId $memberId
     ) {
-        $this->get('fromMemberId')->setValue($memberId);
+        $this->get('senderId')->setValue($memberId);
         $this
-            ->get('toMemberId')
+            ->get('recipientId')
             ->setChoices($configuration->getMembersChoicesExcluding($memberId))
         ;
     }

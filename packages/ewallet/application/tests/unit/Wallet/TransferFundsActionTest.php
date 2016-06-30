@@ -71,13 +71,13 @@ class TransferFundsActionTest extends TestCase
     }
 
     /**
-     * @param string $fromMemberId
-     * @param string $toMemberId
+     * @param string $senderId
+     * @param string $recipientId
      * @return TransferFundsInput
      */
     private function givenThatNoAmountIsProvided(
-        string $fromMemberId,
-        string $toMemberId
+        string $senderId,
+        string $recipientId
     ): TransferFundsInput
     {
         $input = Mockery::mock(TransferFundsInput::class);
@@ -97,8 +97,8 @@ class TransferFundsActionTest extends TestCase
             ->shouldReceive('values')
             ->once()
             ->andReturn([
-                'fromMemberId' => $fromMemberId,
-                'toMemberId' => $toMemberId,
+                'senderId' => $senderId,
+                'recipientId' => $recipientId,
             ])
         ;
 
@@ -106,14 +106,14 @@ class TransferFundsActionTest extends TestCase
     }
 
     /**
-     * @param string $fromMemberId
-     * @param string $toMemberId
+     * @param string $senderId
+     * @param string $recipientId
      * @param int $amount
      * @return TransferFundsRequest
      */
     private function givenThatValidTransferInformationIsProvided(
-        string $fromMemberId,
-        string $toMemberId,
+        string $senderId,
+        string $recipientId,
         int $amount
     ): TransferFundsInput
     {
@@ -127,8 +127,8 @@ class TransferFundsActionTest extends TestCase
             ->shouldReceive('values')
             ->once()
             ->andReturn([
-                'fromMemberId' => $fromMemberId,
-                'toMemberId' => $toMemberId,
+                'senderId' => $senderId,
+                'recipientId' => $recipientId,
                 'amount' => $amount
             ])
         ;
@@ -136,20 +136,20 @@ class TransferFundsActionTest extends TestCase
     }
 
     /**
-     * @param string $fromMemberId
-     * @param string $toMemberId
+     * @param string $senderId
+     * @param string $recipientId
      * @return TransferFunds
      */
     private function givenThatMembersAreKnown(
-        string $fromMemberId,
-        string $toMemberId
+        string $senderId,
+        string $recipientId
     ): TransferFunds
     {
         $members = new InMemoryMembers();
         $members->add(
-            A::member()->withId($fromMemberId)->withBalance(20000)->build()
+            A::member()->withId($senderId)->withBalance(20000)->build()
         );
-        $members->add(A::member()->withId($toMemberId)->build());
+        $members->add(A::member()->withId($recipientId)->build());
 
         return new TransferFunds($members);
     }

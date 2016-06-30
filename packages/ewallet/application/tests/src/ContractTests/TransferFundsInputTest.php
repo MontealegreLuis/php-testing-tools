@@ -31,8 +31,8 @@ abstract class TransferFundsInputTest extends TestCase
     function it_passes_validation_with_a_valid_amount(int $validAmount)
     {
         $this->input->populate([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => self::VALID_ID,
+            'senderId' => self::VALID_ID,
+            'recipientId' => self::VALID_ID,
             'amount' => $validAmount,
         ]);
 
@@ -48,8 +48,8 @@ abstract class TransferFundsInputTest extends TestCase
     function it_does_not_pass_validation_if_amount_is_empty()
     {
         $this->input->populate([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => self::VALID_ID,
+            'senderId' => self::VALID_ID,
+            'recipientId' => self::VALID_ID,
             'amount' => '',
         ]);
 
@@ -66,8 +66,8 @@ abstract class TransferFundsInputTest extends TestCase
         int $invalidAmount
     ) {
         $this->input->populate([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => self::VALID_ID,
+            'senderId' => self::VALID_ID,
+            'recipientId' => self::VALID_ID,
             'amount' => $invalidAmount,
         ]);
 
@@ -85,8 +85,8 @@ abstract class TransferFundsInputTest extends TestCase
     function it_passes_validation_with_valid_member_id()
     {
         $this->input->populate([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => self::VALID_ID,
+            'senderId' => self::VALID_ID,
+            'recipientId' => self::VALID_ID,
             'amount' => self::VALID_AMOUNT,
         ]);
 
@@ -97,41 +97,41 @@ abstract class TransferFundsInputTest extends TestCase
     function it_does_not_pass_validation_with_an_empty_member_id_to_transfer_to()
     {
         $this->input->populate([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => '',
+            'senderId' => self::VALID_ID,
+            'recipientId' => '',
             'amount' => self::VALID_AMOUNT,
         ]);
 
         $this->assertFalse($this->input->isValid(), 'An empty member ID should be invalid');
-        $this->assertArrayHasKey('toMemberId',$this->input->errorMessages());
-        $this->assertInternalType('array', $this->input->errorMessages()['toMemberId']);
+        $this->assertArrayHasKey('recipientId',$this->input->errorMessages());
+        $this->assertInternalType('array', $this->input->errorMessages()['recipientId']);
     }
 
     /** @test */
     function it_does_not_pass_validation_if_member_id_is_not_in_white_list()
     {
         $this->input->populate([
-            'fromMemberId' => self::VALID_ID,
-            'toMemberId' => self::INVALID_ID,
+            'senderId' => self::VALID_ID,
+            'recipientId' => self::INVALID_ID,
             'amount' => self::VALID_AMOUNT,
         ]);
 
         $this->assertFalse($this->input->isValid(), 'Member ID should be invalid');
-        $this->assertArrayHasKey('toMemberId', $this->input->errorMessages());
-        $this->assertInternalType('array', $this->input->errorMessages()['toMemberId']);
+        $this->assertArrayHasKey('recipientId', $this->input->errorMessages());
+        $this->assertInternalType('array', $this->input->errorMessages()['recipientId']);
     }
 
     /** @test */
     function it_does_not_pass_validation_if_the_member_making_the_transfer_is_not_specified()
     {
         $this->input->populate([
-            'fromMemberId' => '',
-            'toMemberId' => self::VALID_ID,
+            'senderId' => '',
+            'recipientId' => self::VALID_ID,
             'amount' => self::VALID_AMOUNT,
         ]);
 
         $this->assertFalse($this->input->isValid(), 'Member ID should be invalid');
-        $this->assertArrayHasKey('fromMemberId', $this->input->errorMessages());
-        $this->assertInternalType('array', $this->input->errorMessages()['fromMemberId']);
+        $this->assertArrayHasKey('senderId', $this->input->errorMessages());
+        $this->assertInternalType('array', $this->input->errorMessages()['senderId']);
     }
 }

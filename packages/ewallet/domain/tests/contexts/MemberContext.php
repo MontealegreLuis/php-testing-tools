@@ -62,8 +62,8 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function iTransferHimMxn($amount)
     {
         $this->useCase->transfer(TransferFundsInformation::from([
-            'fromMemberId' => 'abc',
-            'toMemberId' => 'xyz',
+            'senderId' => 'abc',
+            'recipientId' => 'xyz',
             'amount' => round($amount->getAmount() / 100),
         ]));
     }

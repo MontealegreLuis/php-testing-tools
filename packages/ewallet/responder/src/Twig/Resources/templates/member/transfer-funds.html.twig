@@ -3,7 +3,7 @@
 {% form_theme ['forms/elements/money.html.twig', 'forms/elements/members.html.twig'] %}
 
 {% block content %}
-    {% if fromMember is defined and fromMember is not null and toMember is defined and toMember is not null %}
+    {% if sender is defined and sender is not null and recipient is defined and recipient is not null %}
         <div
             id="transfer-message"
             class="alert alert-success alert-dismissible"
@@ -17,14 +17,14 @@
             >
                 <span aria-hidden="true">&times;</span>
             </button>
-            Your beneficiary summary is {{ member(toMember) }} <br>
-            Your summary is {{ member(fromMember) }}
+            Your beneficiary summary is {{ member(recipient) }} <br>
+            Your summary is {{ member(sender) }}
         </div>
     {% endif %}
 
     {{ form_start(form, {'action': url_for('transfer_funds')}) }}
 
-    {{ element_row(form.toMemberId, {'label': 'Transfer to', 'attr': {'id': 'toMember'}, 'options': {'block': 'members'}}) }}
+    {{ element_row(form.recipientId, {'label': 'Transfer to', 'attr': {'id': 'recipient'}, 'options': {'block': 'members'}}) }}
     {{ element_row(form.amount, {'label': 'Amount', 'attr': {'id': 'amount'}}) }}
     {{ form_rest(form) }}
 

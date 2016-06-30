@@ -34,25 +34,25 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
     }
 
     /**
-     * @param MemberInformation $fromMember
-     * @param MemberInformation $toMember
+     * @param MemberInformation $sender
+     * @param MemberInformation $recipient
      * @param Money $amount
      * @param DateTime $occurredOn
      */
     public function sendFundsTransferredEmail(
-        MemberInformation $fromMember,
-        MemberInformation $toMember,
+        MemberInformation $sender,
+        MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
     ) {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
-            ->setTo($fromMember->email()->address())
+            ->setTo($sender->email()->address())
             ->setSubject('Funds transfer completed')
             ->setBody($this->template->render('email/transfer.html', [
-                'fromMember' => $fromMember,
-                'toMember' => $toMember,
+                'sender' => $sender,
+                'recipient' => $recipient,
                 'amount' => $amount,
                 'occurredOn' => $occurredOn,
             ]))
@@ -61,25 +61,25 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
     }
 
     /**
-     * @param MemberInformation $fromMember
-     * @param MemberInformation $toMember
+     * @param MemberInformation $sender
+     * @param MemberInformation $recipient
      * @param Money $amount
      * @param DateTime $occurredOn
      */
     public function sendDepositReceivedEmail(
-        MemberInformation $fromMember,
-        MemberInformation $toMember,
+        MemberInformation $sender,
+        MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
     ) {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
-            ->setTo($toMember->email()->address())
+            ->setTo($recipient->email()->address())
             ->setSubject('You have received a deposit')
             ->setBody($this->template->render('email/deposit.html', [
-                'fromMember' => $fromMember,
-                'toMember' => $toMember,
+                'sender' => $sender,
+                'recipient' => $recipient,
                 'amount' => $amount,
                 'occurredOn' => $occurredOn,
             ]))

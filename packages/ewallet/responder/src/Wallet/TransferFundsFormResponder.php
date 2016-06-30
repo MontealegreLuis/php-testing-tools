@@ -52,12 +52,12 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
      */
     public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
-        $this->form->configure($this->configuration, $summary->fromMember()->id());
+        $this->form->configure($this->configuration, $summary->sender()->id());
 
         $html = $this->template->render('member/transfer-funds.html', [
             'form' => $this->form->buildView(),
-            'fromMember' => $summary->fromMember(),
-            'toMember' => $summary->toMember(),
+            'sender' => $summary->sender(),
+            'recipient' => $summary->recipient(),
         ]);
 
         $this->response = $this->factory->buildResponse($html);
@@ -74,15 +74,15 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
-        $this->respondToEnterTransferInformation(MemberId::with($values['fromMemberId']));
+        $this->respondToEnterTransferInformation(MemberId::with($values['senderId']));
     }
 
     /**
-     * @param MemberId $fromMemberId
+     * @param MemberId $senderId
      */
-    public function respondToEnterTransferInformation(MemberId $fromMemberId)
+    public function respondToEnterTransferInformation(MemberId $senderId)
     {
-        $this->form->configure($this->configuration, $fromMemberId);
+        $this->form->configure($this->configuration, $senderId);
 
         $html = $this->template->render('member/transfer-funds.html', [
             'form' => $this->form->buildView(),

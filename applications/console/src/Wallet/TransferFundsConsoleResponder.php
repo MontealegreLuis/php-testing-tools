@@ -89,7 +89,7 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
             )
         ;
         $table->render();
-        $toMemberId = $this->question->ask(
+        $recipientId = $this->question->ask(
             $this->input,
             $this->output,
             new Question('Transfer to ID: ')
@@ -101,7 +101,7 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
             new Question('Amount to transfer: ')
         );
 
-        $this->input->setArgument('toMemberId', $toMemberId);
+        $this->input->setArgument('recipientId', $recipientId);
         $this->input->setArgument('amount', $amount);
     }
 
@@ -111,8 +111,8 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
         $this->output->writeln('<info>Transfer completed successfully!</info>');
-        $this->printStatement($summary->fromMember());
-        $this->printStatement($summary->toMember());
+        $this->printStatement($summary->sender());
+        $this->printStatement($summary->recipient());
     }
 
     /**

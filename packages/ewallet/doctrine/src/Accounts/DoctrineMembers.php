@@ -4,10 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Doctrine2\Accounts;
+namespace Ewallet\Accounts;
 
 use Doctrine\ORM\EntityRepository;
-use Ewallet\Accounts\{Member, MemberId, MembersRepository, UnknownMember};
 
 class DoctrineMembers extends EntityRepository implements MembersRepository
 {

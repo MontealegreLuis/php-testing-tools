@@ -7,10 +7,10 @@
 namespace Ewallet\Wallet;
 
 use Ewallet\Accounts\Member;
-use Ewallet\Doctrine2\Application\Services\DoctrineSession;
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
+use Ewallet\Doctrine2\Application\Services\DoctrineSession;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Exception;
 use Mockery;
 use Nelmio\Alice\Fixtures;

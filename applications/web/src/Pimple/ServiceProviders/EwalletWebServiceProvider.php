@@ -69,11 +69,11 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
         };
         $container->extend(
             'twig.loader',
-            function (Loader $loader) {
-                $loader->addPath(__DIR__ . '/../../Slim/Resources/templates');
-                $loader->addPath(
-                    __DIR__ . '/../../../vendor/ewallet/responder/src/Twig/Resources/templates'
-                );
+            function (Loader $loader) use ($container) {
+                foreach ($container['twig']['loader_paths'] as $path) {
+                    $loader->addPath($path);
+                }
+
                 return $loader;
             }
         );

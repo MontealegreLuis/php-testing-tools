@@ -29,7 +29,10 @@ return [
             'debug' => getenv('APP_ENV') !== 'production',
             'strict_variables' => true,
         ],
-        'loader_paths' => [],
+        'loader_paths' => [
+            __DIR__ . '/src/Twig/Resources/templates',
+            __DIR__ . '/vendor/ewallet/responder/src/Twig/Resources/templates'
+        ],
     ],
     'forms' => [
         'theme' => 'layouts/bootstrap3.html.twig',

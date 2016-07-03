@@ -17,7 +17,7 @@ class ContainerTest extends TestCase
     /** @test */
     function it_creates_the_application_services()
     {
-        $app = new Application(require __DIR__ . '/../../../config.php');
+        $app = new Application(require __DIR__ . '/../../../config.tests.php');
 
         $this->assertInstanceOf(
             LoggerInterface::class,

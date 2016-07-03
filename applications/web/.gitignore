@@ -1,5 +1,6 @@
 /.env
 /bin/
 /cli-config.php
+/options.php
 /public/index_dev.php
 /vendor/

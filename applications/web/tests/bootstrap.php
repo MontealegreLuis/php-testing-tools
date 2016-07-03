@@ -8,11 +8,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-$environment = new Dotenv(__DIR__ . '/../');
+$environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
-$environment->required([
-    'APP_ENV',
-    'MYSQL_USER',
-    'MYSQL_PASSWORD',
-    'MYSQL_HOST',
-]);
+$environment->required(['APP_ENV']);

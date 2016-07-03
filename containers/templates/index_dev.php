@@ -9,9 +9,9 @@ require __DIR__ . '/../vendor/autoload.php';
 use Dotenv\Dotenv;
 use Ewallet\Slim\Application;
 
-$environment = new Dotenv(__DIR__ . '/../');
+$environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
 $environment->required(['APP_ENV']);
 
-$app = new Application(require __DIR__ . '/../config.php');
+$app = new Application(require __DIR__ . '/../config.tests.php');
 $app->run();

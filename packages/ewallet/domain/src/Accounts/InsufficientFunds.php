@@ -16,10 +16,15 @@ class InsufficientFunds extends RuntimeException
 {
     /**
      * @param Money $amount
+     * @param Money $balance
      * @return InsufficientFunds
      */
-    public static function withdrawing(Money $amount)
+    public static function withdrawing(Money $amount, Money $balance)
     {
-        return new self("Cannot withdraw {$amount->getAmount()}");
+        return new self(sprintf(
+            "Cannot withdraw %s, current balance is %s",
+            number_format($amount->getAmount() / 100, 2),
+            number_format($balance->getAmount() / 100, 2)
+        ));
     }
 }

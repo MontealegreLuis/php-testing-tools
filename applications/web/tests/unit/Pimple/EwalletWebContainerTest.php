@@ -22,9 +22,7 @@ class EwalletWebContainerTest extends TestCase
     function it_creates_the_web_application_services()
     {
         Environment::mock(['REQUEST_METHOD' => 'GET']);
-        $environment = new Dotenv(__DIR__ . '/../../../');
-        $environment->load();
-        $options = require __DIR__ . '/../../../config.php';
+        $options = require __DIR__ . '/../../../config.tests.php';
         $container = new EwalletWebContainer($options, new Slim());
 
         $this->assertInstanceOf(

@@ -95,14 +95,14 @@ class Member implements CanRecordEvents
      * Transfer a given amount to a specific member
      *
      * @param Money $amount
-     * @param Member $toMember
+     * @param Member $recipient
      */
-    public function transfer(Money $amount, Member $toMember)
+    public function transfer(Money $amount, Member $recipient)
     {
-        $toMember->applyDeposit($amount);
+        $recipient->applyDeposit($amount);
         $this->account->withdraw($amount);
         $this->recordThat(new TransferWasMade(
-            $this->memberId, $amount, $toMember->memberId
+            $this->memberId, $amount, $recipient->memberId
         ));
     }
 

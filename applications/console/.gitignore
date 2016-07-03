@@ -1,3 +1,4 @@
 /.env
 /cli-config.php
+/options.php
 /vendor/

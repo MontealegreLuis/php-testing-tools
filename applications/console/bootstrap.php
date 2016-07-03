@@ -9,29 +9,8 @@ use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 require __DIR__ . '/vendor/autoload.php';
 
-if (getenv('ENV') == 'testing') {
-    $environment = new Dotenv(__DIR__, '.env.tests');
-    $environment->load();
-    $environment->required([
-        'APP_ENV',
-    ]);
-
-    $options = require __DIR__ . '/config.tests.php';
-} else {
-    $environment = new Dotenv(__DIR__);
-    $environment->load();
-    $environment->required([
-        'APP_ENV',
-        'MYSQL_USER',
-        'MYSQL_PASSWORD',
-        'MYSQL_HOST'
-    ]);
-
-    $options = require __DIR__ . '/config.php';
-}
-
 $setup = new class() { use ProvidesDoctrineSetup; };
-$setup->_setUpDoctrine($options);
+$setup->_setUpDoctrine(require __DIR__ . '/options.php');
 
 return $setup->_entityManager();
 

@@ -6,30 +6,28 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\Accounts\Member;
+use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Hexagonal\{DomainEvents\StoredEvent, Messaging\PublishedMessage};
-use Nelmio\Alice\Fixtures;
 use Symfony\Component\Console\{
     Command\Command,
     Input\InputInterface,
     Output\OutputInterface
 };
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class SeedDatabaseCommand extends Command
 {
-    use ProvidesDoctrineSetup;
-
     /** @var array */
-    private $options;
+    private $entityManager;
 
     /**
-     * @inheritDoc
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(array $options)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         parent::__construct();
-        $this->options = $options;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -52,14 +50,12 @@ class SeedDatabaseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->_setUpDoctrine($this->options);
         $this->truncateTable(Member::class);
         $this->truncateTable(StoredEvent::class);
         $this->truncateTable(PublishedMessage::class);
-        Fixtures::load(
-            __DIR__ . '/../../../fixtures/members.yml',
-            $this->entityManager
-        );
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture->load();
+        $output->writeln('Database seed <info>completed successfully</info>!');
     }
 
     /**

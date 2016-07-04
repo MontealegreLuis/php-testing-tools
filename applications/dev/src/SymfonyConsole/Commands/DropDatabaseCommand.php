@@ -8,27 +8,20 @@ namespace Ewallet\SymfonyConsole\Commands;
 
 use Doctrine\DBAL\{Connection, DriverManager};
 use Exception;
-use Symfony\Component\Console\{
-    Command\Command,
-    Input\InputInterface,
-    Output\OutputInterface
-};
+use Symfony\Component\Console\{Input\InputInterface, Output\OutputInterface};
 
-class CreateDatabaseCommand extends DatabaseCommand
+class DropDatabaseCommand extends DatabaseCommand
 {
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
         $this
-            ->setName('ewallet:db:create')
-            ->setDescription('Create database')
+            ->setName('ewallet:db:drop')
+            ->setDescription('Drops the database')
         ;
     }
 
     /**
-     * Create database unless it already exists.
+     * Drop database unless it does not exist.
      *
      * @param InputInterface $input
      * @param OutputInterface $output
@@ -41,9 +34,9 @@ class CreateDatabaseCommand extends DatabaseCommand
             $connection = DriverManager::getConnection(
                 $this->withoutDatabaseName($parameters)
             );
-            $this->createIfExists($output, $parameters, $connection);
+            $this->dropIfExists($output, $parameters, $connection);
         } catch (Exception $e) {
-            $this->cannotCreateDatabase($output, $parameters, $e);
+            $this->cannotDropDatabase($output, $parameters, $e);
         } finally {
             $connection->close();
         }
@@ -54,15 +47,15 @@ class CreateDatabaseCommand extends DatabaseCommand
      * @param array $parameters
      * @param Connection $connection
      */
-    private function createIfExists(
+    private function dropIfExists(
         OutputInterface $output,
         array $parameters,
         Connection $connection
     ) {
         if ($this->databaseExists($parameters, $connection)) {
-            $this->doNotCreateDatabase($output, $parameters);
+            $this->dropDatabase($output, $connection, $parameters);
         } else {
-            $this->createDatabase($output, $connection, $parameters);
+            $this->doNotDropDatabase($output, $parameters);
         }
     }
 
@@ -71,7 +64,7 @@ class CreateDatabaseCommand extends DatabaseCommand
      * @param Connection $connection
      * @param array $parameters
      */
-    private function createDatabase(
+    private function dropDatabase(
         OutputInterface $output,
         Connection $connection,
         array $parameters
@@ -84,11 +77,11 @@ class CreateDatabaseCommand extends DatabaseCommand
             ;
         }
 
-        $connection->getSchemaManager()->createDatabase($name);
+        $connection->getSchemaManager()->dropDatabase($name);
 
         $output->writeln(sprintf(
-            '<info>Created database <comment>%s</comment></info>',
-            $this->databaseName($parameters)
+            '<info>Dropped database <comment>%s</comment></info>',
+            $name
         ));
     }
 
@@ -96,12 +89,10 @@ class CreateDatabaseCommand extends DatabaseCommand
      * @param OutputInterface $output
      * @param array $parameters
      */
-    protected function doNotCreateDatabase(
-        OutputInterface $output,
-        array $parameters
-    ) {
+    private function doNotDropDatabase(OutputInterface $output, array $parameters)
+    {
         $output->writeln(sprintf(
-            '<info>Database <comment>%s</comment> already exists.</info>',
+            '<info>Database <comment>%s</comment> doesn\'t exist. Skipped.</info>',
             $this->databaseName($parameters)
         ));
     }
@@ -111,13 +102,13 @@ class CreateDatabaseCommand extends DatabaseCommand
      * @param array $parameters
      * @param Exception $e
      */
-    protected function cannotCreateDatabase(
+    protected function cannotDropDatabase(
         OutputInterface $output,
         array $parameters,
         Exception $e
     ) {
         $output->writeln(sprintf(
-            '<error>Could not create database <comment>%s</comment></error>',
+            '<error>Could not drop database ,<comment>%s</comment></error>',
             $this->databaseName($parameters)
         ));
         $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));

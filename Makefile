@@ -31,6 +31,7 @@ containers:
 	@source containers/.env.sh; rm -f applications/messaging/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD:$$RABBIT_MQ_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/messaging/templates/.env.template" > "applications/messaging/.env";
 	@cp containers/images/messaging/templates/php.ini containers/images/messaging/config/php.ini
 	@cp containers/images/messaging/templates/messaging-cron containers/images/messaging/config/messaging-cron
+	@cp containers/templates/options.php applications/messaging/options.php
 	@echo "Copying shared database configuration files.."
 	@cp containers/templates/cli-config.php applications/console/cli-config.php
 	@cp containers/templates/cli-config.php applications/dev/cli-config.php

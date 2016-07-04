@@ -18,7 +18,7 @@ $ composer install
 Setup the testing database
 
 ```bash
-$ bin/doctrine orm:schema-tool:update --force
+$ ENV=testing bin/doctrine orm:schema-tool:update --force
 ```
 
 Run the tests

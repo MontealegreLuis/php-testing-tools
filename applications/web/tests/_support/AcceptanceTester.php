@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PHP version 7.0
+ *
+ * This source file is subject to the license that is bundled with this package in the file LICENSE.
+ */
+use Codeception\Actor;
+use _generated\AcceptanceTesterActions;
+use Page\TransferFundsPage;
 
 /**
  * Inherited Methods
@@ -15,12 +22,34 @@
  * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = null)
  *
  * @SuppressWarnings(PHPMD)
-*/
-class AcceptanceTester extends \Codeception\Actor
+ */
+class AcceptanceTester extends Actor
 {
-    use _generated\AcceptanceTesterActions;
+    use AcceptanceTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    public function amOnTransferFundsPage()
+    {
+        $this->amOnPage(TransferFundsPage::$inputTransferInformationPage);
+    }
+
+    /**
+     * @param string $name Recipient's name
+     * @param int $amount Amount in MXN
+     */
+    public function enterTransferInformation(string $name, int $amount)
+    {
+        $this->selectOption(TransferFundsPage::$recipients, $name);
+        $this->fillField(TransferFundsPage::$amount, $amount);
+    }
+
+    public function requestTransfer()
+    {
+        $this->click(TransferFundsPage::$transferButton);
+    }
+
+    public function seeTransferCompletedConfirmation()
+    {
+        $this->seeCurrentUrlMatches('/' . TransferFundsPage::$transferCompletedPage . '/');
+        $this->seeElement(TransferFundsPage::$successMessage);
+    }
 }

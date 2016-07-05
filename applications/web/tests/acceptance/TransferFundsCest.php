@@ -7,8 +7,6 @@
 use Ewallet\Accounts\Member;
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
-use Page\TransferFundsPage;
-use Nelmio\Alice\Fixtures;
 
 class TransferFundsCest
 {
@@ -32,12 +30,10 @@ class TransferFundsCest
         $I->wantTo('pay a debt');
         $I->lookForwardTo('transfer funds to my friend');
 
-        $I->amOnPage(TransferFundsPage::$formPage);
-        $I->selectOption(TransferFundsPage::$toMember, 'Luis Montealegre');
-        $I->fillField(TransferFundsPage::$amount, 5);
-        $I->click(TransferFundsPage::$transfer);
+        $I->amOnTransferFundsPage();
+        $I->enterTransferInformation('Luis Montealegre', 5);
+        $I->requestTransfer();
 
-        $I->seeCurrentUrlMatches('/' . TransferFundsPage::$transferPage . '/');
-        $I->seeElement(TransferFundsPage::$successMessage);
+        $I->seeTransferCompletedConfirmation();
     }
 }

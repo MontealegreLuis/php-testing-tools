@@ -1,6 +1,6 @@
 # Ewallet Doctrine Package
 
-The following commands are meant to be run from the `dev` container in this
+The following commands are meant to be run from the `dev` container from this
 folder.
 
 ```bash
@@ -14,14 +14,6 @@ $ composer install
 ```
 
 ## Tests
-
-Setup the testing database
-
-```bash
-$ bin/doctrine orm:schema-tool:update --force
-```
-
-Run the tests
 
 ```bash
 $ bin/phpunit --testdox

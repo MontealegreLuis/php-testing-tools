@@ -9,4 +9,11 @@
             <directory>tests/integration</directory>
         </testsuite>
     </testsuites>
+    <listeners>
+        <listener class="\Ewallet\PHPUnit\UpdateDatabaseSchemaListener">
+            <arguments>
+                <string>config.php</string>
+            </arguments>
+        </listener>
+    </listeners>
 </phpunit>

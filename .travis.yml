@@ -27,7 +27,7 @@ before_script:
   - cd ../templating && composer install --prefer-source --no-interaction --dev
   - cd ../validation && composer install --prefer-source --no-interaction --dev
   - cd ../../hexagonal/doctrine && composer install --prefer-source --no-interaction --dev
-  - cp ../../../containers/templates/cli-config.php cli-config.php && bin/doctrine orm:schema-tool:create
+  - cp ../../../containers/templates/cli-config.php cli-config.php
 
 script:
   - cd ../../../applications/console && bin/phpunit -v

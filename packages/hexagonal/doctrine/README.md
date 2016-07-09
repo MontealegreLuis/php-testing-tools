@@ -15,14 +15,6 @@ $ composer install
 
 ## Tests
 
-Setup the testing database
-
-```bash
-$ bin/doctrine orm:schema-tool:update --force
-```
-
-Run the tests
-
 ```bash
 $ bin/phpunit --testdox
 ```

@@ -11,7 +11,7 @@ before_script:
   - composer self-update
   - cd applications/console && composer install --prefer-source --no-interaction --dev
   - mysql -e 'create database ewallet_db;'
-  - cp .env.travis .env && cp ../../containers/templates/cli-config.php cli-config.php && cp ../../containers/templates/options.php options.php && ENV=testing bin/doctrine orm:schema-tool:create
+  - cp .env.travis .env && cp ../../containers/templates/cli-config.php cli-config.php && cp ../../containers/templates/options.php options.php
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
   - cp .env.travis .env
   - cd ../web && composer install --prefer-source --no-interaction --dev

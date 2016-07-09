@@ -22,7 +22,6 @@ containers:
 	@source containers/.env.sh; rm -f containers/images/web/config/ewallet.conf; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/web/templates/ewallet.conf.template" > "containers/images/web/config/ewallet.conf";
 	@cp containers/images/web/templates/php.ini containers/images/web/config/php.ini
 	@cp containers/templates/index_dev.php applications/web/public/index_dev.php
-	@cp containers/templates/options.php applications/web/options.php
 	@echo "Generating configuration for the 'console' image/container/application..."
 	@source containers/.env.sh; rm -f applications/console/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/console/templates/.env.template" > "applications/console/.env";
 	@cp containers/images/console/templates/php.ini containers/images/console/config/php.ini
@@ -32,10 +31,8 @@ containers:
 	@cp containers/images/messaging/templates/messaging-cron containers/images/messaging/config/messaging-cron
 	@cp containers/templates/options.php applications/messaging/options.php
 	@echo "Copying shared database configuration files.."
-	@cp containers/templates/cli-config.php applications/console/cli-config.php
 	@cp containers/templates/cli-config.php applications/dev/cli-config.php
 	@cp containers/templates/cli-config.php applications/messaging/cli-config.php
-	@cp containers/templates/cli-config.php applications/web/cli-config.php
 	@cp containers/templates/cli-config.php packages/ewallet/doctrine/cli-config.php
 	@cp containers/templates/cli-config.php packages/ewallet/responder/cli-config.php
 	@cp containers/templates/cli-config.php packages/hexagonal/doctrine/cli-config.php

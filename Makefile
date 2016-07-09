@@ -26,7 +26,6 @@ containers:
 	@echo "Generating configuration for the 'console' image/container/application..."
 	@source containers/.env.sh; rm -f applications/console/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/console/templates/.env.template" > "applications/console/.env";
 	@cp containers/images/console/templates/php.ini containers/images/console/config/php.ini
-	@cp containers/templates/options.php applications/console/options.php
 	@echo "Generating configuration for the 'messaging' image/container/application..."
 	@source containers/.env.sh; rm -f applications/messaging/.env; CONTAINER_VARS='$$APP_ENV:$$MYSQL_USER:$$MYSQL_PASSWORD:$$MYSQL_HOST:$$RABBIT_MQ_USER:$$RABBIT_MQ_PASSWORD:$$RABBIT_MQ_HOST'; envsubst "$$CONTAINER_VARS" < "containers/images/messaging/templates/.env.template" > "applications/messaging/.env";
 	@cp containers/images/messaging/templates/php.ini containers/images/messaging/config/php.ini

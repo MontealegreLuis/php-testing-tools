@@ -15,7 +15,7 @@ before_script:
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
   - cp .env.travis .env
   - cd ../web && composer install --prefer-source --no-interaction --dev
-  - cp .env.travis .env && cp ../../containers/templates/cli-config.php cli-config.php && cp ../../containers/templates/options.php options.php && cp ../../containers/templates/index_dev.php public/index_dev.php && ENV=testing bin/doctrine orm:schema-tool:create
+  - cp .env.travis .env && cp ../../containers/templates/cli-config.php cli-config.php && cp ../../containers/templates/options.php options.php && cp ../../containers/templates/index_dev.php public/index_dev.php
   - npm install -g phantomjs-prebuilt
   - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
   - cd ../application && composer install --prefer-source --no-interaction --dev

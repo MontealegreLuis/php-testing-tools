@@ -20,7 +20,6 @@ before_script:
   - cd ../doctrine && composer install --prefer-source --no-interaction --dev
   - cp ../../../containers/templates/cli-config.php cli-config.php
   - cd ../responder && composer install --prefer-source --no-interaction --dev
-  - cp ../../../containers/templates/cli-config.php cli-config.php
   - cd ../templating && composer install --prefer-source --no-interaction --dev
   - cd ../validation && composer install --prefer-source --no-interaction --dev
   - cd ../../hexagonal/doctrine && composer install --prefer-source --no-interaction --dev

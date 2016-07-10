@@ -7,7 +7,8 @@
 namespace Ewallet\Doctrine2;
 
 use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\{EntityManager, EntityManagerInterface, Tools\Setup};
+use Doctrine\ORM\{EntityManager, EntityManagerInterface};
+use Doctrine\ORM\Tools\{SchemaTool, Setup};
 
 trait ProvidesDoctrineSetup
 {
@@ -31,6 +32,10 @@ trait ProvidesDoctrineSetup
      */
     public function _setUpDoctrine(array $options)
     {
+        if ($this->entityManager) { // Do not initialize twice
+            return;
+        }
+
         $configuration = Setup::createXMLMetadataConfiguration(
             $options['doctrine']['mapping_dirs'],
             $options['doctrine']['dev_mode'],
@@ -45,5 +50,12 @@ trait ProvidesDoctrineSetup
             !Type::hasType($type) && Type::addType($type, $class);
             $platform->registerDoctrineTypeMapping($type, $type);
         }
+    }
+
+    public function _updateDatabaseSchema(array $options)
+    {
+        $this->_setUpDoctrine($options);
+        $tool = new SchemaTool($em = $this->_entityManager());
+        $tool->updateSchema($em->getMetadataFactory()->getAllMetadata(), true);
     }
 }

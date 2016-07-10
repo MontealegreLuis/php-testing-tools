@@ -6,7 +6,6 @@
  */
 namespace Ewallet\PHPUnit;
 
-use Doctrine\ORM\Tools\SchemaTool;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Exception;
 use PHPUnit_Framework_AssertionFailedError as AssertionFailedError;
@@ -65,9 +64,7 @@ class UpdateDatabaseSchemaListener implements TestListener
             return;
         }
 
-        $this->_setUpDoctrine(require $this->path);
-        $tool = new SchemaTool($em = $this->_entityManager());
-        $tool->updateSchema($em->getMetadataFactory()->getAllMetadata(), true);
+        $this->_updateDatabaseSchema(require $this->path);
     }
 
     /**

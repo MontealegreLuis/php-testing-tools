@@ -66,7 +66,7 @@ class UpdateDatabaseSchemaListener implements TestListener
         }
 
         $this->_setUpDoctrine(require $this->path);
-        $tool = new SchemaTool($em = $this->entityManager);
+        $tool = new SchemaTool($em = $this->_entityManager());
         $tool->updateSchema($em->getMetadataFactory()->getAllMetadata(), true);
     }
 

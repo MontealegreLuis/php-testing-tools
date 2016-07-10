@@ -18,7 +18,7 @@ class MembersRepositoryTest extends MembersTest
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         $this
-            ->entityManager
+            ->_entityManager()
             ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;
@@ -30,6 +30,6 @@ class MembersRepositoryTest extends MembersTest
      */
     protected function membersInstance(): Members
     {
-        return $this->entityManager->getRepository(Member::class);
+        return $this->_entityManager()->getRepository(Member::class);
     }
 }

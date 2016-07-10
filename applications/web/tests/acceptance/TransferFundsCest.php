@@ -16,7 +16,7 @@ class TransferFundsCest
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../config.tests.php');
         $this
-            ->entityManager
+            ->_entityManager()
             ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;

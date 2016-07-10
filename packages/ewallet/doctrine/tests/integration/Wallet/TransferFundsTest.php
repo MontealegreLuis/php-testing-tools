@@ -21,30 +21,29 @@ class TransferFundsTest extends TestCase
 {
     use ProvidesDoctrineSetup, ProvidesMoneyConstraints;
 
+    /** @var Members $members */
+    private $members;
+
     public function setUp()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         $this
-            ->entityManager
+            ->_entityManager()
             ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;
+        $fixtures = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
+        $fixtures->load();
+        $this->members = $this->_entityManager()->getRepository(Member::class);
     }
 
     /** @test */
     function it_transfers_funds_between_members()
     {
-        $fixtures = new ThreeMembersWithSameBalanceFixture($this->entityManager);
-        $fixtures->load();
-
-        /** @var Members $members */
-        $members = $this->entityManager->getRepository(Member::class);
         $action = Mockery::mock(CanTransferFunds::class)->shouldIgnoreMissing();
 
-        $useCase = new TransferFundsTransactionally($members);
-        $useCase->setTransactionalSession(
-            new DoctrineSession($this->entityManager)
-        );
+        $useCase = new TransferFundsTransactionally($this->members);
+        $useCase->setTransactionalSession(new DoctrineSession($this->_entityManager()));
         $useCase->attach($action);
 
         $useCase->transfer($request = TransferFundsInformation::from([
@@ -53,24 +52,18 @@ class TransferFundsTest extends TestCase
             'amount' => 3,
         ]));
 
-        $sender = $members->with($request->senderId());
+        $sender = $this->members->with($request->senderId());
         $this->assertBalanceAmounts(700, $sender);
 
-        $recipient = $members->with($request->recipientId());
+        $recipient = $this->members->with($request->recipientId());
         $this->assertBalanceAmounts(1300, $recipient);
     }
 
     /** @test */
     function it_rollbacks_an_incomplete_transfer()
     {
-        $fixtures = new ThreeMembersWithSameBalanceFixture($this->entityManager);
-        $fixtures->load();
-
-        /** @var Members $members */
-        $members = $this->entityManager->getRepository(Member::class);
-
-        $useCase = new TransferFundsTransactionally($members);
-        $useCase->setTransactionalSession(new DoctrineSession($this->entityManager));
+        $useCase = new TransferFundsTransactionally($this->members);
+        $useCase->setTransactionalSession(new DoctrineSession($this->_entityManager()));
         $useCase->attach(new class() implements CanTransferFunds {
             public function transferCompleted(TransferFundsSummary $summary) {
                 throw new RuntimeException('Transfer failed.');
@@ -85,10 +78,10 @@ class TransferFundsTest extends TestCase
             ]));
         } catch(Exception $ignore) {}
 
-        $sender = $members->with($request->senderId());
+        $sender = $this->members->with($request->senderId());
         $this->assertBalanceAmounts(1000, $sender); // Should remain equal
 
-        $recipient = $members->with($request->recipientId());
+        $recipient = $this->members->with($request->recipientId());
         $this->assertBalanceAmounts(1000, $recipient); // Should not have changed
     }
 }

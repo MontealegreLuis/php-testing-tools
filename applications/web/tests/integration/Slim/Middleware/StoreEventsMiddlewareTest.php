@@ -25,7 +25,7 @@ class StoreEventsMiddlewareTest extends TestCase
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.tests.php');
         $this
-            ->entityManager
+            ->_entityManager()
             ->createQuery('DELETE FROM ' . StoredEvent::class)
             ->execute()
         ;
@@ -35,7 +35,7 @@ class StoreEventsMiddlewareTest extends TestCase
     function it_persists_an_event_published_inside_an_slim_route()
     {
         /** @var \Hexagonal\Doctrine2\DomainEvents\EventStoreRepository $store */
-        $store = $this->entityManager->getRepository(StoredEvent::class);
+        $store = $this->_entityManager()->getRepository(StoredEvent::class);
 
         $publisher = new EventPublisher();
         $middleware = new StoreEventsMiddleware(

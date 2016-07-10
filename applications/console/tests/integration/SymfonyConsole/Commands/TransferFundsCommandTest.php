@@ -25,7 +25,7 @@ class TransferFundsCommandTest extends TestCase
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.tests.php');
         $this
-            ->entityManager
+            ->_entityManager()
             ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;
@@ -34,8 +34,8 @@ class TransferFundsCommandTest extends TestCase
     /** @test */
     function it_transfers_funds_between_members()
     {
-        (new ThreeMembersWithSameBalanceFixture($this->entityManager))->load();
-        $members = $this->entityManager->getRepository(Member::class);
+        (new ThreeMembersWithSameBalanceFixture($this->_entityManager()))->load();
+        $members = $this->_entityManager()->getRepository(Member::class);
         $useCase = new TransferFunds($members);
         $input = new ArrayInput([]);
         $output = new BufferedOutput();

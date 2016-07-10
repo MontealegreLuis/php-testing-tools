@@ -12,7 +12,7 @@ use Doctrine\ORM\{EntityManager, EntityManagerInterface, Tools\Setup};
 trait ProvidesDoctrineSetup
 {
     /** @var EntityManagerInterface */
-    protected $entityManager;
+    private $entityManager;
 
     /**
      * @return EntityManagerInterface

@@ -29,12 +29,13 @@ class TransferFundsCommandTest extends TestCase
             ->createQuery('DELETE FROM ' . Member::class)
             ->execute()
         ;
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
+        $fixture->load();
     }
 
     /** @test */
     function it_transfers_funds_between_members()
     {
-        (new ThreeMembersWithSameBalanceFixture($this->_entityManager()))->load();
         $members = $this->_entityManager()->getRepository(Member::class);
         $useCase = new TransferFunds($members);
         $input = new ArrayInput([]);

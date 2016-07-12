@@ -19,7 +19,6 @@ class EwalletConsoleContainerTest extends TestCase
     /** @test */
     function it_creates_the_console_application_services()
     {
-        (new Dotenv(__DIR__ . '/../../../', '.env.tests'))->load();
         $arguments = require __DIR__ . '/../../../config.tests.php';
         $container = new EwalletConsoleContainer($arguments);
 

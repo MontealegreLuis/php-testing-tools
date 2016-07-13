@@ -29,6 +29,7 @@ class EwalletServiceProviderTest extends TestCase
     {
         $options = require __DIR__ . '/../../../../config.php';
         $container = new Container($options);
+        $container->register(new DoctrineServiceProvider());
         $container->register(new EwalletServiceProvider());
 
         $this->assertInstanceOf(

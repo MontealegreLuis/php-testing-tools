@@ -7,6 +7,8 @@
 namespace Ewallet\Slim;
 
 use Ewallet\Pimple\EwalletWebContainer;
+use Ewallet\Pimple\ServiceProviders\EwalletWebServiceProvider;
+use Ewallet\Slim\ControllerProviders\EwalletControllerProvider;
 use Slim\App;
 
 class Application extends App
@@ -16,8 +18,11 @@ class Application extends App
      *
      * @param  array $arguments Associative array of application settings
      */
-    public function __construct(array $arguments= [])
+    public function __construct(array $arguments = [])
     {
-        parent::__construct(new EwalletWebContainer($arguments, $this));
+        parent::__construct($container = new EwalletWebContainer($arguments, $this));
+        $container->register(new EwalletWebServiceProvider($this));
+        $container->register(new EwalletControllerProvider($this));
+        $container->register(new Middleware($this));
     }
 }

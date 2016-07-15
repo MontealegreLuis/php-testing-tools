@@ -6,36 +6,43 @@
  */
 namespace Ewallet\Slim\ControllerProviders;
 
-use ComPHPPuebla\Slim\{ControllerProvider, Resolver};
-use Slim\Slim;
+use Pimple\{Container, ServiceProviderInterface};
+use Slim\App;
+use Slim\Http\{Request, Response};
 
-class EwalletControllerProvider implements ControllerProvider
+class EwalletControllerProvider implements ServiceProviderInterface
 {
+    /** @var App */
+    private $app;
+
     /**
-     * @param Slim $app
-     * @param Resolver $resolver
+     * @param App $app
      */
-    public function register(Slim $app, Resolver $resolver)
+    public function __construct(App $app)
     {
-        $app->get(
+        $this->app = $app;
+    }
+
+    /**
+     * @param Container $container
+     */
+    public function register(Container $container)
+    {
+        $this->app->get(
             '/',
-            function () use ($app) {
-                $app->redirectTo('transfer_form');
+            function (Request $request, Response $response) {
+                $response->withRedirect($request->getUri()->withPath(
+                    $this->app->router->pathFor('transfer_form')
+                ));
             }
         );
-        $app->get(
+        $this->app->get(
             '/transfer-form',
-            $resolver->resolve(
-                $app,
-                'ewallet.transfer_form_controller:enterTransferInformation'
-            )
-        )->name('transfer_form');
-        $app->post(
+            'ewallet.transfer_form_controller:enterTransferInformation'
+        )->setName('transfer_form');
+        $this->app->post(
             '/transfer-funds',
-            $resolver->resolve(
-                $app,
-                'ewallet.transfer_funds_controller:transfer'
-            )
-        )->name('transfer_funds');
+            'ewallet.transfer_funds_controller:transfer'
+        )->setName('transfer_funds');
     }
 }

@@ -7,9 +7,10 @@
 namespace Ewallet\Slim\Middleware;
 
 use Psr\Log\LoggerInterface;
-use Slim\Middleware;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
-class RequestLoggingMiddleware extends Middleware
+class RequestLoggingMiddleware
 {
     /** @var LoggerInterface */
     private $logger;
@@ -25,35 +26,42 @@ class RequestLoggingMiddleware extends Middleware
     /**
      * Log the current request information and its matched route, if any
      */
-    public function call()
+    public function __invoke(Request $request, Response $response)
     {
-        $this->logRequest();
+        $this->logRequest($request);
 
-        $this->next->call();
+        /** @var Response $response */
+        $response = $next($request, $response);
 
-        if ($this->app->response->isNotFound()) {
-            return $this->logNotFound();
+        if ($response->isNotFound()) {
+            $this->logNotFound($request);
+            return $response;
         }
 
-        if ($this->app->response->isRedirect()) {
-            return $this->logRedirect();
+        if ($response->isRedirect()) {
+            $this->logRedirect($response);
+            return $response;
         }
 
-        $this->logRouteMatched();
+        $routeInfo = $request->getAttribute('routeInfo');
+        var_dump($routeInfo);
+        //$this->logRouteMatched();
+
+        return $response;
     }
 
-    private function logNotFound()
+    private function logNotFound(Request $request)
     {
         $this->logger->info('No route matched', [
-            'path' => $this->app->request->getPathInfo(),
-            'method' => $this->app->request->getMethod(),
+            'path' => $request->getUri()->getPath(),
+            'method' => $request->getMethod(),
         ]);
     }
 
-    private function logRedirect()
+    private function logRedirect(Response $response)
     {
         $this->logger->info('Redirect', [
-            'redirect' => $this->app->response->headers->get('Location')
+            'redirect' => $response->getHeader('Location')
         ]);
     }
 
@@ -66,11 +74,11 @@ class RequestLoggingMiddleware extends Middleware
         ]);
     }
 
-    private function logRequest()
+    private function logRequest(Request $request)
     {
         $this->logger->info('Current request', [
-            'path' => $this->app->request->getPathInfo(),
-            'method' => $this->app->request->getMethod(),
+            'path' => $request->getUri()->getPath(),
+            'method' => $request->getMethod(),
         ]);
     }
 }

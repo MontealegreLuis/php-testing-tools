@@ -6,17 +6,29 @@
  */
 namespace Ewallet\Slim;
 
-use ComPHPPuebla\Slim\MiddlewareLayers;
-use Slim\Helper\Set;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Slim\App;
 
-class Middleware extends MiddlewareLayers
+class Middleware implements ServiceProviderInterface
 {
+    /** @var App */
+    private $app;
+
+    /**
+     * @param App $app
+     */
+    public function __construct(App $app)
+    {
+        $this->app = $app;
+    }
+
     /**
      * @param Set $container
      */
-    public function init(Set $container)
+    public function register(Container $container)
     {
-        $this->add($container->get('slim.middleware.request_logging'));
-        $this->add($container->get('slim.middleware.store_events'));
+        $this->app->add($container['slim.middleware.request_logging']);
+        $this->app->add($container['slim.middleware.store_events']);
     }
 }

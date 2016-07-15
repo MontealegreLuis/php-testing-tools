@@ -6,36 +6,26 @@
  */
 namespace Ewallet\Slim\ServiceProviders;
 
-use ComPHPPuebla\Slim\{Resolver, ServiceProvider};
 use Ewallet\Slim\Middleware\{StoreEventsMiddleware, RequestLoggingMiddleware};
-use Slim\Slim;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
-class MiddlewareServiceProvider implements ServiceProvider
+class MiddlewareServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Slim $app
-     * @param Resolver $resolver
-     * @param array $options
+     * @param Container $container
      * @return void
      */
-    public function configure(Slim $app, Resolver $resolver, array $options = [])
+    public function register(Container $container)
     {
-        $app->container->singleton(
-            'slim.middleware.request_logging',
-            function () use ($app) {
-                return new RequestLoggingMiddleware(
-                    $app->container->get('slim.logger')
-                );
-            }
-        );
-        $app->container->singleton(
-            'slim.middleware.store_events',
-            function () use ($app) {
-                return new StoreEventsMiddleware(
-                    $app->container->get('ewallet.event_persist_subscriber'),
-                    $app->container->get('ewallet.events_publisher')
-                );
-            }
-        );
+        $container['slim.middleware.request_logging'] = function () use ($container) {
+            return new RequestLoggingMiddleware($container['slim.logger']);
+        };
+        $container['slim.middleware.store_events'] =  function () use ($container) {
+            return new StoreEventsMiddleware(
+                $container['ewallet.event_persist_subscriber'],
+                $container['ewallet.events_publisher']
+            );
+        };
     }
 }

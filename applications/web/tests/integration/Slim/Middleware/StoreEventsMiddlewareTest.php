@@ -7,14 +7,12 @@
 namespace Ewallet\Slim\Middleware;
 
 use Ewallet\DataBuilders\A;
+use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Hexagonal\JmsSerializer\JsonSerializer;
-use Hexagonal\DomainEvents\{
-    EventPublisher, PersistEventsSubscriber, StoredEvent, StoredEventFactory
-};
+use Hexagonal\DomainEvents\{EventPublisher, PersistEventsSubscriber, StoredEvent, StoredEventFactory};
 use PHPUnit_Framework_TestCase as TestCase;
 use SplObjectStorage;
-use Slim\{Environment, Slim};
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Slim\{Http\Environment, App};
 
 class StoreEventsMiddlewareTest extends TestCase
 {
@@ -45,19 +43,21 @@ class StoreEventsMiddlewareTest extends TestCase
             $publisher
         );
 
-        $app = new Slim();
-        $app->get('/', function() use ($publisher) {
+        $app = new App();
+        $app->getContainer()['environment'] = Environment::mock([
+            'REQUEST_URI' => '/',
+        ]);
+        $app->add($middleware);
+        $app->get('/', function($_, $response) use ($publisher) {
             $events = new SplObjectStorage();
             $events->attach(A::transferWasMadeEvent()->build());
             $publisher->publish($events);
-        });
-        $app->add($middleware);
-        Environment::mock([
-            'REQUEST_METHOD' => 'GET',
-        ]);
 
-        $app->run();
+            return $response;
+        })->setName('home');
+        $response = $app->run(true);
 
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $store->allEvents());
     }
 }

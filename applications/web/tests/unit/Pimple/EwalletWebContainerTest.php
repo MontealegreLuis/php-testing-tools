@@ -6,13 +6,16 @@
  */
 namespace Ewallet\Pimple;
 
-use Dotenv\Dotenv;
 use Ewallet\Slim\Controllers\TransferFundsController;
+use Ewallet\Slim\Middleware\{RequestLoggingMiddleware, StoreEventsMiddleware};
 use Ewallet\Twig\RouterExtension;
 use Ewallet\Wallet\TransferFundsFormResponder;
 use Ewallet\EasyForms\TransferFundsForm;
+use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
+use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use PHPUnit_Framework_TestCase as TestCase;
-use Slim\{Environment, Slim};
+use Psr\Log\LoggerInterface;
+use Slim\{App, Http\Environment};
 use Twig_Environment as TwigEnvironment;
 use Twig_Loader_Filesystem as Loader;
 
@@ -23,7 +26,9 @@ class EwalletWebContainerTest extends TestCase
     {
         Environment::mock(['REQUEST_METHOD' => 'GET']);
         $options = require __DIR__ . '/../../../config.tests.php';
-        $container = new EwalletWebContainer($options, new Slim());
+        $container = new EwalletWebContainer($options, new App([
+            'determineRouteBeforeAppMiddleware' => true,
+        ]));
 
         $this->assertInstanceOf(
             TwigEnvironment::class,
@@ -56,6 +61,27 @@ class EwalletWebContainerTest extends TestCase
         $this->assertInstanceOf(
             RouterExtension::class,
             $container['twig.environment']->getExtension('slim_router')
+        );
+
+        $this->assertInstanceOf(
+            LoggerInterface::class,
+            $container['slim.logger']
+        );
+        $this->assertInstanceOf(
+            EventStoreRepository::class,
+            $container['ewallet.event_store']
+        );
+        $this->assertInstanceOf(
+            PersistEventsSubscriber::class,
+            $container['ewallet.event_persist_subscriber']
+        );
+        $this->assertInstanceOf(
+            RequestLoggingMiddleware::class,
+            $container['slim.middleware.request_logging']
+        );
+        $this->assertInstanceOf(
+            StoreEventsMiddleware::class,
+            $container['slim.middleware.store_events']
         );
     }
 }

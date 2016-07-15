@@ -12,19 +12,19 @@ use Ewallet\Twig\RouterExtension;
 use Ewallet\Wallet\{TransferFundsAction, TransferFundsFormResponder};
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
 use Pimple\Container;
-use Slim\Slim;
+use Slim\App;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
 
 class EwalletWebServiceProvider extends EwalletServiceProvider
 {
-    /** @var  Slim */
+    /** @var  App */
     private $app;
 
     /**
-     * @param Slim $app
+     * @param App $app
      */
-    public function __construct(Slim $app)
+    public function __construct(App $app)
     {
         $this->app = $app;
     }
@@ -64,8 +64,10 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
                 $container['ewallet.transfer_filter_request']
             );
         };
-        $container['slim.twig_extension'] = function () {
-            return new RouterExtension($this->app->router, $this->app->request);
+        $container['slim.twig_extension'] = function () use ($container) {
+            return new RouterExtension(
+                $container['router'], $container['request']
+            );
         };
         $container->extend(
             'twig.loader',

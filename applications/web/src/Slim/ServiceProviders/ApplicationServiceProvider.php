@@ -6,32 +6,26 @@
  */
 namespace Ewallet\Slim\ServiceProviders;
 
-use ComPHPPuebla\Slim\{Resolver, ServiceProvider};
 use Monolog\{Handler\SyslogHandler, Logger};
-use Slim\Slim;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
-class ApplicationServiceProvider implements ServiceProvider
+class ApplicationServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Slim $app
-     * @param Resolver $resolver
-     * @param array $options
-     * @return void
+     * @param Container $container
      */
-    public function configure(Slim $app, Resolver $resolver, array $options = [])
+    public function register(Container $container)
     {
-        $app->container->singleton(
-            'slim.logger',
-            function () use ($options) {
-                $logger = new Logger($options['monolog']['app']['channel']);
-                $logger->pushHandler(new SyslogHandler(
-                    $options['monolog']['app']['channel'],
-                    LOG_USER,
-                    Logger::DEBUG
-                ));
+        $container['slim.logger'] = function () use ($container) {
+            $logger = new Logger($container['monolog']['app']['channel']);
+            $logger->pushHandler(new SyslogHandler(
+                $container['monolog']['app']['channel'],
+                LOG_USER,
+                Logger::DEBUG
+            ));
 
-                return $logger;
-            }
-        );
+            return $logger;
+        };
     }
 }

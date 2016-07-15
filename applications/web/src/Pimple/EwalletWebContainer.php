@@ -12,8 +12,11 @@ use Ewallet\Pimple\ServiceProviders\{
     FormsServiceProvider,
     TwigServiceProvider
 };
-use Pimple\Container;
-use Slim\Slim;
+use Ewallet\Slim\ControllerProviders\EwalletControllerProvider;
+use Ewallet\Slim\Middleware;
+use Ewallet\Slim\ServiceProviders\{ApplicationServiceProvider, MiddlewareServiceProvider};
+use Slim\App;
+use Slim\Container;
 
 class EwalletWebContainer extends Container
 {
@@ -21,14 +24,18 @@ class EwalletWebContainer extends Container
      * Add service providers and application options.
      *
      * @param array $arguments
-     * @param Slim $app
+     * @param App $app
      */
-    public function __construct(array $arguments = [], Slim $app)
+    public function __construct(array $arguments = [], App $app)
     {
         parent::__construct($arguments);
         $this->register(new DoctrineServiceProvider());
         $this->register(new TwigServiceProvider());
         $this->register(new FormsServiceProvider());
         $this->register(new EwalletWebServiceProvider($app));
+        $this->register(new ApplicationServiceProvider());
+        $this->register(new MiddlewareServiceProvider());
+        $this->register(new EwalletControllerProvider($app));
+        $this->register(new Middleware($app));
     }
 }

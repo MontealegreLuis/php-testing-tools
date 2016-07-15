@@ -6,31 +6,18 @@
  */
 namespace Ewallet\Slim;
 
-use ComPHPPuebla\Slim\Resolver;
 use Ewallet\Pimple\EwalletWebContainer;
-use Slim\Slim;
+use Slim\App;
 
-class Application extends Slim
+class Application extends App
 {
     /**
      * Register all the application services, routes and middleware
      *
-     * @param  array $options Associative array of application settings
+     * @param  array $arguments Associative array of application settings
      */
-    public function __construct(array $options = array())
+    public function __construct(array $arguments= [])
     {
-        parent::__construct($options);
-        $container = new SlimContainer(new EwalletWebContainer($options, $this));
-        $this->container = $container->merge($this->container);
-
-        $resolver = new Resolver();
-        $services = new Services($resolver, $options);
-        $services->configure($this);
-
-        $controllers = new Controllers($resolver);
-        $controllers->register($this);
-
-        $middleware = new Middleware();
-        $middleware->configure($this);
+        parent::__construct(new EwalletWebContainer($arguments, $this));
     }
 }

@@ -9,6 +9,7 @@ namespace Ewallet\Slim\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
+use Slim\Route;
 
 class RequestLoggingMiddleware
 {
@@ -43,12 +44,15 @@ class RequestLoggingMiddleware
             return $response;
         }
 
-        $routeInfo = $request->getAttribute('routeInfo');
-        //$this->logRouteMatched();
+        $route = $request->getAttribute('route');
+        $this->logRouteMatched($route, $request);
 
         return $response;
     }
 
+    /**
+     * @param Request $request
+     */
     private function logNotFound(Request $request)
     {
         $this->logger->info('No route matched', [
@@ -57,22 +61,32 @@ class RequestLoggingMiddleware
         ]);
     }
 
+    /**
+     * @param ResponseInterface $response
+     */
     private function logRedirect(ResponseInterface $response)
     {
         $this->logger->info('Redirect', [
-            'redirect' => $response->getHeader('Location')
+            'redirect' => $response->getHeader('Location')[0],
         ]);
     }
 
-    private function logRouteMatched()
+    /**
+     * @param Route $route
+     * @param Request $request
+     */
+    private function logRouteMatched(Route $route, Request $request)
     {
         $this->logger->info('Matched route ', [
-            'route' => $this->app->router->getCurrentRoute()->getName(),
-            'params' => $this->app->router->getCurrentRoute()->getParams(),
-            'request' => $this->app->request->params(),
+            'route' => $route->getName(),
+            'params' => $route->getArguments(),
+            'request' => $request->getParams(),
         ]);
     }
 
+    /**
+     * @param Request $request
+     */
     private function logRequest(Request $request)
     {
         $this->logger->info('Current request', [

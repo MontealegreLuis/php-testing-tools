@@ -5,7 +5,10 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 return [
-    'settings' => ['displayErrorDetails' => true],
+    'settings' => [
+        'displayErrorDetails' => true,
+        'determineRouteBeforeAppMiddleware' => true,
+    ],
     'doctrine' => [
         'mapping_dirs' => [
             __DIR__ . '/vendor/ewallet/doctrine/src/Doctrine2/Resources/config',
@@ -38,11 +41,9 @@ return [
     'monolog' => [
         'app' => [
             'channel' => 'slim',
-            'path' => __DIR__ . '/var/logs/app.log',
         ],
         'ewallet' => [
             'channel' => 'ewallet',
-            'path' => __DIR__ . '/var/logs/app.log',
         ]
     ],
 ];

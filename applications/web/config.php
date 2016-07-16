@@ -5,6 +5,9 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 return [
+    'settings' => [
+        'determineRouteBeforeAppMiddleware' => true,
+    ],
     'doctrine' => [
         'mapping_dirs' => [
             __DIR__ . '/vendor/ewallet/doctrine/src/Doctrine2/Resources/config',

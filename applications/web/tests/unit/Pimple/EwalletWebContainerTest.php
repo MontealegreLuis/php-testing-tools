@@ -24,11 +24,8 @@ class EwalletWebContainerTest extends TestCase
     /** @test */
     function it_creates_the_web_application_services()
     {
-        Environment::mock(['REQUEST_METHOD' => 'GET']);
         $options = require __DIR__ . '/../../../config.tests.php';
-        $container = new EwalletWebContainer($options, new App([
-            'determineRouteBeforeAppMiddleware' => true,
-        ]));
+        $container = new EwalletWebContainer($options, new App());
 
         $this->assertInstanceOf(
             TwigEnvironment::class,

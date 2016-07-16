@@ -44,7 +44,6 @@ class RequestLoggingMiddleware
         }
 
         $routeInfo = $request->getAttribute('routeInfo');
-        var_dump($routeInfo);
         //$this->logRouteMatched();
 
         return $response;

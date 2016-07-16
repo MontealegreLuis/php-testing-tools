@@ -50,9 +50,8 @@ class RouterExtension extends Extension
     public function urlFor(string $routeName, array $arguments = []): string
     {
         return sprintf(
-            '%s%s',
-            $this->request->getUri()->getHost(),
-            $this->router->urlFor($routeName, $arguments)
+            '%s',
+            $this->router->pathFor($routeName, $arguments)
         );
     }
 
@@ -65,7 +64,7 @@ class RouterExtension extends Extension
         return preg_replace(
             '#/+#',
             '/',
-            sprintf('%s%s', dirname($this->request->getUri()->getHost()), $path)
+            sprintf('%s%s', dirname($this->request->getUri()->getBasePath()), $path)
         );
     }
 

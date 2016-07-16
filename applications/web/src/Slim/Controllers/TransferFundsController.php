@@ -47,7 +47,7 @@ class TransferFundsController
      */
     public function transfer(Request $request)
     {
-        $this->input->populate($request->post());
+        $this->input->populate($request->getParsedBody());
         $this->action->transfer($this->input);
 
         $this->renderResponseBody();

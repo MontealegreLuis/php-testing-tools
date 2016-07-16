@@ -12,23 +12,11 @@ use Ewallet\Twig\RouterExtension;
 use Ewallet\Wallet\{TransferFundsAction, TransferFundsFormResponder};
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
 use Pimple\Container;
-use Slim\App;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
 
 class EwalletWebServiceProvider extends EwalletServiceProvider
 {
-    /** @var  App */
-    private $app;
-
-    /**
-     * @param App $app
-     */
-    public function __construct(App $app)
-    {
-        $this->app = $app;
-    }
-
     /**
      * Register the services for Transfer Funds feature delivered through a
      * web interface

@@ -36,7 +36,7 @@ class EwalletControllerProvider implements ServiceProviderInterface
                     $router->pathFor('transfer_form')
                 ));
             }
-        );
+        )->setName('ewallet_home');
         $this->app->get(
             '/transfer-form',
             'ewallet.transfer_form_controller:enterTransferInformation'

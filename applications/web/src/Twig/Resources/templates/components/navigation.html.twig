@@ -13,7 +13,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Ewallet</a>
+                <a href="{{ url_for('ewallet_home') }}" class="navbar-brand">
+                    Ewallet
+                </a>
             </div>
 
             <div
@@ -21,7 +23,11 @@
                 id="bs-example-navbar-collapse-1"
             >
                 <ul class="nav navbar-nav main-nav">
-                    <li><a href="/transfer-form">Transfer funds</a></li>
+                    <li>
+                        <a href="{{ url_for('transfer_form') }}">
+                            Transfer funds
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

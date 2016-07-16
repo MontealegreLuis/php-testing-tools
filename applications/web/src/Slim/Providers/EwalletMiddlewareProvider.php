@@ -4,13 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Slim;
+namespace Ewallet\Slim\Providers;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Pimple\{Container, ServiceProviderInterface};
 use Slim\App;
 
-class Middleware implements ServiceProviderInterface
+class EwalletMiddlewareProvider implements ServiceProviderInterface
 {
     /** @var App */
     private $app;

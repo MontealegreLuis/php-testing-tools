@@ -4,11 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Slim\ServiceProviders;
+namespace Ewallet\Pimple\ServiceProviders;
 
 use Monolog\{Handler\SyslogHandler, Logger};
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Pimple\{Container, ServiceProviderInterface};
 
 class ApplicationServiceProvider implements ServiceProviderInterface
 {

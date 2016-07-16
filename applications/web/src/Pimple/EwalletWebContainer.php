@@ -7,9 +7,13 @@
 namespace Ewallet\Pimple;
 
 use Ewallet\Pimple\ServiceProviders\{
-    DoctrineServiceProvider, EwalletWebServiceProvider, FormsServiceProvider, TwigServiceProvider
+    DoctrineServiceProvider,
+    EwalletWebServiceProvider,
+    FormsServiceProvider,
+    TwigServiceProvider,
+    ApplicationServiceProvider,
+    MiddlewareServiceProvider
 };
-use Ewallet\Slim\ServiceProviders\{ApplicationServiceProvider, MiddlewareServiceProvider};
 use Slim\Container;
 
 class EwalletWebContainer extends Container

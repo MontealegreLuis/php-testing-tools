@@ -49,10 +49,7 @@ class RouterExtension extends Extension
      */
     public function urlFor(string $routeName, array $arguments = []): string
     {
-        return sprintf(
-            '%s',
-            $this->router->pathFor($routeName, $arguments)
-        );
+        return $this->router->pathFor($routeName, $arguments);
     }
 
     /**

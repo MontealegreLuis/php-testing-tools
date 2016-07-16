@@ -6,9 +6,9 @@
  */
 namespace Ewallet\Slim\Middleware;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
-use Slim\Http\Response;
 
 class RequestLoggingMiddleware
 {
@@ -26,19 +26,19 @@ class RequestLoggingMiddleware
     /**
      * Log the current request information and its matched route, if any
      */
-    public function __invoke(Request $request, Response $response, $next)
+    public function __invoke(Request $request, ResponseInterface $response, $next)
     {
         $this->logRequest($request);
 
-        /** @var Response $response */
+        /** @var ResponseInterface $response */
         $response = $next($request, $response);
 
-        if ($response->isNotFound()) {
+        if (404 == $response->getStatusCode()) {
             $this->logNotFound($request);
             return $response;
         }
 
-        if ($response->isRedirect()) {
+        if (in_array($response->getStatusCode(), [301, 302, 303, 307])) {
             $this->logRedirect($response);
             return $response;
         }
@@ -57,7 +57,7 @@ class RequestLoggingMiddleware
         ]);
     }
 
-    private function logRedirect(Response $response)
+    private function logRedirect(ResponseInterface $response)
     {
         $this->logger->info('Redirect', [
             'redirect' => $response->getHeader('Location')

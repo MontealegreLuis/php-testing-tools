@@ -8,6 +8,7 @@ namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Accounts\MemberId;
 use Ewallet\Wallet\{TransferFundsInput, TransferFundsAction};
+use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 
 class TransferFundsController
@@ -32,36 +33,27 @@ class TransferFundsController
 
     /**
      * Show the form to transfer funds between members
+     *
+     * @return ResponseInterface
      */
-    public function enterTransferInformation()
+    public function enterTransferInformation(): ResponseInterface
     {
         $this->action->enterTransferInformation(MemberId::with('ABC'));
 
-        $this->renderResponseBody();
+        return $this->action->responder()->response();
     }
 
     /**
      * Perform the transfer
      *
      * @param Request $request
+     * @return ResponseInterface
      */
-    public function transfer(Request $request)
+    public function transfer(Request $request): ResponseInterface
     {
         $this->input->populate($request->getParsedBody());
         $this->action->transfer($this->input);
 
-        $this->renderResponseBody();
-    }
-
-    /**
-     * As Slim uses output buffering, we only need to `echo` the response built
-     * by the responder.
-     */
-    private function renderResponseBody()
-    {
-        /** @var \Ewallet\Wallet\Web\TransferFundsWebResponder $responder */
-        $responder = $this->action->responder();
-
-        echo $responder->response()->getBody();
+        return $this->action->responder()->response();
     }
 }

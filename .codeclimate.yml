@@ -1,0 +1,26 @@
+engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+      - php
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+  phan:
+    enabled: true
+    config:
+      file_extensions: "php"
+ratings:
+  paths:
+  - "**.css"
+  - "**.js"
+  - "**.php"
+exclude_paths:
+  - "**/vendor"
+  - "config.**"
+  - "applications/web/tests/_support/_generated"

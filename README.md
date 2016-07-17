@@ -1,6 +1,7 @@
 # PHP Testing tools
 
 [![Build Status](https://travis-ci.org/MontealegreLuis/php-testing-tools.svg?branch=master)](https://travis-ci.org/MontealegreLuis/php-testing-tools)
+[![Code Climate](https://codeclimate.com/github/MontealegreLuis/php-testing-tools/badges/gpa.svg)](https://codeclimate.com/github/MontealegreLuis/php-testing-tools)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b1fa13fc-3d1b-4b48-8bb1-4f0bb64d8a5b/mini.png)](https://insight.sensiolabs.com/projects/b1fa13fc-3d1b-4b48-8bb1-4f0bb64d8a5b)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 

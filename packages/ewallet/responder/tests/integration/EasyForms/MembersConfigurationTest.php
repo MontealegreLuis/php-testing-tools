@@ -8,7 +8,6 @@ namespace Ewallet\EasyForms;
 
 use Ewallet\Accounts\{MemberId, Member};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
@@ -19,19 +18,13 @@ class MembersConfigurationTest extends TestCase
     public function setUp()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
-        $this
-            ->entityManager
-            ->createQuery('DELETE FROM ' . Member::class)
-            ->execute()
-        ;
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture->load();
     }
 
     /** @test */
     function it_generates_options_excluding_the_member_transferring_funds()
     {
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
-        $fixture->load();
-
         /** @var MembersRepository $members */
         $members = $this->entityManager->getRepository(Member::class);
 

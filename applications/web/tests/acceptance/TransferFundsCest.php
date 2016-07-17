@@ -4,7 +4,6 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\Accounts\Member;
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
@@ -15,11 +14,6 @@ class TransferFundsCest
     public function _before()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../config.tests.php');
-        $this
-            ->_entityManager()
-            ->createQuery('DELETE FROM ' . Member::class)
-            ->execute()
-        ;
         $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
         $fixture->load();
     }

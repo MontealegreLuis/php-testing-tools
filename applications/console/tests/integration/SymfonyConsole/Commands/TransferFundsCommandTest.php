@@ -24,11 +24,6 @@ class TransferFundsCommandTest extends TestCase
     public function setUp()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.tests.php');
-        $this
-            ->_entityManager()
-            ->createQuery('DELETE FROM ' . Member::class)
-            ->execute()
-        ;
         $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixture->load();
     }

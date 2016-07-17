@@ -7,6 +7,7 @@
 namespace Ewallet\Alice;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Ewallet\Accounts\Member;
 use Nelmio\Alice\Fixtures;
 
 /**
@@ -26,9 +27,16 @@ class ThreeMembersWithSameBalanceFixture
         $this->objectManager = $objectManager;
     }
 
-
+    /**
+     * Cleanup before populating `members` table
+     */
     public function load()
     {
+        $this
+            ->objectManager
+            ->createQuery('DELETE FROM ' . Member::class)
+            ->execute()
+        ;
         Fixtures::load(
             __DIR__ . '/../../fixtures/members.yml',
             $this->objectManager

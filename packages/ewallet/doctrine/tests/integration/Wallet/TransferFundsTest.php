@@ -13,7 +13,6 @@ use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Exception;
 use Mockery;
-use Nelmio\Alice\Fixtures;
 use PHPUnit_Framework_TestCase as TestCase;
 use RuntimeException;
 
@@ -27,11 +26,6 @@ class TransferFundsTest extends TestCase
     public function setUp()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
-        $this
-            ->_entityManager()
-            ->createQuery('DELETE FROM ' . Member::class)
-            ->execute()
-        ;
         $fixtures = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixtures->load();
         $this->members = $this->_entityManager()->getRepository(Member::class);

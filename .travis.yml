@@ -10,7 +10,7 @@ before_script:
   - composer self-update
   - cd applications/console && composer install --prefer-source --no-interaction --dev
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
-  - cp .env.travis .env
+  - cp .env.travis .env.tests
   - cd ../web && composer install --prefer-source --no-interaction --dev
   - cp ../../containers/templates/index_dev.php public/index_dev.php
   - npm install -g phantomjs-prebuilt

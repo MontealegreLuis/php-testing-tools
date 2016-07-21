@@ -10,6 +10,7 @@ services:
       - "8000:8000"
     links:
       - db
+      - queue
     volumes:
       - ./../:/usr/src/myapp
   web:

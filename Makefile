@@ -34,7 +34,6 @@ containers:
 	@cp containers/templates/cli-config.php applications/dev/cli-config.php
 	@cp containers/templates/cli-config.php applications/messaging/cli-config.php
 	@cp containers/templates/cli-config.php packages/ewallet/doctrine/cli-config.php
-	@cp containers/templates/cli-config.php packages/ewallet/responder/cli-config.php
 	@cp containers/templates/cli-config.php packages/hexagonal/doctrine/cli-config.php
 	@echo "Building containers..."
 	@docker-compose -f containers/docker-compose.yml up -d

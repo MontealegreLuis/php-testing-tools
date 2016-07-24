@@ -28,7 +28,7 @@ class EwalletControllerProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $router = $this->app->getContainer()['router'];
+        $router = $this->app->getContainer()->get('router');
         $this->app->get(
             '/',
             function (Request $request, Response $response) use ($router) {

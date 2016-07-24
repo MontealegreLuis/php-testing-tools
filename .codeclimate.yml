@@ -15,10 +15,6 @@ engines:
     enabled: true
     config:
       standard: "PSR2"
-  phan:
-    enabled: true
-    config:
-      file_extensions: "php"
 ratings:
   paths:
   - "**.css"

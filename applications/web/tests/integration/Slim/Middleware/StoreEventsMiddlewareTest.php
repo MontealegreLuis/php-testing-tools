@@ -44,7 +44,8 @@ class StoreEventsMiddlewareTest extends TestCase
         );
 
         $app = new App();
-        $app->getContainer()['environment'] = Environment::mock([
+        $container = $app->getContainer();
+        $container['environment'] = Environment::mock([
             'REQUEST_URI' => '/',
         ]);
         $app->add($middleware);

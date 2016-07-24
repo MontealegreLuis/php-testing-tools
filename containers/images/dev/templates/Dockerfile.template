@@ -17,8 +17,18 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y zlib1g zlib1g-dev git-core \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring \
-    && docker-php-ext-install bcmath \
-    && docker-php-ext-install zip
+    && docker-php-ext-install bcmath
+
+# Install Phan
+RUN apt-get install -y git
+
+RUN git clone https://github.com/nikic/php-ast.git \
+    && cd php-ast \
+    && phpize \
+    && ./configure \
+    && make install \
+    && echo 'extension=ast.so' > /usr/local/etc/php/php.ini \
+    && cd .. && rm -rf php-ast
 
 # Install Composer
 RUN mkdir -p /composer/.composer
@@ -43,7 +53,7 @@ RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filenam
 # Copy Composer's Github token
 COPY ./config/auth.json /composer/
 
-RUN composer --version
+RUN composer global require "etsy/phan:dev-master"
 
 RUN chown -R ${DEV_USER} /composer
 

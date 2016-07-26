@@ -22,5 +22,11 @@ ratings:
   - "**.php"
 exclude_paths:
   - "**/vendor"
-  - "config.**"
+  - "applications/console/config.php"
+  - "applications/dev/config.php"
+  - "applications/messaging/config.php"
+  - "applications/web/config.php"
+  - "applications/console/config.tests.php"
+  - "applications/messaging/config.tests.php"
+  - "applications/web/config.tests.php"
   - "applications/web/tests/_support/_generated"

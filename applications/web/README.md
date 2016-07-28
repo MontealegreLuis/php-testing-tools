@@ -19,3 +19,8 @@ $ composer install
 $ bin/phpunit --testdox
 $ bin/robo acceptance
 ```
+## Static analysis
+
+```bash
+$ phan -p -o phan.txt
+```

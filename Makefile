@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: env containers composer db tests phan
+.PHONY: env containers composer db tests
 
 env:
 	@echo "Copying default settings for the containers.."
@@ -105,7 +105,3 @@ tests:
 	@cd applications/web && bin/phpunit --testdox
 	@cd applications/web && bin/robo acceptance
 	@echo "Done!"
-
-phan:
-	@echo "Running static analysis (see file phan.txt with the results)..."
-	@phan -p -o phan.txt

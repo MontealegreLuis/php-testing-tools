@@ -1,3 +1,4 @@
 /.env
+/phan.txt
 /cli-config.php
 /vendor/

@@ -18,7 +18,7 @@ use Symfony\Component\Console\{
 
 class SeedDatabaseCommand extends Command
 {
-    /** @var array */
+    /** @var EntityManagerInterface */
     private $entityManager;
 
     /**

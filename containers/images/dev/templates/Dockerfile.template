@@ -14,7 +14,7 @@ COPY ./config/.bashrc /home/${DEV_USER}/.bashrc
 
 # Install modules
 RUN apt-get update && apt-get install -y \
-    && apt-get install -y zlib1g zlib1g-dev git-core \
+    && apt-get install -y zlib1g zlib1g-dev git-core zip unzip \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath \

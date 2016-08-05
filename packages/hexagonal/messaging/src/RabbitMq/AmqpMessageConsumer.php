@@ -23,13 +23,19 @@ class AmqpMessageConsumer implements MessageConsumer
     /** @var boolean Only consume 1 message */
     private $consumed = false;
 
+    /** @var ChannelConfiguration */
+    private $configuration;
+
     /**
-     * AmqpMessageProducer constructor.
-     * @param $connection
+     * @param AMQPStreamConnection $connection
+     * @param ChannelConfiguration $configuration
      */
-    public function __construct(AMQPStreamConnection $connection)
-    {
+    public function __construct(
+        AMQPStreamConnection $connection,
+        ChannelConfiguration $configuration
+    ) {
         $this->connection = $connection;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -42,7 +48,7 @@ class AmqpMessageConsumer implements MessageConsumer
         }
 
         $channel = $this->connection->channel();
-        $channel->queue_declare($exchangeName, false, true, false, false);
+        $this->configuration->configureQueue($channel, $exchangeName);
         $this->channel = $channel;
     }
 

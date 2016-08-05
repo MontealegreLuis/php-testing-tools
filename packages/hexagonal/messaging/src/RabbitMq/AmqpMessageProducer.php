@@ -14,16 +14,22 @@ class AmqpMessageProducer implements MessageProducer
     /** @var AMQPStreamConnection */
     private $connection;
 
+    /** @var  ChannelConfiguration */
+    private $configuration;
+
     /** @var  \PhpAmqpLib\Channel\AMQPChannel */
     private $channel;
 
     /**
-     * AmqpMessageProducer constructor.
-     * @param $connection
+     * @param AMQPStreamConnection $connection
+     * @param ChannelConfiguration $configuration
      */
-    public function __construct(AMQPStreamConnection $connection)
-    {
+    public function __construct(
+        AMQPStreamConnection $connection,
+        ChannelConfiguration $configuration
+    ) {
         $this->connection = $connection;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -36,8 +42,8 @@ class AmqpMessageProducer implements MessageProducer
         }
 
         $channel = $this->connection->channel();
-        $channel->exchange_declare($exchangeName, 'fanout', false, true, false);
-        $channel->queue_declare($exchangeName, false, true, false, false);
+        $this->configuration->configureExchange($channel, $exchangeName);
+        $this->configuration->configureQueue($channel, $exchangeName);
         $channel->queue_bind($exchangeName, $exchangeName);
         $this->channel = $channel;
     }

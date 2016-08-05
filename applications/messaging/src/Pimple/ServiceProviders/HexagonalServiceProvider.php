@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Hexagonal\RabbitMq\{AmqpMessageProducer, AmqpMessageConsumer};
+use Hexagonal\RabbitMq\{AmqpMessageProducer, AmqpMessageConsumer, ChannelConfiguration};
 use Hexagonal\DomainEvents\StoredEvent;
 use Hexagonal\Messaging\{MessagePublisher, PublishedMessage};
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -33,14 +33,19 @@ class HexagonalServiceProvider implements ServiceProviderInterface
                 $container['rabbit_mq']['password']
             );
         };
+        $container['hexagonal.amqp_configuration'] = function () use ($container) {
+            return new ChannelConfiguration();
+        };
         $container['hexagonal.messages_producer'] = function () use ($container) {
             return new AmqpMessageProducer(
-                $container['hexagonal.amqp_connection']
+                $container['hexagonal.amqp_connection'],
+                $container['hexagonal.amqp_configuration']
             );
         };
         $container['hexagonal.messages_consumer'] = function () use ($container) {
             return new AmqpMessageConsumer(
-                $container['hexagonal.amqp_connection']
+                $container['hexagonal.amqp_connection'],
+                $container['hexagonal.amqp_configuration']
             );
         };
         $container['hexagonal.messages_publisher'] = function () use ($container) {

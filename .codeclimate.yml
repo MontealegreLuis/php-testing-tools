@@ -26,3 +26,4 @@ exclude_paths:
   - "**/bootstrap.php"
   - "**/config.php"
   - "**/config.tests.php"
+  - "**/.phan/"

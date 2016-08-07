@@ -53,7 +53,7 @@ class MessageProducerTest extends TestCase
             true,
             false,
             false,
-            [$this, 'processMsg']
+            [$this, 'verifyMessage']
         );
         while (count($this->channel->callbacks)) {
             if ($this->consumed) {
@@ -64,7 +64,10 @@ class MessageProducerTest extends TestCase
         }
     }
 
-    public function processMsg(AMQPMessage $message)
+    /**
+     * @param AMQPMessage $message
+     */
+    public function verifyMessage(AMQPMessage $message)
     {
         $this->consumed = true;
         $body = json_decode($message->getBody());

@@ -20,6 +20,12 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install zip
 
+RUN yes | pecl install xdebug \
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_connect_back=on" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 # Install Phan
 RUN apt-get install -y git
 
@@ -55,6 +61,7 @@ RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filenam
 COPY ./config/auth.json /composer/
 
 RUN composer global require "etsy/phan:dev-master"
+RUN composer global require "humbug/humbug=~1.0@dev"
 
 RUN chown -R ${DEV_USER} /composer
 

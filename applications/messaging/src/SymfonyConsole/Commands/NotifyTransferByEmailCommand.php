@@ -19,16 +19,22 @@ class NotifyTransferByEmailCommand extends Command
     /** @var MessageConsumer */
     private $consumer;
 
+    /** @var string */
+    private $exchangeName;
+
     /**
      * @param TransferFundsEmailNotifier $notifier
      * @param MessageConsumer $consumer
+     * @param string $exchangeName
      */
     public function __construct(
         TransferFundsEmailNotifier $notifier,
-        MessageConsumer $consumer
+        MessageConsumer $consumer,
+        string $exchangeName = 'ewallet'
     ) {
         $this->notifier = $notifier;
         $this->consumer = $consumer;
+        $this->exchangeName = $exchangeName;
         parent::__construct();
     }
 
@@ -42,8 +48,8 @@ class NotifyTransferByEmailCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->consumer->open('ewallet');
-        $this->consumer->consume('ewallet', [$this, 'notify']);
+        $this->consumer->open($this->exchangeName);
+        $this->consumer->consume($this->exchangeName, [$this, 'notify']);
         $this->consumer->close();
     }
 

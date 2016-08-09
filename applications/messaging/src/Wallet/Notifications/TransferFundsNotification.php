@@ -26,13 +26,13 @@ class TransferFundsNotification
 
     /**
      * @param string $senderId
-     * @param string $amount
+     * @param int $amount
      * @param string $recipientId
      * @param string $occurredOn
      */
     public function __construct(
         string $senderId,
-        string $amount,
+        int $amount,
         string $recipientId,
         string $occurredOn
     ) {

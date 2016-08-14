@@ -20,7 +20,10 @@
     "autoload-dev": {
         "psr-4": {
             "Ewallet\\": "vendor/ewallet/domain/tests/src",
-            "Hexagonal\\": "vendor/hexagonal/hexagonal/tests/src"
+            "Hexagonal\\": [
+                "vendor/hexagonal/hexagonal/tests/src",
+                "tests/src"
+            ]
         }
     },
     "repositories": [

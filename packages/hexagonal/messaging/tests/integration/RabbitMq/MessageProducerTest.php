@@ -8,60 +8,34 @@ namespace Hexagonal\RabbitMq;
 
 use Ewallet\Accounts\TransferWasMade;
 use Hexagonal\DataBuilders\A;
-use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
+use PhpAmqpLib\Message\AMQPMessage;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class MessageProducerTest extends TestCase
 {
-    /** @var \PhpAmqpLib\Channel\AMQPChannel */
-    private $channel;
+    use ConfiguresMessaging;
 
     /** @var AmqpMessageProducer */
     private $producer;
 
-    /** @var AMQPStreamConnection */
-    private $connection;
-
-    /** @var bool */
-    private $consumed = false;
-
     /** @before */
     function configureChannel()
     {
-        $this->connection = new AMQPStreamConnection(
-            getenv('RABBIT_MQ_HOST'),
-            5672,
-            getenv('RABBIT_MQ_USER'),
-            getenv('RABBIT_MQ_PASSWORD')
-        );
         $configuration = new ChannelConfiguration();
         $configuration->temporary();
-        $this->producer = new AmqpMessageProducer($this->connection, $configuration);
-        $this->producer->open('test');
-        $this->channel = $this->connection->channel();
+        $this->producer = new AmqpMessageProducer($this->connection(), $configuration);
+        $this->producer->open($this->EXCHANGE_NAME);
     }
 
     /** @test */
     function it_should_publish_a_message()
     {
-        $this->producer->send('test', A::storedEvent()->withId(234)->build());
-
-        $this->channel->basic_consume(
-            'test',
-            '',
-            false,
-            true,
-            false,
-            false,
-            [$this, 'verifyMessage']
+        $this->producer->send(
+            $this->EXCHANGE_NAME,
+            A::storedEvent()->withId(234)->build()
         );
-        while (count($this->channel->callbacks)) {
-            if ($this->consumed) {
-                break;
-            }
 
-            $this->channel->wait(null, false, $idle = 30);
-        }
+        $this->consume([$this, 'verifyMessage']);
     }
 
     /**
@@ -69,19 +43,12 @@ class MessageProducerTest extends TestCase
      */
     public function verifyMessage(AMQPMessage $message)
     {
-        $this->consumed = true;
+        $this->stopConsumer();
         $body = json_decode($message->getBody());
         $this->assertEquals(TransferWasMade::class, $message->get('type'));
         $this->assertObjectHasAttribute('occurred_on', $body);
         $this->assertObjectHasAttribute('from_member_id', $body);
         $this->assertObjectHasAttribute('amount', $body);
         $this->assertObjectHasAttribute('to_member_id', $body);
-    }
-
-    /** @after */
-    public function closeChannel()
-    {
-        $this->connection && $this->connection->close();
-        $this->channel && $this->channel->close();
     }
 }

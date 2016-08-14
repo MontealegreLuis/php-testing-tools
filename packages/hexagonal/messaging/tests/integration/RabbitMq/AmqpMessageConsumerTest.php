@@ -7,55 +7,32 @@
 namespace Hexagonal\RabbitMq;
 
 use Hexagonal\DataBuilders\A;
-use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
 
 class AmqpMessageConsumerTest extends TestCase
 {
-    /** @var \PhpAmqpLib\Channel\AMQPChannel */
-    private $channel;
+    use ConfiguresMessaging;
 
     /** @var AmqpMessageConsumer */
     private $consumer;
 
-    /** @var AMQPStreamConnection */
-    private $connection;
-
     /** @before */
     function configureChannel()
     {
-        $this->connection = new AMQPStreamConnection(
-            getenv('RABBIT_MQ_HOST'),
-            5672,
-            getenv('RABBIT_MQ_USER'),
-            getenv('RABBIT_MQ_PASSWORD')
-        );
         $configuration = new ChannelConfiguration();
         $configuration->temporary();
-        $channel = $this->connection->channel();
-        $configuration->configureExchange($channel, 'test');
-        $configuration->configureQueue($channel, 'test');
-        $channel->queue_bind('test', 'test');
-        $this->consumer = new AmqpMessageConsumer($this->connection, $configuration);
-        $this->consumer->open('test');
-        $this->channel = $channel;
+        $this->bindChannel($configuration);
+        $this->consumer = new AmqpMessageConsumer($this->connection(), $configuration);
+        $this->consumer->open($this->EXCHANGE_NAME);
     }
 
     /** @test */
     function it_should_consume_a_message()
     {
-        $notification = A::storedEvent()->build();
-        $this->channel->basic_publish(
-            new AMQPMessage($notification->body(), [
-                'type' => $notification->type(),
-                'timestamp' => $notification->occurredOn()->getTimestamp(),
-                'message_id' => $notification->id()
-            ]),
-            'test'
-        );
+        $this->publish(A::storedEvent()->build());
 
-        $this->consumer->consume('test', [$this, 'verifyMessage']);
+        $this->consumer->consume($this->EXCHANGE_NAME, [$this, 'verifyMessage']);
     }
 
     /**
@@ -67,12 +44,5 @@ class AmqpMessageConsumerTest extends TestCase
         $this->assertObjectHasAttribute('from_member_id', $notification);
         $this->assertObjectHasAttribute('amount', $notification);
         $this->assertObjectHasAttribute('to_member_id', $notification);
-    }
-
-    /** @after */
-    public function closeChannel()
-    {
-        $this->connection && $this->connection->close();
-        $this->channel && $this->channel->close();
     }
 }

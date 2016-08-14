@@ -24,6 +24,8 @@ before_script:
   - cd ../validation && composer install --prefer-source --no-interaction --dev
   - cd ../../hexagonal/doctrine && composer install --prefer-source --no-interaction --dev
   - cp ../../../containers/templates/cli-config.php cli-config.php
+  - cd ../messaging && composer install --prefer-source --no-interaction --dev
+  - cp .env.travis .env.tests
 
 script:
   - cd ../../../applications/console && bin/phpunit -v
@@ -39,3 +41,4 @@ script:
   - cd ../templating && bin/phpunit -v
   - cd ../validation && bin/phpunit -v
   - cd ../../hexagonal/doctrine && bin/phpunit -v
+  - cd ../messaging && bin/phpunit -v

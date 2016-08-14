@@ -11,7 +11,7 @@ use Hexagonal\DataBuilders\A;
 use PhpAmqpLib\Message\AMQPMessage;
 use PHPUnit_Framework_TestCase as TestCase;
 
-class MessageProducerTest extends TestCase
+class AmqpMessageProducerTest extends TestCase
 {
     use ConfiguresMessaging;
 

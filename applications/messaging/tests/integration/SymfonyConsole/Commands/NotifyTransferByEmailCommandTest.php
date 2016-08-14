@@ -6,43 +6,30 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
+use DateTime;
 use Ewallet\Accounts\TransferWasMade;
 use Ewallet\Wallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
 use Hexagonal\DataBuilders\A;
-use Hexagonal\RabbitMq\{AmqpMessageConsumer, ChannelConfiguration};
+use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\RabbitMq\{AmqpMessageConsumer, ChannelConfiguration, ConfiguresMessaging};
 use Mockery;
-use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class NotifyTransferByEmailCommandTest extends TestCase
 {
-    /** @var \PhpAmqpLib\Channel\AMQPChannel */
-    private $channel;
+    use ConfiguresMessaging;
 
     /** @var AmqpMessageConsumer */
     private $consumer;
 
-    /** @var AMQPStreamConnection */
-    private $connection;
-
     /** @before */
     function configureChannel()
     {
-        $this->connection = new AMQPStreamConnection(
-            getenv('RABBIT_MQ_HOST'),
-            5672,
-            getenv('RABBIT_MQ_USER'),
-            getenv('RABBIT_MQ_PASSWORD')
-        );
         $configuration = new ChannelConfiguration();
         $configuration->temporary();
-        $channel = $this->connection->channel();
-        $configuration->configureExchange($channel, 'test');
-        $configuration->configureQueue($channel, 'test');
-        $channel->queue_bind('test', 'test');
-        $this->channel = $channel;
-        $this->consumer = new AmqpMessageConsumer($this->connection, $configuration);
+        $this->bindChannel($configuration);
+        $this->consumer = new AmqpMessageConsumer($this->connection(), $configuration);
     }
 
     /** @test */
@@ -60,19 +47,11 @@ class NotifyTransferByEmailCommandTest extends TestCase
             ->once()
             ->with(Mockery::type(TransferFundsNotification::class))
         ;
-        $notification = A::storedEvent()->build();
-        $this->channel->basic_publish(
-            new AMQPMessage($notification->body(), [
-                'type' => $notification->type(),
-                'timestamp' => $notification->occurredOn()->getTimestamp(),
-                'message_id' => $notification->id()
-            ]),
-            'test'
-        );
+        $this->publish(A::storedEvent()->build());
 
-        $tester = new CommandTester(
-            new NotifyTransferByEmailCommand($notifier, $this->consumer, 'test')
-        );
+        $tester = new CommandTester(new NotifyTransferByEmailCommand(
+            $notifier, $this->consumer, $this->EXCHANGE_NAME
+        ));
         $tester->execute([]);
 
         $this->assertEquals(0, $tester->getStatusCode());
@@ -85,18 +64,13 @@ class NotifyTransferByEmailCommandTest extends TestCase
         $notifier
             ->shouldReceive('shouldNotifyOn')
             ->once()
-            ->with('Ewallet\Foo')
+            ->with('Ewallet\UnkownEvent')
             ->andReturn(false)
         ;
         $notifier->shouldNotReceive('notify');
-        $this->channel->basic_publish(
-            new AMQPMessage('{"foo": "bar"}', [
-                'type' => 'Ewallet\Foo', // Not a transfer
-                'timestamp' => "123123",
-                'message_id' => "any id"
-            ]),
-            'test'
-        );
+        $this->publish(new StoredEvent(
+            '{"foo": "Unknown"}', 'Ewallet\UnkownEvent', new DateTime('now')
+        ));
 
         $tester = new CommandTester(
             new NotifyTransferByEmailCommand($notifier, $this->consumer, 'test')
@@ -104,12 +78,5 @@ class NotifyTransferByEmailCommandTest extends TestCase
         $tester->execute([]);
 
         $this->assertEquals(0, $tester->getStatusCode());
-    }
-
-    /** @after */
-    public function closeChannel()
-    {
-        $this->connection && $this->connection->close();
-        $this->channel && $this->channel->close();
     }
 }

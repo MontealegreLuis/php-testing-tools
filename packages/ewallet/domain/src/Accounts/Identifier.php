@@ -26,7 +26,6 @@ abstract class Identifier
      */
     private function setId(string $value)
     {
-        Assertion::string($value, "Identifiers should be strings");
         Assertion::notEmpty(trim($value), "An identifier cannot be empty");
 
         $this->value = $value;

@@ -13,6 +13,6 @@ trait MemberDictionary
      */
     public function transformStringToMoney(string $amount): Money
     {
-        return Money::MXN((integer) $amount * 100);
+        return Money::MXN((int) $amount * 100);
     }
 }

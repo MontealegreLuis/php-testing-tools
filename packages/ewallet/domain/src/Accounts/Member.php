@@ -54,7 +54,6 @@ class Member implements CanRecordEvents
      */
     protected function setName(string $name)
     {
-        Assertion::string($name, "A member's name should be a string");
         Assertion::notEmpty(trim($name), "A member's name cannot be empty");
 
         $this->name = $name;

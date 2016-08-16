@@ -17,7 +17,7 @@ class AccountInformation
     private $balance;
 
     /**
-     * @param $balance
+     * @param Money $balance
      */
     public function __construct(Money $balance)
     {

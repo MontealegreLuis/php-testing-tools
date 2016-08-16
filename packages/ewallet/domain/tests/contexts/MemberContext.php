@@ -8,6 +8,7 @@ use Behat\Behat\Context\{Context, SnippetAcceptingContext};
 use Ewallet\Accounts\{InMemoryMembers, MemberId};
 use Ewallet\DataBuilders\A;
 use Ewallet\Wallet\{TransferFunds, TransferFundsInformation};
+use Money\Money;
 
 /**
  * Defines application features from the specific context.
@@ -16,7 +17,7 @@ class MemberContext implements Context, SnippetAcceptingContext
 {
     use MemberDictionary;
 
-    /** @var Members */
+    /** @var \Ewallet\Accounts\Members */
     private $members;
 
     /** @var MembersHelper */
@@ -39,7 +40,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /**
      * @Given I have an account balance of :amount MXN
      */
-    public function iHaveAnAccountBalanceOfMxn($amount)
+    public function iHaveAnAccountBalanceOfMxn(Money $amount)
     {
         $me = A::member()->withId('abc')->withBalance($amount)->build();
 
@@ -49,7 +50,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /**
      * @Given my friend has an account balance of :amount MXN
      */
-    public function myFriendHasAnAccountBalanceOfMxn($amount)
+    public function myFriendHasAnAccountBalanceOfMxn(Money $amount)
     {
         $myFriend = A::member()->withId('xyz')->withBalance($amount)->build();
 
@@ -59,7 +60,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /**
      * @When I transfer him :amount MXN
      */
-    public function iTransferHimMxn($amount)
+    public function iTransferHimMxn(Money $amount)
     {
         $this->useCase->transfer(TransferFundsInformation::from([
             'senderId' => 'abc',
@@ -79,7 +80,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /**
      * @Then my balance should be :amount MXN
      */
-    public function myBalanceShouldBeMxn($amount)
+    public function myBalanceShouldBeMxn(Money $amount)
     {
         $forMe = $this->members->with(MemberId::with('abc'));
         $this->membersHelper->assertBalanceIs($amount, $forMe);
@@ -88,7 +89,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /**
      * @Then my friend's balance should be :amount MXN
      */
-    public function myFriendSBalanceShouldBeMxn($amount)
+    public function myFriendSBalanceShouldBeMxn(Money $amount)
     {
         $forMyFriend = $this->members->with(MemberId::with('xyz'));
         $this->membersHelper->assertBalanceIs($amount, $forMyFriend);

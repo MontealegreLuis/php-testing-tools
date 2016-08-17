@@ -20,8 +20,10 @@ class InvalidTransfer extends RuntimeException
      */
     public static function with(Money $amount): InvalidTransfer
     {
-        return new self(
-            "Cannot transfer a negative or zero amount {$amount->getAmount()}"
-        );
+        return new self(sprintf(
+            'Cannot transfer a negative or zero amount %.2f %s',
+            $amount->getAmount(),
+            $amount->getCurrency()->getName()
+        ));
     }
 }

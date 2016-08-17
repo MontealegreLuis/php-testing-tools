@@ -17,6 +17,12 @@ class MemberContext implements Context, SnippetAcceptingContext
 {
     use MemberDictionary;
 
+    /** @var string */
+    private $senderId = 'abc';
+
+    /** @var string */
+    private $recipientId = 'xyz';
+
     /** @var \Ewallet\Accounts\Members */
     private $members;
 
@@ -42,7 +48,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iHaveAnAccountBalanceOfMxn(Money $amount)
     {
-        $me = A::member()->withId('abc')->withBalance($amount)->build();
+        $me = A::member()->withId($this->senderId)->withBalance($amount)->build();
 
         $this->members->add($me);
     }
@@ -52,7 +58,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendHasAnAccountBalanceOfMxn(Money $amount)
     {
-        $myFriend = A::member()->withId('xyz')->withBalance($amount)->build();
+        $myFriend = A::member()->withId($this->recipientId)->withBalance($amount)->build();
 
         $this->members->add($myFriend);
     }
@@ -63,8 +69,8 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function iTransferHimMxn(Money $amount)
     {
         $this->useCase->transfer(TransferFundsInformation::from([
-            'senderId' => 'abc',
-            'recipientId' => 'xyz',
+            'senderId' => $this->senderId,
+            'recipientId' => $this->recipientId,
             'amount' => round($amount->getAmount() / 100),
         ]));
     }
@@ -74,7 +80,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function iShouldBeNotifiedThatTheTransferIsComplete()
     {
-        $this->membersHelper->assertTransferCompleted();
+        $this->membersHelper->assertTransferWasMade();
     }
 
     /**
@@ -82,7 +88,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myBalanceShouldBeMxn(Money $amount)
     {
-        $forMe = $this->members->with(MemberId::with('abc'));
+        $forMe = $this->members->with(MemberId::with($this->senderId));
         $this->membersHelper->assertBalanceIs($amount, $forMe);
     }
 
@@ -91,7 +97,7 @@ class MemberContext implements Context, SnippetAcceptingContext
      */
     public function myFriendSBalanceShouldBeMxn(Money $amount)
     {
-        $forMyFriend = $this->members->with(MemberId::with('xyz'));
+        $forMyFriend = $this->members->with(MemberId::with($this->recipientId));
         $this->membersHelper->assertBalanceIs($amount, $forMyFriend);
     }
 }

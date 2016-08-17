@@ -7,14 +7,11 @@
 use Ewallet\Accounts\Member;
 use Ewallet\Wallet\{CanTransferFunds, TransferFundsSummary};
 use Money\Money;
-use PHPUnit_Framework_Assert as Assertion;
 
 class MembersHelper implements CanTransferFunds
 {
-    const TRANSFER_COMPLETED = 1;
-
-    /** @var integer */
-    private $lastEvent;
+    /** @var bool */
+    private $transferWasMade = false;
 
     /**
      * Record last event triggered
@@ -23,27 +20,30 @@ class MembersHelper implements CanTransferFunds
      */
     public function transferCompleted(TransferFundsSummary $summary)
     {
-        $this->lastEvent = self::TRANSFER_COMPLETED;
+        $this->transferWasMade = true;
     }
 
     /**
-     * Assert that the 'Transfer completed' event is the last event triggered
+     * Assert that the 'Transfer was made' event is the last event triggered
      */
-    public function assertTransferCompleted()
+    public function assertTransferWasMade()
     {
-        Assertion::assertEquals(self::TRANSFER_COMPLETED, $this->lastEvent);
+        assertTrue($this->transferWasMade, 'Transfer is incomplete.');
     }
 
     /**
-     * @param Money $amount
+     * @param Money $expectedAmount
      * @param Member $forMember
      */
-    public function assertBalanceIs(Money $amount, Member $forMember)
+    public function assertBalanceIs(Money $expectedAmount, Member $forMember)
     {
-        $currentBalance = $forMember->information()->accountBalance()->getAmount();
-        Assertion::assertTrue(
-            $forMember->information()->accountBalance()->equals($amount),
-            "Expecting {$amount->getAmount()}, not {$currentBalance}"
+        assertTrue(
+            $expectedAmount->equals($forMember->information()->accountBalance()),
+            sprintf(
+                'Final balance does not match, expecting %.2f, found %.2f',
+                $expectedAmount->getAmount() / 100,
+                $forMember->information()->accountBalance()->getAmount() / 100
+            )
         );
     }
 }

@@ -17,7 +17,10 @@
     "autoload-dev": {
         "psr-4": {
             "Ewallet\\": "tests/src"
-        }
+        },
+        "files": [
+            "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"
+        ]
     },
     "config": {
         "bin-dir": "bin/"

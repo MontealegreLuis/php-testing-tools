@@ -9,7 +9,7 @@ namespace Ewallet\Accounts;
 use Assert\Assertion;
 
 /**
- * All members are notified of its transactions via e-mail
+ * All members receive notifications of their transactions via email
  */
 class Email
 {

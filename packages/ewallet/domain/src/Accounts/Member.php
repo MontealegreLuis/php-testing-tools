@@ -17,7 +17,7 @@ class Member implements CanRecordEvents
 {
     use RecordsEvents;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $memberId;
 
     /** @var string */
@@ -30,19 +30,19 @@ class Member implements CanRecordEvents
     private $account;
 
     /**
-     * @param Identifier $id
+     * @param MemberId $memberId
      * @param string $name
      * @param Email $email
      * @param Account $account
      */
     private function __construct(
-        Identifier $id,
+        MemberId $memberId,
         string $name,
         Email $email,
         Account $account
     ) {
-        $this->memberId = $id;
-        $this->setName($name);
+        $this->memberId = $memberId;
+        $this->setName(trim($name));
         $this->email = $email;
         $this->account = $account;
     }
@@ -54,7 +54,7 @@ class Member implements CanRecordEvents
      */
     protected function setName(string $name)
     {
-        Assertion::notEmpty(trim($name), "A member's name cannot be empty");
+        Assertion::notEmpty($name, 'A member\'s name cannot be empty');
 
         $this->name = $name;
     }
@@ -62,19 +62,19 @@ class Member implements CanRecordEvents
     /**
      * All members have an account with an initial balance
      *
-     * @param Identifier $id
+     * @param MemberId $memberId
      * @param string $name
      * @param Email $email
      * @param Money $amount
      * @return Member
      */
     public static function withAccountBalance(
-        Identifier $id,
+        MemberId $memberId,
         string $name,
         Email $email,
         Money $amount
     ): Member {
-        return new Member($id, $name, $email, Account::withBalance($amount));
+        return new Member($memberId, $name, $email, Account::withBalance($amount));
     }
 
     /**
@@ -109,7 +109,7 @@ class Member implements CanRecordEvents
      * Deposit the given amount to the beneficiary's account
      *
      * @param Money $amount
-     * @throws InvalidTransferAmount
+     * @throws InvalidTransfer
      *     A member cannot transfer a negative amount to another member
      */
     protected function applyDeposit(Money $amount)

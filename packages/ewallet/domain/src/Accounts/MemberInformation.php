@@ -13,7 +13,7 @@ use Money\Money;
  */
 class MemberInformation
 {
-    /** @var Identifier */
+    /** @var MemberId */
     private $memberId;
 
     /** @var string */
@@ -26,13 +26,13 @@ class MemberInformation
     private $account;
 
     /**
-     * @param Identifier $memberId
+     * @param MemberId $memberId
      * @param string $name
      * @param Email $email
      * @param Account $account
      */
     public function __construct(
-        Identifier $memberId,
+        MemberId $memberId,
         string $name,
         Email $email,
         Account $account

@@ -18,7 +18,7 @@ abstract class Identifier
      */
     private function __construct(string $value)
     {
-        $this->setId($value);
+        $this->setId(trim($value));
     }
 
     /**
@@ -26,7 +26,7 @@ abstract class Identifier
      */
     private function setId(string $value)
     {
-        Assertion::notEmpty(trim($value), "An identifier cannot be empty");
+        Assertion::notEmpty($value, "An identifier cannot be empty");
 
         $this->value = $value;
     }

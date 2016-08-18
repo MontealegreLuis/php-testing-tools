@@ -64,9 +64,9 @@ class NotifyTransferByEmailCommand extends Command
         }
 
         $this->notifier->notify(new TransferFundsNotification(
-            $message->from_member_id,
+            $message->sender_id,
             $message->amount,
-            $message->to_member_id,
+            $message->recipient_id,
             $message->occurred_on
         ));
     }

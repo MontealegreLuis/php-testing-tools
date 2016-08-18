@@ -47,9 +47,9 @@ class TransferWasMadeLogger implements EventSubscriber
     {
         $this->logger->info(sprintf(
             'Member with ID "%s" transferred %s to member with ID "%s" on %s',
-            $event->fromMemberId(),
+            $event->senderId(),
             $this->formatter->formatMoney($event->amount()),
-            $event->toMemberId(),
+            $event->recipientId(),
             $event->occurredOn()->format('Y-m-d H:i:s')
         ));
     }

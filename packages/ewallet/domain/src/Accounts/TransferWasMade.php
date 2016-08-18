@@ -19,26 +19,26 @@ class TransferWasMade implements Event
     private $occurredOn;
 
     /** @var MemberId */
-    private $fromMemberId;
+    private $senderId;
 
     /** @var Money */
     private $amount;
 
     /** @var MemberId */
-    private $toMemberId;
+    private $recipientId;
 
     /**
-     * @param MemberId $fromMemberId
+     * @param MemberId $senderId
      * @param Money $amount
-     * @param MemberId $toMemberId
+     * @param MemberId $recipientId
      */
     public function __construct(
-        MemberId $fromMemberId, Money $amount, MemberId $toMemberId
+        MemberId $senderId, Money $amount, MemberId $recipientId
     ) {
         $this->occurredOn = new DateTime('now');
-        $this->fromMemberId = $fromMemberId;
+        $this->senderId = $senderId;
         $this->amount = $amount;
-        $this->toMemberId = $toMemberId;
+        $this->recipientId = $recipientId;
     }
 
     /**
@@ -52,9 +52,9 @@ class TransferWasMade implements Event
     /**
      * @return MemberId
      */
-    public function fromMemberId(): MemberId
+    public function senderId(): MemberId
     {
-        return $this->fromMemberId;
+        return $this->senderId;
     }
 
     /**
@@ -68,8 +68,8 @@ class TransferWasMade implements Event
     /**
      * @return MemberId
      */
-    public function toMemberId(): MemberId
+    public function recipientId(): MemberId
     {
-        return $this->toMemberId;
+        return $this->recipientId;
     }
 }

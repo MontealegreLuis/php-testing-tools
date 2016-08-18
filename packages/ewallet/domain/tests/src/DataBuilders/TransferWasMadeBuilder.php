@@ -16,13 +16,13 @@ class TransferWasMadeBuilder
     private $factory;
 
     /** @var string */
-    private $fromId;
+    private $senderId;
 
     /** @var integer */
     private $amount;
 
     /** @var integer */
-    private $toId;
+    private $recipientId;
 
     /**
      * TransferWasMadeBuilder constructor.
@@ -39,9 +39,9 @@ class TransferWasMadeBuilder
     public function build(): TransferWasMade
     {
         $event = new TransferWasMade(
-            MemberId::with($this->fromId),
+            MemberId::with($this->senderId),
             Money::MXN($this->amount),
-            MemberId::with($this->toId)
+            MemberId::with($this->recipientId)
         );
 
         $this->reset();
@@ -54,8 +54,8 @@ class TransferWasMadeBuilder
      */
     protected function reset()
     {
-        $this->fromId = $this->factory->uuid;
+        $this->senderId = $this->factory->uuid;
         $this->amount = $this->factory->numberBetween(1, 10000);
-        $this->toId = $this->factory->uuid;
+        $this->recipientId = $this->factory->uuid;
     }
 }

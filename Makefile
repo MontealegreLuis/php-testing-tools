@@ -64,8 +64,10 @@ composer:
 	@composer install --no-interaction -d packages/ewallet/doctrine
 	@echo "ewallet/definitions..."
 	@composer install --no-interaction -d packages/ewallet/definitions
-	@echo "ewallet/hexagonal..."
+	@echo "hexagonal/doctrine..."
 	@composer install --no-interaction -d packages/hexagonal/doctrine
+	@echo "hexagonal/messaging..."
+	@composer install --no-interaction -d packages/hexagonal/messaging
 
 db:
 	@echo "Creating database..."
@@ -96,6 +98,8 @@ tests:
 	@cd packages/ewallet/definitions && bin/phpunit --testdox
 	@echo "hexagonal/doctrine..."
 	@cd packages/hexagonal/doctrine && bin/phpunit --testdox
+	@echo "hexagonal/messaging..."
+	@cd packages/hexagonal/messaging && bin/phpunit --testdox
 	@echo "Running tests for applications..."
 	@echo "Console application"
 	@cd applications/console && bin/phpunit --testdox

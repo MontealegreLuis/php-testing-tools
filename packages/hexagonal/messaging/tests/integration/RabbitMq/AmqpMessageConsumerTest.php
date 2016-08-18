@@ -41,8 +41,8 @@ class AmqpMessageConsumerTest extends TestCase
     public function verifyMessage(stdClass $notification)
     {
         $this->assertObjectHasAttribute('occurred_on', $notification);
-        $this->assertObjectHasAttribute('from_member_id', $notification);
+        $this->assertObjectHasAttribute('sender_id', $notification);
         $this->assertObjectHasAttribute('amount', $notification);
-        $this->assertObjectHasAttribute('to_member_id', $notification);
+        $this->assertObjectHasAttribute('recipient_id', $notification);
     }
 }

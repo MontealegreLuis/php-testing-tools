@@ -47,8 +47,8 @@ class AmqpMessageProducerTest extends TestCase
         $body = json_decode($message->getBody());
         $this->assertEquals(TransferWasMade::class, $message->get('type'));
         $this->assertObjectHasAttribute('occurred_on', $body);
-        $this->assertObjectHasAttribute('from_member_id', $body);
+        $this->assertObjectHasAttribute('sender_id', $body);
         $this->assertObjectHasAttribute('amount', $body);
-        $this->assertObjectHasAttribute('to_member_id', $body);
+        $this->assertObjectHasAttribute('recipient_id', $body);
     }
 }

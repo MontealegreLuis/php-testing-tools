@@ -11,11 +11,11 @@ Money\Money (local):
 
 Ewallet\Memberships\MemberId (local):
     id0:
-        __construct: { with: ["XYZ"] }
+        __construct: { withIdentity: ["XYZ"] }
     id1:
-        __construct: { with: ["ABC"] }
+        __construct: { withIdentity: ["ABC"] }
     id2:
-        __construct: { with: ["LMN"] }
+        __construct: { withIdentity: ["LMN"] }
 
 Ewallet\Memberships\Email (local):
     email0:

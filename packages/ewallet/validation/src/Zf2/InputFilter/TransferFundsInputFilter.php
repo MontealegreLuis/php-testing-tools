@@ -45,7 +45,7 @@ class TransferFundsInputFilter implements TransferFundsInput
     {
         $senderId = $this->filter->getRawValue('senderId');
         if ($senderId) {
-            $recipients = $this->members->excluding(MemberId::with($senderId));
+            $recipients = $this->members->excluding(MemberId::withIdentity($senderId));
             $this->filter->configure($recipients);
         }
 

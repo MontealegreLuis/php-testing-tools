@@ -20,7 +20,7 @@ class MemberIdType extends UuidType
      */
     public function identifier(string $value): Identifier
     {
-        return MemberId::with($value);
+        return MemberId::withIdentity($value);
     }
 
     /**

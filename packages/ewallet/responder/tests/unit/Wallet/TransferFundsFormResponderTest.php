@@ -38,7 +38,7 @@ class TransferFundsFormResponderTest extends TestCase
             $view, new DiactorosResponseFactory(), $form, $configuration
         );
 
-        $responder->respondToEnterTransferInformation(MemberId::with('abc'));
+        $responder->respondToEnterTransferInformation(MemberId::withIdentity('abc'));
 
         $this->assertEquals(200, $responder->response()->getStatusCode());
     }

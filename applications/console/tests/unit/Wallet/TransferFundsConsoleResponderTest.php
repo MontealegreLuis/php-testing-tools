@@ -77,7 +77,7 @@ class TransferFundsConsoleResponderTest extends TestCase
             new MemberFormatter()
         );
 
-        $responder->respondToEnterTransferInformation(MemberId::with('LMV'));
+        $responder->respondToEnterTransferInformation(MemberId::withIdentity('LMV'));
 
         $this->assertTrue(
             $input->hasArgument('recipientId'),

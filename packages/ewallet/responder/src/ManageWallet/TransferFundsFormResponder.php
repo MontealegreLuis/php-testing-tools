@@ -74,7 +74,7 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
-        $this->respondToEnterTransferInformation(MemberId::with($values['senderId']));
+        $this->respondToEnterTransferInformation(MemberId::withIdentity($values['senderId']));
     }
 
     /**

@@ -14,13 +14,13 @@ class MemberIdSpec extends ObjectBehavior
 {
     function it_can_be_created_from_a_string()
     {
-        $this->beConstructedThrough('with', ['abcd']);
+        $this->beConstructedThrough('withIdentity', ['abcd']);
         $this->value()->shouldBe('abcd');
     }
 
     function it_cannot_be_created_from_an_empty_string()
     {
-        $this->beConstructedThrough('with', ['']);
+        $this->beConstructedThrough('withIdentity', ['']);
         $this
             ->shouldThrow(InvalidArgumentException::class)
             ->duringInstantiation()
@@ -29,13 +29,13 @@ class MemberIdSpec extends ObjectBehavior
 
     function it_knows_when_it_is_equal_to_another_id()
     {
-        $this->beConstructedThrough('with', ['abcd']);
-        $this->equals(MemberId::with('abcd'))->shouldBe(true);
+        $this->beConstructedThrough('withIdentity', ['abcd']);
+        $this->equals(MemberId::withIdentity('abcd'))->shouldBe(true);
     }
 
     function it_can_be_converted_to_string()
     {
-        $this->beConstructedThrough('with', ['abcd']);
+        $this->beConstructedThrough('withIdentity', ['abcd']);
         $this->__toString()->shouldBe('abcd');
     }
 }

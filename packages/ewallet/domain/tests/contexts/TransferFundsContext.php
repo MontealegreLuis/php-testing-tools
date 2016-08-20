@@ -88,7 +88,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
      */
     public function theSendersBalanceShouldBeMxn(Money $amount)
     {
-        $sender = $this->members->with(MemberId::with($this->senderId));
+        $sender = $this->members->with(MemberId::withIdentity($this->senderId));
         $this->helper->assertBalanceIs($amount, $sender);
     }
 
@@ -97,7 +97,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
      */
     public function theRecipientsBalanceShouldBeMxn(Money $amount)
     {
-        $recipient = $this->members->with(MemberId::with($this->recipientId));
+        $recipient = $this->members->with(MemberId::withIdentity($this->recipientId));
         $this->helper->assertBalanceIs($amount, $recipient);
     }
 }

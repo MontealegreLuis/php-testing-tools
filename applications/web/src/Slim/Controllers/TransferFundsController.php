@@ -38,7 +38,7 @@ class TransferFundsController
      */
     public function enterTransferInformation(): ResponseInterface
     {
-        $this->action->enterTransferInformation(MemberId::with('ABC'));
+        $this->action->enterTransferInformation(MemberId::withIdentity('ABC'));
 
         return $this->action->responder()->response();
     }

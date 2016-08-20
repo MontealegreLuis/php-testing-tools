@@ -37,9 +37,9 @@ class TransferFundsNotification
         string $occurredOn
     ) {
         $this->occurredOn = DateTime::createFromFormat('Y-m-d H:i:s', $occurredOn);
-        $this->senderId = MemberId::with($senderId);
+        $this->senderId = MemberId::withIdentity($senderId);
         $this->amount = Money::MXN($amount);
-        $this->recipientId = MemberId::with($recipientId);
+        $this->recipientId = MemberId::withIdentity($recipientId);
     }
 
     /**

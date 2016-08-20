@@ -31,7 +31,7 @@ class MembersConfigurationTest extends TestCase
         $configuration = new MembersConfiguration($members);
 
         $options = $configuration->getMembersChoicesExcluding(
-            MemberId::with('ABC')
+            MemberId::withIdentity('ABC')
         );
 
         $this->assertCount(2, $options);

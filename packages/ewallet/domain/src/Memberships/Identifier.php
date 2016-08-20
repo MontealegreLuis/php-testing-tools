@@ -37,7 +37,7 @@ abstract class Identifier
      * @param string $value
      * @return Identifier
      */
-    public static function with(string $value): Identifier
+    public static function withIdentity(string $value): Identifier
     {
         return new static($value);
     }

@@ -66,7 +66,7 @@ class TransferFundsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $senderId = MemberId::with('ABC');
+        $senderId = MemberId::withIdentity('ABC');
         $input->setArgument('senderId', (string) $senderId);
         $this->action->enterTransferInformation($senderId);
         $this->input->populate($input->getArguments());

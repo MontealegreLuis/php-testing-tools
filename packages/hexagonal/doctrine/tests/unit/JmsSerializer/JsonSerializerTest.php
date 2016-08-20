@@ -19,7 +19,7 @@ class JsonSerializerTest extends TestCase
     {
         $serializer = new JsonSerializer();
         $anEvent = new InstantaneousEvent(
-            MemberId::with('abc'),
+            MemberId::withIdentity('abc'),
             Money::MXN(10000),
             new DateTime('2015-10-24 12:39:51')
         );

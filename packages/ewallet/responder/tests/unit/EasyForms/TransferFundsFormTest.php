@@ -45,7 +45,7 @@ class TransferFundsFormTest extends TestCase
     function it_initializes_the_member_id_making_the_transfer()
     {
         $form = new TransferFundsForm();
-        $senderId = MemberId::with('abc');
+        $senderId = MemberId::withIdentity('abc');
         $configuration = Mockery::mock(MembersConfiguration::class);
         $configuration
             ->shouldReceive('getMembersChoicesExcluding')
@@ -64,7 +64,7 @@ class TransferFundsFormTest extends TestCase
     function it_excludes_from_choices_the_member_making_the_transfer()
     {
         $form = new TransferFundsForm();
-        $senderId = MemberId::with('abc');
+        $senderId = MemberId::withIdentity('abc');
         $configuration = Mockery::mock(MembersConfiguration::class);
         $configuration
             ->shouldReceive('getMembersChoicesExcluding')

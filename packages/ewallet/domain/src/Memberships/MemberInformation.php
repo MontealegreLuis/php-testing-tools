@@ -43,7 +43,6 @@ class MemberInformation
         $this->account = $account->information();
     }
 
-
     /**
      * @return Money
      */

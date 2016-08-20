@@ -13,7 +13,7 @@ use Money\Money;
 /**
  * Defines application features from the specific context.
  */
-class MemberContext implements Context, SnippetAcceptingContext
+class TransferFundsContext implements Context, SnippetAcceptingContext
 {
     use MemberDictionary;
 
@@ -26,7 +26,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     /** @var \Ewallet\Accounts\Members */
     private $members;
 
-    /** @var MembersHelper */
+    /** @var TransferFundsHelper */
     private $helper;
 
     /** @var TransferFunds */
@@ -38,7 +38,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function prepare()
     {
         $this->members = new InMemoryMembers();
-        $this->helper = new MembersHelper();
+        $this->helper = new TransferFundsHelper();
         $this->useCase = new TransferFunds($this->members);
         $this->useCase->attach($this->helper);
     }

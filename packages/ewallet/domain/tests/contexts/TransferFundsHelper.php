@@ -8,7 +8,7 @@ use Ewallet\Accounts\Member;
 use Ewallet\Wallet\{CanTransferFunds, TransferFundsSummary};
 use Money\Money;
 
-class MembersHelper implements CanTransferFunds
+class TransferFundsHelper implements CanTransferFunds
 {
     /** @var bool */
     private $transferWasMade = false;

@@ -16,11 +16,14 @@ abstract class MembersTest extends TestCase
 {
     use ProvidesMoneyConstraints;
 
+    /** @var string */
+    private $senderId = 'wxyz';
+
     /** @var Members */
     protected $members;
 
     /** @var \Ewallet\Memberships\Member */
-    protected $existingMember;
+    protected $registeredMember;
 
     /**
      * @return Members
@@ -31,12 +34,10 @@ abstract class MembersTest extends TestCase
     function generateFixtures()
     {
         $this->members = $this->membersInstance();
-        $this->existingMember = A::member()->withId('abcd')->withBalance(3000)->build();
+        $this->registeredMember = A::member()->withId('abcd')->withBalance(3000)->build();
 
-        $this->members->add(
-            A::member()->withId('wxyz')->withBalance(1000)->build()
-        );
-        $this->members->add($this->existingMember);
+        $this->members->add(A::member()->withId($this->senderId)->withBalance(1000)->build());
+        $this->members->add($this->registeredMember);
         $this->members->add(A::member()->withId('hijk')->build());
     }
 
@@ -46,7 +47,7 @@ abstract class MembersTest extends TestCase
         $member = $this->members->with(MemberId::withIdentity('abcd'));
 
         $this->assertTrue(
-            $member->equals($this->existingMember),
+            $member->equals($this->registeredMember),
             'Registered member with ID "abcd" should be found'
         );
     }
@@ -63,13 +64,14 @@ abstract class MembersTest extends TestCase
     /** @test */
     function it_updates_the_information_of_a_registered_member()
     {
-        $member = $this->members->with(MemberId::withIdentity('wxyz'));
-        $member->transfer(Money::MXN(500), $this->existingMember);
-        $this->members->update($this->existingMember);
+        $sender = $this->members->with(MemberId::withIdentity($this->senderId));
+        $sender->transfer(Money::MXN(500), $this->registeredMember);
+
+        $this->members->update($this->registeredMember);
 
         $this->assertBalanceAmounts(
             3500,
-            $this->existingMember,
+            $this->members->with($this->registeredMember->information()->id()),
             "Current member balance should be 3500"
         );
     }

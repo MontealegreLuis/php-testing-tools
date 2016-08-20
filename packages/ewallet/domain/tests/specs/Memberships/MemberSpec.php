@@ -46,9 +46,9 @@ class MemberSpec extends ObjectBehavior
 
     function it_receives_funds_from_a_sender()
     {
-        $fromMember = A::member()->withBalance(1000)->build();
+        $sender = A::member()->withBalance(1000)->build();
 
-        $fromMember->transfer(Money::MXN(500), $this->getWrappedObject());
+        $sender->transfer(Money::MXN(500), $this->getWrappedObject());
 
         $this->information()->accountBalance()->shouldAmount(2500);
     }

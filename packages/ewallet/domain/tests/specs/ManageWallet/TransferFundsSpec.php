@@ -33,8 +33,8 @@ class TransferFundsSpec extends ObjectBehavior
         $this->attach($action);
 
         $this->transfer(TransferFundsInformation::from([
-            'senderId' => (string) $sender->information()->id(),
-            'recipientId' => (string) $recipient->information()->id(),
+            'senderId' => $sender->information()->id()->value(),
+            'recipientId' => $recipient->information()->id()->value(),
             'amount' => 5,
         ]));
 

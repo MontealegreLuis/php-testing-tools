@@ -46,7 +46,7 @@ class MemberFormatterTest extends TestCase
     function it_formats_a_member_information()
     {
         $aMember = A::member()
-            ->withName('Mario Montealegre')
+            ->named('Mario Montealegre')
             ->withBalance(1500025)
             ->build()
         ;

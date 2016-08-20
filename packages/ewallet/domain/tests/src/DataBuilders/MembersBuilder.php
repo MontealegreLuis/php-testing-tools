@@ -40,7 +40,7 @@ class MembersBuilder
      * @param string $name
      * @return MembersBuilder
      */
-    public function withName(string $name): MembersBuilder
+    public function named(string $name): MembersBuilder
     {
         $this->name = $name;
 

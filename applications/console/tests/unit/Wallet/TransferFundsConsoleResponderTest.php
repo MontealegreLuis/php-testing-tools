@@ -111,8 +111,8 @@ class TransferFundsConsoleResponderTest extends TestCase
         );
 
         $responder->respondToTransferCompleted(new TransferFundsSummary(
-            A::member()->withName('Luis Montealegre')->build(),
-            A::member()->withName('Misraim Mendoza')->build()
+            A::member()->named('Luis Montealegre')->build(),
+            A::member()->named('Misraim Mendoza')->build()
         ));
 
         $messages = $output->fetch();

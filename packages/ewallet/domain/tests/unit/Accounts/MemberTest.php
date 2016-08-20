@@ -17,19 +17,20 @@ class MemberTest extends TestCase
     use TestTrait, ProvidesMoneyConstraints;
 
     /** @test */
-    function giver_balance_should_decrease_after_funds_have_been_transferred()
+    function sender_balance_should_decrease_after_funds_have_been_transferred()
     {
         $this
             ->forAll(Generator\choose(1, 10000))
             ->then(function(int $amount) {
-                $fromMember = A::member()->withBalance(10000)->build();
-                $toMember = A::member()->build();
+                $initialBalance = 10000;
+                $sender = A::member()->withBalance($initialBalance)->build();
+                $recipient = A::member()->build();
 
-                $fromMember->transfer(Money::MXN($amount), $toMember);
+                $sender->transfer(Money::MXN($amount), $recipient);
 
                 $this->assertBalanceIsLowerThan(
-                    10000,
-                    $fromMember,
+                    $initialBalance,
+                    $sender,
                     "Transferring {$amount} increased balance of sender member"
                 );
             });
@@ -37,19 +38,20 @@ class MemberTest extends TestCase
     }
 
     /** @test */
-    function beneficiary_balance_should_increase_after_funds_have_been_transferred()
+    function recipient_balance_should_increase_after_funds_have_been_transferred()
     {
         $this
             ->forAll(Generator\choose(1, 10000))
             ->then(function(int $amount) {
-                $fromMember = A::member()->withBalance(10000)->build();
-                $toMember = A::member()->withBalance(5000)->build();
+                $initialBalance = 5000;
+                $sender = A::member()->withBalance(10000)->build();
+                $recipient = A::member()->withBalance($initialBalance)->build();
 
-                $fromMember->transfer(Money::MXN($amount), $toMember);
+                $sender->transfer(Money::MXN($amount), $recipient);
 
                 $this->assertBalanceIsGreaterThan(
-                    5000,
-                    $toMember,
+                    $initialBalance,
+                    $recipient,
                     "Transferring {$amount} increased balance of receiver member"
                 );
             });

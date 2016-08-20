@@ -7,7 +7,7 @@
 namespace Hexagonal\Fakes\DomainEvents;
 
 use DateTime;
-use Ewallet\Accounts\Identifier;
+use Ewallet\Memberships\Identifier;
 use Hexagonal\DomainEvents\Event;
 use Money\Money;
 

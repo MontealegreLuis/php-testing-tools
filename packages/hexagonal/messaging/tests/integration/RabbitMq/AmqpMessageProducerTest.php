@@ -6,7 +6,7 @@
  */
 namespace Hexagonal\RabbitMq;
 
-use Ewallet\Accounts\TransferWasMade;
+use Ewallet\Memberships\TransferWasMade;
 use Hexagonal\DataBuilders\A;
 use PhpAmqpLib\Message\AMQPMessage;
 use PHPUnit_Framework_TestCase as TestCase;

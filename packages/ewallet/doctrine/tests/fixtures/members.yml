@@ -9,7 +9,7 @@ Money\Money (local):
         amount: 1000
         currency: '@mxn'
 
-Ewallet\Accounts\MemberId (local):
+Ewallet\Memberships\MemberId (local):
     id0:
         __construct: { with: ["XYZ"] }
     id1:
@@ -17,7 +17,7 @@ Ewallet\Accounts\MemberId (local):
     id2:
         __construct: { with: ["LMN"] }
 
-Ewallet\Accounts\Email (local):
+Ewallet\Memberships\Email (local):
     email0:
         __construct: false
         address: <email()>
@@ -28,7 +28,7 @@ Ewallet\Accounts\Email (local):
         __construct: false
         address: <email()>
 
-Ewallet\Accounts\Member:
+Ewallet\Memberships\Member:
     member0:
         __construct: { withAccountBalance: [ '@id0', <name()>, '@email0', '@balance' ] }
     member1:

@@ -7,8 +7,8 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use DateTime;
-use Ewallet\Accounts\TransferWasMade;
-use Ewallet\Wallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
+use Ewallet\Memberships\TransferWasMade;
+use Ewallet\ManageWallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
 use Hexagonal\DataBuilders\A;
 use Hexagonal\DomainEvents\StoredEvent;
 use Hexagonal\RabbitMq\{AmqpMessageConsumer, ChannelConfiguration, ConfiguresMessaging};

@@ -5,9 +5,9 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 use Behat\Behat\Context\{Context, SnippetAcceptingContext};
-use Ewallet\Accounts\{InMemoryMembers, MemberId};
+use Ewallet\Memberships\{InMemoryMembers, MemberId};
 use Ewallet\DataBuilders\A;
-use Ewallet\Wallet\{TransferFunds, TransferFundsInformation};
+use Ewallet\ManageWallet\{TransferFunds, TransferFundsInformation};
 use Money\Money;
 
 /**
@@ -23,7 +23,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
     /** @var string */
     private $recipientId = 'xyz';
 
-    /** @var \Ewallet\Accounts\Members */
+    /** @var \Ewallet\Memberships\Members */
     private $members;
 
     /** @var TransferFundsHelper */

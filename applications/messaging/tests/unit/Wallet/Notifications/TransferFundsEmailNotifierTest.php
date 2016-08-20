@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Wallet\Notifications;
+namespace Ewallet\ManageWallet\Notifications;
 
-use Ewallet\Accounts\{Members, TransferWasMade};
+use Ewallet\Memberships\{Members, TransferWasMade};
 use Ewallet\DataBuilders\A;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;

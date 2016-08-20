@@ -7,7 +7,7 @@
 namespace Hexagonal\DomainEvents;
 
 use DateTime;
-use Ewallet\{DataBuilders\A, Accounts\MemberId};
+use Ewallet\{DataBuilders\A, Memberships\MemberId};
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Mockery;

@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Zf2\Diactoros;
 
-use Ewallet\Wallet\Web\ResponseFactory;
+use Ewallet\ManageWallet\Web\ResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
 

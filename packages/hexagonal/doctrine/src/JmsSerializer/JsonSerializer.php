@@ -7,7 +7,7 @@
 namespace Hexagonal\JmsSerializer;
 
 use DateTime;
-use Ewallet\Accounts\MemberId;
+use Ewallet\Memberships\MemberId;
 use Hexagonal\DomainEvents\{Event, EventSerializer};
 use JMS\Serializer\{Handler\HandlerRegistry, SerializerBuilder};
 use Money\Money;

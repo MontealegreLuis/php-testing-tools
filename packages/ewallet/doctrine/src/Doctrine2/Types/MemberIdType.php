@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Doctrine2\Types;
 
-use Ewallet\Accounts\{Identifier, MemberId};
+use Ewallet\Memberships\{Identifier, MemberId};
 
 /**
  * UUID fields will be stored as a string in the database and converted back to

@@ -7,7 +7,7 @@
 namespace Hexagonal\JmsSerializer;
 
 use DateTime;
-use Ewallet\Accounts\MemberId;
+use Ewallet\Memberships\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

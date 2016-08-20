@@ -4,9 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Wallet;
+namespace Ewallet\ManageWallet;
 
-use Ewallet\Accounts\MembersRepository;
+use Ewallet\Memberships\MembersRepository;
 use Ewallet\ContractTests\TransferFundsInputTest;
 use Ewallet\DataBuilders\A;
 use Ewallet\Zf2\InputFilter\{

@@ -6,7 +6,7 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Wallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
+use Ewallet\ManageWallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
 use Hexagonal\Messaging\MessageConsumer;
 use stdClass;
 use Symfony\Component\Console\{Command\Command, Input\InputInterface, Output\OutputInterface};

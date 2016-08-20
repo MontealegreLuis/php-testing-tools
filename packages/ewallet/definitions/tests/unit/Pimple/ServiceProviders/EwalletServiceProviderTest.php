@@ -6,11 +6,11 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\Accounts\DoctrineMembers;
+use Ewallet\Memberships\DoctrineMembers;
 use Ewallet\EasyForms\MembersConfiguration;
-use Ewallet\Accounts\MemberFormatter;
-use Ewallet\Wallet\TransferFundsTransactionally;
-use Ewallet\Wallet\TransferWasMadeLogger;
+use Ewallet\Memberships\MemberFormatter;
+use Ewallet\ManageWallet\TransferFundsTransactionally;
+use Ewallet\ManageWallet\TransferWasMadeLogger;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilter;
 use Monolog\Logger;
 use PHPUnit_Framework_TestCase as TestCase;

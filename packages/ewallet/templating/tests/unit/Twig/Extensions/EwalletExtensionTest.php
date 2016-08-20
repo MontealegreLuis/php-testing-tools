@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Twig\Extensions;
 
-use Ewallet\{DataBuilders\A, Accounts\MemberFormatter};
+use Ewallet\{DataBuilders\A, Memberships\MemberFormatter};
 use Mockery;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;

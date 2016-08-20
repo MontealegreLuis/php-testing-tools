@@ -8,7 +8,7 @@ namespace Ewallet\Doctrine2\Types;
 
 use Doctrine\DBAL\Types\{ConversionException, GuidType, Type};
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use EWallet\Accounts\Identifier;
+use EWallet\Memberships\Identifier;
 use InvalidArgumentException;
 
 /**

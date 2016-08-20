@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\MemberId;
+use Ewallet\Memberships\MemberId;
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 

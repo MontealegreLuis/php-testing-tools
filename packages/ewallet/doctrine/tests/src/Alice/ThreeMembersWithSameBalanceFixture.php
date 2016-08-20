@@ -7,7 +7,7 @@
 namespace Ewallet\Alice;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ewallet\Accounts\Member;
+use Ewallet\Memberships\Member;
 use Nelmio\Alice\Fixtures;
 
 /**

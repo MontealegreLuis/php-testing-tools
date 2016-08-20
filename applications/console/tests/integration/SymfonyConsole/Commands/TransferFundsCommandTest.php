@@ -6,10 +6,10 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Accounts\{Member, MemberFormatter};
+use Ewallet\Memberships\{Member, MemberFormatter};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
-use Ewallet\Wallet\{TransferFundsAction, TransferFundsConsoleResponder, TransferFunds};
+use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsoleResponder, TransferFunds};
 use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Helper\QuestionHelper;

@@ -6,7 +6,7 @@
  */
 namespace Ewallet\PHPUnit\Constraints;
 
-use Ewallet\Accounts\Member;
+use Ewallet\Memberships\Member;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
 

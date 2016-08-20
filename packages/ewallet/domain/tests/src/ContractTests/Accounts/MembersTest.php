@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ContractTests\Accounts;
 
-use Ewallet\Accounts\{MemberId, Members};
+use Ewallet\Memberships\{MemberId, Members};
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
@@ -19,7 +19,7 @@ abstract class MembersTest extends TestCase
     /** @var Members */
     protected $members;
 
-    /** @var \Ewallet\Accounts\Member */
+    /** @var \Ewallet\Memberships\Member */
     protected $existingMember;
 
     /**
@@ -53,7 +53,7 @@ abstract class MembersTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Ewallet\Accounts\UnknownMember
+     * @expectedException \Ewallet\Memberships\UnknownMember
      */
     function it_does_not_find_a_non_existing_member()
     {

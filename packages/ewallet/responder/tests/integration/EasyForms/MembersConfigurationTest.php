@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms;
 
-use Ewallet\Accounts\{MemberId, Member};
+use Ewallet\Memberships\{MemberId, Member};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use PHPUnit_Framework_TestCase as TestCase;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;

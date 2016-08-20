@@ -7,7 +7,7 @@
 namespace Ewallet\EasyForms;
 
 use EasyForms\{Elements\Hidden, Elements\Select, Form};
-use EWallet\Accounts\MemberId;
+use EWallet\Memberships\MemberId;
 use Ewallet\EasyForms\Elements\MoneyElement;
 
 class TransferFundsForm extends Form

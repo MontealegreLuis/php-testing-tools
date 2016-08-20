@@ -6,8 +6,8 @@
  */
 namespace Ewallet\Slim\Controllers;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Wallet\{TransferFundsInput, TransferFundsAction};
+use Ewallet\Memberships\MemberId;
+use Ewallet\ManageWallet\{TransferFundsInput, TransferFundsAction};
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 

@@ -9,7 +9,7 @@ namespace Ewallet\Pimple;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Slim\Middleware\{RequestLoggingMiddleware, StoreEventsMiddleware};
 use Ewallet\Twig\RouterExtension;
-use Ewallet\Wallet\TransferFundsFormResponder;
+use Ewallet\ManageWallet\TransferFundsFormResponder;
 use Ewallet\EasyForms\TransferFundsForm;
 use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;

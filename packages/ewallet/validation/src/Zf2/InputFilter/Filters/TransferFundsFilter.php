@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Zf2\InputFilter\Filters;
 
-use Ewallet\Accounts\Member;
+use Ewallet\Memberships\Member;
 use Zend\InputFilter\{Input, InputFilter};
 use Zend\Validator\{GreaterThan, InArray, NotEmpty};
 

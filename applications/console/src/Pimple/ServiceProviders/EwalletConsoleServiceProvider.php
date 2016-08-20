@@ -7,7 +7,7 @@
 namespace Ewallet\Pimple\ServiceProviders;
 
 use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
-use Ewallet\Wallet\{TransferFundsAction, TransferFundsConsoleResponder};
+use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsoleResponder};
 use Hexagonal\DomainEvents\EventPublisher;
 use Symfony\Component\Console\{
     ConsoleEvents, Helper\QuestionHelper, Input\ArgvInput, Output\ConsoleOutput

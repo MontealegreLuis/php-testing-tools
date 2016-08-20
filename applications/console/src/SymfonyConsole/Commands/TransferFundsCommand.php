@@ -6,8 +6,8 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Accounts\MemberId;
-use Ewallet\Wallet\{TransferFundsInput, TransferFundsAction};
+use Ewallet\Memberships\MemberId;
+use Ewallet\ManageWallet\{TransferFundsInput, TransferFundsAction};
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface};
 use Symfony\Component\Console\Output\OutputInterface;

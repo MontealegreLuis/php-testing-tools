@@ -7,7 +7,7 @@
 namespace Hexagonal\DataBuilders;
 
 use Ewallet\DataBuilders\TransferWasMadeBuilder;
-use Ewallet\Accounts\TransferWasMade;
+use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\{EventSerializer, StoredEvent};

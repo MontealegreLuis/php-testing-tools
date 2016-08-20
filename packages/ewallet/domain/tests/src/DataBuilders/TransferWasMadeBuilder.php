@@ -6,7 +6,7 @@
  */
 namespace Ewallet\DataBuilders;
 
-use Ewallet\Accounts\{MemberId, TransferWasMade};
+use Ewallet\Memberships\{MemberId, TransferWasMade};
 use Faker\Factory;
 use Money\Money;
 

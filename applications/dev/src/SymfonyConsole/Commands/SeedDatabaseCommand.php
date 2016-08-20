@@ -7,7 +7,7 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Ewallet\Accounts\Member;
+use Ewallet\Memberships\Member;
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Hexagonal\{DomainEvents\StoredEvent, Messaging\PublishedMessage};
 use Symfony\Component\Console\{

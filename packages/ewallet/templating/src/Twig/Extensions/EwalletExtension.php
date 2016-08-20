@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Twig\Extensions;
 
-use Ewallet\Accounts\{MemberInformation, MemberFormatter};
+use Ewallet\Memberships\{MemberInformation, MemberFormatter};
 use Money\Money;
 use Twig_Extension as Extension;
 use Twig_SimpleFunction as SimpleFunction;

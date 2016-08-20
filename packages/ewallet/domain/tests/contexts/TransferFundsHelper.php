@@ -4,8 +4,8 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\Accounts\Member;
-use Ewallet\Wallet\{CanTransferFunds, TransferFundsSummary};
+use Ewallet\Memberships\Member;
+use Ewallet\ManageWallet\{CanTransferFunds, TransferFundsSummary};
 use Money\Money;
 
 class TransferFundsHelper implements CanTransferFunds

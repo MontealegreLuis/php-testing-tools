@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\Wallet\Notifications\TransferFundsEmailNotifier;
+use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
 use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\Doctrine2\Messaging\MessageTrackerRepository;
 use Hexagonal\Messaging\MessagePublisher;

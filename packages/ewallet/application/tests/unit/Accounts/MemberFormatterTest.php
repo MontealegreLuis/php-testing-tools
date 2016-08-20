@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Accounts;
+namespace Ewallet\Memberships;
 
 use Ewallet\DataBuilders\A;
 use Money\Money;

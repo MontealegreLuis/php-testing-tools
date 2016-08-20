@@ -32,19 +32,19 @@ class MemberSpec extends ObjectBehavior
         ]);
     }
 
-    function it_can_be_created_with_a_given_account_balance()
+    function it_can_be_registered_with_an_initial_account_balance()
     {
         $this->information()->accountBalance()->shouldAmount(self::A_VALID_AMOUNT);
     }
 
-    function it_transfers_funds_to_another_member()
+    function it_transfers_funds_to_a_recipient()
     {
         $this->transfer(Money::MXN(500), A::member()->build());
 
         $this->information()->accountBalance()->shouldAmount(1500);
     }
 
-    function it_receives_funds_from_another_member()
+    function it_receives_funds_from_a_sender()
     {
         $fromMember = A::member()->withBalance(1000)->build();
 
@@ -53,7 +53,7 @@ class MemberSpec extends ObjectBehavior
         $this->information()->accountBalance()->shouldAmount(2500);
     }
 
-    function it_does_not_allow_an_empty_name()
+    function it_cannot_be_registered_with_an_empty_name()
     {
         $this->beConstructedThrough('withAccountBalance', [
             MemberId::withIdentity(self::A_VALID_ID),
@@ -67,7 +67,7 @@ class MemberSpec extends ObjectBehavior
         ;
     }
 
-    function it_does_not_allow_to_transfer_a_negative_amount()
+    function it_cannot_transfer_a_negative_amount()
     {
         $this
             ->shouldThrow(InvalidTransfer::class)
@@ -75,7 +75,7 @@ class MemberSpec extends ObjectBehavior
         ;
     }
 
-    function it_does_not_allow_to_transfer_zero()
+    function it_cannot_transfer_zero()
     {
         $this
             ->shouldThrow(InvalidTransfer::class)
@@ -90,14 +90,14 @@ class MemberSpec extends ObjectBehavior
         $this->events()->count()->shouldBe(1);
     }
 
-    function it_knows_when_another_member_is_equal_to_it()
+    function it_can_recognize_her_identity()
     {
         $sameMember = A::member()->withId(self::A_VALID_ID)->build();
 
         $this->equals($sameMember)->shouldBe(true);
     }
 
-    function it_knows_when_another_member_is_not_equal_to_it()
+    function it_recognizes_other_members_identities()
     {
         $aDifferentMember = A::member()->withId('xyz')->build();
 

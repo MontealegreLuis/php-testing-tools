@@ -17,7 +17,7 @@ class TransferFundsSpec extends ObjectBehavior
 {
     use ProvidesMoneyMatcher;
 
-    function it_transfers_funds_between_accounts(
+    function it_transfers_funds_between_members(
         Members $members,
         CanTransferFunds $action
     ) {

@@ -15,7 +15,7 @@ class AccountSpec extends ObjectBehavior
 {
     use ProvidesMoneyMatcher;
 
-    function it_can_be_created_with_a_specific_balance()
+    function it_has_an_initial_balance()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 
@@ -40,7 +40,7 @@ class AccountSpec extends ObjectBehavior
         $this->information()->balance()->shouldAmount(2500);
     }
 
-    function it_does_not_allow_withdrawing_more_than_the_current_balance()
+    function it_cannot_be_overdrawn()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 

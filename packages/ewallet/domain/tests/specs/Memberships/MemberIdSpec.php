@@ -12,13 +12,13 @@ use PhpSpec\ObjectBehavior;
 
 class MemberIdSpec extends ObjectBehavior
 {
-    function it_can_be_created_from_a_string()
+    function it_has_access_to_its_identity_value()
     {
         $this->beConstructedThrough('withIdentity', ['abcd']);
         $this->value()->shouldBe('abcd');
     }
 
-    function it_cannot_be_created_from_an_empty_string()
+    function its_value_cannot_be_empty()
     {
         $this->beConstructedThrough('withIdentity', ['']);
         $this

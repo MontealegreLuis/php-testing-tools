@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: env containers composer db tests
+.PHONY: env containers composer db tests cleanup
 
 env:
 	@echo "Copying default settings for the containers.."
@@ -68,6 +68,55 @@ composer:
 	@composer install --no-interaction -d packages/hexagonal/doctrine
 	@echo "hexagonal/messaging..."
 	@composer install --no-interaction -d packages/hexagonal/messaging
+
+cleanup:
+	@echo "Removing packages from ewallet/console"
+	@rm -rf applications/console/vendor
+	@rm -f applications/console/bin/doctrine
+	@rm -f applications/console/bin/doctrine.php
+	@rm -f applications/console/bin/doctrine-dbal
+	@rm -f applications/console/bin/phpunit
+	@echo "Removing packages from ewallet/dev"
+	@rm -rf applications/dev/vendor
+	@rm -f applications/dev/bin/doctrine
+	@rm -f applications/dev/bin/doctrine.php
+	@rm -f applications/dev/bin/doctrine-dbal
+	@echo "Removing packages from ewallet/messaging"
+	@rm -rf applications/messaging/vendor
+	@rm -f applications/messaging/bin/doctrine
+	@rm -f applications/messaging/bin/doctrine.php
+	@rm -f applications/messaging/bin/doctrine-dbal
+	@rm -f applications/messaging/bin/phpunit
+	@echo "Removing packages from ewallet/web"
+	@rm -rf applications/web/vendor
+	@rm -rf applications/web/bin
+	@echo "Removing packages from ewallet/application"
+	@rm -rf packages/ewallet/application/vendor
+	@rm -rf packages/ewallet/application/bin
+	@echo "Removing packages from ewallet/definitions"
+	@rm -rf packages/ewallet/definitions/vendor
+	@rm -rf packages/ewallet/definitions/bin
+	@echo "Removing packages from ewallet/doctrine"
+	@rm -rf packages/ewallet/doctrine/vendor
+	@rm -rf packages/ewallet/doctrine/bin
+	@echo "Removing packages from ewallet/domain"
+	@rm -rf packages/ewallet/domain/vendor
+	@rm -rf packages/ewallet/domain/bin
+	@echo "Removing packages from ewallet/responder"
+	@rm -rf packages/ewallet/responder/vendor
+	@rm -rf packages/ewallet/responder/bin
+	@echo "Removing packages from ewallet/templating"
+	@rm -rf packages/ewallet/templating/vendor
+	@rm -rf packages/ewallet/templating/bin
+	@echo "Removing packages from ewallet/validation"
+	@rm -rf packages/ewallet/validation/vendor
+	@rm -rf packages/ewallet/validation/bin
+	@echo "Removing packages from hexagonal/doctrine"
+	@rm -rf packages/hexagonal/doctrine/vendor
+	@rm -rf packages/hexagonal/doctrine/bin
+	@echo "Removing packages from hexagonal/messaging"
+	@rm -rf packages/hexagonal/messaging/vendor
+	@rm -rf packages/hexagonal/messaging/bin
 
 db:
 	@echo "Creating database..."

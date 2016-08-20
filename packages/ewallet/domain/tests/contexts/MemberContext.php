@@ -27,7 +27,7 @@ class MemberContext implements Context, SnippetAcceptingContext
     private $members;
 
     /** @var MembersHelper */
-    private $membersHelper;
+    private $helper;
 
     /** @var TransferFunds */
     private $useCase;
@@ -38,35 +38,35 @@ class MemberContext implements Context, SnippetAcceptingContext
     public function prepare()
     {
         $this->members = new InMemoryMembers();
-        $this->membersHelper = new MembersHelper();
+        $this->helper = new MembersHelper();
         $this->useCase = new TransferFunds($this->members);
-        $this->useCase->attach($this->membersHelper);
+        $this->useCase->attach($this->helper);
     }
 
     /**
-     * @Given I have an account balance of :amount MXN
+     * @Given a sender with an account balance of :amount MXN
      */
-    public function iHaveAnAccountBalanceOfMxn(Money $amount)
+    public function aSenderWithAnAccountBalanceOfMxn(Money $amount)
     {
-        $me = A::member()->withId($this->senderId)->withBalance($amount)->build();
+        $sender = A::member()->withId($this->senderId)->withBalance($amount)->build();
 
-        $this->members->add($me);
+        $this->members->add($sender);
     }
 
     /**
-     * @Given my friend has an account balance of :amount MXN
+     * @Given a recipient with an account balance of :amount MXN
      */
-    public function myFriendHasAnAccountBalanceOfMxn(Money $amount)
+    public function aRecipientWithAnAccountBalanceOfMxn(Money $amount)
     {
-        $myFriend = A::member()->withId($this->recipientId)->withBalance($amount)->build();
+        $recipient = A::member()->withId($this->recipientId)->withBalance($amount)->build();
 
-        $this->members->add($myFriend);
+        $this->members->add($recipient);
     }
 
     /**
-     * @When I transfer him :amount MXN
+     * @When the sender transfers :amount MXN to the recipient
      */
-    public function iTransferHimMxn(Money $amount)
+    public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
         $this->useCase->transfer(TransferFundsInformation::from([
             'senderId' => $this->senderId,
@@ -76,28 +76,28 @@ class MemberContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then I should be notified that the transfer is complete
+     * @Then the sender is notified that the transfer is complete
      */
-    public function iShouldBeNotifiedThatTheTransferIsComplete()
+    public function theSenderIsNotifiedThatTheTransferIsComplete()
     {
-        $this->membersHelper->assertTransferWasMade();
+        $this->helper->assertTransferWasMade();
     }
 
     /**
-     * @Then my balance should be :amount MXN
+     * @Then the sender's balance should be :amount MXN
      */
-    public function myBalanceShouldBeMxn(Money $amount)
+    public function theSendersBalanceShouldBeMxn(Money $amount)
     {
-        $forMe = $this->members->with(MemberId::with($this->senderId));
-        $this->membersHelper->assertBalanceIs($amount, $forMe);
+        $sender = $this->members->with(MemberId::with($this->senderId));
+        $this->helper->assertBalanceIs($amount, $sender);
     }
 
     /**
-     * @Then my friend's balance should be :amount MXN
+     * @Then the recipient's balance should be :amount MXN
      */
-    public function myFriendSBalanceShouldBeMxn(Money $amount)
+    public function theRecipientsBalanceShouldBeMxn(Money $amount)
     {
-        $forMyFriend = $this->members->with(MemberId::with($this->recipientId));
-        $this->membersHelper->assertBalanceIs($amount, $forMyFriend);
+        $recipient = $this->members->with(MemberId::with($this->recipientId));
+        $this->helper->assertBalanceIs($amount, $recipient);
     }
 }

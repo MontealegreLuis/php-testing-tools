@@ -14,19 +14,19 @@ class TransferFundsCest
     public function _before()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../config.tests.php');
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixture->load();
     }
 
-    public function tryToTransferFundsBetweenMembers(AcceptanceTester $I)
+    public function tryToTransferFundsToARecipient(AcceptanceTester $I)
     {
-        $I->am('ewallet member');
-        $I->wantTo('pay a debt');
-        $I->lookForwardTo('transfer funds to my friend');
+        $I->am('sender');
+        $I->wantTo('share my funds with one of my recipients');
+        $I->lookForwardTo('transfer funds to her');
 
         $I->amOnTransferFundsPage();
         $I->enterTransferInformation('Luis Montealegre', 5);
-        $I->requestTransfer();
+        $I->makeTheTransfer();
 
         $I->seeTransferCompletedConfirmation();
     }

@@ -42,7 +42,7 @@ class AcceptanceTester extends Actor
         $this->fillField(TransferFundsPage::$amount, $amount);
     }
 
-    public function requestTransfer()
+    public function makeTheTransfer()
     {
         $this->click(TransferFundsPage::$transferButton);
     }

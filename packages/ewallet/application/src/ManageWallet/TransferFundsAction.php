@@ -50,7 +50,7 @@ class TransferFundsAction implements CanTransferFunds
     public function transfer(TransferFundsInput $input)
     {
         if (!$input->isValid()) {
-            $this->validationFailedFor($input);
+            $this->invalidTransfer($input);
         } else {
             $this->useCase->transfer(TransferFundsInformation::from($input->values()));
         }
@@ -59,7 +59,7 @@ class TransferFundsAction implements CanTransferFunds
     /**
      * @param TransferFundsInput $input
      */
-    private function validationFailedFor(TransferFundsInput $input)
+    private function invalidTransfer(TransferFundsInput $input)
     {
         $this->responder->respondToInvalidTransferInput(
             $input->errorMessages(),

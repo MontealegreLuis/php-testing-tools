@@ -18,7 +18,7 @@ use Ewallet\Memberships\MemberId;
 class TransferFundsAction implements CanTransferFunds
 {
     /** @var TransferFunds */
-    private $useCase;
+    private $command;
 
     /** @var TransferFundsResponder */
     private $responder;
@@ -32,8 +32,8 @@ class TransferFundsAction implements CanTransferFunds
         TransferFunds $transferFunds = null
     ) {
         $this->responder = $responder;
-        $this->useCase = $transferFunds;
-        $transferFunds && $this->useCase->attach($this);
+        $this->command = $transferFunds;
+        $transferFunds && $this->command->attach($this);
     }
 
     /**
@@ -51,9 +51,10 @@ class TransferFundsAction implements CanTransferFunds
     {
         if (!$input->isValid()) {
             $this->invalidTransfer($input);
-        } else {
-            $this->useCase->transfer(TransferFundsInformation::from($input->values()));
+            return;
         }
+
+        $this->command->transfer(TransferFundsInformation::from($input->values()));
     }
 
     /**

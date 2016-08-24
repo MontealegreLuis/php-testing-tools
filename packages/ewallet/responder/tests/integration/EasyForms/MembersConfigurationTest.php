@@ -18,15 +18,15 @@ class MembersConfigurationTest extends TestCase
     public function setUp()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixture->load();
     }
 
     /** @test */
     function it_generates_options_excluding_the_member_transferring_funds()
     {
-        /** @var MembersRepository $members */
-        $members = $this->entityManager->getRepository(Member::class);
+        /** @var \Ewallet\Memberships\MembersRepository $members */
+        $members = $this->_entityManager()->getRepository(Member::class);
 
         $configuration = new MembersConfiguration($members);
 

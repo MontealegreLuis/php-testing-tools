@@ -21,7 +21,7 @@ class TransferFundsAction implements CanTransferFunds
     private $command;
 
     /** @var TransferFundsResponder */
-    private $responder;
+    protected $responder;
 
     /**
      * @param TransferFundsResponder $responder
@@ -74,13 +74,5 @@ class TransferFundsAction implements CanTransferFunds
     public function transferCompleted(TransferFundsSummary $summary)
     {
         $this->responder->respondToTransferCompleted($summary);
-    }
-
-    /**
-     * @return TransferFundsResponder
-     */
-    public function responder(): TransferFundsResponder
-    {
-        return $this->responder;
     }
 }

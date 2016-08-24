@@ -9,7 +9,7 @@ namespace Ewallet\Pimple\ServiceProviders;
 use Ewallet\EasyForms\TransferFundsForm;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Twig\RouterExtension;
-use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsFormResponder};
+use Ewallet\ManageWallet\{TransferFundsFormResponder, Web\TransferFundsWebAction};
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
 use Pimple\Container;
 use Twig_Loader_Filesystem as Loader;
@@ -39,13 +39,13 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
             );
         };
         $container['ewallet.transfer_form_controller'] = function () use ($container) {
-            return new TransferFundsController(new TransferFundsAction(
+            return new TransferFundsController(new TransferFundsWebAction(
                 $container['ewallet.transfer_funds_web_responder']
             ));
         };
         $container['ewallet.transfer_funds_controller'] = function () use ($container) {
             return new TransferFundsController(
-                new TransferFundsAction(
+                new TransferFundsWebAction(
                     $container['ewallet.transfer_funds_web_responder'],
                     $container['ewallet.transfer_funds']
                 ),

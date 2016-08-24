@@ -7,13 +7,13 @@
 namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Memberships\MemberId;
-use Ewallet\ManageWallet\{TransferFundsInput, TransferFundsAction};
+use Ewallet\ManageWallet\{TransferFundsInput, Web\TransferFundsWebAction};
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 
 class TransferFundsController
 {
-    /** @var TransferFundsAction */
+    /** @var TransferFundsWebAction */
     private $action;
 
     /** @var TransferFundsInput */
@@ -24,7 +24,7 @@ class TransferFundsController
      * @param TransferFundsInput $input Only required when transfer is performed
      */
     public function __construct(
-        TransferFundsAction $action,
+        TransferFundsWebAction $action,
         TransferFundsInput $input = null
     ) {
         $this->action = $action;
@@ -40,7 +40,7 @@ class TransferFundsController
     {
         $this->action->enterTransferInformation(MemberId::withIdentity('ABC'));
 
-        return $this->action->responder()->response();
+        return $this->action->response();
     }
 
     /**
@@ -54,6 +54,6 @@ class TransferFundsController
         $this->input->populate($request->getParsedBody());
         $this->action->transfer($this->input);
 
-        return $this->action->responder()->response();
+        return $this->action->response();
     }
 }

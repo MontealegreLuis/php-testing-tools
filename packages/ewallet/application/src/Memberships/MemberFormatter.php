@@ -25,7 +25,7 @@ class MemberFormatter
      */
     public function formatMoney(Money $money): string
     {
-        return "\${$this->formatMoneyAmount(round($money->getAmount() / 100, 2))} {$money->getCurrency()}";
+        return "\${$this->formatMoneyAmount($money->getAmount() / 100)} {$money->getCurrency()}";
     }
 
     /**

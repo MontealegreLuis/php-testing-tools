@@ -22,6 +22,13 @@ class MemberFormatterTest extends TestCase
     }
 
     /** @test */
+    function it_shows_two_decimal_places()
+    {
+        $this->assertEquals('234.25', $this->formatter->formatMoneyAmount(234.253));
+        $this->assertEquals('234.20', $this->formatter->formatMoneyAmount(234.2));
+    }
+
+    /** @test */
     function it_adds_thousands_separator_to_a_money_amount()
     {
         $this->assertEquals('1,234.25', $this->formatter->formatMoneyAmount(1234.25));

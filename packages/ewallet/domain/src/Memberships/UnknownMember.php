@@ -17,8 +17,8 @@ class UnknownMember extends RuntimeException
      * @param MemberId $memberId
      * @return UnknownMember
      */
-    public static function with(MemberId $memberId): UnknownMember
+    public static function identifiedBy(MemberId $memberId): UnknownMember
     {
-        return new self("Member with ID {$memberId} cannot be found");
+        return new self("Member with ID {$memberId->value()} cannot be found");
     }
 }

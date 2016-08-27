@@ -25,7 +25,7 @@ class DoctrineMembers extends EntityRepository implements MembersRepository
         ;
 
         if (!$member = $builder->getQuery()->getOneOrNullResult()) {
-            throw UnknownMember::with($id);
+            throw UnknownMember::identifiedBy($id);
         }
 
         return $member;

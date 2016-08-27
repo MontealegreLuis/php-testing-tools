@@ -34,7 +34,7 @@ class InMemoryMembers implements Members
                 return $member;
             }
         }
-        throw UnknownMember::with($id);
+        throw UnknownMember::identifiedBy($id);
     }
 
     /**

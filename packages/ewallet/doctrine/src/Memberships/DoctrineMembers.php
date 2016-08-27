@@ -11,21 +11,21 @@ use Doctrine\ORM\EntityRepository;
 class DoctrineMembers extends EntityRepository implements MembersRepository
 {
     /**
-     * @param MemberId $id
+     * @param MemberId $memberId
      * @return Member
      * @throws UnknownMember
      */
-    public function with(MemberId $id): Member
+    public function with(MemberId $memberId): Member
     {
         $builder = $this->createQueryBuilder('m');
 
         $builder
             ->where('m.memberId = :id')
-            ->setParameter('id', $id)
+            ->setParameter('id', $memberId)
         ;
 
         if (!$member = $builder->getQuery()->getOneOrNullResult()) {
-            throw UnknownMember::identifiedBy($id);
+            throw UnknownMember::identifiedBy($memberId);
         }
 
         return $member;

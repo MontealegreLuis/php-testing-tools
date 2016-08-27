@@ -12,11 +12,11 @@ namespace Ewallet\Memberships;
 interface Members
 {
     /**
-     * @param MemberId $id
+     * @param MemberId $memberId
      * @return Member
      * @throws UnknownMember
      */
-    public function with(MemberId $id): Member;
+    public function with(MemberId $memberId): Member;
 
     /**
      * @param Member $member

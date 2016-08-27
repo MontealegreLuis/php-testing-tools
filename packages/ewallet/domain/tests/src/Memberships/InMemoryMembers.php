@@ -22,19 +22,19 @@ class InMemoryMembers implements Members
     }
 
     /**
-     * @param MemberId $id
+     * @param MemberId $memberId
      * @return Member
      * @throws UnknownMember
      */
-    public function with(MemberId $id): Member
+    public function with(MemberId $memberId): Member
     {
         /** @var Member $member */
         foreach ($this->members as $member) {
-            if ($member->information()->id()->equals($id)) {
+            if ($member->information()->id()->equals($memberId)) {
                 return $member;
             }
         }
-        throw UnknownMember::identifiedBy($id);
+        throw UnknownMember::identifiedBy($memberId);
     }
 
     /**

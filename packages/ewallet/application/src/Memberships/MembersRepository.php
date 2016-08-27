@@ -9,8 +9,10 @@ namespace Ewallet\Memberships;
 interface MembersRepository extends Members
 {
     /**
-     * @param MemberId $memberId
+     * This method is used to prevent the sender to transfer funds to itself.
+     *
+     * @param MemberId $senderId
      * @return Member[]
      */
-    public function excluding(MemberId $memberId): array;
+    public function excluding(MemberId $senderId): array;
 }

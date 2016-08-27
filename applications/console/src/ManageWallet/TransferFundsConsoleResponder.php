@@ -70,11 +70,11 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     }
 
     /**
-     * @param MemberId $fromMemberId
+     * @param MemberId $senderId
      */
-    public function respondToEnterTransferInformation(MemberId $fromMemberId)
+    public function respondToEnterTransferInformation(MemberId $senderId)
     {
-        $members = $this->members->excluding($fromMemberId);
+        $members = $this->members->excluding($senderId);
         $table = new Table($this->output);
         $table
             ->setHeaders(['ID', 'Name', 'Balance'])

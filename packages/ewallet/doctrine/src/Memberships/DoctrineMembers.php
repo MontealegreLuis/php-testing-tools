@@ -50,16 +50,16 @@ class DoctrineMembers extends EntityRepository implements MembersRepository
     }
 
     /**
-     * @param MemberId $memberId
+     * @param MemberId $senderId
      * @return Member[]
      */
-    public function excluding(MemberId $memberId): array
+    public function excluding(MemberId $senderId): array
     {
         $builder = $this->createQueryBuilder('m');
 
         $builder
             ->where('m.memberId <> :id')
-            ->setParameter('id', $memberId)
+            ->setParameter('id', $senderId)
         ;
 
         return $builder->getQuery()->getResult();

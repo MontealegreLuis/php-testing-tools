@@ -30,7 +30,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
     private $helper;
 
     /** @var TransferFunds */
-    private $useCase;
+    private $command;
 
     /**
      * @BeforeScenario
@@ -39,8 +39,8 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
     {
         $this->members = new InMemoryMembers();
         $this->helper = new TransferFundsHelper();
-        $this->useCase = new TransferFunds($this->members);
-        $this->useCase->attach($this->helper);
+        $this->command = new TransferFunds($this->members);
+        $this->command->attach($this->helper);
     }
 
     /**
@@ -68,7 +68,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
      */
     public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
-        $this->useCase->transfer(TransferFundsInformation::from([
+        $this->command->transfer(TransferFundsInformation::from([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
             'amount' => round($amount->getAmount() / 100),

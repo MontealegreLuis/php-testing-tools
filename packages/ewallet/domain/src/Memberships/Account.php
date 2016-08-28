@@ -40,7 +40,7 @@ class Account
      */
     public function information(): AccountInformation
     {
-        return new AccountInformation($this->balance);
+        return new AccountInformation(clone $this->balance);
     }
 
     /**

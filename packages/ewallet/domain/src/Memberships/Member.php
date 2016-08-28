@@ -86,7 +86,7 @@ class Member implements CanRecordEvents
             $this->memberId,
             $this->name,
             $this->email,
-            $this->account
+            $this->account->information()
         );
     }
 
@@ -101,7 +101,7 @@ class Member implements CanRecordEvents
         $recipient->receiveDeposit($amount);
         $this->account->withdraw($amount);
         $this->recordThat(new TransferWasMade(
-            $this->memberId, $amount, $recipient->memberId
+            $this->memberId, clone $amount, $recipient->memberId
         ));
     }
 

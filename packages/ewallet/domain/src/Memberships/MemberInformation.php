@@ -35,12 +35,12 @@ class MemberInformation
         MemberId $memberId,
         string $name,
         Email $email,
-        Account $account
+        AccountInformation $account
     ) {
         $this->memberId = $memberId;
         $this->name = $name;
         $this->email = $email;
-        $this->account = $account->information();
+        $this->account = $account;
     }
 
     /**

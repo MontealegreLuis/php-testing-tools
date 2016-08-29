@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\ContractTests\Accounts;
+namespace Ewallet\ContractTests\Memberships;
 
 use Ewallet\Memberships\{MemberId, Members};
 use Ewallet\DataBuilders\A;

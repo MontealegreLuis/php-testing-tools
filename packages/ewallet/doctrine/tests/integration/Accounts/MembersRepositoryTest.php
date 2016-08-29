@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Memberships;
 
-use Ewallet\ContractTests\Accounts\MembersTest;
+use Ewallet\ContractTests\Memberships\MembersTest;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class MembersRepositoryTest extends MembersTest

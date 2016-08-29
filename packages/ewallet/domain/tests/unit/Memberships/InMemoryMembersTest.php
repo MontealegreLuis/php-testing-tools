@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Memberships;
 
-use Ewallet\ContractTests\Accounts\MembersTest;
+use Ewallet\ContractTests\Memberships\MembersTest;
 
 class InMemoryMembersTest extends MembersTest
 {

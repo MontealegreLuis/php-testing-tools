@@ -20,12 +20,16 @@ class TransferFundsConsoleResponderTest extends TestCase
     /** @test */
     function it_shows_error_messages_when_invalid_input_is_provided()
     {
+        $input = Mockery::mock(InputInterface::class);
         $responder = new TransferFundsConsoleResponder(
-            Mockery::mock(InputInterface::class),
-            $output = new BufferedOutput(),
-            Mockery::mock(QuestionHelper::class),
+            $input,
             Mockery::mock(MembersRepository::class),
-            Mockery::mock(MemberFormatter::class)
+            new TransferFundsConsole(
+                $input,
+                $output = new BufferedOutput(),
+                Mockery::mock(QuestionHelper::class),
+                Mockery::mock(MemberFormatter::class)
+            )
         );
 
         $responder->respondToInvalidTransferInput([
@@ -38,12 +42,12 @@ class TransferFundsConsoleResponderTest extends TestCase
 
         $messages = $output->fetch();
 
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/Unknown member/',
             $messages,
             'First error message was not added to the output'
         );
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/Amount must not be negative/',
             $messages,
             'Second error message was not added to the output'
@@ -71,10 +75,13 @@ class TransferFundsConsoleResponderTest extends TestCase
         ))->getDefinition();
         $responder = new TransferFundsConsoleResponder(
             $input = new ArrayInput([], $definition),
-            new BufferedOutput(),
-            $question,
             $members,
-            new MemberFormatter()
+            new TransferFundsConsole(
+                $input,
+                new BufferedOutput(),
+                $question,
+                new MemberFormatter()
+            )
         );
 
         $responder->respondToEnterTransferInformation(MemberId::withIdentity('LMV'));
@@ -102,12 +109,16 @@ class TransferFundsConsoleResponderTest extends TestCase
     /** @test */
     function it_shows_the_statement_for_members_involved_int_the_transaction()
     {
+        $input = Mockery::mock(InputInterface::class);
         $responder = new TransferFundsConsoleResponder(
-            Mockery::mock(InputInterface::class),
-            $output = new BufferedOutput(),
-            Mockery::mock(QuestionHelper::class),
+            $input,
             Mockery::mock(MembersRepository::class),
-            new MemberFormatter()
+            new TransferFundsConsole(
+                $input,
+                $output = new BufferedOutput(),
+                Mockery::mock(QuestionHelper::class),
+                new MemberFormatter()
+            )
         );
 
         $responder->respondToTransferCompleted(new TransferFundsSummary(
@@ -117,12 +128,12 @@ class TransferFundsConsoleResponderTest extends TestCase
 
         $messages = $output->fetch();
 
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/Luis Montealegre/',
             $messages,
             'Member\'s name is missing in the final statement'
         );
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/Misraim Mendoza/',
             $messages,
             'Member\'s name is missing in the final statement'

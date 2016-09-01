@@ -6,15 +6,13 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
+use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsole, TransferFundsConsoleResponder};
 use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
-use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsoleResponder};
 use Hexagonal\DomainEvents\EventPublisher;
-use Symfony\Component\Console\{
-    ConsoleEvents, Helper\QuestionHelper, Input\ArgvInput, Output\ConsoleOutput
-};
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\{Helper\QuestionHelper, Input\ArgvInput, Output\ConsoleOutput};
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Pimple\{Container, ServiceProviderInterface};
 
 class EwalletConsoleServiceProvider extends EwalletServiceProvider implements ServiceProviderInterface
 {
@@ -36,10 +34,13 @@ class EwalletConsoleServiceProvider extends EwalletServiceProvider implements Se
         $container['ewallet.transfer_funds_console_responder'] = function () use ($container) {
             return new TransferFundsConsoleResponder(
                 $container['ewallet.console_input'],
-                $container['ewallet.console_output'],
-                new QuestionHelper(),
                 $container['ewallet.member_repository'],
-                $container['ewallet.member_formatter']
+                new TransferFundsConsole(
+                    $container['ewallet.console_input'],
+                    $container['ewallet.console_output'],
+                    new QuestionHelper(),
+                    $container['ewallet.member_formatter']
+                )
             );
         };
         $container['ewallet.transfer_funds_console_action'] = function () use ($container) {

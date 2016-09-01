@@ -6,51 +6,33 @@
  */
 namespace Ewallet\ManageWallet;
 
-use Ewallet\Memberships\{MemberId, Member, MemberFormatter, MemberInformation, MembersRepository};
-use Symfony\Component\Console\{
-    Helper\QuestionHelper,
-    Helper\Table,
-    Input\InputInterface,
-    Output\OutputInterface,
-    Question\Question
-};
+use Ewallet\Memberships\{MemberId, MembersRepository};
+use Symfony\Component\Console\Input\InputInterface;
 
 class TransferFundsConsoleResponder implements TransferFundsResponder
 {
     /** @var InputInterface */
     private $input;
 
-    /** @var OutputInterface */
-    private $output;
-
-    /** @var QuestionHelper */
-    private $question;
-
     /** @var MembersRepository */
     private $members;
 
-    /** @var MemberFormatter */
-    private $formatter;
+    /** @var TransferFundsConsole */
+    private $console;
 
     /**
      * @param InputInterface $input
-     * @param OutputInterface $output
-     * @param QuestionHelper $question
      * @param MembersRepository $members
-     * @param MemberFormatter $formatter
+     * @param TransferFundsConsole $console
      */
     public function __construct(
         InputInterface $input,
-        OutputInterface $output,
-        QuestionHelper $question,
         MembersRepository $members,
-        MemberFormatter $formatter
+        TransferFundsConsole $console
     ) {
         $this->input = $input;
-        $this->output = $output;
-        $this->question = $question;
         $this->members = $members;
-        $this->formatter = $formatter;
+        $this->console = $console;
     }
 
     /**
@@ -59,14 +41,7 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
      */
     public function respondToInvalidTransferInput(array $messages, array $values)
     {
-        $this->output->writeln('<comment>Please fix the following errors</comment>');
-
-        array_map(function (array $messages) {
-            $message = implode(', ', $messages);
-            $this->output->writeln("<error>{$message}</error>");
-        }, $messages);
-
-        $this->output->writeln('<info>Try again please.</info>');
+        $this->console->printError($messages);
     }
 
     /**
@@ -74,35 +49,16 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
      */
     public function respondToEnterTransferInformation(MemberId $senderId)
     {
-        $members = $this->members->excluding($senderId);
-        $table = new Table($this->output);
-        $table
-            ->setHeaders(['ID', 'Name', 'Balance'])
-            ->setRows(array_map(function (Member $member) {
-                    $member = $member->information();
-                    return [
-                        $member->id(),
-                        $member->name(),
-                        $this->formatter->formatMoney($member->accountBalance())
-                    ];
-                }, $members)
-            )
-        ;
-        $table->render();
-        $recipientId = $this->question->ask(
-            $this->input,
-            $this->output,
-            new Question('Transfer to ID: ')
-        );
+        $this->console->printRecipients($this->members->excluding($senderId));
 
-        $amount = $this->question->ask(
-            $this->input,
-            $this->output,
-            new Question('Amount to transfer: ')
+        $this->input->setArgument(
+            'recipientId',
+            $this->console->promptRecipientId()
         );
-
-        $this->input->setArgument('recipientId', $recipientId);
-        $this->input->setArgument('amount', $amount);
+        $this->input->setArgument(
+            'amount',
+            $this->console->promptAmountToTransfer()
+        );
     }
 
     /**
@@ -110,16 +66,6 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
      */
     public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
-        $this->output->writeln('<info>Transfer completed successfully!</info>');
-        $this->printStatement($summary->sender());
-        $this->printStatement($summary->recipient());
-    }
-
-    /**
-     * @param MemberInformation $forMember
-     */
-    private function printStatement(MemberInformation $forMember)
-    {
-        $this->output->writeln("{$this->formatter->formatMember($forMember)}");
+        $this->console->printSummary($summary);
     }
 }

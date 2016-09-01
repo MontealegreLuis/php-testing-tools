@@ -9,7 +9,7 @@ namespace Ewallet\SymfonyConsole\Commands;
 use Ewallet\Memberships\{Member, MemberFormatter};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
-use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsoleResponder, TransferFunds};
+use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsole, TransferFundsConsoleResponder, TransferFunds};
 use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use PHPUnit_Framework_TestCase as TestCase;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -48,10 +48,10 @@ class TransferFundsCommandTest extends TestCase
         $action = new TransferFundsAction(
             new TransferFundsConsoleResponder(
                 $input,
-                $output,
-                $question,
                 $members,
-                new MemberFormatter()
+                new TransferFundsConsole(
+                    $input, $output, $question, new MemberFormatter()
+                )
             ),
             $useCase
         );

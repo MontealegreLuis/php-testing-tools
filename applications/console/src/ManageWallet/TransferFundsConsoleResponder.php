@@ -51,14 +51,8 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     {
         $this->console->printRecipients($this->members->excluding($senderId));
 
-        $this->input->setArgument(
-            'recipientId',
-            $this->console->promptRecipientId()
-        );
-        $this->input->setArgument(
-            'amount',
-            $this->console->promptAmountToTransfer()
-        );
+        $this->input->setArgument('recipientId', $this->console->promptRecipientId());
+        $this->input->setArgument('amount', $this->console->promptAmountToTransfer());
     }
 
     /**

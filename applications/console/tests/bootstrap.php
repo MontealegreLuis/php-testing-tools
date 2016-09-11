@@ -10,6 +10,4 @@ use Dotenv\Dotenv;
 
 $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
-$environment->required([
-    'APP_ENV',
-]);
+$environment->required(['APP_ENV', 'DB_URL']);

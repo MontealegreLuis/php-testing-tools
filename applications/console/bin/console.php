@@ -11,12 +11,7 @@ use Dotenv\Dotenv;
 
 $environment = new Dotenv(__DIR__ . '/../');
 $environment->load();
-$environment->required([
-    'APP_ENV',
-    'MYSQL_USER',
-    'MYSQL_PASSWORD',
-    'MYSQL_HOST',
-]);
+$environment->required(['APP_ENV', 'DB_URL']);
 
 $application = new EwalletApplication($container = new EwalletConsoleContainer(
     require __DIR__ . '/../config.php'

@@ -19,7 +19,7 @@ class EwalletConsoleContainerTest extends TestCase
     /** @test */
     function it_creates_the_console_application_services()
     {
-        $arguments = require __DIR__ . '/../../../config.tests.php';
+        $arguments = require __DIR__ . '/../../../config.php';
         $container = new EwalletConsoleContainer($arguments);
 
         $this->assertInstanceOf(

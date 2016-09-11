@@ -15,7 +15,7 @@
     <listeners>
         <listener class="\Ewallet\PHPUnit\UpdateDatabaseSchemaListener">
             <arguments>
-                <string>config.tests.php</string>
+                <string>config.php</string>
             </arguments>
         </listener>
     </listeners>

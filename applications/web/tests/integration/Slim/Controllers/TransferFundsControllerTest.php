@@ -23,7 +23,7 @@ class TransferFundsControllerTest extends TestCase
     /** @before */
     public function configureApplication()
     {
-        $this->app = new Application(require __DIR__ . '/../../../../config.tests.php');
+        $this->app = new Application(require __DIR__ . '/../../../../config.php');
         $this->container = $this->app->getContainer();
     }
 

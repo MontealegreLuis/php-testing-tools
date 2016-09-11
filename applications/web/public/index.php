@@ -9,10 +9,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Ewallet\Slim\Application;
 use Dotenv\{Loader, Validator};
 
-$validator = new Validator(
-    ['APP_ENV', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_HOST'],
-    new Loader(null)
-);
+$validator = new Validator(['APP_ENV', 'DB_URL'], new Loader(null));
 
 $app = new Application(require __DIR__ . '/../config.php');
 $app->run();

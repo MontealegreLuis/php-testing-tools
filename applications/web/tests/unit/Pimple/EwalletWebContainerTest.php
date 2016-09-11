@@ -24,7 +24,7 @@ class EwalletWebContainerTest extends TestCase
     /** @test */
     function it_creates_the_web_application_services()
     {
-        $options = require __DIR__ . '/../../../config.tests.php';
+        $options = require __DIR__ . '/../../../config.php';
         $container = new EwalletWebContainer($options, new App());
 
         $this->assertInstanceOf(

@@ -11,7 +11,7 @@ use Ewallet\Slim\Application;
 
 $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
-$environment->required(['APP_ENV']);
+$environment->required(['APP_ENV', 'DB_URL']);
 
-$app = new Application(require __DIR__ . '/../config.tests.php');
+$app = new Application(require __DIR__ . '/../config.php');
 $app->run();

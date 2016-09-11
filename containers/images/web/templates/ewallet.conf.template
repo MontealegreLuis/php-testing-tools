@@ -1,9 +1,7 @@
 <VirtualHost *:80>
   DocumentRoot "/usr/src/myapp/applications/web/public"
   SetEnv APP_ENV ${APP_ENV}
-  SetEnv MYSQL_USER ${MYSQL_USER}
-  SetEnv MYSQL_PASSWORD ${MYSQL_PASSWORD}
-  SetEnv MYSQL_HOST ${MYSQL_HOST}
+  SetEnv DB_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYSQL_DATABASE}
   <Directory "/usr/src/myapp/applications/web/public">
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All

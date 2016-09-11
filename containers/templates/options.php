@@ -8,21 +8,11 @@ use Dotenv\Dotenv;
 
 if (getenv('ENV') == 'testing') {
     $environment = new Dotenv(__DIR__, '.env.tests');
-    $environment->load();
-    $environment->required([
-        'APP_ENV',
-    ]);
-
-    return require __DIR__ . '/config.tests.php';
+} else {
+    $environment = new Dotenv(__DIR__);
 }
 
-$environment = new Dotenv(__DIR__);
 $environment->load();
-$environment->required([
-    'APP_ENV',
-    'MYSQL_USER',
-    'MYSQL_PASSWORD',
-    'MYSQL_HOST'
-]);
+$environment->required(['APP_ENV', 'DB_URL']);
 
 return require __DIR__ . '/config.php';

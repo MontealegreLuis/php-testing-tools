@@ -12,8 +12,7 @@ return [
         'dev_mode' => true,
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
-            'driver' => 'pdo_sqlite',
-            'path' => __DIR__ . '/var/ewallet.sq3',
+            'url' => 'sqlite:///' . __DIR__ . '/var/ewallet.sq3',
         ],
         'types' => [],
     ],

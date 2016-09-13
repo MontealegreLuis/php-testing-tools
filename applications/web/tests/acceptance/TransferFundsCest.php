@@ -13,7 +13,7 @@ class TransferFundsCest
 
     public function _before()
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../config.tests.php');
+        $this->_setUpDoctrine(require __DIR__ . '/../../config.php');
         $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixture->load();
     }

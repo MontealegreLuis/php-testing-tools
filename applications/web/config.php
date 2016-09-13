@@ -7,6 +7,7 @@
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
+        'displayErrorDetails' => getenv('APP_ENV') !== 'production',
     ],
     'doctrine' => [
         'mapping_dirs' => [

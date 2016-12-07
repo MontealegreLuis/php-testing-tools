@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -12,12 +12,9 @@ class TransferFundsTransactionally extends TransferFunds
 {
     use ProvidesTransactionalOperations;
 
-    /**
-     * @param TransferFundsInformation $information
-     */
-    public function transfer(TransferFundsInformation $information)
+    public function transfer(TransferFundsInformation $information): void
     {
-        $this->session->executeAtomically(function () use ($information) {
+        $this->execute(function () use ($information) {
             parent::transfer($information);
         });
     }

@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 COPY ./config/entrypoint.sh /entrypoint.sh
 COPY ./config/ewallet.conf /etc/apache2/sites-available/

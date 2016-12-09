@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -70,7 +70,7 @@ class TransferFundsTest extends TestCase
         $fixtures = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixtures->load();
 
-        $this->members = $this->_entityManager()->getRepository(Member::class);
+        $this->members = $this->_repositoryForEntity(Member::class);
 
         $this->useCase = new TransferFundsTransactionally($this->members);
         $this->useCase->setTransactionalSession(new DoctrineSession($this->_entityManager()));

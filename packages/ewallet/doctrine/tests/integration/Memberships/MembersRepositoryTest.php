@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,7 +14,7 @@ class MembersRepositoryTest extends MembersTest
     use ProvidesDoctrineSetup;
 
     /** @before */
-    function generateFixtures()
+    function generateFixtures(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         $this
@@ -25,9 +25,6 @@ class MembersRepositoryTest extends MembersTest
         parent::generateFixtures();
     }
 
-    /**
-     * @return Members
-     */
     protected function membersInstance(): Members
     {
         return $this->_entityManager()->getRepository(Member::class);

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -22,8 +22,6 @@ class InMemoryMembers implements Members
     }
 
     /**
-     * @param MemberId $memberId
-     * @return Member
      * @throws UnknownMember
      */
     public function with(MemberId $memberId): Member
@@ -37,17 +35,11 @@ class InMemoryMembers implements Members
         throw UnknownMember::identifiedBy($memberId);
     }
 
-    /**
-     * @param Member $member
-     */
     public function add(Member $member)
     {
         $this->members->attach($member);
     }
 
-    /**
-     * @param Member $member
-     */
     public function update(Member $member)
     {
         $this->members->attach($member);

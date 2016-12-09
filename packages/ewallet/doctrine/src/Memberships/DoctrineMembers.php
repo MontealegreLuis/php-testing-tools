@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,8 +11,6 @@ use Doctrine\ORM\EntityRepository;
 class DoctrineMembers extends EntityRepository implements MembersRepository
 {
     /**
-     * @param MemberId $memberId
-     * @return Member
      * @throws UnknownMember
      */
     public function with(MemberId $memberId): Member
@@ -31,18 +29,12 @@ class DoctrineMembers extends EntityRepository implements MembersRepository
         return $member;
     }
 
-    /**
-     * @param Member $member
-     */
     public function add(Member $member)
     {
         $this->_em->persist($member);
         $this->_em->flush($member);
     }
 
-    /**
-     * @param Member $member
-     */
     public function update(Member $member)
     {
         $this->_em->persist($member);
@@ -50,7 +42,6 @@ class DoctrineMembers extends EntityRepository implements MembersRepository
     }
 
     /**
-     * @param MemberId $senderId
      * @return Member[]
      */
     public function excluding(MemberId $senderId): array

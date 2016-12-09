@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -25,13 +25,10 @@ abstract class MembersTest extends TestCase
     /** @var \Ewallet\Memberships\Member A member with 1000 cents */
     private $sender;
 
-    /**
-     * @return Members
-     */
     abstract protected function membersInstance(): Members;
 
     /** @before */
-    function generateFixtures()
+    function generateFixtures(): void
     {
         $this->members = $this->membersInstance();
         $this->registeredMember = A::member()->build();

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,45 +17,30 @@ class UpdateDatabaseSchemaListener implements TestListener
 {
     use ProvidesDoctrineSetup;
 
-    /**
-     * @var string Path to the integration tests configuration for Doctrine
-     */
+    /** @var string */
     private $path;
 
     /**
-     * @param string $path
+     * @param string $path Path to the integration tests configuration for Doctrine
      */
     public function __construct(string $path)
     {
         $this->path = $path;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function addError(Test $test, Exception $e, $time) {}
 
-    /**
-     * @inheritDoc
-     */
     public function addFailure(Test $test, AssertionFailedError $e, $time) {}
 
-    /**
-     * @inheritDoc
-     */
     public function addIncompleteTest(Test $test, Exception $e, $time) {}
 
-    /**
-     * @inheritDoc
-     */
     public function addRiskyTest(Test $test, Exception $e, $time) {}
 
-    /**
-     * @inheritDoc
-     */
     public function addSkippedTest(Test $test, Exception $e, $time) {}
 
     /**
+     * Update the database schema before running the integration tests
+     *
      * @inheritDoc
      */
     public function startTestSuite(TestSuite $suite)
@@ -67,18 +52,9 @@ class UpdateDatabaseSchemaListener implements TestListener
         $this->_updateDatabaseSchema(require $this->path);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function endTestSuite(TestSuite $suite) {}
 
-    /**
-     * @inheritDoc
-     */
     public function startTest(Test $test) {}
 
-    /**
-     * @inheritDoc
-     */
     public function endTest(Test $test, $time) {}
 }

@@ -1,11 +1,12 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Doctrine2;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\{EntityManager, EntityManagerInterface};
 use Doctrine\ORM\Tools\{SchemaTool, Setup};
@@ -15,9 +16,6 @@ trait ProvidesDoctrineSetup
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /**
-     * @return EntityManagerInterface
-     */
     public function _entityManager(): EntityManagerInterface
     {
         return $this->entityManager;
@@ -27,10 +25,8 @@ trait ProvidesDoctrineSetup
      * Setup XML mapping configuration
      * Configure entity manager
      * Add custom types
-     *
-     * @param array $options
      */
-    public function _setUpDoctrine(array $options)
+    public function _setUpDoctrine(array $options): void
     {
         if ($this->entityManager) { // Do not initialize twice
             return;
@@ -52,10 +48,15 @@ trait ProvidesDoctrineSetup
         }
     }
 
-    public function _updateDatabaseSchema(array $options)
+    public function _updateDatabaseSchema(array $options): void
     {
         $this->_setUpDoctrine($options);
         $tool = new SchemaTool($em = $this->_entityManager());
         $tool->updateSchema($em->getMetadataFactory()->getAllMetadata(), true);
+    }
+
+    public function _repositoryForEntity(string $class): ObjectRepository
+    {
+        return $this->_entityManager()->getRepository($class);
     }
 }

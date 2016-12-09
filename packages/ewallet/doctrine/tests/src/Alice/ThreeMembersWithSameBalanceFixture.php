@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -19,9 +19,6 @@ class ThreeMembersWithSameBalanceFixture
     /** @var ObjectManager */
     private $objectManager;
 
-    /**
-     * @param ObjectManager $objectManager
-     */
     public function __construct(ObjectManager $objectManager)
     {
         $this->objectManager = $objectManager;
@@ -30,7 +27,7 @@ class ThreeMembersWithSameBalanceFixture
     /**
      * Cleanup before populating `members` table
      */
-    public function load()
+    public function load(): void
     {
         $this
             ->objectManager

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,9 +16,6 @@ class Account
     /** @var Money */
     private $balance;
 
-    /**
-     * @param Money $amount
-     */
     private function __construct(Money $amount)
     {
         $this->balance = $amount;
@@ -26,18 +23,12 @@ class Account
 
     /**
      * Accounts can only be created with a given initial amount
-     *
-     * @param Money $amount
-     * @return Account
      */
     public static function withBalance(Money $amount): Account
     {
         return new Account($amount);
     }
 
-    /**
-     * @return AccountInformation
-     */
     public function information(): AccountInformation
     {
         return new AccountInformation(clone $this->balance);
@@ -45,8 +36,6 @@ class Account
 
     /**
      * Increase this account current balance
-     *
-     * @param Money $amount
      */
     public function deposit(Money $amount)
     {
@@ -56,7 +45,6 @@ class Account
     /**
      * Decrease this account current balance
      *
-     * @param Money $amount
      * @throws InsufficientFunds
      *     A member cannot withdraw more than it's account current balance
      */

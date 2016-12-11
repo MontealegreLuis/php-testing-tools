@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -13,10 +13,6 @@ use RuntimeException;
  */
 class UnknownMember extends RuntimeException
 {
-    /**
-     * @param MemberId $memberId
-     * @return UnknownMember
-     */
     public static function identifiedBy(MemberId $memberId): UnknownMember
     {
         return new self("Member with ID {$memberId->value()} cannot be found");

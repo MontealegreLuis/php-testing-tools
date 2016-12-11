@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,6 +10,9 @@ use Ewallet\Memberships\Members;
 use Hexagonal\DomainEvents\PublishesEvents;
 use LogicException;
 
+/**
+ * Command to transfer funds between a recipient and a sender
+ */
 class TransferFunds
 {
     use PublishesEvents;
@@ -20,24 +23,24 @@ class TransferFunds
     /** @var CanTransferFunds */
     private $action;
 
-    /**
-     * @param Members $members
-     */
     public function __construct(Members $members)
     {
         $this->members = $members;
     }
 
-    /**
-     * @param CanTransferFunds $action
-     */
     public function attach(CanTransferFunds $action)
     {
         $this->action = $action;
     }
 
     /**
-     * @param TransferFundsInformation $information
+     * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
+     * recipient are unknown
+     * @throws \Ewallet\Memberships\InsufficientFunds If the sender tries to
+     * transfer an amount greater than its current balance
+     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
+     * transfer a negative amount
+     * @throws LogicException If no action is attached to the current command
      */
     public function transfer(TransferFundsInformation $information)
     {
@@ -57,8 +60,7 @@ class TransferFunds
     }
 
     /**
-     * @return CanTransferFunds
-     * @throws LogicException
+     * @throws LogicException If no action is attached to this command
      */
     private function action(): CanTransferFunds
     {

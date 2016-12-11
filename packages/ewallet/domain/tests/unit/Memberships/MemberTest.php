@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -33,7 +33,7 @@ class MemberTest extends TestCase
                     $sender,
                     "Transferring {$amount} increased balance of sender member"
                 );
-            });
+            })
         ;
     }
 
@@ -54,7 +54,7 @@ class MemberTest extends TestCase
                     $recipient,
                     "Transferring {$amount} increased balance of receiver member"
                 );
-            });
+            })
         ;
     }
 }

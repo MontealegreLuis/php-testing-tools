@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,16 +14,12 @@ use RuntimeException;
  */
 class InvalidTransfer extends RuntimeException
 {
-    /**
-     * @param Money $amount
-     * @return InvalidTransfer
-     */
     public static function with(Money $amount): InvalidTransfer
     {
         return new self(sprintf(
             'Cannot transfer a negative or zero amount %.2f %s',
             $amount->getAmount(),
-            $amount->getCurrency()->getName()
+            $amount->getCurrency()->getCode()
         ));
     }
 }

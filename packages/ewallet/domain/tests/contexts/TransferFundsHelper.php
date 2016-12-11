@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,11 +14,9 @@ class TransferFundsHelper implements CanTransferFunds
     private $transferWasMade = false;
 
     /**
-     * Record last event triggered
-     *
-     * @param TransferFundsSummary $summary
+     * Record that transfer was completed
      */
-    public function transferCompleted(TransferFundsSummary $summary)
+    public function transferCompleted(TransferFundsSummary $summary): void
     {
         $this->transferWasMade = true;
     }
@@ -26,16 +24,15 @@ class TransferFundsHelper implements CanTransferFunds
     /**
      * Assert that the 'Transfer was made' event is the last event triggered
      */
-    public function assertTransferWasMade()
+    public function assertTransferWasMade(): void
     {
         assertTrue($this->transferWasMade, 'Transfer is incomplete.');
     }
 
-    /**
-     * @param Money $expectedAmount
-     * @param Member $forMember
-     */
-    public function assertBalanceIs(Money $expectedAmount, Member $forMember)
+    public function assertBalanceIs(
+        Money $expectedAmount,
+        Member $forMember
+    ): void
     {
         assertTrue(
             $expectedAmount->equals($forMember->information()->accountBalance()),

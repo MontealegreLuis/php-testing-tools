@@ -22,7 +22,7 @@ class InMemoryMembers implements Members
     }
 
     /**
-     * @throws UnknownMember
+     * @throws UnknownMember If a member with the given ID cannot be found
      */
     public function with(MemberId $memberId): Member
     {

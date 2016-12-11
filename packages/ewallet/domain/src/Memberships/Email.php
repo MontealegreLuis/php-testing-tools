@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,7 +17,7 @@ class Email
     private $address;
 
     /**
-     * @param string $address A valid e-mail address
+     * @throws \Assert\AssertionFailedException If the email address is invalid
      */
     public function __construct(string $address)
     {
@@ -27,7 +27,7 @@ class Email
     /**
      * The address is validated before setting it
      *
-     * @param $address
+     * @throws \Assert\AssertionFailedException If the email address is invalid
      */
     protected function setAddress(string $address)
     {
@@ -35,9 +35,6 @@ class Email
         $this->address = $address;
     }
 
-    /**
-     * @return string
-     */
     public function address(): string
     {
         return $this->address;

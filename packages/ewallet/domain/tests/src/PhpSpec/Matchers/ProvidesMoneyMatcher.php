@@ -26,12 +26,9 @@ trait ProvidesMoneyMatcher
     }
 
     /**
-     * @param Money $subject
-     * @param int $expectedAmount
-     * @return bool
-     * @throws FailureException
+     * @throws FailureException If the given and expected amounts are different
      */
-    public function amountMatches(Money $subject, int $expectedAmount): bool
+    public function amountMatches(Money $subject, string $expectedAmount): bool
     {
         if ($subject->getAmount() !== $expectedAmount) {
             throw new FailureException(sprintf(

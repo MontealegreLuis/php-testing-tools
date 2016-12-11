@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,19 +14,17 @@ use RuntimeException;
  */
 class InsufficientFunds extends RuntimeException
 {
-    /**
-     * @param Money $amount
-     * @param Money $currentBalance
-     * @return InsufficientFunds
-     */
-    public static function withdrawing(Money $amount, Money $currentBalance)
+    public static function withdrawing(
+        Money $amount,
+        Money $currentBalance
+    ): InsufficientFunds
     {
         return new self(sprintf(
             'Cannot withdraw %.2f %s, current balance is %.2f %s',
             $amount->getAmount() / 100,
-            $amount->getCurrency()->getName(),
+            $amount->getCurrency()->getCode(),
             $currentBalance->getAmount() / 100,
-            $currentBalance->getCurrency()->getName()
+            $currentBalance->getCurrency()->getCode()
         ));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,7 +11,7 @@ use Ewallet\ManageWallet\{TransferFunds, TransferFundsInformation};
 use Money\Money;
 
 /**
- * Defines application features from the specific context.
+ * Defines steps for the 'Transfer funds' feature
  */
 class TransferFundsContext implements Context, SnippetAcceptingContext
 {

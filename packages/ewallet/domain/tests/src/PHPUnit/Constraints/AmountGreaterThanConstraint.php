@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,9 +14,6 @@ class AmountGreaterThanConstraint extends Constraint
     /** @var Money */
     private $lowerLimit;
 
-    /**
-     * @param Money $lowerLimit
-     */
     public function __construct(Money $lowerLimit)
     {
         $this->lowerLimit = $lowerLimit;
@@ -36,8 +33,6 @@ class AmountGreaterThanConstraint extends Constraint
     }
 
     /**
-     * Returns a string representation of the object.
-     *
      * @return string
      */
     public function toString()

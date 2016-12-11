@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -29,12 +29,6 @@ class Member implements CanRecordEvents
     /** @var Account */
     private $account;
 
-    /**
-     * @param MemberId $memberId
-     * @param string $name
-     * @param Email $email
-     * @param Account $account
-     */
     private function __construct(
         MemberId $memberId,
         string $name,
@@ -48,9 +42,7 @@ class Member implements CanRecordEvents
     }
 
     /**
-     * A name cannot be empty
-     *
-     * @param string $name
+     * @throws \Assert\AssertionFailedException If an empty name is given
      */
     protected function setName(string $name)
     {
@@ -61,12 +53,6 @@ class Member implements CanRecordEvents
 
     /**
      * All members have an account with an initial balance
-     *
-     * @param MemberId $memberId
-     * @param string $name
-     * @param Email $email
-     * @param Money $amount
-     * @return Member
      */
     public static function withAccountBalance(
         MemberId $memberId,
@@ -77,9 +63,6 @@ class Member implements CanRecordEvents
         return new Member($memberId, $name, $email, Account::withBalance($amount));
     }
 
-    /**
-     * @return MemberInformation
-     */
     public function information(): MemberInformation
     {
         return new MemberInformation(
@@ -93,8 +76,10 @@ class Member implements CanRecordEvents
     /**
      * Transfer a given amount to a specific member
      *
-     * @param Money $amount
-     * @param Member $recipient
+     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
+     * transfer a negative amount
+     * @throws \Ewallet\memberships\InsufficientFunds If the sender tries to
+     * transfer an amount greater than its current balance
      */
     public function transfer(Money $amount, Member $recipient)
     {
@@ -106,9 +91,8 @@ class Member implements CanRecordEvents
     }
 
     /**
-     * Deposit the given amount to the beneficiary's account
+     * Deposit the given amount to the recipient's account
      *
-     * @param Money $amount
      * @throws InvalidTransfer
      *     A member cannot transfer a negative amount to another member
      */
@@ -121,10 +105,6 @@ class Member implements CanRecordEvents
         $this->account->deposit($amount);
     }
 
-    /**
-     * @param Member $anotherMember
-     * @return bool
-     */
     public function equals(Member $anotherMember): bool
     {
         return $this->memberId->equals($anotherMember->memberId);

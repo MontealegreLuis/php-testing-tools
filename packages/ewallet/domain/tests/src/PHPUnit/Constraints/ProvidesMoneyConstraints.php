@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -12,16 +12,12 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 trait ProvidesMoneyConstraints
 {
-    /**
-     * @param int $amountExpected
-     * @param Member $forMember
-     * @param string $message
-     */
     public static function assertBalanceAmounts(
         int $amountExpected,
         Member $forMember,
         string $message = ''
-    ) {
+    ): void
+    {
         TestCase::assertThat(
             $forMember->information()->accountBalance(),
             self::isBalanceAmountCorrect($amountExpected),
@@ -29,10 +25,6 @@ trait ProvidesMoneyConstraints
         );
     }
 
-    /**
-     * @param int $amountExpected
-     * @return ExactAmountConstraint
-     */
     public static function isBalanceAmountCorrect(
         int $amountExpected
     ): ExactAmountConstraint
@@ -40,16 +32,12 @@ trait ProvidesMoneyConstraints
         return new ExactAmountConstraint($amountExpected);
     }
 
-    /**
-     * @param int $upperLimitAmount
-     * @param Member $forMember
-     * @param string $message
-     */
     public static function assertBalanceIsLowerThan(
         int $upperLimitAmount,
         Member $forMember,
         string $message = ''
-    ) {
+    ): void
+    {
         TestCase::assertThat(
             $forMember->information()->accountBalance(),
             self::isBalanceAmountLowerThan($upperLimitAmount),
@@ -57,10 +45,6 @@ trait ProvidesMoneyConstraints
         );
     }
 
-    /**
-     * @param int $upperLimit
-     * @return AmountLowerThanConstraint
-     */
     public static function isBalanceAmountLowerThan(
         int $upperLimit
     ): AmountLowerThanConstraint
@@ -77,7 +61,8 @@ trait ProvidesMoneyConstraints
         int $lowerLimitAmount,
         Member $forMember,
         string $message = ''
-    ) {
+    ): void
+    {
         TestCase::assertThat(
             $forMember->information()->accountBalance(),
             self::isBalanceAmountGreaterThan($lowerLimitAmount),
@@ -85,10 +70,6 @@ trait ProvidesMoneyConstraints
         );
     }
 
-    /**
-     * @param int $lowerLimit
-     * @return AmountGreaterThanConstraint
-     */
     public static function isBalanceAmountGreaterThan(
         int $lowerLimit
     ): AmountGreaterThanConstraint

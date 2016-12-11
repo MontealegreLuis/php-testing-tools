@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -36,10 +36,6 @@ class MembersBuilder
         $this->reset();
     }
 
-    /**
-     * @param string $name
-     * @return MembersBuilder
-     */
     public function named(string $name): MembersBuilder
     {
         $this->name = $name;
@@ -47,10 +43,6 @@ class MembersBuilder
         return $this;
     }
 
-    /**
-     * @param string $email
-     * @return MembersBuilder
-     */
     public function withEmail(string $email): MembersBuilder
     {
         $this->email = $email;
@@ -60,7 +52,6 @@ class MembersBuilder
 
     /**
      * @param integer|Money $amount
-     * @return MembersBuilder
      */
     public function withBalance($amount): MembersBuilder
     {
@@ -73,10 +64,6 @@ class MembersBuilder
         return $this;
     }
 
-    /**
-     * @param string $id
-     * @return MembersBuilder
-     */
     public function withId(string $id): MembersBuilder
     {
         $this->id = $id;
@@ -84,9 +71,6 @@ class MembersBuilder
         return $this;
     }
 
-    /**
-     * @return Member
-     */
     public function build(): Member
     {
         $member = Member::withAccountBalance(
@@ -100,7 +84,7 @@ class MembersBuilder
         return $member;
     }
 
-    protected function reset()
+    private function reset()
     {
         $this->name = $this->faker->name;
         $this->email = $this->faker->email;

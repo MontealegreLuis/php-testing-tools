@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,15 +11,12 @@ use PHPUnit_Framework_Constraint as Constraint;
 
 class ExactAmountConstraint extends Constraint
 {
-    /** @var integer */
-    private $amountExpected;
+    /** @var string */
+    private $expectedAmount;
 
-    /**
-     * @param int $expected
-     */
     public function __construct(int $expected)
     {
-        $this->amountExpected = $expected;
+        $this->expectedAmount = (string) $expected;
         parent::__construct();
     }
 
@@ -33,16 +30,14 @@ class ExactAmountConstraint extends Constraint
     protected function matches($other)
     {
         /** @var Money $other */
-        return $this->amountExpected === $other->getAmount();
+        return $this->expectedAmount === $other->getAmount();
     }
 
     /**
-     * Returns a string representation of the object.
-     *
      * @return string
      */
     public function toString()
     {
-        return "has the correct amount, expecting {$this->amountExpected}";
+        return "has the correct amount, expecting {$this->expectedAmount}";
     }
 }

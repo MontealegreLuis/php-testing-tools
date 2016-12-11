@@ -32,13 +32,13 @@
         }
     ],
     "require": {
-        "mathiasverraes/money": "^1.2",
         "beberlei/assert": "^2.3",
-        "hexagonal/hexagonal": "^1.0"
+        "hexagonal/hexagonal": "^1.0",
+        "moneyphp/money": "^3.0"
     },
     "require-dev": {
         "behat/behat": "^3.0",
-        "phpspec/phpspec": "^2.2",
+        "phpspec/phpspec": "^3.2",
         "phpunit/phpunit": "^5.4",
         "giorgiosironi/eris": "^0.8",
         "fzaninotto/faker": "^1.5"

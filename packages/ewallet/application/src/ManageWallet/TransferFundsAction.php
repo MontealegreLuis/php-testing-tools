@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -23,10 +23,6 @@ class TransferFundsAction implements CanTransferFunds
     /** @var TransferFundsResponder */
     protected $responder;
 
-    /**
-     * @param TransferFundsResponder $responder
-     * @param TransferFunds $transferFunds
-     */
     public function __construct(
         TransferFundsResponder $responder,
         TransferFunds $transferFunds = null
@@ -36,18 +32,21 @@ class TransferFundsAction implements CanTransferFunds
         $transferFunds && $this->command->attach($this);
     }
 
-    /**
-     * @param MemberId $fromMemberId
-     */
-    public function enterTransferInformation(MemberId $fromMemberId)
+    public function enterTransferInformation(MemberId $fromMemberId): void
     {
         $this->responder->respondToEnterTransferInformation($fromMemberId);
     }
 
     /**
-     * @param TransferFundsInput $input
+     * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
+     * recipient cannot be found
+     * @throws \Ewallet\Memberships\InsufficientFunds If the sender tries to
+     * send an amount greater than its current balance
+     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
+     * transfer a negative amount
+     * @throws \LogicException If no action is attached to this command
      */
-    public function transfer(TransferFundsInput $input)
+    public function transfer(TransferFundsInput $input): void
     {
         if (!$input->isValid()) {
             $this->invalidTransfer($input);
@@ -57,10 +56,7 @@ class TransferFundsAction implements CanTransferFunds
         $this->command->transfer(TransferFundsInformation::from($input->values()));
     }
 
-    /**
-     * @param TransferFundsInput $input
-     */
-    private function invalidTransfer(TransferFundsInput $input)
+    private function invalidTransfer(TransferFundsInput $input): void
     {
         $this->responder->respondToInvalidTransferInput(
             $input->errorMessages(),
@@ -68,10 +64,7 @@ class TransferFundsAction implements CanTransferFunds
         );
     }
 
-    /**
-     * @param TransferFundsSummary $summary
-     */
-    public function transferCompleted(TransferFundsSummary $summary)
+    public function transferCompleted(TransferFundsSummary $summary): void
     {
         $this->responder->respondToTransferCompleted($summary);
     }

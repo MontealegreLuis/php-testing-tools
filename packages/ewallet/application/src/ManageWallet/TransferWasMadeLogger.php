@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -18,10 +18,6 @@ class TransferWasMadeLogger implements EventSubscriber
     /** @var MemberFormatter */
     private $formatter;
 
-    /**
-     * @param LoggerInterface $logger
-     * @param MemberFormatter $formatter
-     */
     public function __construct(
         LoggerInterface $logger,
         MemberFormatter $formatter
@@ -30,20 +26,12 @@ class TransferWasMadeLogger implements EventSubscriber
         $this->formatter = $formatter;
     }
 
-    /**
-     * @param Event $event
-     * @return boolean
-     */
     public function isSubscribedTo(Event $event): bool
     {
         return TransferWasMade::class === get_class($event);
     }
 
-    /**
-     * @param Event $event
-     * @return void
-     */
-    public function handle(Event $event)
+    public function handle(Event $event): void
     {
         $this->logger->info(sprintf(
             'Member with ID "%s" transferred %s to member with ID "%s" on %s',

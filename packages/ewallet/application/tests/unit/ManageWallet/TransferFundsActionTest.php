@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -32,11 +32,11 @@ class TransferFundsActionTest extends TestCase
     {
         $responder = Mockery::spy(TransferFundsResponder::class);
         $useCase = $this->givenThatMembersAreKnown(
-            $fromId = 'abc',
-            $toId = 'xyz'
+            $senderId = 'abc',
+            $recipientId = 'xyz'
         );
         $request = $this->givenThatValidTransferInformationIsProvided(
-            $fromId, $toId, $amount = 100
+            $senderId, $recipientId, $amount = 100
         );
         $action = new TransferFundsAction($responder, $useCase);
 
@@ -55,7 +55,7 @@ class TransferFundsActionTest extends TestCase
         $responder = Mockery::spy(TransferFundsResponder::class);
         $useCase = Mockery::spy(TransferFunds::class);
         $request = $this->givenThatNoAmountIsProvided(
-            $fromId = 'abc', $toId = 'xyz'
+            $senderId = 'abc', $recipientId = 'xyz'
         );
         $action = new TransferFundsAction($responder, $useCase);
 
@@ -70,11 +70,6 @@ class TransferFundsActionTest extends TestCase
         $useCase->shouldNotHaveReceived('transfer');
     }
 
-    /**
-     * @param string $senderId
-     * @param string $recipientId
-     * @return TransferFundsInput
-     */
     private function givenThatNoAmountIsProvided(
         string $senderId,
         string $recipientId
@@ -105,12 +100,6 @@ class TransferFundsActionTest extends TestCase
         return $input;
     }
 
-    /**
-     * @param string $senderId
-     * @param string $recipientId
-     * @param int $amount
-     * @return TransferFundsRequest
-     */
     private function givenThatValidTransferInformationIsProvided(
         string $senderId,
         string $recipientId,
@@ -135,11 +124,6 @@ class TransferFundsActionTest extends TestCase
         return $input;
     }
 
-    /**
-     * @param string $senderId
-     * @param string $recipientId
-     * @return TransferFunds
-     */
     private function givenThatMembersAreKnown(
         string $senderId,
         string $recipientId

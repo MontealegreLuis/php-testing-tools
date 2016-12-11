@@ -1,7 +1,7 @@
 Money\Currency (local):
     mxn:
         __construct: false
-        name: MXN
+        code: MXN
 
 Money\Money (local):
     balance:

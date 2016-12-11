@@ -11,12 +11,12 @@ use PHPUnit_Framework_Constraint as Constraint;
 
 class ExactAmountConstraint extends Constraint
 {
-    /** @var string */
+    /** @var int */
     private $expectedAmount;
 
     public function __construct(int $expected)
     {
-        $this->expectedAmount = (string) $expected;
+        $this->expectedAmount = $expected;
         parent::__construct();
     }
 
@@ -30,7 +30,7 @@ class ExactAmountConstraint extends Constraint
     protected function matches($other)
     {
         /** @var Money $other */
-        return $this->expectedAmount === $other->getAmount();
+        return $this->expectedAmount == $other->getAmount();
     }
 
     /**

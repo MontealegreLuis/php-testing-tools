@@ -21,8 +21,8 @@ class DoctrineSession implements TransactionalSession
     }
 
     /**
+     * @param callable $operation
      * @return mixed
-     * @throws \Exception
      */
     public function executeAtomically(callable $operation)
     {

@@ -32,7 +32,7 @@ class TransferFundsAction implements CanTransferFunds
         $transferFunds && $this->command->attach($this);
     }
 
-    public function enterTransferInformation(MemberId $fromMemberId): void
+    public function enterTransferInformation(MemberId $fromMemberId)
     {
         $this->responder->respondToEnterTransferInformation($fromMemberId);
     }
@@ -46,7 +46,7 @@ class TransferFundsAction implements CanTransferFunds
      * transfer a negative amount
      * @throws \LogicException If no action is attached to this command
      */
-    public function transfer(TransferFundsInput $input): void
+    public function transfer(TransferFundsInput $input)
     {
         if (!$input->isValid()) {
             $this->invalidTransfer($input);
@@ -56,7 +56,7 @@ class TransferFundsAction implements CanTransferFunds
         $this->command->transfer(TransferFundsInformation::from($input->values()));
     }
 
-    private function invalidTransfer(TransferFundsInput $input): void
+    private function invalidTransfer(TransferFundsInput $input)
     {
         $this->responder->respondToInvalidTransferInput(
             $input->errorMessages(),
@@ -64,7 +64,7 @@ class TransferFundsAction implements CanTransferFunds
         );
     }
 
-    public function transferCompleted(TransferFundsSummary $summary): void
+    public function transferCompleted(TransferFundsSummary $summary)
     {
         $this->responder->respondToTransferCompleted($summary);
     }

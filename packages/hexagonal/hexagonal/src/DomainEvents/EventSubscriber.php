@@ -17,5 +17,5 @@ interface EventSubscriber
     /**
      * @param Event $event
      */
-    public function handle(Event $event): void;
+    public function handle(Event $event);
 }

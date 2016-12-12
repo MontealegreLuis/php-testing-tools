@@ -39,7 +39,7 @@ class PersistEventsSubscriber implements EventSubscriber
      * @param Event $event
      * @return void
      */
-    public function handle(Event $event): void
+    public function handle(Event $event)
     {
         $this->eventStore->append($this->eventFactory->from($event));
     }

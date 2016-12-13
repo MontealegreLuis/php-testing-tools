@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,10 +17,6 @@ class StoreEventsListener
     /** @var EventPublisher */
     private $publisher;
 
-    /**
-     * @param PersistEventsSubscriber $subscriber
-     * @param EventPublisher $publisher
-     */
     public function __construct(
         PersistEventsSubscriber $subscriber,
         EventPublisher $publisher
@@ -30,10 +26,7 @@ class StoreEventsListener
     }
 
     /**
-     * Register the subscriber that stores domain events only for the
-     * `ewallet:transfer` command
-     *
-     * @param ConsoleCommandEvent $event
+     * Run from the `ewallet:transfer` command only
      */
     public function storeEvents(ConsoleCommandEvent $event)
     {
@@ -42,9 +35,6 @@ class StoreEventsListener
         }
     }
 
-    /**
-     * @param ConsoleCommandEvent $event
-     */
     public function __invoke(ConsoleCommandEvent $event)
     {
         $this->storeEvents($event);

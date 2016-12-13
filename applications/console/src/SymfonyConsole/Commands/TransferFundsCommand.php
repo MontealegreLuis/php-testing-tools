@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -20,10 +20,6 @@ class TransferFundsCommand extends Command
     /** @var TransferFundsInput */
     private $input;
 
-    /**
-     * @param TransferFundsAction $transferFunds
-     * @param TransferFundsInput $input
-     */
     public function __construct(
         TransferFundsAction $transferFunds,
         TransferFundsInput $input
@@ -34,7 +30,8 @@ class TransferFundsCommand extends Command
     }
 
     /**
-     * Configures the current command.
+     * This command has three arguments: sender and recipient IDs an the amount
+     * to be transferred
      */
     protected function configure()
     {
@@ -59,11 +56,6 @@ class TransferFundsCommand extends Command
         ;
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return void
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $senderId = MemberId::withIdentity('ABC');

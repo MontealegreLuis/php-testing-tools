@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -26,12 +26,6 @@ class TransferFundsConsole
     /** @var MemberFormatter */
     private $formatter;
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @param QuestionHelper $question
-     * @param MemberFormatter $formatter
-     */
     public function __construct(
         InputInterface $input,
         OutputInterface $output,
@@ -47,7 +41,7 @@ class TransferFundsConsole
     /**
      * Show validation messages to the sender
      *
-     * @param array $messages
+     * @param string[] $messages
      */
     public function printError(array $messages)
     {
@@ -64,7 +58,7 @@ class TransferFundsConsole
     /**
      * Show the list of recipients to the sender
      *
-     * @param array $recipients
+     * @param Member[] $recipients
      */
     public function printRecipients(array $recipients)
     {
@@ -85,8 +79,6 @@ class TransferFundsConsole
 
     /**
      * Show the transaction summary to the sender
-     *
-     * @param TransferFundsSummary $summary
      */
     public function printSummary(TransferFundsSummary $summary)
     {
@@ -95,17 +87,11 @@ class TransferFundsConsole
         $this->printStatementFor($summary->recipient());
     }
 
-    /**
-     * @param MemberInformation $member
-     */
     private function printStatementFor(MemberInformation $member)
     {
         $this->output->writeln("{$this->formatter->formatMember($member)}");
     }
 
-    /**
-     * @return string
-     */
     public function promptRecipientId(): string
     {
         return $this->question->ask(
@@ -115,9 +101,6 @@ class TransferFundsConsole
         );
     }
 
-    /**
-     * @return string
-     */
     public function promptAmountToTransfer(): string
     {
         return $this->question->ask(

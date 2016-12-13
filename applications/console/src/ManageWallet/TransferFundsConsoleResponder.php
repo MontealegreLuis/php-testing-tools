@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -20,11 +20,6 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     /** @var TransferFundsConsole */
     private $console;
 
-    /**
-     * @param InputInterface $input
-     * @param MembersRepository $members
-     * @param TransferFundsConsole $console
-     */
     public function __construct(
         InputInterface $input,
         MembersRepository $members,
@@ -36,17 +31,14 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
     }
 
     /**
-     * @param array $messages
-     * @param array $values
+     * @param string[] $messages
+     * @param string[] $values
      */
     public function respondToInvalidTransferInput(array $messages, array $values)
     {
         $this->console->printError($messages);
     }
 
-    /**
-     * @param MemberId $senderId
-     */
     public function respondToEnterTransferInformation(MemberId $senderId)
     {
         $this->console->printRecipients($this->members->excluding($senderId));
@@ -55,9 +47,6 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
         $this->input->setArgument('amount', $this->console->promptAmountToTransfer());
     }
 
-    /**
-     * @param TransferFundsSummary $summary
-     */
     public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
         $this->console->printSummary($summary);

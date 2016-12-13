@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -19,38 +19,58 @@ class StoreEventsListenerTest extends TestCase
     /** @test */
     function it_ignores_commands_except_the_transfer_funds_one()
     {
-        $command = new Command('ewallet:any-other-command');
-        $publisher = Mockery::spy(EventPublisher::class);
-        $listener = new StoreEventsListener(
-            Mockery::mock(PersistEventsSubscriber::class),
-            $publisher
-        );
-        $listener->storeEvents(new ConsoleCommandEvent(
-            $command,
-            Mockery::mock(InputInterface::class),
-            Mockery::mock(OutputInterface::class)
+        $ignoredCommand = new Command('ewallet:any-other-command');
+
+        $this->listener->storeEvents(new ConsoleCommandEvent(
+            $ignoredCommand,
+            $this->input,
+            $this->output
         ));
 
-        $publisher->shouldNotHaveReceived('subscribe');
+        $this->publisher->shouldNotHaveReceived('subscribe');
     }
 
     /** @test */
     function it_subscribes_the_store_events_listener_when_running_the_transfer_funds_command()
     {
-        $command = new Command('ewallet:transfer');
-        $publisher = Mockery::spy(EventPublisher::class);
-        $subscriber = Mockery::mock(PersistEventsSubscriber::class);
-        $listener = new StoreEventsListener($subscriber, $publisher);
-        $listener->storeEvents(new ConsoleCommandEvent(
-            $command,
-            Mockery::mock(InputInterface::class),
-            Mockery::mock(OutputInterface::class)
+        $subscribedCommand = new Command('ewallet:transfer');
+
+        $this->listener->storeEvents(new ConsoleCommandEvent(
+            $subscribedCommand,
+            $this->input,
+            $this->output
         ));
 
-        $publisher
+        $this
+            ->publisher
             ->shouldHaveReceived('subscribe')
             ->once()
-            ->with($subscriber)
+            ->with($this->subscriber)
         ;
     }
+
+    /** @before */
+    public function configureListener()
+    {
+        $this->input = Mockery::mock(InputInterface::class);
+        $this->output = Mockery::mock(OutputInterface::class);
+        $this->publisher = Mockery::spy(EventPublisher::class);
+        $this->subscriber = Mockery::mock(PersistEventsSubscriber::class);
+        $this->listener = new StoreEventsListener($this->subscriber, $this->publisher);
+    }
+
+    /** @var StoreEventsListener Subject under test */
+    private $listener;
+
+    /** @var EventPublisher */
+    private $publisher;
+
+    /** @var PersistEventsSubscriber */
+    private $subscriber;
+
+    /** @var InputInterface */
+    private $input;
+
+    /** @var OutputInterface */
+    private $output;
 }

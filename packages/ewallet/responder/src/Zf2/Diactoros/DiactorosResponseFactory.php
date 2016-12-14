@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,9 +14,10 @@ class DiactorosResponseFactory implements ResponseFactory
 {
     /**
      * Builds an HTTP response with a 200 (OK) status code
-     *
-     * @param string $html
-     * @return ResponseInterface
+     * @throws \RuntimeException If an invalid status code is given when the
+     * response is created
+     * @throws \InvalidArgumentException If there's an error while reading the
+     * response
      */
     public function buildResponse(string $html): ResponseInterface
     {

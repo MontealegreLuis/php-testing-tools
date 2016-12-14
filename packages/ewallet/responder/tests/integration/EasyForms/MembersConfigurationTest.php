@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -15,26 +15,31 @@ class MembersConfigurationTest extends TestCase
 {
     use ProvidesDoctrineSetup;
 
-    public function setUp()
+    /** @test */
+    function it_generates_options_excluding_the_member_transferring_funds()
+    {
+        $senderId = 'ABC';
+
+        $options = $this->configuration->getMembersChoicesExcluding(
+            MemberId::withIdentity($senderId)
+        );
+
+        $this->assertCount(2, $options);
+        $this->assertArrayNotHasKey($senderId, $options);
+    }
+
+    /** @before */
+    public function createConfiguration()
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
         $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixture->load();
-    }
 
-    /** @test */
-    function it_generates_options_excluding_the_member_transferring_funds()
-    {
         /** @var \Ewallet\Memberships\MembersRepository $members */
-        $members = $this->_entityManager()->getRepository(Member::class);
-
-        $configuration = new MembersConfiguration($members);
-
-        $options = $configuration->getMembersChoicesExcluding(
-            MemberId::withIdentity('ABC')
-        );
-
-        $this->assertCount(2, $options);
-        $this->assertArrayNotHasKey('ABC', $options);
+        $members = $this->_repositoryForEntity(Member::class);
+        $this->configuration = new MembersConfiguration($members);
     }
+
+    /** @var MembersConfiguration */
+    private $configuration;
 }

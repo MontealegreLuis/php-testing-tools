@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,9 +17,6 @@ class MoneyElement extends Element
     /** @var string */
     protected $currency;
 
-    /**
-     * @param string $name
-     */
     public function __construct(string $name)
     {
         parent::__construct($name);
@@ -28,7 +25,7 @@ class MoneyElement extends Element
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      */
     public function setValue($value)
     {
@@ -40,7 +37,6 @@ class MoneyElement extends Element
     }
 
     /**
-     * @param ElementView $view
      * @return MoneyView
      */
     public function buildView(ElementView $view = null)

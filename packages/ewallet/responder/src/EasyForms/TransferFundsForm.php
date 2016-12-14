@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -26,8 +26,8 @@ class TransferFundsForm extends Form
     }
 
     /**
-     * @param MembersConfiguration $configuration
-     * @param MemberId $memberId
+     * Sets the sender ID value, and adds the choices to the recipient ID select
+     * element
      */
     public function configure(
         MembersConfiguration $configuration,

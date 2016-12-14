@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -29,12 +29,6 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
     /** @var MembersConfiguration */
     private $configuration;
 
-    /**
-     * @param TemplateEngine $template
-     * @param ResponseFactory $factory
-     * @param TransferFundsForm $form
-     * @param MembersConfiguration $configuration
-     */
     public function __construct(
         TemplateEngine $template,
         ResponseFactory $factory,
@@ -47,9 +41,6 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->configuration = $configuration;
     }
 
-    /**
-     * @param TransferFundsSummary $summary
-     */
     public function respondToTransferCompleted(TransferFundsSummary $summary)
     {
         $this->form->configure($this->configuration, $summary->sender()->id());
@@ -64,8 +55,8 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
     }
 
     /**
-     * @param array $messages
-     * @param array $values
+     * @param string[] $messages
+     * @param string[] $values
      */
     public function respondToInvalidTransferInput(
         array $messages,
@@ -77,9 +68,6 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->respondToEnterTransferInformation(MemberId::withIdentity($values['senderId']));
     }
 
-    /**
-     * @param MemberId $senderId
-     */
     public function respondToEnterTransferInformation(MemberId $senderId)
     {
         $this->form->configure($this->configuration, $senderId);
@@ -91,9 +79,6 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->response = $this->factory->buildResponse($html);
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function response(): ResponseInterface
     {
         return $this->response;

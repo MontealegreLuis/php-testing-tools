@@ -7,7 +7,6 @@
 namespace Ewallet\EasyForms;
 
 use Ewallet\Memberships\MemberId;
-use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class TransferFundsFormTest extends TestCase
@@ -15,8 +14,7 @@ class TransferFundsFormTest extends TestCase
     /** @test */
     function it_populates_the_form_with_the_transfer_values()
     {
-        $form = new TransferFundsForm();
-        $form->submit([
+        $this->form->submit([
             'senderId' => 'abc',
             'recipientId' => 'xyz',
             'amount' => 100,
@@ -26,14 +24,13 @@ class TransferFundsFormTest extends TestCase
             'senderId' => 'abc',
             'recipientId' => 'xyz',
             'amount' => ['amount' => 100, 'currency' => 'MXN'],
-        ], $form->values());
+        ], $this->form->values());
     }
 
     /** @test */
     function it_creates_the_view_elements_to_make_the_transfer()
     {
-        $form = new TransferFundsForm();
-        $view = $form->buildView();
+        $view = $this->form->buildView();
 
         $this->assertCount(3, $view);
         $this->assertTrue($view->offsetExists('senderId'));
@@ -44,42 +41,50 @@ class TransferFundsFormTest extends TestCase
     /** @test */
     function it_initializes_the_member_id_making_the_transfer()
     {
-        $form = new TransferFundsForm();
-        $senderId = MemberId::withIdentity('abc');
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $configuration
-            ->shouldReceive('getMembersChoicesExcluding')
-            ->once()
-            ->withAnyArgs()
-            ->andReturn([])
-        ;
+        $this->form->configure($this->configuration->reveal(), $this->senderId);
 
-        $form->configure($configuration, $senderId);
-        $view = $form->buildView();
+        $view = $this->form->buildView();
 
-        $this->assertEquals($senderId, $view->senderId->value);
+        $this->assertEquals($this->senderId, $view->senderId->value);
     }
 
     /** @test */
     function it_excludes_from_choices_the_member_making_the_transfer()
     {
-        $form = new TransferFundsForm();
-        $senderId = MemberId::withIdentity('abc');
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $configuration
-            ->shouldReceive('getMembersChoicesExcluding')
-            ->once()
-            ->with($senderId)
-            ->andReturn([
-                'lmn' => null,
-                'xyz' => null,
-            ])
-        ;
+        $this->form->configure($this->configuration->reveal(), $this->senderId);
 
-        $form->configure($configuration, $senderId);
-        $view = $form->buildView();
+        $recipientIds = $this->form->buildView()->recipientId->choices;
 
-        $this->assertCount(2, $view->recipientId->choices);
-        $this->assertArrayNotHasKey('abc', $view->recipientId->choices);
+        $this->assertCount(2, $recipientIds);
+        $this->assertArrayNotHasKey('abc', $recipientIds);
+        $this->assertEquals($this->validRecipients, $recipientIds);
     }
+
+    /** @before */
+    public function configureForm()
+    {
+        $this->form = new TransferFundsForm();
+        $this->senderId = MemberId::withIdentity('abc');
+        $this->configuration = $this->prophesize(MembersConfiguration::class);
+        $this
+            ->configuration
+            ->getMembersChoicesExcluding($this->senderId)
+            ->willReturn($this->validRecipients)
+        ;
+    }
+
+    /** @var TransferFundsForm */
+    private $form;
+
+    /** @var MembersConfiguration */
+    private $configuration;
+
+    /** @var MemberId */
+    private $senderId;
+
+    /** @var array */
+    private $validRecipients = [
+        'lmn' => null,
+        'xyz' => null,
+    ];
 }

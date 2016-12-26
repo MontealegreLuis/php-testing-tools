@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,7 +16,7 @@ class DiactorosResponseFactoryTest extends TestCase
         $factory = new DiactorosResponseFactory();
 
         $response = $factory->buildResponse(
-            "<html><head></head><body><h1>Hello world!</h1></body></html>"
+            '<html><head></head><body><h1>Hello world!</h1></body></html>'
         );
 
         $this->assertEquals(200, $response->getStatusCode());

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,111 +11,76 @@ use Ewallet\DataBuilders\A;
 use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
 use Ewallet\Templating\TemplateEngine;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
-use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
+use Prophecy\Argument;
 
 class TransferFundsFormResponderTest extends TestCase
 {
     /** @test */
     function it_builds_a_response_to_show_the_transfer_form()
     {
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $form = Mockery::mock(TransferFundsForm::class);
-        $form->shouldReceive('buildView')->once();
-        $form
-            ->shouldReceive('configure')
-            ->once()
-            ->with($configuration, Mockery::type(MemberId::class))
-        ;
-        $view = Mockery::mock(TemplateEngine::class);
-        $view
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-            ->andReturn('')
-        ;
-        $responder = new TransferFundsFormResponder(
-            $view, new DiactorosResponseFactory(), $form, $configuration
-        );
+        $this->responder->respondToEnterTransferInformation($this->senderId);
 
-        $responder->respondToEnterTransferInformation(MemberId::withIdentity('abc'));
+        $response = $this->responder->response();
 
-        $this->assertEquals(200, $responder->response()->getStatusCode());
+        $this->assertEquals(self::OK, $response->getStatusCode());
     }
 
     /** @test */
-    function it_builds_a_response_to_show_that_a_transfer_was_successful()
+    function it_builds_a_response_to_show_that_a_transfer_was_completed()
     {
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $form = Mockery::mock(TransferFundsForm::class);
-        $form
-            ->shouldReceive('configure')
-            ->once()
-            ->with($configuration, Mockery::type(MemberId::class))
-        ;
-        $form
-            ->shouldReceive('buildView')
-            ->once()
-        ;
-        $view = Mockery::mock(TemplateEngine::class);
-        $view
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-            ->andReturn('')
-        ;
         $summary = new TransferFundsSummary(
-            A::member()->build(),
+            A::member()->withId($this->senderId)->build(),
             A::member()->build()
         );
-        $responder = new TransferFundsFormResponder(
-            $view, new DiactorosResponseFactory(), $form, $configuration
-        );
 
-        $responder->respondToTransferCompleted($summary);
+        $this->responder->respondToTransferCompleted($summary);
 
-        $this->assertEquals(200, $responder->response()->getStatusCode());
+        $response = $this->responder->response();
+
+        $this->assertEquals(self::OK, $response->getStatusCode());
     }
 
     /** @test */
-    function it_builds_a_response_to_show_the_transfer_form_with_validation_errors()
+    function it_builds_a_response_to_show_the_transfer_form_with_error_messages()
     {
-        $configuration = Mockery::mock(MembersConfiguration::class);
-        $form = Mockery::mock(TransferFundsForm::class);
-        $form
-            ->shouldReceive('configure')
-            ->once()
-            ->with($configuration, Mockery::type(MemberId::class))
-        ;
-        $form->shouldReceive('buildView')->once();
-        $form
-            ->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-        ;
-        $form
-            ->shouldReceive('setErrorMessages')
-            ->once()
-            ->with(Mockery::type('array'))
-        ;
-        $view = Mockery::mock(TemplateEngine::class);
-        $view
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-            ->andReturn('')
-        ;
-        $responder = new TransferFundsFormResponder(
-            $view, new DiactorosResponseFactory(), $form, $configuration
-        );
-
-        $responder->respondToInvalidTransferInput(
+        $this->responder->respondToInvalidTransferInput(
             $messages = [],
-            $values = [
-                'senderId' => 'xyz'
-            ]
+            $values = ['senderId' => $this->senderId->value()]
         );
 
-        $this->assertEquals(200, $responder->response()->getStatusCode());
+        $response = $this->responder->response();
+
+        $this->assertEquals(self::OK, $response->getStatusCode());
     }
+
+    /** @before */
+    public function configureResponder()
+    {
+        $this->senderId = MemberId::withIdentity('abc');
+        $view = $this->prophesize(TemplateEngine::class);
+        $view
+            ->render(Argument::type('string'), Argument::type('array'))
+            ->willReturn('')
+        ;
+        $configuration = $this->prophesize(MembersConfiguration::class);
+        $configuration
+            ->getMembersChoicesExcluding($this->senderId)
+            ->willReturn([A::member()->build(), A::member()->build()])
+        ;
+        $this->responder = new TransferFundsFormResponder(
+            $view->reveal(),
+            new DiactorosResponseFactory(),
+            new TransferFundsForm(),
+            $configuration->reveal()
+        );
+    }
+
+    /** @var MemberId */
+    private $senderId;
+
+    /** @var TransferFundsFormResponder */
+    private $responder;
+
+    const OK = 200;
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -20,10 +20,6 @@ class AmqpMessageProducer implements MessageProducer
     /** @var  \PhpAmqpLib\Channel\AMQPChannel */
     private $channel;
 
-    /**
-     * @param AMQPStreamConnection $connection
-     * @param ChannelConfiguration $configuration
-     */
     public function __construct(
         AMQPStreamConnection $connection,
         ChannelConfiguration $configuration
@@ -32,9 +28,6 @@ class AmqpMessageProducer implements MessageProducer
         $this->configuration = $configuration;
     }
 
-    /**
-     * @param string $exchangeName
-     */
     public function open(string $exchangeName)
     {
         if (null !== $this->channel) {
@@ -48,10 +41,6 @@ class AmqpMessageProducer implements MessageProducer
         $this->channel = $channel;
     }
 
-    /**
-     * @param string $exchangeName
-     * @param StoredEvent $notification
-     */
     public function send(string $exchangeName, StoredEvent $notification)
     {
         $this->channel->basic_publish(

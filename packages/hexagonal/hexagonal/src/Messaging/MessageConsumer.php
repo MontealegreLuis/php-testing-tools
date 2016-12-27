@@ -1,26 +1,29 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\Messaging;
 
+use Closure;
+
 interface MessageConsumer
 {
     /**
-     * @param string $exchangeName
+     * @return void
      */
     public function open(string $exchangeName);
 
     /**
-     * @param string $exchangeName
-     * @param callable $callback
+     * @return void
      */
-    public function consume(string $exchangeName, callable $callback);
+    public function consume(string $exchangeName, Closure $callback);
 
     /**
      * Close channel and connection
+     *
+     * @return void
      */
     public function close();
 }

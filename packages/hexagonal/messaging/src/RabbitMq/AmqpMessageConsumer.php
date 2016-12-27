@@ -1,11 +1,12 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\RabbitMq;
 
+use Closure;
 use Hexagonal\Messaging\MessageConsumer;
 use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
 
@@ -26,10 +27,6 @@ class AmqpMessageConsumer implements MessageConsumer
     /** @var ChannelConfiguration */
     private $configuration;
 
-    /**
-     * @param AMQPStreamConnection $connection
-     * @param ChannelConfiguration $configuration
-     */
     public function __construct(
         AMQPStreamConnection $connection,
         ChannelConfiguration $configuration
@@ -38,9 +35,6 @@ class AmqpMessageConsumer implements MessageConsumer
         $this->configuration = $configuration;
     }
 
-    /**
-     * @param string $exchangeName
-     */
     public function open(string $exchangeName)
     {
         if (null !== $this->channel) {
@@ -52,15 +46,17 @@ class AmqpMessageConsumer implements MessageConsumer
         $this->channel = $channel;
     }
 
-    /**
-     * @param string $exchangeName
-     * @param callable $callback
-     */
-    public function consume(string $exchangeName, callable $callback)
+    public function consume(string $exchangeName, Closure $callback)
     {
         $this->callback = $callback;
         $this->channel->basic_consume(
-            $exchangeName, '', false, true, false, false, [$this, 'callback']
+            $exchangeName,
+            '',
+            false,
+            true,
+            false,
+            false,
+            Closure::fromCallable([$this, 'callback'])
         );
 
         while (count($this->channel->callbacks)) {
@@ -72,14 +68,14 @@ class AmqpMessageConsumer implements MessageConsumer
     }
 
     /**
-     * @param AMQPMessage $message
+     * @throws \OutOfBoundsException
      */
     public function callback(AMQPMessage $message)
     {
-        call_user_func_array($this->callback, [
-            json_decode($message->body),
-            $message->get('type')
-        ]);
+        $callback = $this->callback;
+
+        $callback(json_decode($message->body), $message->get('type'));
+
         $this->consumed = true;
     }
 

@@ -1,11 +1,12 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\RabbitMq;
 
+use Closure;
 use Hexagonal\DomainEvents\StoredEvent;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -31,8 +32,6 @@ trait ConfiguresMessaging
 
     /**
      * Configures the channel before publishing
-     *
-     * @param ChannelConfiguration $configuration
      */
     public function bindChannel(ChannelConfiguration $configuration)
     {
@@ -42,9 +41,6 @@ trait ConfiguresMessaging
         $channel->queue_bind($this->EXCHANGE_NAME, $this->EXCHANGE_NAME);
     }
 
-    /**
-     * @param StoredEvent $notification
-     */
     public function publish(StoredEvent $notification)
     {
         $this->channel()->basic_publish(
@@ -58,10 +54,13 @@ trait ConfiguresMessaging
     }
 
     /**
-     * @param array $callback The method in the testing class with the assertions
-     *  to verify the correctness of the produced event
+     * @param Closure $testCase Runs the assertions to verify the correctness of
+     * the message being consumed
+     *
+     * @throws \PhpAmqpLib\Exception\AMQPOutOfBoundsException
+     * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
      */
-    public function consume(array $callback)
+    public function consume(Closure $testCase)
     {
         $this->channel()->basic_consume(
             $this->EXCHANGE_NAME,
@@ -70,7 +69,7 @@ trait ConfiguresMessaging
             true,
             false,
             false,
-            $callback
+            $testCase
         );
         while (count($this->channel()->callbacks)) {
             if ($this->consumed) {
@@ -89,9 +88,6 @@ trait ConfiguresMessaging
         $this->consumed = true;
     }
 
-    /**
-     * @return AMQPChannel
-     */
     private function channel(): AMQPChannel
     {
         if (!$this->channel) {
@@ -100,9 +96,6 @@ trait ConfiguresMessaging
         return $this->channel;
     }
 
-    /**
-     * @return AMQPStreamConnection
-     */
     public function connection(): AMQPStreamConnection
     {
         if (!$this->connection) {
@@ -118,7 +111,7 @@ trait ConfiguresMessaging
     }
 
     /** @after */
-    public function closeChannel()
+    public function closeChannel(): void
     {
         $this->connection && $this->connection->close();
         $this->channel && $this->channel->close();

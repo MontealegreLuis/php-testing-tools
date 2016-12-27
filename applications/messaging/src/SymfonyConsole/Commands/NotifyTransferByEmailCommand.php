@@ -1,11 +1,12 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
+use Closure;
 use Ewallet\ManageWallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
 use Hexagonal\Messaging\MessageConsumer;
 use stdClass;
@@ -49,7 +50,10 @@ class NotifyTransferByEmailCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->consumer->open($this->exchangeName);
-        $this->consumer->consume($this->exchangeName, [$this, 'notify']);
+        $this->consumer->consume(
+            $this->exchangeName,
+            Closure::fromCallable([$this, 'notify'])
+        );
         $this->consumer->close();
     }
 

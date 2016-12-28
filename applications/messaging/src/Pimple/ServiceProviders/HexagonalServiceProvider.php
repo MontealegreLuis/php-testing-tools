@@ -34,7 +34,7 @@ class HexagonalServiceProvider implements ServiceProviderInterface
             );
         };
         $container['hexagonal.amqp_configuration'] = function () use ($container) {
-            return new ChannelConfiguration();
+            return ChannelConfiguration::durable();
         };
         $container['hexagonal.messages_producer'] = function () use ($container) {
             return new AmqpMessageProducer(

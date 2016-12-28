@@ -11,24 +11,30 @@ use PhpAmqpLib\Channel\AMQPChannel;
 class ChannelConfiguration
 {
     /** @var bool */
-    private $durable = true;
+    private $durable;
 
     /** @var bool */
-    private $autoDeletes = false ;
+    private $autoDeletes;
+
+    private function __construct(bool $isDurable, bool $autoDelete)
+    {
+        $this->durable = $isDurable;
+        $this->autoDeletes = $autoDelete;
+    }
 
     /**
      * Make the exchange and/or the queue temporary
      */
-    public function temporary()
+    public static function temporary(): ChannelConfiguration
     {
-        $this->durable = false;
-        $this->autoDeletes = true;
+        return new ChannelConfiguration(false, true);
     }
 
-    /**
-     * @param AMQPChannel $channel
-     * @param string $exchangeName
-     */
+    public static function durable(): ChannelConfiguration
+    {
+        return new ChannelConfiguration(true, false);
+    }
+
     public function configureExchange(AMQPChannel $channel, string $exchangeName)
     {
         $channel->exchange_declare(
@@ -36,10 +42,6 @@ class ChannelConfiguration
         );
     }
 
-    /**
-     * @param AMQPChannel $channel
-     * @param string $exchangeName
-     */
     public function configureQueue(AMQPChannel $channel, string $exchangeName)
     {
         $channel->queue_declare(

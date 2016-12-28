@@ -26,8 +26,7 @@ class NotifyTransferByEmailCommandTest extends TestCase
     /** @before */
     function configureChannel()
     {
-        $configuration = new ChannelConfiguration();
-        $configuration->temporary();
+        $configuration = ChannelConfiguration::temporary();
         $this->bindChannel($configuration);
         $this->consumer = new AmqpMessageConsumer($this->connection(), $configuration);
     }

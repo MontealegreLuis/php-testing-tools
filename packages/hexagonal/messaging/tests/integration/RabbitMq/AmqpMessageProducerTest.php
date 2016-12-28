@@ -43,8 +43,7 @@ class AmqpMessageProducerTest extends TestCase
     /** @before */
     function configureChannel()
     {
-        $configuration = new ChannelConfiguration();
-        $configuration->temporary();
+        $configuration = ChannelConfiguration::temporary();
         $this->producer = new AmqpMessageProducer($this->connection(), $configuration);
         $this->producer->open($this->EXCHANGE_NAME);
     }

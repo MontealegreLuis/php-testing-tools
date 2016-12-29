@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,7 +17,8 @@ class PublishMessagesCommand extends Command
     private $publisher;
 
     /**
-     * @param MessagePublisher $publisher
+     * @throws \Symfony\Component\Console\Exception\LogicException if the command
+     * name is empty
      */
     public function __construct(MessagePublisher $publisher)
     {
@@ -36,11 +37,6 @@ class PublishMessagesCommand extends Command
         ;
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return void
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $messages = $this->publisher->publishTo('ewallet');

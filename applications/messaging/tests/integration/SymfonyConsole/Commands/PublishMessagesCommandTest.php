@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -27,7 +27,7 @@ class PublishMessagesCommandTest extends TestCase
         $tester = new CommandTester(new PublishMessagesCommand($publisher));
         $tester->execute([]);
 
-        $this->assertRegexp(
+        $this->assertRegExp(
             '/3 messages published/',
             $tester->getDisplay()
         );

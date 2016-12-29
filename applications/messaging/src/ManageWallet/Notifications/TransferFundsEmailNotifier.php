@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -43,7 +43,8 @@ class TransferFundsEmailNotifier
      * It will send an email to both members, summarizing their last account
      * transaction
      *
-     * @param TransferFundsNotification $notification
+     * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
+     * recipient is unknown
      */
     public function notify(TransferFundsNotification $notification)
     {

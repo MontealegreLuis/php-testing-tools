@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -20,62 +20,59 @@ class NotifyTransferByEmailCommandTest extends TestCase
 {
     use ConfiguresMessaging;
 
-    /** @var AmqpMessageConsumer */
-    private $consumer;
-
-    /** @before */
-    function configureChannel()
-    {
-        $configuration = ChannelConfiguration::temporary();
-        $this->bindChannel($configuration);
-        $this->consumer = new AmqpMessageConsumer($this->connection(), $configuration);
-    }
-
     /** @test */
     function it_notifies_when_a_transfer_is_completed()
     {
-        $notifier = Mockery::mock(TransferFundsEmailNotifier::class);
-        $notifier
+        $this->notifier
             ->shouldReceive('shouldNotifyOn')
             ->once()
             ->with(TransferWasMade::class)
             ->andReturn(true)
         ;
-        $notifier
+        $this->notifier
             ->shouldReceive('notify')
             ->once()
             ->with(Mockery::type(TransferFundsNotification::class))
         ;
         $this->publish(A::storedEvent()->build());
 
-        $tester = new CommandTester(new NotifyTransferByEmailCommand(
-            $notifier, $this->consumer, $this->EXCHANGE_NAME
-        ));
-        $tester->execute([]);
+        $this->tester->execute([]);
 
-        $this->assertEquals(0, $tester->getStatusCode());
+        $this->assertEquals(0, $this->tester->getStatusCode());
     }
 
     /** @test */
-    function it_ignores_events_different_to_transfer_completed()
+    function it_ignores_events_other_than_transfer_completed()
     {
-        $notifier = Mockery::mock(TransferFundsEmailNotifier::class);
-        $notifier
+        $this->notifier
             ->shouldReceive('shouldNotifyOn')
             ->once()
             ->with('Ewallet\UnkownEvent')
             ->andReturn(false)
         ;
-        $notifier->shouldNotReceive('notify');
-        $this->publish(new StoredEvent(
-            '{"foo": "Unknown"}', 'Ewallet\UnkownEvent', new DateTime('now')
-        ));
+        $this->notifier->shouldNotReceive('notify');
+        $this->publish(A::storedEvent()->withUnknownType()->build());
 
-        $tester = new CommandTester(
-            new NotifyTransferByEmailCommand($notifier, $this->consumer, 'test')
-        );
-        $tester->execute([]);
+        $this->tester->execute([]);
 
-        $this->assertEquals(0, $tester->getStatusCode());
+        $this->assertEquals(0, $this->tester->getStatusCode());
     }
+
+    /** @before */
+    function configureChannel()
+    {
+        $configuration = ChannelConfiguration::temporary();
+        $this->bindChannel($configuration);
+        $consumer = new AmqpMessageConsumer($this->connection(), $configuration);
+        $this->notifier = Mockery::mock(TransferFundsEmailNotifier::class);
+        $this->tester = new CommandTester(new NotifyTransferByEmailCommand(
+            $this->notifier, $consumer, $this->EXCHANGE_NAME
+        ));
+    }
+
+    /** @var CommandTester */
+    private $tester;
+
+    /** @var TransferFundsEmailNotifier */
+    private $notifier;
 }

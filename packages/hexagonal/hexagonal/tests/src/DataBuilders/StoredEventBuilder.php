@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -48,20 +48,20 @@ class StoredEventBuilder
         $this->reset();
     }
 
-    /**
-     * @param int $id
-     * @return StoredEventBuilder
-     */
-    public function withId(int $id)
+    public function withId(int $id): StoredEventBuilder
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return StoredEvent
-     */
+    public function withUnknownType(): StoredEventBuilder
+    {
+        $this->type = 'Ewallet\UnkownEvent';
+
+        return $this;
+    }
+
     public function build(): StoredEvent
     {
         $event = new StoredEvent($this->body, $this->type, $this->occurredOn);

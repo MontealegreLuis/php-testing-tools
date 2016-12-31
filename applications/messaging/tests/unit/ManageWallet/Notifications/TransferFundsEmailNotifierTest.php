@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,25 +16,17 @@ class TransferFundsEmailNotifierTest extends TestCase
     /** @test */
     function it_only_notifies_on_transfer_was_made_events()
     {
-        $sender = Mockery::mock(TransferFundsEmailSender::class);
-        $members = Mockery::mock(Members::class);
-        $notifier = new TransferFundsEmailNotifier($members, $sender);
-
-        $notifies = $notifier->shouldNotifyOn(TransferWasMade::class);
-
-        $this->assertTrue($notifies);
+        $this->assertTrue(
+            $this->notifier->shouldNotifyOn(TransferWasMade::class)
+        );
     }
 
     /** @test */
     function it_ignores_other_events()
     {
-        $sender = Mockery::mock(TransferFundsEmailSender::class);
-        $members = Mockery::mock(Members::class);
-        $notifier = new TransferFundsEmailNotifier($members, $sender);
-
-        $notifies = $notifier->shouldNotifyOn('Ewallet\Accounts\AccountOverdrawn');
-
-        $this->assertFalse($notifies);
+        $this->assertFalse(
+            $this->notifier->shouldNotifyOn('Ewallet\Accounts\AccountOverdrawn')
+        );
     }
 
     /** @test */
@@ -45,29 +37,46 @@ class TransferFundsEmailNotifierTest extends TestCase
         $notification = new TransferFundsNotification(
             $senderId, 500, $recipientId, '2016-08-15 00:00:00'
         );
-        $sender = Mockery::spy(TransferFundsEmailSender::class);
-        $members = Mockery::mock(Members::class);
-        $members
+        $this->members
             ->shouldReceive('with')
             ->with($notification->senderId())
             ->andReturn(A::member()->withId($senderId)->build())
         ;
-        $members
+        $this->members
             ->shouldReceive('with')
             ->with($notification->recipientId())
             ->andReturn(A::member()->withId($recipientId)->build())
         ;
-        $notifier = new TransferFundsEmailNotifier($members, $sender);
 
-        $notifier->notify($notification);
+        $this->notifier->notify($notification);
 
-        $sender
+        $this->sender
             ->shouldHaveReceived('sendFundsTransferredEmail')
             ->once()
         ;
-        $sender
+        $this->sender
             ->shouldHaveReceived('sendDepositReceivedEmail')
             ->once()
         ;
     }
+
+    /** @before */
+    public function configureNotifier()
+    {
+        $this->sender = Mockery::spy(TransferFundsEmailSender::class);
+        $this->members = Mockery::mock(Members::class);
+        $this->notifier = new TransferFundsEmailNotifier(
+            $this->members,
+            $this->sender
+        );
+    }
+
+    /** @var TransferFundsEmailNotifier */
+    private $notifier;
+
+    /** @var Members */
+    private $members;
+
+    /** @var TransferFundsEmailSender */
+    private $sender;
 }

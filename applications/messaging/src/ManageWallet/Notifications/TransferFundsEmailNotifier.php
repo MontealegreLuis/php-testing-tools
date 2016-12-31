@@ -16,10 +16,6 @@ class TransferFundsEmailNotifier
     /** @var TransferFundsEmailSender */
     private $sender;
 
-    /**
-     * @param Members $members
-     * @param TransferFundsEmailSender $sender
-     */
     public function __construct(
         Members $members,
         TransferFundsEmailSender $sender
@@ -28,10 +24,6 @@ class TransferFundsEmailNotifier
         $this->sender = $sender;
     }
 
-    /**
-     * @param string $event
-     * @return bool
-     */
     public function shouldNotifyOn(string $event): bool
     {
         return TransferWasMade::class === $event;

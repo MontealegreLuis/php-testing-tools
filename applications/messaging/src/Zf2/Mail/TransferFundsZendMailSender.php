@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -21,10 +21,6 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
     /** @var TransportInterface */
     private $mailTransport;
 
-    /**
-     * @param TemplateEngine $template
-     * @param TransportInterface $mailTransport
-     */
     public function __construct(
         TemplateEngine $template,
         TransportInterface $mailTransport
@@ -33,12 +29,6 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
         $this->mailTransport = $mailTransport;
     }
 
-    /**
-     * @param MemberInformation $sender
-     * @param MemberInformation $recipient
-     * @param Money $amount
-     * @param DateTime $occurredOn
-     */
     public function sendFundsTransferredEmail(
         MemberInformation $sender,
         MemberInformation $recipient,
@@ -60,12 +50,6 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
         $this->mailTransport->send($message);
     }
 
-    /**
-     * @param MemberInformation $sender
-     * @param MemberInformation $recipient
-     * @param Money $amount
-     * @param DateTime $occurredOn
-     */
     public function sendDepositReceivedEmail(
         MemberInformation $sender,
         MemberInformation $recipient,

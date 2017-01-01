@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,64 +17,75 @@ use Zend\Mail\Transport\InMemory;
 class TransferFundsZendMailSenderTest extends TestCase
 {
     /** @test */
-    function it_sends_funds_transferred_email()
+    function it_notifies_sender_by_email()
     {
-        $template = Mockery::mock(TemplateEngine::class);
-        $template
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-        ;
-        $transport = new InMemory();
-        $sender = new TransferFundsZendMailSender($template, $transport);
+        $senderEmail = 'montealegreluis@gmail.com';
 
-        $sender->sendFundsTransferredEmail(
-            A::member()->withEmail('montealegreluis@gmail.com')->build()->information(),
+        $this->sender->sendFundsTransferredEmail(
+            A::member()->withEmail($senderEmail)->build()->information(),
             A::member()->build()->information(),
             Money::MXN(500),
             new DateTime()
         );
 
         $this->assertEquals(
-            'montealegreluis@gmail.com',
-            $transport->getLastMessage()->getTo()->current()->getEmail(),
+            $senderEmail,
+            $this->transport->getLastMessage()->getTo()->current()->getEmail(),
             'Address doesn\'t belong to the member making the transfer'
         );
         $this->assertRegExp(
             '/transfer completed/',
-            $transport->getLastMessage()->getSubject(),
+            $this->transport->getLastMessage()->getSubject(),
             'Email\'s subject is wrong'
         );
     }
 
     /** @test */
-    function it_sends_deposit_received_email()
+    function it_notifies_recipient_by_email()
     {
-        $template = Mockery::mock(TemplateEngine::class);
-        $template
-            ->shouldReceive('render')
-            ->once()
-            ->with(Mockery::type('string'), Mockery::type('array'))
-        ;
-        $transport = new InMemory();
-        $sender = new TransferFundsZendMailSender($template, $transport);
+        $recipientEmail = 'montealegreluis@gmail.com';
 
-        $sender->sendDepositReceivedEmail(
+        $this->sender->sendDepositReceivedEmail(
             A::member()->build()->information(),
-            A::member()->withEmail('montealegreluis@gmail.com')->build()->information(),
+            A::member()->withEmail($recipientEmail)->build()->information(),
             Money::MXN(500),
             new DateTime()
         );
 
         $this->assertEquals(
-            'montealegreluis@gmail.com',
-            $transport->getLastMessage()->getTo()->current()->getEmail(),
+            $recipientEmail,
+            $this->transport->getLastMessage()->getTo()->current()->getEmail(),
             'Address doesn\'t belong to the member receiving the deposit'
         );
         $this->assertRegExp(
             '/received.*deposit/',
-            $transport->getLastMessage()->getSubject(),
+            $this->transport->getLastMessage()->getSubject(),
             'Email\'s subject is wrong'
         );
     }
+
+    /** @before */
+    public function configureMailSender()
+    {
+        $this->template = Mockery::mock(TemplateEngine::class);
+        $this->transport = new InMemory();
+        $this->sender = new TransferFundsZendMailSender(
+            $this->template,
+            $this->transport
+        );
+        $this->template
+            ->shouldReceive('render')
+            ->once()
+            ->with(Mockery::type('string'), Mockery::type('array'))
+        ;
+    }
+
+    /** @var TransferFundsZendMailSender */
+    private $sender;
+
+    /** @var TemplateEngine */
+    private $template;
+
+    /** @var InMemory */
+    private $transport;
 }

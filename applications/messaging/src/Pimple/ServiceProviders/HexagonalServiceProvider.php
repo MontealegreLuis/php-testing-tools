@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,9 +14,6 @@ use Pimple\{Container, ServiceProviderInterface};
 
 class HexagonalServiceProvider implements ServiceProviderInterface
 {
-    /**
-     * @param Container $container
-     */
     public function register(Container $container)
     {
         $container['hexagonal.event_store_repository'] = function () use ($container) {

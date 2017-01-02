@@ -16,19 +16,12 @@ class PublishMessagesCommand extends Command
     /** @var MessagePublisher */
     private $publisher;
 
-    /**
-     * @throws \Symfony\Component\Console\Exception\LogicException if the command
-     * name is empty
-     */
     public function __construct(MessagePublisher $publisher)
     {
         parent::__construct();
         $this->publisher = $publisher;
     }
 
-    /**
-     * Configures the current command.
-     */
     protected function configure()
     {
         $this

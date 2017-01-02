@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -24,12 +24,6 @@ class TransferFundsNotification
     /** @var MemberId */
     private $recipientId;
 
-    /**
-     * @param string $senderId
-     * @param int $amount
-     * @param string $recipientId
-     * @param string $occurredOn
-     */
     public function __construct(
         string $senderId,
         int $amount,
@@ -42,33 +36,21 @@ class TransferFundsNotification
         $this->recipientId = MemberId::withIdentity($recipientId);
     }
 
-    /**
-     * @return DateTime
-     */
     public function occurredOn(): DateTime
     {
         return $this->occurredOn;
     }
 
-    /**
-     * @return MemberId
-     */
     public function senderId(): MemberId
     {
         return $this->senderId;
     }
 
-    /**
-     * @return Money
-     */
     public function amount(): Money
     {
         return $this->amount;
     }
 
-    /**
-     * @return MemberId
-     */
     public function recipientId(): MemberId
     {
         return $this->recipientId;

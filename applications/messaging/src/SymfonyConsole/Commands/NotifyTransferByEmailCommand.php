@@ -23,11 +23,6 @@ class NotifyTransferByEmailCommand extends Command
     /** @var string */
     private $exchangeName;
 
-    /**
-     * @param TransferFundsEmailNotifier $notifier
-     * @param MessageConsumer $consumer
-     * @param string $exchangeName
-     */
     public function __construct(
         TransferFundsEmailNotifier $notifier,
         MessageConsumer $consumer,
@@ -57,10 +52,6 @@ class NotifyTransferByEmailCommand extends Command
         $this->consumer->close();
     }
 
-    /**
-     * @param stdClass $message
-     * @param string $event
-     */
     public function notify(stdClass $message, string $event)
     {
         if (!$this->notifier->shouldNotifyOn($event)) {

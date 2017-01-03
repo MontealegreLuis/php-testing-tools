@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,8 +14,6 @@ class TwigServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register Twig's loader and environment
-     *
-     * @param Container $container
      */
     public function register(Container $container)
     {

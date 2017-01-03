@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -13,8 +13,6 @@ class DoctrineServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register Doctrine's entity manager
-     *
-     * @param Container $container
      */
     public function register(Container $container)
     {

@@ -12,15 +12,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class MemberFormatterTest extends TestCase
 {
-    /** @var MemberFormatter */
-    private $formatter;
-
-    /** @before */
-    public function createformatter()
-    {
-        $this->formatter = new MemberFormatter();
-    }
-
     /** @test */
     function it_shows_two_decimal_places()
     {
@@ -63,4 +54,13 @@ class MemberFormatterTest extends TestCase
             $this->formatter->formatMember($aMember->information())
         );
     }
+
+    /** @before */
+    public function createFormatter()
+    {
+        $this->formatter = new MemberFormatter();
+    }
+
+    /** @var MemberFormatter */
+    private $formatter;
 }

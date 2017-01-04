@@ -20,7 +20,7 @@ class TransferFundsInputFilterTest extends TransferFundsInputTest
     /**
      * @before
      */
-    function inputInstance()
+    function inputInstance(): TransferFundsInput
     {
         $members = Mockery::mock(MembersRepository::class);
         $members
@@ -30,7 +30,8 @@ class TransferFundsInputFilterTest extends TransferFundsInputTest
                 A::member()->withId('xyz')->build()
             ])
         ;
-        $this->input = new TransferFundsInputFilter(
+
+        return new TransferFundsInputFilter(
             new TransferFundsFilter(),
             $members
         );

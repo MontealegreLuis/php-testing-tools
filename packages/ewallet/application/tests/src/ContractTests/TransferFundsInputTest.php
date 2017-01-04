@@ -125,6 +125,12 @@ abstract class TransferFundsInputTest extends TestCase
         $this->assertInternalType('array', $this->input->errorMessages()['senderId']);
     }
 
+    /** @before */
+    public function configureInput()
+    {
+        $this->input = $this->inputInstance();
+    }
+
     /**
      * This method should assign an implementation of the TransferFundsRequest
      * interface to the variable $request

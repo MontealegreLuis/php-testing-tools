@@ -17,16 +17,11 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     /** @test */
     function it_logs_when_a_transfer_has_been_made()
     {
-        $logger = Mockery::spy(LoggerInterface::class);
-        $subscriber = new TransferWasMadeLogger(
-            $logger,
-            new MemberFormatter()
-        );
         $event = A::transferWasMadeEvent()->build();
 
-        $subscriber->handle($event);
+        $this->subscriber->handle($event);
 
-        $logger
+        $this->logger
             ->shouldHaveReceived('info')
             ->once()
             ->with(Mockery::type('string'))
@@ -34,28 +29,35 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     }
 
     /** @test */
-    function it_logs_transfer_was_made_events_only()
+    function it_is_subscribed_to_transfer_was_made_events_only()
     {
-        $logger = Mockery::mock(LoggerInterface::class);
-        $subscriber = new TransferWasMadeLogger(
-            $logger,
-            new MemberFormatter()
-        );
         $event = A::transferWasMadeEvent()->build();
 
 
-        $this->assertTrue($subscriber->isSubscribedTo($event));
+        $this->assertTrue($this->subscriber->isSubscribedTo($event));
     }
 
     /** @test */
-    function it_does_not_log_events_other_than_the_transfer_was_made_event()
+    function it_is_not_subscribed_to_events_other_than_the_transfer_was_made_event()
     {
         $event = Mockery::mock(Event::class);
-        $subscriber = new TransferWasMadeLogger(
-            Mockery::mock(LoggerInterface::class),
+
+        $this->assertFalse($this->subscriber->isSubscribedTo($event));
+    }
+
+    /** @before */
+    public function configureSubscriber()
+    {
+        $this->logger = Mockery::spy(LoggerInterface::class);
+        $this->subscriber = new TransferWasMadeLogger(
+            $this->logger,
             new MemberFormatter()
         );
-
-        $this->assertFalse($subscriber->isSubscribedTo($event));
     }
+
+    /** @var TransferWasMadeLogger */
+    private $subscriber;
+
+    /** @var LoggerInterface */
+    private $logger;
 }

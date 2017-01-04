@@ -11,19 +11,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class TransferFundsInputTest extends TestCase
 {
-    const VALID_ID = 'abc';
-    const INVALID_ID = 'not a valid member ID';
-    const VALID_AMOUNT = 12000;
-
-    /** @var TransferFundsInput */
-    protected $input;
-
-    /**
-     * This method should assign an implementation of the TransferFundsRequest
-     * interface to the variable $request
-     */
-    abstract function inputInstance();
-
     /**
      * @test
      * @dataProvider validAmountsProvider
@@ -82,7 +69,7 @@ abstract class TransferFundsInputTest extends TestCase
     }
 
     /** @test */
-    function it_passes_validation_with_valid_member_id()
+    function it_passes_validation_with_valid_sender_and_recipient_ids()
     {
         $this->input->populate([
             'senderId' => self::VALID_ID,
@@ -90,11 +77,14 @@ abstract class TransferFundsInputTest extends TestCase
             'amount' => self::VALID_AMOUNT,
         ]);
 
-        $this->assertTrue($this->input->isValid(), 'Member ID should be valid');
+        $this->assertTrue(
+            $this->input->isValid(),
+            'Both Sender and Recipient ID should be valid'
+        );
     }
 
     /** @test */
-    function it_does_not_pass_validation_with_an_empty_member_id_to_transfer_to()
+    function it_does_not_pass_validation_with_an_empty_recipient_id()
     {
         $this->input->populate([
             'senderId' => self::VALID_ID,
@@ -102,13 +92,13 @@ abstract class TransferFundsInputTest extends TestCase
             'amount' => self::VALID_AMOUNT,
         ]);
 
-        $this->assertFalse($this->input->isValid(), 'An empty member ID should be invalid');
+        $this->assertFalse($this->input->isValid(), 'An empty recipient ID should be invalid');
         $this->assertArrayHasKey('recipientId',$this->input->errorMessages());
         $this->assertInternalType('array', $this->input->errorMessages()['recipientId']);
     }
 
     /** @test */
-    function it_does_not_pass_validation_if_member_id_is_not_in_white_list()
+    function it_does_not_pass_validation_if_recipient_id_is_not_in_white_list()
     {
         $this->input->populate([
             'senderId' => self::VALID_ID,
@@ -116,13 +106,13 @@ abstract class TransferFundsInputTest extends TestCase
             'amount' => self::VALID_AMOUNT,
         ]);
 
-        $this->assertFalse($this->input->isValid(), 'Member ID should be invalid');
+        $this->assertFalse($this->input->isValid(), 'Recipient ID should be invalid');
         $this->assertArrayHasKey('recipientId', $this->input->errorMessages());
         $this->assertInternalType('array', $this->input->errorMessages()['recipientId']);
     }
 
     /** @test */
-    function it_does_not_pass_validation_if_the_member_making_the_transfer_is_not_specified()
+    function it_does_not_pass_validation_if_the_sender_id_is_not_specified()
     {
         $this->input->populate([
             'senderId' => '',
@@ -130,8 +120,21 @@ abstract class TransferFundsInputTest extends TestCase
             'amount' => self::VALID_AMOUNT,
         ]);
 
-        $this->assertFalse($this->input->isValid(), 'Member ID should be invalid');
+        $this->assertFalse($this->input->isValid(), 'Sender ID should be invalid');
         $this->assertArrayHasKey('senderId', $this->input->errorMessages());
         $this->assertInternalType('array', $this->input->errorMessages()['senderId']);
     }
+
+    /**
+     * This method should assign an implementation of the TransferFundsRequest
+     * interface to the variable $request
+     */
+    abstract function inputInstance(): TransferFundsInput;
+
+    /** @var TransferFundsInput */
+    protected $input;
+
+    const VALID_ID = 'abc';
+    const INVALID_ID = 'not a valid member ID';
+    const VALID_AMOUNT = 12000;
 }

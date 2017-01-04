@@ -131,10 +131,6 @@ abstract class TransferFundsInputTest extends TestCase
         $this->input = $this->inputInstance();
     }
 
-    /**
-     * This method should assign an implementation of the TransferFundsRequest
-     * interface to the variable $request
-     */
     abstract function inputInstance(): TransferFundsInput;
 
     /** @var TransferFundsInput */

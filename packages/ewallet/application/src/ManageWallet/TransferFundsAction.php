@@ -32,9 +32,9 @@ class TransferFundsAction implements CanTransferFunds
         $transferFunds && $this->command->attach($this);
     }
 
-    public function enterTransferInformation(MemberId $fromMemberId)
+    public function enterTransferInformation(MemberId $senderId)
     {
-        $this->responder->respondToEnterTransferInformation($fromMemberId);
+        $this->responder->respondToEnterTransferInformation($senderId);
     }
 
     /**

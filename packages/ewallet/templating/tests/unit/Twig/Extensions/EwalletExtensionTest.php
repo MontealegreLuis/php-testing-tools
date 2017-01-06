@@ -1,72 +1,60 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Twig\Extensions;
 
 use Ewallet\{DataBuilders\A, Memberships\MemberFormatter};
-use Mockery;
 use Money\Money;
 use PHPUnit_Framework_TestCase as TestCase;
+use Prophecy\Argument;
 
 class EwalletExtensionTest extends TestCase
 {
-    /** @var MemberFormatter */
-    private $formatter;
-
-    /** @var EwalletExtension */
-    private $extension;
-
-    /** @var int */
-    private $amount = 300000;
-
-    /** @before */
-    public function configureExtension()
-    {
-        $this->formatter = Mockery::mock(MemberFormatter::class)->shouldIgnoreMissing();
-        $this->extension = new EwalletExtension($this->formatter);
-    }
-
     /** @test */
     function it_delegates_formatting_a_money_object()
     {
         $amount = Money::MXN($this->amount);
-
-        $this->formatter
-            ->shouldReceive('formatMoney')
-            ->once()
-            ->with($amount)
-            ->andReturn("\${$this->amount}.00 MXN")
+        $this
+            ->formatter
+            ->formatMoney($amount)
+            ->willReturn(Argument::type('string'))
         ;
 
         $this->extension->formatMoney($amount);
+
+        $this->formatter->formatMoney($amount)->shouldHaveBeenCalled();
     }
 
     /** @test */
     function it_delegates_formatting_a_money_amount()
     {
-        $this->formatter
-            ->shouldReceive('formatMoneyAmount')
-            ->once()
-            ->with($this->amount)
-            ->andReturn("{$this->amount}.00")
+        $this
+            ->formatter
+            ->formatMoneyAmount($this->amount)
+            ->willReturn(Argument::type('string'))
         ;
+
         $this->extension->formatMoneyAmount($this->amount);
+
+        $this->formatter->formatMoneyAmount($this->amount)->shouldHaveBeenCalled();
     }
 
     /** @test */
     function it_delegates_formatting_a_member()
     {
         $member = A::member()->build()->information();
-        $this->formatter
-            ->shouldReceive('formatMember')
-            ->once()
-            ->with($member)
+        $this
+            ->formatter
+            ->formatMember($member)
+            ->willReturn(Argument::type('string'))
         ;
 
         $this->extension->formatMember($member);
+
+        $this->formatter->formatMember($member)->shouldHaveBeenCalled();
     }
 
     /** @test */
@@ -79,4 +67,20 @@ class EwalletExtensionTest extends TestCase
         $this->assertEquals('money_amount', $functions[1]->getName());
         $this->assertEquals('money', $functions[2]->getName());
     }
+
+    /** @before */
+    public function configureExtension()
+    {
+        $this->formatter = $this->prophesize(MemberFormatter::class);
+        $this->extension = new EwalletExtension($this->formatter->reveal());
+    }
+
+    /** @var EwalletExtension */
+    private $extension;
+
+    /** @var MemberFormatter */
+    private $formatter;
+
+    /** @var int */
+    private $amount = 300000;
 }

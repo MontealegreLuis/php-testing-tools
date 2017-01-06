@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,16 +16,13 @@ class EwalletExtension extends Extension
     /** @var MemberFormatter */
     private $formatter;
 
-    /**
-     * @param MemberFormatter $formatter
-     */
     public function __construct(MemberFormatter $formatter)
     {
         $this->formatter = $formatter;
     }
 
     /**
-     * @return array
+     * @return SimpleFunction[]
      */
     public function getFunctions()
     {
@@ -36,36 +33,22 @@ class EwalletExtension extends Extension
         ];
     }
 
-    /**
-     * @param MemberInformation $member
-     * @return string
-     */
     public function formatMember(MemberInformation $member): string
     {
         return $this->formatter->formatMember($member);
     }
 
-    /**
-     * @param Money $money
-     * @return string
-     */
     public function formatMoney(Money $money): string
     {
         return $this->formatter->formatMoney($money);
     }
 
-    /**
-     * @param int $amount
-     * @return string
-     */
     public function formatMoneyAmount(int $amount): string
     {
         return $this->formatter->formatMoneyAmount($amount);
     }
 
     /**
-     * Returns the name of the extension.
-     *
      * @return string The extension name
      */
     public function getName()

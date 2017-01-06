@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -20,8 +20,6 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
     /**
      * Register the services for Transfer Funds feature delivered through a
      * web interface
-     *
-     * @param Container $container
      */
     public function register(Container $container)
     {

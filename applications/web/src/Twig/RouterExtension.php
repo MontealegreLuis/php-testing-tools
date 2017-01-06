@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -22,9 +22,6 @@ class RouterExtension extends Extension
     /** @var Request */
     private $request;
 
-    /**
-     * @param Router $router
-     */
     public function __construct(Router $router, Request $request)
     {
         $this->router = $router;
@@ -32,7 +29,7 @@ class RouterExtension extends Extension
     }
 
     /**
-     * @return array
+     * @return SimpleFunction[]
      */
     public function getFunctions()
     {
@@ -42,20 +39,11 @@ class RouterExtension extends Extension
         ];
     }
 
-    /**
-     * @param string $routeName
-     * @param array $arguments
-     * @return string
-     */
     public function urlFor(string $routeName, array $arguments = []): string
     {
         return $this->router->pathFor($routeName, $arguments);
     }
 
-    /**
-     * @param string $path
-     * @return string
-     */
     public function asset(string $path): string
     {
         return preg_replace(
@@ -63,15 +51,5 @@ class RouterExtension extends Extension
             '/',
             sprintf('%s%s', dirname($this->request->getUri()->getBasePath()), $path)
         );
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'slim_router';
     }
 }

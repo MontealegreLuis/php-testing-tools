@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -19,10 +19,6 @@ class TransferFundsController
     /** @var TransferFundsInput */
     private $input;
 
-    /**
-     * @param TransferFundsAction $action
-     * @param TransferFundsInput $input Only required when transfer is performed
-     */
     public function __construct(
         TransferFundsWebAction $action,
         TransferFundsInput $input = null
@@ -33,8 +29,6 @@ class TransferFundsController
 
     /**
      * Show the form to transfer funds between members
-     *
-     * @return ResponseInterface
      */
     public function enterTransferInformation(): ResponseInterface
     {
@@ -46,8 +40,12 @@ class TransferFundsController
     /**
      * Perform the transfer
      *
-     * @param Request $request
-     * @return ResponseInterface
+     * @throws \Ewallet\Memberships\InsufficientFunds If the sender does not
+     * have sufficient funds
+     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
+     * transfer a negative amount
+     * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
+     * recipient are unknown
      */
     public function transfer(Request $request): ResponseInterface
     {

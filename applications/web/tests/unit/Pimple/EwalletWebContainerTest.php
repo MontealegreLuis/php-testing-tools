@@ -55,10 +55,6 @@ class EwalletWebContainerTest extends TestCase
             RouterExtension::class,
             $container['slim.twig_extension']
         );
-        $this->assertInstanceOf(
-            RouterExtension::class,
-            $container['twig.environment']->getExtension('slim_router')
-        );
 
         $this->assertInstanceOf(
             LoggerInterface::class,

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,9 +16,6 @@ class RequestLoggingMiddleware
     /** @var LoggerInterface */
     private $logger;
 
-    /**
-     * @param LoggerInterface $logger
-     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -34,12 +31,12 @@ class RequestLoggingMiddleware
         /** @var ResponseInterface $response */
         $response = $next($request, $response);
 
-        if (404 == $response->getStatusCode()) {
+        if (404 === $response->getStatusCode()) {
             $this->logNotFound($request);
             return $response;
         }
 
-        if (in_array($response->getStatusCode(), [301, 302, 303, 307])) {
+        if (in_array($response->getStatusCode(), [301, 302, 303, 307], true)) {
             $this->logRedirect($response);
             return $response;
         }
@@ -50,10 +47,7 @@ class RequestLoggingMiddleware
         return $response;
     }
 
-    /**
-     * @param Request $request
-     */
-    private function logNotFound(Request $request)
+    private function logNotFound(Request $request): void
     {
         $this->logger->info('No route matched', [
             'path' => $request->getUri()->getPath(),
@@ -61,21 +55,14 @@ class RequestLoggingMiddleware
         ]);
     }
 
-    /**
-     * @param ResponseInterface $response
-     */
-    private function logRedirect(ResponseInterface $response)
+    private function logRedirect(ResponseInterface $response): void
     {
         $this->logger->info('Redirect', [
             'redirect' => $response->getHeader('Location')[0],
         ]);
     }
 
-    /**
-     * @param Route $route
-     * @param Request $request
-     */
-    private function logRouteMatched(Route $route, Request $request)
+    private function logRouteMatched(Route $route, Request $request): void
     {
         $this->logger->info('Matched route ', [
             'route' => $route->getName(),
@@ -84,10 +71,7 @@ class RequestLoggingMiddleware
         ]);
     }
 
-    /**
-     * @param Request $request
-     */
-    private function logRequest(Request $request)
+    private function logRequest(Request $request): void
     {
         $this->logger->info('Current request', [
             'path' => $request->getUri()->getPath(),

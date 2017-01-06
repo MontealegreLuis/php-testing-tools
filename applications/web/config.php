@@ -17,7 +17,7 @@ return [
         'dev_mode' => getenv('APP_ENV') !== 'production',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
-            'url' => getenv('DB_URL'),
+            'url' => str_replace('{{DIR}}', '//' . __DIR__ . '/', getenv('DB_URL')),
         ],
         'types' => [
             'MemberId' => 'Ewallet\Doctrine2\Types\MemberIdType',

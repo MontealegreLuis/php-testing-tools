@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -18,10 +18,6 @@ class TransferFundsInputFilter implements TransferFundsInput
     /** @var MembersRepository */
     private $members;
 
-    /**
-     * @param TransferFundsFilter $filter
-     * @param MembersRepository $members
-     */
     public function __construct(
         TransferFundsFilter $filter,
         MembersRepository $members
@@ -30,17 +26,11 @@ class TransferFundsInputFilter implements TransferFundsInput
         $this->members = $members;
     }
 
-    /**
-     * @param array $input
-     */
     public function populate(array $input)
     {
         $this->filter->setData($input);
     }
 
-    /**
-     * @return bool
-     */
     public function isValid(): bool
     {
         $senderId = $this->filter->getRawValue('senderId');
@@ -53,16 +43,13 @@ class TransferFundsInputFilter implements TransferFundsInput
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function errorMessages(): array
     {
         return $this->filter->getMessages();
     }
 
-    /**
-     * @return array
-     */
     public function values(): array
     {
         return $this->filter->getValues();

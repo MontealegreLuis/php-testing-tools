@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,25 +14,13 @@ use Slim\Http\Request;
 
 class TransferFundsControllerTest extends TestCase
 {
-    /** @var  Application */
-    private $app;
-
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @before */
-    public function configureApplication()
-    {
-        $this->app = new Application(require __DIR__ . '/../../../../config.php');
-        $this->container = $this->app->getContainer();
-    }
-
     /** @test */
     function it_returns_an_ok_response_on_enter_transfer_information_action()
     {
         $this->container['environment'] = Environment::mock([
             'REQUEST_URI' => '/transfer-form',
         ]);
+
         $response = $this->app->run(true);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -58,4 +46,17 @@ class TransferFundsControllerTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
     }
+
+    /** @before */
+    public function configureApplication()
+    {
+        $this->app = new Application(require __DIR__ . '/../../../../config.php');
+        $this->container = $this->app->getContainer();
+    }
+
+    /** @var  Application */
+    private $app;
+
+    /** @var ContainerInterface */
+    private $container;
 }

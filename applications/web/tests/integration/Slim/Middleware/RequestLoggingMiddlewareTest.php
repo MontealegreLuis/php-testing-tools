@@ -1,12 +1,11 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Ewallet\Slim\Middleware;
 
-use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Log\LoggerInterface;
 use Slim\Http\{Environment, Request, Response};
@@ -17,9 +16,7 @@ class RequestLoggingMiddlewareTest extends TestCase
     /** @test */
     function it_logs_the_request_information()
     {
-        $logger = Mockery::spy(LoggerInterface::class);
-        $response = new Response();
-        $middleware = new RequestLoggingMiddleware($logger);
+        $response = new Response(200);
         $request = Request::createFromEnvironment(Environment::mock([
             'REQUEST_URI' => '/transfer-form',
             'REQUEST_METHOD' => 'GET',
@@ -27,30 +24,25 @@ class RequestLoggingMiddlewareTest extends TestCase
         $request = $request->withAttribute('route', new Route(
             ['GET'],
             '/transfer-form',
-            function($_, $response) {
-                return $response;
-            }
+            $this->controller
         ));
 
-        $middleware($request, $response, function($_, $response) {
-            return $response;
-        });
+        $this->middleware->__invoke($request, $response, $this->controller);
 
-        $logger
-            ->shouldHaveReceived('info')
-            ->with('Current request', [
+        $this
+            ->logger
+            ->info('Current request', [
                 'path' => '/transfer-form',
                 'method' => 'GET',
             ])
+            ->shouldHaveBeenCalled()
         ;
     }
 
     /** @test */
     function it_logs_the_route_information()
     {
-        $logger = Mockery::spy(LoggerInterface::class);
-        $response = new Response();
-        $middleware = new RequestLoggingMiddleware($logger);
+        $response = new Response(200);
         $request = Request::createFromEnvironment(Environment::mock([
             'REQUEST_URI' => '/transfer-form',
             'REQUEST_METHOD' => 'GET',
@@ -58,72 +50,82 @@ class RequestLoggingMiddlewareTest extends TestCase
         $route = new Route(
             ['GET'],
             '/transfer-form',
-            function($_, $response) {
-                return $response;
-            }
+            $this->controller
         );
         $route->setName('transfer_form');
         $request = $request->withAttribute('route', $route);
 
-        $middleware($request, $response, function($_, $response) {
-            return $response;
-        });
+        $this->middleware->__invoke($request, $response, $this->controller);
 
-        $logger
-            ->shouldHaveReceived('info')
-            ->with('Matched route ', [
+        $this
+            ->logger
+            ->info('Matched route ', [
                 'route' => 'transfer_form',
                 'params' => [],
                 'request' => [],
             ])
+            ->shouldHaveBeenCalled()
         ;
     }
 
     /** @test */
     function it_logs_route_not_found()
     {
-        $logger = Mockery::spy(LoggerInterface::class);
         $response = new Response(404);
-        $middleware = new RequestLoggingMiddleware($logger);
         $request = Request::createFromEnvironment(Environment::mock([
             'REQUEST_METHOD' => 'GET',
             'REQUEST_URI' => '/foo',
         ]));
 
-        $middleware($request, $response, function($_, $response) {
-            return $response;
-        });
+        $this->middleware->__invoke($request, $response, $this->controller);
 
-        $logger
-            ->shouldHaveReceived('info')
-            ->with('No route matched', [
+        $this
+            ->logger
+            ->info('No route matched', [
                 'path' => '/foo',
                 'method' => 'GET',
             ])
+            ->shouldHaveBeenCalled()
         ;
     }
 
     /** @test */
     function it_logs_redirect()
     {
-        $logger = Mockery::spy(LoggerInterface::class);
         $response = new Response(303);
         $response = $response->withAddedHeader('Location', '/transfer-form');
-        $middleware = new RequestLoggingMiddleware($logger);
         $request = Request::createFromEnvironment(Environment::mock([
             'REQUEST_METHOD' => 'GET',
             'REQUEST_URI' => '/',
         ]));
 
-        $middleware($request, $response, function($_, $response) {
-            return $response;
-        });
+        $this->middleware->__invoke($request, $response, $this->controller);
 
-        $logger
-            ->shouldHaveReceived('info')
-            ->with('Redirect', [
+        $this
+            ->logger
+            ->info('Redirect', [
                 'redirect' => '/transfer-form',
             ])
+            ->shouldHaveBeenCalled()
         ;
     }
+
+    /** @before */
+    function configureMiddleware()
+    {
+        $this->logger = $this->prophesize(LoggerInterface::class);
+        $this->middleware = new RequestLoggingMiddleware($this->logger->reveal());
+        $this->controller = function ($_, $response) {
+            return $response;
+        };
+    }
+
+    /** @var RequestLoggingMiddleware */
+    private $middleware;
+
+    /** @var callable */
+    private $controller;
+
+    /** @var LoggerInterface */
+    private $logger;
 }

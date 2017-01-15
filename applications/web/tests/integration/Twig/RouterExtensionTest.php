@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -15,97 +15,85 @@ class RouterExtensionTest extends TestCase
     /** @test */
     function it_generates_url_for_named_route()
     {
-        $router = new Router();
-        $router->map(['GET'], '/foo', function() {})->setName('foo_action');
-        $request = Request::createFromEnvironment(Environment::mock());
+        $this->router->map(['GET'], '/foo', $this->controller)->setName('foo_action');
 
-        $extension = new RouterExtension($router, $request);
-
-        $this->assertEquals('/foo', $extension->urlFor('foo_action'));
+        $this->assertEquals('/foo', $this->extension->urlFor('foo_action'));
     }
 
     /** @test */
     function it_generates_url_for_named_route_with_base_path()
     {
-        $router = new Router();
-        $basePath = '/index_dev.php';
-        $router
-            ->map(['GET'], "$basePath/foo", function() {})
+        $this
+            ->router
+            ->map(['GET'], "$this->basePath/foo", $this->controller)
             ->setName('foo_action')
         ;
-        $request = Request::createFromEnvironment(Environment::mock());
 
-        $extension = new RouterExtension($router, $request);
-
-        $this->assertEquals("$basePath/foo", $extension->urlFor('foo_action'));
+        $this->assertEquals(
+            "$this->basePath/foo",
+            $this->extension->urlFor('foo_action')
+        );
     }
 
     /** @test */
     function it_generates_url_for_named_route_with_arguments()
     {
-        $router = new Router();
-        $router
-            ->map(['GET'], '/foo/{name}', function() {})
+        $this
+            ->router
+            ->map(['GET'], '/foo/{name}', $this->controller)
             ->setName('foo_action')
         ;
-        $request = Request::createFromEnvironment(Environment::mock());
-
-        $extension = new RouterExtension($router, $request);
 
         $this->assertEquals(
             '/foo/luis',
-            $extension->urlFor('foo_action', ['name' => 'luis'])
+            $this->extension->urlFor('foo_action', ['name' => 'luis'])
         );
     }
 
     /** @test */
     function it_generates_url_for_named_route_with_arguments_and_base_path()
     {
-        $router = new Router();
-        $basePath = '/index_dev.php';
-        $router
-            ->map(['GET'], "$basePath/foo/{name}", function() {})
+        $this
+            ->router
+            ->map(['GET'], "$this->basePath/foo/{name}", $this->controller)
             ->setName('foo_action')
         ;
-        $request = Request::createFromEnvironment(Environment::mock());
-
-        $extension = new RouterExtension($router, $request);
 
         $this->assertEquals(
-            "$basePath/foo/luis",
-            $extension->urlFor('foo_action', ['name' => 'luis'])
+            "$this->basePath/foo/luis",
+            $this->extension->urlFor('foo_action', ['name' => 'luis'])
         );
     }
 
     /** @test */
     function it_generates_url_for_asset()
     {
-        $router = new Router();
-        $request = Request::createFromEnvironment(Environment::mock([
-            'REQUEST_URI' => '/foo',
-        ]));
-
-        $extension = new RouterExtension($router, $request);
-
         $this->assertEquals(
             '/assets/styles/app.css',
-            $extension->asset('/assets/styles/app.css')
+            $this->extension->asset('/assets/styles/app.css')
         );
     }
 
-    /** @test */
-    function it_generates_url_for_asset_with_base_path()
+    /** @before */
+    function configureExtension()
     {
-        $router = new Router();
-        $request = Request::createFromEnvironment(Environment::mock([
-            'REQUEST_URI' => '/index_dev.php/foo',
-        ]));
-
-        $extension = new RouterExtension($router, $request);
-
-        $this->assertEquals(
-            '/assets/styles/app.css',
-            $extension->asset('/assets/styles/app.css')
+        $this->router = new Router();
+        $this->controller = function () {};
+        $this->extension = new RouterExtension(
+            $this->router,
+            Request::createFromEnvironment(Environment::mock())
         );
     }
+
+    /** @var RouterExtension */
+    private $extension;
+
+    /** @var callable */
+    private $controller;
+
+    /** @var Router */
+    private $router;
+
+    /** @var string */
+    private $basePath = '/index_dev.php';
 }

@@ -1,12 +1,11 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
@@ -28,15 +27,16 @@ $environment->required([
 
 $setup = new class() { use ProvidesDoctrineSetup; };
 $setup->_setUpDoctrine(require __DIR__ . '/../config.php');
+$entityManager = $setup->_entityManager();
 
 $application = new Application();
 $application->setHelperSet(new HelperSet([
-    'db' => new ConnectionHelper($setup->_entityManager()->getConnection()),
-    'em' => new EntityManagerHelper($setup->_entityManager()),
+    'db' => new ConnectionHelper($entityManager->getConnection()),
+    'em' => new EntityManagerHelper($entityManager),
 ]));
 $application->add(new DropDatabaseCommand());
 $application->add(new CreateDatabaseCommand());
-$application->add(new SeedDatabaseCommand($setup->_entityManager()));
+$application->add(new SeedDatabaseCommand($entityManager));
 $application->add(new UpdateCommand());
 $application->add(new RefreshDatabase());
 

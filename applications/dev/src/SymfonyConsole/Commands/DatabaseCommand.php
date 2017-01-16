@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,10 +11,6 @@ use Symfony\Component\Console\Command\Command;
 
 abstract class DatabaseCommand extends Command
 {
-    /**
-     * @param array $parameters
-     * @return array
-     */
     protected function withoutDatabaseName(array $parameters): array
     {
         $filtered = $parameters;
@@ -23,11 +19,6 @@ abstract class DatabaseCommand extends Command
         return $filtered;
     }
 
-    /**
-     * @param array $parameters
-     * @param Connection $connection
-     * @return bool
-     */
     protected function databaseExists(
         array $parameters,
         Connection $connection
@@ -43,19 +34,11 @@ abstract class DatabaseCommand extends Command
         );
     }
 
-    /**
-     * @param array $parameters
-     * @return string
-     */
     protected function databaseName(array $parameters): string
     {
         return $this->hasPath($parameters) ? $parameters['path'] : $parameters['dbname'];
     }
 
-    /**
-     * @param array $parameters
-     * @return bool
-     */
     protected function hasPath(array $parameters): bool
     {
         return isset($parameters['path']);

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -9,16 +9,12 @@ namespace Ewallet\SymfonyConsole\Commands;
 use Doctrine\DBAL\{Connection, DriverManager};
 use Exception;
 use Symfony\Component\Console\{
-    Command\Command,
     Input\InputInterface,
     Output\OutputInterface
 };
 
 class CreateDatabaseCommand extends DatabaseCommand
 {
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
         $this
@@ -29,10 +25,6 @@ class CreateDatabaseCommand extends DatabaseCommand
 
     /**
      * Create database unless it already exists.
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -45,20 +37,16 @@ class CreateDatabaseCommand extends DatabaseCommand
         } catch (Exception $e) {
             $this->cannotCreateDatabase($output, $parameters, $e);
         } finally {
-            $connection->close();
+            !empty($connection) && $connection->close();
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param array $parameters
-     * @param Connection $connection
-     */
     private function createIfExists(
         OutputInterface $output,
         array $parameters,
         Connection $connection
-    ) {
+    ): void
+    {
         if ($this->databaseExists($parameters, $connection)) {
             $this->doNotCreateDatabase($output, $parameters);
         } else {
@@ -66,16 +54,12 @@ class CreateDatabaseCommand extends DatabaseCommand
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param Connection $connection
-     * @param array $parameters
-     */
     private function createDatabase(
         OutputInterface $output,
         Connection $connection,
         array $parameters
-    ) {
+    ): void
+    {
         $name = $this->databaseName($parameters);
         if (!$this->hasPath($parameters)) {
             $name = $connection
@@ -92,34 +76,27 @@ class CreateDatabaseCommand extends DatabaseCommand
         ));
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param array $parameters
-     */
     protected function doNotCreateDatabase(
         OutputInterface $output,
         array $parameters
-    ) {
+    ): void
+    {
         $output->writeln(sprintf(
             '<info>Database <comment>%s</comment> already exists.</info>',
             $this->databaseName($parameters)
         ));
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param array $parameters
-     * @param Exception $e
-     */
     protected function cannotCreateDatabase(
         OutputInterface $output,
         array $parameters,
-        Exception $e
-    ) {
+        Exception $exception
+    ): void
+    {
         $output->writeln(sprintf(
             '<error>Could not create database <comment>%s</comment></error>',
             $this->databaseName($parameters)
         ));
-        $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+        $output->writeln(sprintf('<error>%s</error>', $exception->getMessage()));
     }
 }

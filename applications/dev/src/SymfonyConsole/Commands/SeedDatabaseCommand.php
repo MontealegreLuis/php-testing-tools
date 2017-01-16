@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -21,18 +21,12 @@ class SeedDatabaseCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /**
-     * @param EntityManagerInterface $entityManager
-     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         parent::__construct();
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * Configures the current command.
-     */
     protected function configure()
     {
         $this
@@ -44,9 +38,7 @@ class SeedDatabaseCommand extends Command
     /**
      * Seed some information to our database
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @throws \Doctrine\DBAL\DBALException if any of the tables cannot be truncated
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -59,15 +51,15 @@ class SeedDatabaseCommand extends Command
     }
 
     /**
-     * @param string $entity
+     * @throws \Doctrine\DBAL\DBALException If any of the queries fail
      */
-    private function truncateTable(string $entity)
+    private function truncateTable(string $entity): void
     {
         $metadata = $this->entityManager->getClassMetadata($entity);
         $connection = $this->entityManager->getConnection();
         $platform = $connection->getDatabasePlatform();
         $connection->query('SET FOREIGN_KEY_CHECKS=0');
-        $truncate = $platform->getTruncateTableSql($metadata->getTableName());
+        $truncate = $platform->getTruncateTableSQL($metadata->getTableName());
         $connection->executeUpdate($truncate);
         $connection->query('SET FOREIGN_KEY_CHECKS=1');
     }

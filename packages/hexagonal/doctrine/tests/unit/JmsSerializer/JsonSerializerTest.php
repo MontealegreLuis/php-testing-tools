@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,14 +17,13 @@ class JsonSerializerTest extends TestCase
     /** @test */
     function it_serializes_a_domain_event_to_json()
     {
-        $serializer = new JsonSerializer();
         $anEvent = new InstantaneousEvent(
             MemberId::withIdentity('abc'),
             Money::MXN(10000),
             new DateTime('2015-10-24 12:39:51')
         );
 
-        $json = $serializer->serialize($anEvent);
+        $json = (new JsonSerializer())->serialize($anEvent);
 
         $this->assertEquals(
             '{"occurred_on":"2015-10-24 12:39:51","member_id":"abc","amount":10000}',

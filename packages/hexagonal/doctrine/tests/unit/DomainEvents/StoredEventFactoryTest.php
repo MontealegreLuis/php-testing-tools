@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -23,12 +23,10 @@ class StoredEventFactoryTest extends TestCase
             Money::MXN(500000),
             new DateTime('2015-10-25 19:59:00')
         );
-        $factory = new StoredEventFactory(new JsonSerializer());
 
-        $storedEvent = $factory->from($event);
+        $storedEvent = $this->factory->from($event);
 
-        // Stored events get an ID after being persisted
-        $this->assertEquals(null, $storedEvent->id());
+        $this->assertEquals(0, $storedEvent->id()); // Stored events get an ID after being persisted
         $this->assertEquals(
             '{"occurred_on":"2015-10-25 19:59:00","member_id":"abc","amount":500000}',
             $storedEvent->body()
@@ -39,4 +37,13 @@ class StoredEventFactoryTest extends TestCase
             $storedEvent->occurredOn()->format('Y-m-d H:i:s')
         );
     }
+
+    /** @before */
+    function configureFactory()
+    {
+        $this->factory = new StoredEventFactory(new JsonSerializer());
+    }
+
+    /** @var StoredEventFactory */
+    private $factory;
 }

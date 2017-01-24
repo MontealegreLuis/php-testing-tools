@@ -1,13 +1,13 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 namespace Hexagonal\Fakes\DomainEvents;
 
 use DateTime;
-use Ewallet\Memberships\Identifier;
+use Ewallet\Memberships\MemberId;
 use Hexagonal\DomainEvents\Event;
 use Money\Money;
 
@@ -16,19 +16,14 @@ class InstantaneousEvent implements Event
     /** @var DateTime */
     private $occurredOn;
 
-    /** @var Identifier */
+    /** @var MemberId */
     private $memberId;
 
     /** @var Money */
     private $amount;
 
-    /**
-     * @param Identifier $memberId
-     * @param Money $amount
-     * @param DateTime $instant
-     */
     public function __construct(
-        Identifier $memberId,
+        MemberId $memberId,
         Money $amount,
         DateTime $instant
     ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,37 +17,43 @@ use PHPUnit_Framework_TestCase as TestCase;
 class PersistEventsSubscriberTest extends TestCase
 {
     /** @test */
-    function it_subscribes_to_all_event_types()
+    function it_subscribes_to_any_event_type()
     {
-        $subscriber = new PersistEventsSubscriber(
-            Mockery::mock(EventStore::class),
-            Mockery::mock(StoredEventFactory::class)
-        );
-
-        $this->assertTrue($subscriber->isSubscribedTo(new InstantaneousEvent(
+        $instantaneousEvent = new InstantaneousEvent(
             MemberId::withIdentity('any'), Money::MXN(100000), new DateTime('now')
-        )));
-
-        $this->assertTrue($subscriber->isSubscribedTo(
-            A::transferWasMadeEvent()->build())
         );
+        $transferWasMadeEvent = A::transferWasMadeEvent()->build();
+
+        $this->assertTrue($this->subscriber->isSubscribedTo($instantaneousEvent));
+        $this->assertTrue($this->subscriber->isSubscribedTo($transferWasMadeEvent));
     }
 
     /** @test */
     function it_persists_an_event()
     {
-        $store = Mockery::mock(EventStore::class);
-        $subscriber = new PersistEventsSubscriber(
-            $store,
-            new StoredEventFactory(new JsonSerializer())
-        );
+        $this->subscriber->handle(A::transferWasMadeEvent()->build());
 
-        $store
-            ->shouldReceive('append')
+        $this
+            ->store
+            ->shouldHaveReceived('append')
             ->once()
             ->with(Mockery::type(StoredEvent::class))
         ;
-
-        $subscriber->handle(A::transferWasMadeEvent()->build());
     }
+
+    /** @before */
+    function configureSubscriber()
+    {
+        $this->store = Mockery::spy(EventStore::class);
+        $this->subscriber = new PersistEventsSubscriber(
+            $this->store,
+            new StoredEventFactory(new JsonSerializer())
+        );
+    }
+
+    /** @var PersistEventsSubscriber */
+    private $subscriber;
+
+    /** @var EventStore */
+    private $store;
 }

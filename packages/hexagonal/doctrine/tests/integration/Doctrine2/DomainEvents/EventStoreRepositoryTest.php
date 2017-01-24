@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -26,9 +26,6 @@ class EventStoreRepositoryTest extends EventStoreTest
         parent::generateFixtures();
     }
 
-    /**
-     * @return EventStore
-     */
     function storeInstance(): EventStore
     {
         return $this->entityManager->getRepository(StoredEvent::class);

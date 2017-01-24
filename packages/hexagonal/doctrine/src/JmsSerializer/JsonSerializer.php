@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -17,9 +17,6 @@ class JsonSerializer implements EventSerializer
     /** @var \JMS\Serializer\Serializer */
     private $serializer;
 
-    /**
-     * JsonSerializer constructor.
-     */
     public function __construct()
     {
         $this->serializer = SerializerBuilder::create()
@@ -56,10 +53,6 @@ class JsonSerializer implements EventSerializer
         ;
     }
 
-    /**
-     * @param Event $anEvent
-     * @return string
-     */
     public function serialize(Event $anEvent): string
     {
         return $this->serializer->serialize($anEvent, 'json');

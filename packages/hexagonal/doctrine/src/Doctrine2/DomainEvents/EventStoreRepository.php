@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -11,9 +11,6 @@ use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 
 class EventStoreRepository extends EntityRepository implements EventStore
 {
-    /**
-     * @param StoredEvent $anEvent
-     */
     public function append(StoredEvent $anEvent)
     {
         $this->_em->persist($anEvent);
@@ -21,7 +18,6 @@ class EventStoreRepository extends EntityRepository implements EventStore
     }
 
     /**
-     * @param int $lastStoredEventId
      * @return StoredEvent[]
      */
     public function eventsStoredAfter(int $lastStoredEventId): array

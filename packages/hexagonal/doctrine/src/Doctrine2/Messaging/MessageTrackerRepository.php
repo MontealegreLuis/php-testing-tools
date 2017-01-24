@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -16,10 +16,6 @@ use Hexagonal\Messaging\{
 
 class MessageTrackerRepository extends EntityRepository implements MessageTracker
 {
-    /**
-     * @param string $exchangeName
-     * @return bool
-     */
     public function hasPublishedMessages(string $exchangeName): bool
     {
         $builder = $this->createQueryBuilder('p');
@@ -33,9 +29,8 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
     }
 
     /**
-     * @param string $exchangeName
-     * @return PublishedMessage
-     * @throws EmptyExchange
+     * @throws EmptyExchange If no message has been published to this exchange
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function mostRecentPublishedMessage(
         string $exchangeName
@@ -54,9 +49,10 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
     }
 
     /**
-     * @param PublishedMessage $mostRecentPublishedMessage
      * @throws InvalidPublishedMessageToTrack There can only be one last
-     *     published message for exchange this exception's thrown if 2 are found
+     *   published message for this exchange, this exception is thrown if none is
+     *   found
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function track(PublishedMessage $mostRecentPublishedMessage)
     {

@@ -65,25 +65,26 @@ class MessagePublisherTest extends TestCase
     /** @test */
     function it_publishes_a_single_message_to_a_non_empty_exchange()
     {
-        $nonEmptyExchangeName = 'non_empty_exchange_name';
+        $exchangeName = 'exchange_name';
         $aSingleMessage = [
             $eventMessage = A::storedEvent()->withId(11000)->build(),
         ];
-
-        $store = $this->givenAStoreWith($aSingleMessage);
-        $tracker = $this->givenANonEmptyExchange($nonEmptyExchangeName);
+        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(true);
         $message = A::publishedMessage()
-            ->withExchangeName($nonEmptyExchangeName)
+            ->withExchangeName($exchangeName)
             ->build()
         ;
-        $this->givenMostRecentPublishedMessageIs($tracker, $message, $nonEmptyExchangeName);
-        $this->expectToTrackUpdatedMessage($tracker, $message);
-        $producer = $this->expectToProcessSingle($eventMessage, $nonEmptyExchangeName);
+        $this
+            ->store
+            ->eventsStoredAfter($message->mostRecentMessageId())
+            ->willReturn($aSingleMessage)
+        ;
+        $this->tracker->mostRecentPublishedMessage($exchangeName)->willReturn($message);
+        $this->tracker->track($message)->shouldBeCalled();
 
-        $publisher = new MessagePublisher($store, $tracker, $producer);
+        $messages = $this->publisher->publishTo($exchangeName);
 
-        $messages = $publisher->publishTo($nonEmptyExchangeName);
-
+        $this->producer->send($exchangeName, $eventMessage)->shouldHaveBeenCalled();
         $this->assertEquals(
             1,
             $messages,
@@ -356,7 +357,7 @@ class MessagePublisherTest extends TestCase
         );
     }
 
-    /** @var MessageProducer */
+    /** @var MessagePublisher */
     private $publisher;
 
     /** @var MessageProducer */

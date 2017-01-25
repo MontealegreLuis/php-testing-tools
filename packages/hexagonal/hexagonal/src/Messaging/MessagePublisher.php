@@ -63,7 +63,7 @@ class MessagePublisher
                 $lastPublishedNotification = $message;
                 $publishedMessages++;
             }
-            $this->producer->close($exchangeName);
+            $this->producer->close();
         } catch (Exception $e) {
         } finally {
             if (!$mostRecentMessage) {

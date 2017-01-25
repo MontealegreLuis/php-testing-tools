@@ -37,24 +37,26 @@ class MessagePublisherTest extends TestCase
     /** @test */
     function it_publishes_several_messages_to_an_empty_exchange()
     {
-        $emptyExchangeName = 'empty_exchange_name';
+        $exchangeName = 'exchange_name';
         $severalMessages = [
             A::storedEvent()->build(),
             A::storedEvent()->build(),
             A::storedEvent()->build(),
         ];
+        $messagesCount = count($severalMessages);
+        $this->store->allEvents()->willReturn($severalMessages);
+        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(false);
+        $this->tracker->track(Argument::type(PublishedMessage::class))->shouldBeCalled();
 
-        $store = $this->givenAnEmptyStoreWith($severalMessages);
-        $tracker = $this->givenAnEmptyExchange($emptyExchangeName);
-        $this->expectToTrackFirstMessage($tracker);
-        $producer = $this->expectToProcessAll($severalMessages, $emptyExchangeName);
+        $messages = $this->publisher->publishTo($exchangeName);
 
-        $publisher = new MessagePublisher($store, $tracker, $producer);
-
-        $messages = $publisher->publishTo($emptyExchangeName);
-
+        $this
+            ->producer
+            ->send($exchangeName, Argument::type(StoredEvent::class))
+            ->shouldHaveBeenCalledTimes($messagesCount)
+        ;
         $this->assertEquals(
-            3,
+            $messagesCount,
             $messages,
             'Should have processed 3 messages'
         );

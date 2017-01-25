@@ -11,26 +11,22 @@ use Hexagonal\DataBuilders\A;
 use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
+use Prophecy\Argument;
 
 class MessagePublisherTest extends TestCase
 {
     /** @test */
     function it_publishes_a_single_message_to_an_empty_exchange()
     {
-        $emptyExchangeName = 'empty_exchange_name';
-        $aSingleMessage = [
-            $message = A::storedEvent()->build()
-        ];
+        $exchangeName = 'exchange_name';
+        $aSingleMessage = [$message = A::storedEvent()->build()];
+        $this->store->allEvents()->willReturn($aSingleMessage);
+        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(false);
+        $this->tracker->track(Argument::type(PublishedMessage::class))->shouldBeCalled();
 
-        $store = $this->givenAnEmptyStoreWith($aSingleMessage);
-        $tracker = $this->givenAnEmptyExchange($emptyExchangeName);
-        $this->expectToTrackFirstMessage($tracker);
-        $producer = $this->expectToProcessSingle($message, $emptyExchangeName);
+        $messages = $this->publisher->publishTo($exchangeName);
 
-        $publisher = new MessagePublisher($store, $tracker, $producer);
-
-        $messages = $publisher->publishTo($emptyExchangeName);
-
+        $this->producer->send($exchangeName, $message)->shouldHaveBeenCalled();
         $this->assertEquals(
             1,
             $messages,
@@ -267,7 +263,6 @@ class MessagePublisherTest extends TestCase
         $producer
             ->shouldReceive('close')
             ->once()
-            ->with($emptyExchangeName)
         ;
 
         return $producer;
@@ -297,7 +292,6 @@ class MessagePublisherTest extends TestCase
         $producer
             ->shouldReceive('close')
             ->once()
-            ->with($emptyExchangeName)
         ;
 
         return $producer;
@@ -346,4 +340,29 @@ class MessagePublisherTest extends TestCase
             ->andReturn($message)
         ;
     }
+
+    /** @before */
+    function configurePublisher()
+    {
+        $this->store = $this->prophesize(EventStore::class);
+        $this->tracker = $this->prophesize(MessageTracker::class);
+        $this->producer = $this->prophesize(MessageProducer::class);
+        $this->publisher = new MessagePublisher(
+            $this->store->reveal(),
+            $this->tracker->reveal(),
+            $this->producer->reveal()
+        );
+    }
+
+    /** @var MessageProducer */
+    private $publisher;
+
+    /** @var MessageProducer */
+    private $producer;
+
+    /** @var MessageTracker */
+    private $tracker;
+
+    /** @var EventStore */
+    private $store;
 }

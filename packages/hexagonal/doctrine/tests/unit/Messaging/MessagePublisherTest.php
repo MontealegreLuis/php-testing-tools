@@ -100,27 +100,37 @@ class MessagePublisherTest extends TestCase
     /** @test */
     function it_publishes_several_messages_to_a_non_empty_exchange()
     {
-        $nonEmptyExchangeName = 'non_empty_exchange_name';
+        $exchangeName = 'exchange_name';
         $severalMessages = [
             A::storedEvent()->build(),
             A::storedEvent()->build(),
             $eventMessage = A::storedEvent()->withId(11000)->build(),
         ];
-
-        $store = $this->givenAStoreWith($severalMessages);
-        $tracker = $this->givenANonEmptyExchange($nonEmptyExchangeName);
+        $messagesCount = count($severalMessages);
         $message = A::publishedMessage()
-            ->withExchangeName($nonEmptyExchangeName)
+            ->withExchangeName($exchangeName)
             ->build()
         ;
-        $this->givenMostRecentPublishedMessageIs($tracker, $message, $nonEmptyExchangeName);
-        $this->expectToTrackUpdatedMessage($tracker, $message);
-        $producer = $this->expectToProcessAll($severalMessages, $nonEmptyExchangeName);
+        $this
+            ->store
+            ->eventsStoredAfter($message->mostRecentMessageId())
+            ->willReturn($severalMessages)
+        ;
+        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(true);
+        $this
+            ->tracker
+            ->mostRecentPublishedMessage($exchangeName)
+            ->willReturn($message)
+        ;
+        $this->tracker->track($message)->shouldBeCalled();
 
-        $publisher = new MessagePublisher($store, $tracker, $producer);
+        $messages = $this->publisher->publishTo($exchangeName);
 
-        $messages = $publisher->publishTo($nonEmptyExchangeName);
-
+        $this
+            ->producer
+            ->send($exchangeName, Argument::type(StoredEvent::class))
+            ->shouldHaveBeenCalledTimes($messagesCount)
+        ;
         $this->assertEquals(
             3,
             $messages,

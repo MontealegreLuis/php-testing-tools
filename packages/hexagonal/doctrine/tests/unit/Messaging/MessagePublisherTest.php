@@ -146,36 +146,43 @@ class MessagePublisherTest extends TestCase
     /** @test */
     function it_updates_last_published_message_when_publisher_fails_before_last_one()
     {
-        $nonEmptyExchangeName = 'non_empty_exchange_name';
+        $exchangeName = 'exchange_name';
+        $eventCausingException = A::storedEvent()->withId(11000)->build();
+        $eventToBeProcessed = A::storedEvent()->withId(12000)->build();
         $severalMessages = [
-            A::storedEvent()->withId(12000)->build(),
-            A::storedEvent()->withId(11000)->build(), //this will trigger the exception
+            $eventToBeProcessed,
+            $eventCausingException,
             A::storedEvent()->build(),
         ];
-
-        $store = $this->givenAStoreWith($severalMessages);
-        $tracker = $this->givenANonEmptyExchange($nonEmptyExchangeName);
         $message = A::publishedMessage()
-            ->withExchangeName($nonEmptyExchangeName)
+            ->withExchangeName($exchangeName)
             ->build()
         ;
-        $this->givenMostRecentPublishedMessageIs($tracker, $message, $nonEmptyExchangeName);
-        $this->expectToTrackUpdatedMessage($tracker, $message);
-        $producer = new class() implements MessageProducer
-        {
-            public function open(string $exchangeName) {}
+        $this
+            ->store
+            ->eventsStoredAfter($message->mostRecentMessageId())
+            ->willReturn($severalMessages)
+        ;
+        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(true);
+        $this
+            ->tracker
+            ->mostRecentPublishedMessage($exchangeName)
+            ->willReturn($message)
+        ;
+        $this->tracker->track($message)->shouldBeCalled();
+        $this->producer->open($exchangeName)->shouldBeCalled();
+        $this
+            ->producer
+            ->send($exchangeName, $eventToBeProcessed)
+            ->shouldBeCalled()
+        ;
+        $this
+            ->producer
+            ->send($exchangeName, $eventCausingException)
+            ->willThrow(Exception::class)
+        ;
 
-            public function send(string $exchangeName, StoredEvent $notification)
-            {
-                if (11000 === $notification->id()) throw new Exception();
-            }
-
-            public function close() {}
-        };
-
-        $publisher = new MessagePublisher($store, $tracker, $producer);
-
-        $messages = $publisher->publishTo($nonEmptyExchangeName);
+        $messages = $this->publisher->publishTo($exchangeName);
 
         $this->assertEquals(
             1,
@@ -187,171 +194,6 @@ class MessagePublisherTest extends TestCase
             $message->mostRecentMessageId(),
             'Most recent message ID should be 12000'
         );
-    }
-
-    /**
-     * @param string $name
-     * @return Mockery\MockInterface
-     */
-    protected function givenAnEmptyExchange(string $name)
-    {
-        $tracker = Mockery::mock(MessageTracker::class);
-        $tracker
-            ->shouldReceive('hasPublishedMessages')
-            ->once()
-            ->with($name)
-            ->andReturn(false)
-        ;
-
-        return $tracker;
-    }
-
-    /**
-     * @param string $name
-     * @return Mockery\MockInterface
-     */
-    protected function givenANonEmptyExchange(string $name)
-    {
-        $tracker = Mockery::mock(MessageTracker::class);
-        $tracker
-            ->shouldReceive('hasPublishedMessages')
-            ->once()
-            ->with($name)
-            ->andReturn(true)
-        ;
-
-        return $tracker;
-    }
-
-    /**
-     * @param array $allEvents
-     * @return Mockery\MockInterface
-     */
-    protected function givenAnEmptyStoreWith(array $allEvents)
-    {
-        $store = Mockery::mock(EventStore::class);
-        $store
-            ->shouldReceive('allEvents')
-            ->once()
-            ->andReturn($allEvents)
-        ;
-
-        return $store;
-    }
-
-    /**
-     * @param array $events
-     * @return Mockery\MockInterface
-     */
-    protected function givenAStoreWith(array $events)
-    {
-        $store = Mockery::mock(EventStore::class);
-        $store
-            ->shouldReceive('eventsStoredAfter')
-            ->once()
-            ->andReturn($events)
-        ;
-
-        return $store;
-    }
-
-    /**
-     * @param StoredEvent[] $messages
-     * @param string $emptyExchangeName
-     * @return Mockery\MockInterface
-     */
-    protected function expectToProcessAll(array $messages, $emptyExchangeName)
-    {
-        $producer = Mockery::mock(MessageProducer::class);
-        $producer
-            ->shouldReceive('open')
-            ->once()
-            ->with($emptyExchangeName)
-        ;
-        $producer
-            ->shouldReceive('send')
-            ->times(count($messages))
-            ->with($emptyExchangeName, Mockery::type(StoredEvent::class))
-        ;
-        $producer
-            ->shouldReceive('close')
-            ->once()
-        ;
-
-        return $producer;
-    }
-
-    /**
-     * @param StoredEvent $message
-     * @param string $emptyExchangeName
-     * @return Mockery\MockInterface
-     */
-    protected function expectToProcessSingle(
-        StoredEvent $message,
-        string $emptyExchangeName
-    )
-    {
-        $producer = Mockery::mock(MessageProducer::class);
-        $producer
-            ->shouldReceive('open')
-            ->once()
-            ->with($emptyExchangeName)
-        ;
-        $producer
-            ->shouldReceive('send')
-            ->once()
-            ->with($emptyExchangeName, $message)
-        ;
-        $producer
-            ->shouldReceive('close')
-            ->once()
-        ;
-
-        return $producer;
-    }
-
-    /**
-     * @param Mockery\MockInterface $tracker
-     */
-    protected function expectToTrackFirstMessage($tracker)
-    {
-        $tracker
-            ->shouldReceive('track')
-            ->once()
-            ->with(Mockery::type(PublishedMessage::class))
-        ;
-    }
-
-    /**
-     * @param Mockery\MockInterface $tracker
-     * @param PublishedMessage
-     */
-    protected function expectToTrackUpdatedMessage(
-        $tracker, PublishedMessage $message
-    ) {
-        $tracker
-            ->shouldReceive('track')
-            ->once()
-            ->with($message)
-        ;
-    }
-
-    /**
-     * @param Mockery\MockInterface $tracker
-     * @param PublishedMessage $message
-     * @param string $exchangeName
-     */
-    protected function givenMostRecentPublishedMessageIs(
-        $tracker,
-        PublishedMessage $message,
-        string $exchangeName
-    ) {
-        $tracker
-            ->shouldReceive('mostRecentPublishedMessage')
-            ->once()
-            ->with($exchangeName)
-            ->andReturn($message)
-        ;
     }
 
     /** @before */

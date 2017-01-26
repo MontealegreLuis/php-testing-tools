@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -14,17 +14,11 @@ class EventPublisher
     /** @var SplObjectStorage */
     private $subscribers;
 
-    /**
-     * @param EventSubscriber $subscriber
-     */
     public function subscribe(EventSubscriber $subscriber)
     {
         $this->subscribers()->attach($subscriber);
     }
 
-    /**
-     * @param SplObjectStorage $events
-     */
     public function publish(Traversable $events)
     {
         /** @var Event $event */
@@ -33,9 +27,6 @@ class EventPublisher
         }
     }
 
-    /**
-     * @param Event $event
-     */
     protected function dispatch(Event $event)
     {
         /** @var EventSubscriber $subscriber */
@@ -46,10 +37,7 @@ class EventPublisher
         }
     }
 
-    /**
-     * @return SplObjectStorage
-     */
-    protected function subscribers()
+    protected function subscribers(): SplObjectStorage
     {
         if (!$this->subscribers) {
             $this->subscribers = new SplObjectStorage();

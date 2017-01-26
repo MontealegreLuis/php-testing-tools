@@ -64,7 +64,7 @@ class MessagePublisher
                 $publishedMessages++;
             }
             $this->producer->close();
-        } catch (Exception $e) {
+        } catch (Exception $ignore) {
         } finally {
             if (!$mostRecentMessage) {
                 $mostRecentMessage = new PublishedMessage(

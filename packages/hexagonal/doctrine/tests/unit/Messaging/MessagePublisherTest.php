@@ -8,8 +8,7 @@ namespace Hexagonal\Messaging;
 
 use Exception;
 use Hexagonal\DataBuilders\A;
-use Hexagonal\DomainEvents\{EventStore, StoredEvent};
-use Mockery;
+use Hexagonal\DomainEvents\{InMemoryEventStore, StoredEvent};
 use PHPUnit_Framework_TestCase as TestCase;
 use Prophecy\Argument;
 
@@ -20,9 +19,7 @@ class MessagePublisherTest extends TestCase
     {
         $exchangeName = 'exchange_name';
         $aSingleMessage = [$message = A::storedEvent()->build()];
-        $this->store->allEvents()->willReturn($aSingleMessage);
-        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(false);
-        $this->tracker->track(Argument::type(PublishedMessage::class))->shouldBeCalled();
+        $this->store->appendAll($aSingleMessage);
 
         $messages = $this->publisher->publishTo($exchangeName);
 
@@ -44,9 +41,7 @@ class MessagePublisherTest extends TestCase
             A::storedEvent()->build(),
         ];
         $messagesCount = count($severalMessages);
-        $this->store->allEvents()->willReturn($severalMessages);
-        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(false);
-        $this->tracker->track(Argument::type(PublishedMessage::class))->shouldBeCalled();
+        $this->store->appendAll($severalMessages);
 
         $messages = $this->publisher->publishTo($exchangeName);
 
@@ -69,18 +64,13 @@ class MessagePublisherTest extends TestCase
         $aSingleMessage = [
             $eventMessage = A::storedEvent()->withId(11000)->build(),
         ];
-        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(true);
         $message = A::publishedMessage()
             ->withExchangeName($exchangeName)
             ->build()
         ;
-        $this
-            ->store
-            ->eventsStoredAfter($message->mostRecentMessageId())
-            ->willReturn($aSingleMessage)
-        ;
-        $this->tracker->mostRecentPublishedMessage($exchangeName)->willReturn($message);
-        $this->tracker->track($message)->shouldBeCalled();
+        $this->tracker->track($message);
+        $this->store->append(A::storedEvent()->withId($message->mostRecentMessageId())->build());
+        $this->store->appendAll($aSingleMessage);
 
         $messages = $this->publisher->publishTo($exchangeName);
 
@@ -111,18 +101,9 @@ class MessagePublisherTest extends TestCase
             ->withExchangeName($exchangeName)
             ->build()
         ;
-        $this
-            ->store
-            ->eventsStoredAfter($message->mostRecentMessageId())
-            ->willReturn($severalMessages)
-        ;
-        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(true);
-        $this
-            ->tracker
-            ->mostRecentPublishedMessage($exchangeName)
-            ->willReturn($message)
-        ;
-        $this->tracker->track($message)->shouldBeCalled();
+        $this->store->append(A::storedEvent()->withId($message->mostRecentMessageId())->build());
+        $this->store->appendAll($severalMessages);
+        $this->tracker->track($message);
 
         $messages = $this->publisher->publishTo($exchangeName);
 
@@ -158,18 +139,9 @@ class MessagePublisherTest extends TestCase
             ->withExchangeName($exchangeName)
             ->build()
         ;
-        $this
-            ->store
-            ->eventsStoredAfter($message->mostRecentMessageId())
-            ->willReturn($severalMessages)
-        ;
-        $this->tracker->hasPublishedMessages($exchangeName)->willReturn(true);
-        $this
-            ->tracker
-            ->mostRecentPublishedMessage($exchangeName)
-            ->willReturn($message)
-        ;
-        $this->tracker->track($message)->shouldBeCalled();
+        $this->store->append(A::storedEvent()->withId($message->mostRecentMessageId())->build());
+        $this->store->appendAll($severalMessages);
+        $this->tracker->track($message);
         $this->producer->open($exchangeName)->shouldBeCalled();
         $this
             ->producer
@@ -199,12 +171,12 @@ class MessagePublisherTest extends TestCase
     /** @before */
     function configurePublisher()
     {
-        $this->store = $this->prophesize(EventStore::class);
-        $this->tracker = $this->prophesize(MessageTracker::class);
+        $this->store = new InMemoryEventStore();
+        $this->tracker = new InMemoryMessageTracker();
         $this->producer = $this->prophesize(MessageProducer::class);
         $this->publisher = new MessagePublisher(
-            $this->store->reveal(),
-            $this->tracker->reveal(),
+            $this->store,
+            $this->tracker,
             $this->producer->reveal()
         );
     }
@@ -218,6 +190,6 @@ class MessagePublisherTest extends TestCase
     /** @var MessageTracker */
     private $tracker;
 
-    /** @var EventStore */
+    /** @var InMemoryEventStore */
     private $store;
 }

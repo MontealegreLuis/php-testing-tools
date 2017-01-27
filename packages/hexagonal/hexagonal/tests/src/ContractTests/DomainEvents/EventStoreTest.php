@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -13,32 +13,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 abstract class EventStoreTest extends TestCase
 {
-    /** @var EventStore */
-    private $store;
-
-    /** @var StoredEvent */
-    private $event2;
-
-    /** @var StoredEvent */
-    private $event4;
-
-    /** @before */
-    function generateFixtures()
-    {
-        $this->store = $this->storeInstance();
-        $factory = new StoredEventFactory(new JsonSerializer());
-
-        $event1 = $factory->from(A::transferWasMadeEvent()->build());
-        $this->event2 = $factory->from(A::transferWasMadeEvent()->build());
-        $event3 = $factory->from(A::transferWasMadeEvent()->build());
-        $this->event4 = $factory->from(A::transferWasMadeEvent()->build());
-
-        $this->store->append($event1);
-        $this->store->append($this->event2);
-        $this->store->append($event3);
-        $this->store->append($this->event4);
-    }
-
     /** @test */
     function it_retrieves_all_stored_events()
     {
@@ -63,8 +37,31 @@ abstract class EventStoreTest extends TestCase
         $this->assertCount(0, $events);
     }
 
-    /**
-     * @return EventStore
-     */
+    /** @before */
+    function generateFixtures()
+    {
+        $this->store = $this->storeInstance();
+        $factory = new StoredEventFactory(new JsonSerializer());
+
+        $event1 = $factory->from(A::transferWasMadeEvent()->build());
+        $this->event2 = $factory->from(A::transferWasMadeEvent()->build());
+        $event3 = $factory->from(A::transferWasMadeEvent()->build());
+        $this->event4 = $factory->from(A::transferWasMadeEvent()->build());
+
+        $this->store->append($event1);
+        $this->store->append($this->event2);
+        $this->store->append($event3);
+        $this->store->append($this->event4);
+    }
+
     abstract function storeInstance(): EventStore;
+
+    /** @var EventStore */
+    private $store;
+
+    /** @var StoredEvent */
+    private $event2;
+
+    /** @var StoredEvent */
+    private $event4;
 }

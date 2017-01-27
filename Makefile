@@ -64,6 +64,8 @@ composer:
 	@composer install --no-interaction -d packages/ewallet/doctrine
 	@echo "ewallet/definitions..."
 	@composer install --no-interaction -d packages/ewallet/definitions
+	@echo "hexagonal/hexagonal..."
+	@composer install --no-interaction -d packages/hexagonal/hexagonal
 	@echo "hexagonal/doctrine..."
 	@composer install --no-interaction -d packages/hexagonal/doctrine
 	@echo "hexagonal/messaging..."
@@ -111,6 +113,9 @@ cleanup:
 	@echo "Removing packages from ewallet/validation"
 	@rm -rf packages/ewallet/validation/vendor
 	@rm -rf packages/ewallet/validation/bin
+	@echo "Removing packages from hexagonal/hexagonal"
+	@rm -rf packages/hexagonal/hexagonal/vendor
+	@rm -rf packages/hexagonal/hexagonal/bin
 	@echo "Removing packages from hexagonal/doctrine"
 	@rm -rf packages/hexagonal/doctrine/vendor
 	@rm -rf packages/hexagonal/doctrine/bin
@@ -145,6 +150,8 @@ tests:
 	@cd packages/ewallet/doctrine && bin/phpunit --testdox
 	@echo "ewallet/definitions..."
 	@cd packages/ewallet/definitions && bin/phpunit --testdox
+	@echo "hexagonal/hexagonal..."
+	@cd packages/hexagonal/hexagonal && bin/phpunit --testdox
 	@echo "hexagonal/doctrine..."
 	@cd packages/hexagonal/doctrine && bin/phpunit --testdox
 	@echo "hexagonal/messaging..."

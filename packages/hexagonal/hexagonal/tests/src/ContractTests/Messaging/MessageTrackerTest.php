@@ -72,13 +72,10 @@ abstract class MessageTrackerTest extends TestCase
         $tracker = $this->messageTracker();
         $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);
         $tracker->track($message);
-        // try to track a different message
+        // try to track a the same message
         $message = new PublishedMessage('not_empty_exchange', $arbitraryId = 1);
         $tracker->track($message);
     }
 
-    /**
-     * @return MessageTracker
-     */
     abstract function messageTracker(): MessageTracker;
 }

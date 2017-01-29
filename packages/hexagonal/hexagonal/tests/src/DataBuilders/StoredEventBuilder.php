@@ -11,6 +11,7 @@ use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\{EventSerializer, StoredEvent};
+use Hexagonal\Messaging\PublishedMessage;
 use ReflectionClass;
 
 class StoredEventBuilder
@@ -62,6 +63,11 @@ class StoredEventBuilder
         return $this;
     }
 
+    public function from(PublishedMessage $message): StoredEventBuilder
+    {
+        return $this->withId($message->mostRecentMessageId());
+    }
+
     public function build(): StoredEvent
     {
         $event = new StoredEvent($this->body, $this->type, $this->occurredOn);
@@ -75,7 +81,7 @@ class StoredEventBuilder
         return $event;
     }
 
-    protected function reset()
+    protected function reset(): void
     {
         $this->id = $this->factory->numberBetween(1, 10000);
         $this->body = $this->serializer->serialize($this->eventBuilder->build());

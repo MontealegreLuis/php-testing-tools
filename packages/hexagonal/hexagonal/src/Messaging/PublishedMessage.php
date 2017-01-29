@@ -48,6 +48,6 @@ class PublishedMessage
      */
     public function equals(PublishedMessage $message): bool
     {
-        return $this->id == $message->id;
+        return $this->id === $message->id;
     }
 }

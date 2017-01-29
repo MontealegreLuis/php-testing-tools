@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -26,10 +26,6 @@ class PublishedMessageBuilder
         $this->reset();
     }
 
-    /**
-     * @param string $name
-     * @return PublishedMessageBuilder
-     */
     public function withExchangeName(string $name): PublishedMessageBuilder
     {
         $this->exchangeName = $name;
@@ -37,10 +33,6 @@ class PublishedMessageBuilder
         return $this;
     }
 
-    /**
-     * @param int $id
-     * @return PublishedMessageBuilder
-     */
     public function withMostRecentMessageId(int $id): PublishedMessageBuilder
     {
         $this->mostRecentMessageId = $id;
@@ -48,9 +40,6 @@ class PublishedMessageBuilder
         return $this;
     }
 
-    /**
-     * @return PublishedMessage
-     */
     public function build(): PublishedMessage
     {
         $message = new PublishedMessage(
@@ -62,7 +51,7 @@ class PublishedMessageBuilder
         return $message;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->exchangeName = $this->factory->word;
         $this->mostRecentMessageId = $this->factory->numberBetween(1, 10000);

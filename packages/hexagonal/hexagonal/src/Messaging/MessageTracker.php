@@ -8,7 +8,7 @@ namespace Hexagonal\Messaging;
 
 /**
  * It will keep track of the last published message ID sent to the given exchange
- * There can only be either 0 or 1 entry associated to each exchange
+ * There can only be either 0 or 1 entries associated to each exchange
  */
 interface MessageTracker
 {
@@ -22,12 +22,13 @@ interface MessageTracker
     ): PublishedMessage;
 
     /**
-     * It either creates or updates the only entry associated to the message
+     * It either creates or updates the only one entry associated to the message
      * exchange.
      *
      * If it's an update, it will only update the value for `mostRecentMessageId`
      *
-     * @throws InvalidPublishedMessageToTrack
+     * @throws InvalidPublishedMessageToTrack This exception is thrown if there's
+     * already a message but it is not equal to `mostRecentPublishedMessage`
      */
     public function track(PublishedMessage $mostRecentPublishedMessage);
 }

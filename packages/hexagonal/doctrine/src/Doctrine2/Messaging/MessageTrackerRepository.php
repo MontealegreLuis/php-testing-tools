@@ -49,9 +49,9 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
     }
 
     /**
-     * @throws InvalidPublishedMessageToTrack There can only be one last
-     *   published message for this exchange, this exception is thrown if none is
-     *   found
+     * @throws InvalidPublishedMessageToTrack There can only be either 0 or 1
+     * entries associated with an exchange, this exception is thrown if there's
+     * already a message but it is not equal to `mostRecentPublishedMessage`
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function track(PublishedMessage $mostRecentPublishedMessage)

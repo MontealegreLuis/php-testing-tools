@@ -17,16 +17,19 @@ class JsonSerializerTest extends TestCase
     /** @test */
     function it_serializes_a_domain_event_to_json()
     {
+        $memberId = 'abc';
+        $amountInCents = 10000;
+        $occurredOnDate = '2015-10-24 12:39:51';
         $anEvent = new InstantaneousEvent(
-            MemberId::withIdentity('abc'),
-            Money::MXN(10000),
-            new DateTime('2015-10-24 12:39:51')
+            MemberId::withIdentity($memberId),
+            Money::MXN($amountInCents),
+            new DateTime($occurredOnDate)
         );
 
         $json = (new JsonSerializer())->serialize($anEvent);
 
         $this->assertEquals(
-            '{"occurred_on":"2015-10-24 12:39:51","member_id":"abc","amount":10000}',
+            "{\"occurred_on\":\"$occurredOnDate\",\"member_id\":\"$memberId\",\"amount\":$amountInCents}",
             $json,
             'JSON format for serialized event is incorrect'
         );

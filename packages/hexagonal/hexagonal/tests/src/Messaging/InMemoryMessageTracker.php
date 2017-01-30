@@ -36,7 +36,7 @@ class InMemoryMessageTracker implements MessageTracker
         if (count($this->messages) > 0
             && !$this->messages[count($this->messages) - 1]->equals($mostRecentPublishedMessage)
         ) {
-            new InvalidPublishedMessageToTrack();
+            throw new InvalidPublishedMessageToTrack();
         }
         $this->messages[] = $mostRecentPublishedMessage;
     }

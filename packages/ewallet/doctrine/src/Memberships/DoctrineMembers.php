@@ -29,13 +29,13 @@ class DoctrineMembers extends EntityRepository implements MembersRepository
         return $member;
     }
 
-    public function add(Member $member)
+    public function add(Member $member): void
     {
         $this->_em->persist($member);
         $this->_em->flush($member);
     }
 
-    public function update(Member $member)
+    public function update(Member $member): void
     {
         $this->_em->persist($member);
         $this->_em->flush($member);

@@ -63,7 +63,7 @@ class TransferFundsTest extends TestCase
     }
 
     /** @before */
-    public function configureUseCase()
+    public function configureUseCase(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
 

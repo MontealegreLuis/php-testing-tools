@@ -16,8 +16,6 @@
     </testsuites>
 
     <listeners>
-        <listener class="\Mockery\Adapter\Phpunit\TestListener">
-        </listener>
         <listener class="\Ewallet\PHPUnit\UpdateDatabaseSchemaListener">
             <arguments>
                 <string>config.php</string>

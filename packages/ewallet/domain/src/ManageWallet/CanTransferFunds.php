@@ -13,5 +13,5 @@ namespace Ewallet\ManageWallet;
  */
 interface CanTransferFunds
 {
-    public function transferCompleted(TransferFundsSummary $summary);
+    public function transferCompleted(TransferFundsSummary $summary): void;
 }

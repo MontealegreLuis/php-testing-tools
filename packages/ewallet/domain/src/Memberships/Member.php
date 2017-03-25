@@ -44,7 +44,7 @@ class Member implements CanRecordEvents
     /**
      * @throws \Assert\AssertionFailedException If an empty name is given
      */
-    protected function setName(string $name)
+    protected function setName(string $name): void
     {
         Assertion::notEmpty($name, 'A member\'s name cannot be empty');
 
@@ -81,7 +81,7 @@ class Member implements CanRecordEvents
      * @throws \Ewallet\memberships\InsufficientFunds If the sender tries to
      * transfer an amount greater than its current balance
      */
-    public function transfer(Money $amount, Member $recipient)
+    public function transfer(Money $amount, Member $recipient): void
     {
         $recipient->receiveDeposit($amount);
         $this->account->withdraw($amount);
@@ -93,10 +93,9 @@ class Member implements CanRecordEvents
     /**
      * Deposit the given amount to the recipient's account
      *
-     * @throws InvalidTransfer
-     *     A member cannot transfer a negative amount to another member
+     * @throws InvalidTransfer A member cannot transfer a negative amount or 0 to another member
      */
-    protected function receiveDeposit(Money $amount)
+    protected function receiveDeposit(Money $amount): void
     {
         if ($amount->isNegative() || $amount->isZero()) {
             throw InvalidTransfer::with($amount);

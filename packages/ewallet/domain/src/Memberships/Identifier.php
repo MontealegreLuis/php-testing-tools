@@ -21,7 +21,7 @@ abstract class Identifier
     /**
      * @throws \Assert\AssertionFailedException If an empty identifier is given
      */
-    private function setId(string $value)
+    private function setId(string $value): void
     {
         Assertion::notEmpty($value, 'An identifier cannot be empty');
 

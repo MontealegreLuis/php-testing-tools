@@ -46,7 +46,7 @@ class TransferWasMadeBuilder
     /**
      * Set random initial values for the event
      */
-    private function reset()
+    private function reset(): void
     {
         $this->senderId = $this->factory->uuid;
         $this->amount = $this->factory->numberBetween(1, 10000);

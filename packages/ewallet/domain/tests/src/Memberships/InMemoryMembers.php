@@ -35,12 +35,12 @@ class InMemoryMembers implements Members
         throw UnknownMember::identifiedBy($memberId);
     }
 
-    public function add(Member $member)
+    public function add(Member $member): void
     {
         $this->members->attach($member);
     }
 
-    public function update(Member $member)
+    public function update(Member $member): void
     {
         $this->members->attach($member);
     }

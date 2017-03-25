@@ -29,7 +29,7 @@ class Email
      *
      * @throws \Assert\AssertionFailedException If the email address is invalid
      */
-    protected function setAddress(string $address)
+    protected function setAddress(string $address): void
     {
         Assertion::email($address, "{$address} is not a valid email address");
         $this->address = $address;

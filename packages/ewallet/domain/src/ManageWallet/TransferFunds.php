@@ -42,7 +42,7 @@ class TransferFunds
      * transfer a negative amount
      * @throws LogicException If no action is attached to the current command
      */
-    public function transfer(TransferFundsInformation $information)
+    public function transfer(TransferFundsInformation $information): void
     {
         $sender = $this->members->with($information->senderId());
         $recipient = $this->members->with($information->recipientId());
@@ -54,9 +54,7 @@ class TransferFunds
 
         $this->publisher()->publish($sender->events());
 
-        $this->action()->transferCompleted(new TransferFundsSummary(
-            $sender, $recipient
-        ));
+        $this->action()->transferCompleted(new TransferFundsSummary($sender, $recipient));
     }
 
     /**

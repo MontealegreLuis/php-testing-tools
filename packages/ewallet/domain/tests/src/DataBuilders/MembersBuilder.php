@@ -84,7 +84,7 @@ class MembersBuilder
         return $member;
     }
 
-    private function reset()
+    private function reset(): void
     {
         $this->name = $this->faker->name;
         $this->email = $this->faker->email;

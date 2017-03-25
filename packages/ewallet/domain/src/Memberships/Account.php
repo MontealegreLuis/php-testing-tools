@@ -37,7 +37,7 @@ class Account
     /**
      * Increase this account current balance
      */
-    public function deposit(Money $amount)
+    public function deposit(Money $amount): void
     {
         $this->balance = $this->balance->add($amount);
     }
@@ -48,7 +48,7 @@ class Account
      * @throws InsufficientFunds
      *     A member cannot withdraw more than it's account current balance
      */
-    public function withdraw(Money $amount)
+    public function withdraw(Money $amount): void
     {
         if ($amount->greaterThan($this->balance)) {
             throw InsufficientFunds::withdrawing($amount, $this->balance);

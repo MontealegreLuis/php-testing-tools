@@ -70,7 +70,7 @@ abstract class MembersTest extends TestCase
         $this->assertBalanceAmounts(
             500,
             $this->members->with($sender->information()->id()),
-            "Current member balance should be 500"
+            'Current member balance should be 500'
         );
     }
 }

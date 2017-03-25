@@ -41,7 +41,7 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
         $this->configuration = $configuration;
     }
 
-    public function respondToTransferCompleted(TransferFundsSummary $summary)
+    public function respondToTransferCompleted(TransferFundsSummary $summary): void
     {
         $this->form->configure($this->configuration, $summary->sender()->id());
 
@@ -61,14 +61,15 @@ class TransferFundsFormResponder implements TransferFundsWebResponder
     public function respondToInvalidTransferInput(
         array $messages,
         array $values
-    ) {
+    ): void
+    {
         $this->form->submit($values);
         $this->form->setErrorMessages($messages);
 
         $this->respondToEnterTransferInformation(MemberId::withIdentity($values['senderId']));
     }
 
-    public function respondToEnterTransferInformation(MemberId $senderId)
+    public function respondToEnterTransferInformation(MemberId $senderId): void
     {
         $this->form->configure($this->configuration, $senderId);
 

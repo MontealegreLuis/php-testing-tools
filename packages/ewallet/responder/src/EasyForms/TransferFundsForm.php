@@ -32,7 +32,8 @@ class TransferFundsForm extends Form
     public function configure(
         MembersConfiguration $configuration,
         MemberId $memberId
-    ) {
+    ): void
+    {
         $this->get('senderId')->setValue($memberId);
         $this
             ->get('recipientId')

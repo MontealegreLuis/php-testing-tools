@@ -31,7 +31,7 @@ class MoneyElementTest extends TestCase
     }
 
     /** @before */
-    public function configureElement()
+    public function configureElement(): void
     {
         $this->money = new MoneyElement('amount');
     }

@@ -55,7 +55,7 @@ class TransferFundsFormResponderTest extends TestCase
     }
 
     /** @before */
-    public function configureResponder()
+    public function configureResponder(): void
     {
         $this->senderId = MemberId::withIdentity('abc');
         $view = $this->prophesize(TemplateEngine::class);

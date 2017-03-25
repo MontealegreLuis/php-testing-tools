@@ -61,7 +61,7 @@ class TransferFundsFormTest extends TestCase
     }
 
     /** @before */
-    public function configureForm()
+    public function configureForm(): void
     {
         $this->form = new TransferFundsForm();
         $this->senderId = MemberId::withIdentity('abc');

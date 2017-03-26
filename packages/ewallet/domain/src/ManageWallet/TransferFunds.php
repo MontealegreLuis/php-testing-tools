@@ -28,7 +28,7 @@ class TransferFunds
         $this->members = $members;
     }
 
-    public function attach(CanTransferFunds $action)
+    public function attach(CanTransferFunds $action): void
     {
         $this->action = $action;
     }

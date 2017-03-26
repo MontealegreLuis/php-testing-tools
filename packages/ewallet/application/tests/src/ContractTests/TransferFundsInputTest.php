@@ -26,7 +26,7 @@ abstract class TransferFundsInputTest extends TestCase
         $this->assertTrue($this->input->isValid(), 'Amount should be valid');
     }
 
-    function validAmountsProvider()
+    function validAmountsProvider(): array
     {
         return [[1], [500], [12000.34], [1000000]];
     }
@@ -49,9 +49,8 @@ abstract class TransferFundsInputTest extends TestCase
      * @test
      * @dataProvider invalidAmountsProvider
      */
-    function it_does_not_pass_validation_if_amount_is_negative_or_zero(
-        int $invalidAmount
-    ) {
+    function it_does_not_pass_validation_if_amount_is_negative_or_zero(int $invalidAmount)
+    {
         $this->input->populate([
             'senderId' => self::VALID_ID,
             'recipientId' => self::VALID_ID,
@@ -63,7 +62,7 @@ abstract class TransferFundsInputTest extends TestCase
         $this->assertInternalType('array', $this->input->errorMessages()['amount']);
     }
 
-    function invalidAmountsProvider()
+    function invalidAmountsProvider(): array
     {
         return [[0], [-500], [-12000.34]];
     }
@@ -126,7 +125,7 @@ abstract class TransferFundsInputTest extends TestCase
     }
 
     /** @before */
-    public function configureInput()
+    public function configureInput(): void
     {
         $this->input = $this->inputInstance();
     }

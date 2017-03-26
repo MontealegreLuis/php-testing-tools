@@ -12,6 +12,11 @@ class TransferFundsTransactionally extends TransferFunds
 {
     use ProvidesTransactionalOperations;
 
+    /**
+     * Execute the transfer in a transaction
+     *
+     * @inheritdoc
+     */
     public function transfer(TransferFundsInformation $information): void
     {
         $this->execute(function () use ($information) {

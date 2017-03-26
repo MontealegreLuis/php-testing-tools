@@ -46,7 +46,7 @@ class LogTransferWasMadeSubscriberTest extends TestCase
     }
 
     /** @before */
-    public function configureSubscriber()
+    public function configureSubscriber(): void
     {
         $this->logger = Mockery::spy(LoggerInterface::class);
         $this->subscriber = new TransferWasMadeLogger(

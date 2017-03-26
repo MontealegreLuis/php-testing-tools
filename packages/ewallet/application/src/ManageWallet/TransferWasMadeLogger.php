@@ -10,6 +10,10 @@ use Ewallet\Memberships\{TransferWasMade, MemberFormatter};
 use Hexagonal\DomainEvents\{Event, EventSubscriber};
 use Psr\Log\LoggerInterface;
 
+
+/**
+ * Log the transfer information when it completes successfully
+ */
 class TransferWasMadeLogger implements EventSubscriber
 {
     /** @var LoggerInterface */
@@ -18,10 +22,8 @@ class TransferWasMadeLogger implements EventSubscriber
     /** @var MemberFormatter */
     private $formatter;
 
-    public function __construct(
-        LoggerInterface $logger,
-        MemberFormatter $formatter
-    ) {
+    public function __construct(LoggerInterface $logger, MemberFormatter $formatter)
+    {
         $this->logger = $logger;
         $this->formatter = $formatter;
     }
@@ -31,6 +33,9 @@ class TransferWasMadeLogger implements EventSubscriber
         return TransferWasMade::class === get_class($event);
     }
 
+    /**
+     * Log the account balance of both sender and recipient.
+     */
     public function handle(Event $event): void
     {
         $this->logger->info(sprintf(

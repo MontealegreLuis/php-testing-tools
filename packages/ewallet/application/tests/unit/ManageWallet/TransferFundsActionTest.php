@@ -70,7 +70,7 @@ class TransferFundsActionTest extends TestCase
     }
 
     /** @before */
-    public function configureAction()
+    public function configureAction(): void
     {
         $this->responder = $this->prophesize(TransferFundsResponder::class);
 

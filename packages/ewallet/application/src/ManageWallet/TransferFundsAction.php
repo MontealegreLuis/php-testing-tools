@@ -32,12 +32,17 @@ class TransferFundsAction implements CanTransferFunds
         $transferFunds && $this->command->attach($this);
     }
 
-    public function enterTransferInformation(MemberId $senderId)
+    /**
+     * Ask for the input data required to perform the funds transaction
+     */
+    public function enterTransferInformation(MemberId $senderId): void
     {
         $this->responder->respondToEnterTransferInformation($senderId);
     }
 
     /**
+     * Try to transfer the funds
+     *
      * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
      * recipient cannot be found
      * @throws \Ewallet\Memberships\InsufficientFunds If the sender tries to
@@ -46,7 +51,7 @@ class TransferFundsAction implements CanTransferFunds
      * transfer a negative amount
      * @throws \LogicException If no action is attached to this command
      */
-    public function transfer(TransferFundsInput $input)
+    public function transfer(TransferFundsInput $input): void
     {
         if (!$input->isValid()) {
             $this->invalidTransfer($input);
@@ -56,7 +61,10 @@ class TransferFundsAction implements CanTransferFunds
         $this->command->transfer(TransferFundsInformation::from($input->values()));
     }
 
-    private function invalidTransfer(TransferFundsInput $input)
+    /**
+     * Provide feedback due to invalid data provided
+     */
+    private function invalidTransfer(TransferFundsInput $input): void
     {
         $this->responder->respondToInvalidTransferInput(
             $input->errorMessages(),
@@ -64,7 +72,10 @@ class TransferFundsAction implements CanTransferFunds
         );
     }
 
-    public function transferCompleted(TransferFundsSummary $summary)
+    /**
+     * Notify that the transfer completed successfully
+     */
+    public function transferCompleted(TransferFundsSummary $summary): void
     {
         $this->responder->respondToTransferCompleted($summary);
     }

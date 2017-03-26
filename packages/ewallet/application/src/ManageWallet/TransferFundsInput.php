@@ -15,8 +15,11 @@ namespace Ewallet\ManageWallet;
  */
 interface TransferFundsInput
 {
-    public function populate(array $rawInput);
+    public function populate(array $rawInput): void;
 
+    /**
+     * Is the raw input valid?
+     */
     public function isValid(): bool;
 
     /**
@@ -24,5 +27,11 @@ interface TransferFundsInput
      */
     public function errorMessages(): array;
 
+    /**
+     * The original raw input.
+     *
+     * This is usually shown back to the user through the UI, to provide feedback when validation
+     * fails
+     */
     public function values(): array;
 }

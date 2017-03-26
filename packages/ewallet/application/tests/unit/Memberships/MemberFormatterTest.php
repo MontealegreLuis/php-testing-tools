@@ -56,7 +56,7 @@ class MemberFormatterTest extends TestCase
     }
 
     /** @before */
-    public function createFormatter()
+    public function createFormatter(): void
     {
         $this->formatter = new MemberFormatter();
     }

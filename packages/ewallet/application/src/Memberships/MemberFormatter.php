@@ -8,6 +8,9 @@ namespace Ewallet\Memberships;
 
 use Money\Money;
 
+/**
+ * Format money, and members information uniformly across all applications
+ */
 class MemberFormatter
 {
     public function formatMember(MemberInformation $member): string

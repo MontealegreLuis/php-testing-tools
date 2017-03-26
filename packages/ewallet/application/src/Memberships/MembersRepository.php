@@ -6,6 +6,9 @@
  */
 namespace Ewallet\Memberships;
 
+/**
+ * Helper for the UI to let the sender know the valid recipients to transfer to.
+ */
 interface MembersRepository extends Members
 {
     /**

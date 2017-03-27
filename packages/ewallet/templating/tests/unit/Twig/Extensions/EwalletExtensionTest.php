@@ -69,7 +69,7 @@ class EwalletExtensionTest extends TestCase
     }
 
     /** @before */
-    public function configureExtension()
+    public function configureExtension(): void
     {
         $this->formatter = $this->prophesize(MemberFormatter::class);
         $this->extension = new EwalletExtension($this->formatter->reveal());

@@ -9,10 +9,7 @@ namespace Ewallet\ManageWallet;
 use Ewallet\Memberships\MembersRepository;
 use Ewallet\ContractTests\TransferFundsInputTest;
 use Ewallet\DataBuilders\A;
-use Ewallet\Zf2\InputFilter\{
-    Filters\TransferFundsFilter,
-    TransferFundsInputFilter
-};
+use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
 use Mockery;
 
 class TransferFundsInputFilterTest extends TransferFundsInputTest
@@ -29,9 +26,6 @@ class TransferFundsInputFilterTest extends TransferFundsInputTest
             ])
         ;
 
-        return new TransferFundsInputFilter(
-            new TransferFundsFilter(),
-            $members
-        );
+        return new TransferFundsInputFilter(new TransferFundsFilter(), $members);
     }
 }

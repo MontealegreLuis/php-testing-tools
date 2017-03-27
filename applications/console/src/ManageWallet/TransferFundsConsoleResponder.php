@@ -34,12 +34,12 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
      * @param string[] $messages
      * @param string[] $values
      */
-    public function respondToInvalidTransferInput(array $messages, array $values)
+    public function respondToInvalidTransferInput(array $messages, array $values): void
     {
         $this->console->printError($messages);
     }
 
-    public function respondToEnterTransferInformation(MemberId $senderId)
+    public function respondToEnterTransferInformation(MemberId $senderId): void
     {
         $this->console->printRecipients($this->members->excluding($senderId));
 
@@ -47,7 +47,7 @@ class TransferFundsConsoleResponder implements TransferFundsResponder
         $this->input->setArgument('amount', $this->console->promptAmountToTransfer());
     }
 
-    public function respondToTransferCompleted(TransferFundsSummary $summary)
+    public function respondToTransferCompleted(TransferFundsSummary $summary): void
     {
         $this->console->printSummary($summary);
     }

@@ -18,15 +18,13 @@ class TransferFundsInputFilter implements TransferFundsInput
     /** @var MembersRepository */
     private $members;
 
-    public function __construct(
-        TransferFundsFilter $filter,
-        MembersRepository $members
-    ) {
+    public function __construct(TransferFundsFilter $filter, MembersRepository $members)
+    {
         $this->filter = $filter;
         $this->members = $members;
     }
 
-    public function populate(array $input)
+    public function populate(array $input): void
     {
         $this->filter->setData($input);
     }

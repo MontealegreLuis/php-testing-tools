@@ -9,8 +9,6 @@ require __DIR__ . '/../vendor/autoload.php';
 use Dotenv\Dotenv;
 use Ewallet\Slim\Application;
 
-chdir(__DIR__ . '/../'); // Match the value in .env.test, which is a relative path
-
 $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
 $environment->required(['APP_ENV', 'DB_URL']);

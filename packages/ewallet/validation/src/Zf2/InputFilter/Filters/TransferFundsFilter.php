@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -28,10 +28,7 @@ class TransferFundsFilter extends InputFilter
         ;
     }
 
-    /**
-     * @param array $membersAvailableForTransfer
-     */
-    public function configure(array $membersAvailableForTransfer)
+    public function configure(array $validRecipients): void
     {
         $recipientId = $this->get('recipientId');
 
@@ -40,15 +37,12 @@ class TransferFundsFilter extends InputFilter
             ->attach(new InArray([
                 'haystack' => array_map(function (Member $member) {
                     return $member->information()->id();
-                }, $membersAvailableForTransfer)
+                }, $validRecipients)
             ]))
         ;
     }
 
-    /**
-     * @return Input
-     */
-    protected function buildSenderIdInput()
+    private function buildSenderIdInput(): Input
     {
         $senderId = new Input('senderId');
         $senderId
@@ -59,10 +53,7 @@ class TransferFundsFilter extends InputFilter
         return $senderId;
     }
 
-    /**
-     * @return Input
-     */
-    protected function buildRecipientIdInput()
+    private function buildRecipientIdInput(): Input
     {
         $recipientId = new Input('recipientId');
         $recipientId
@@ -73,10 +64,7 @@ class TransferFundsFilter extends InputFilter
         return $recipientId;
     }
 
-    /**
-     * @return Input
-     */
-    protected function buildAmountInput()
+    private function buildAmountInput(): Input
     {
         $amount = new Input('amount');
         $amount

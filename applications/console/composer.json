@@ -17,7 +17,6 @@
     "autoload-dev": {
         "psr-4": {
             "Ewallet\\": [
-                "tests/src",
                 "vendor/ewallet/domain/tests/src",
                 "vendor/ewallet/doctrine/tests/src"
             ]

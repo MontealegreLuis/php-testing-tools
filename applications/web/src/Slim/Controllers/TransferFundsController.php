@@ -19,10 +19,8 @@ class TransferFundsController
     /** @var TransferFundsInput */
     private $input;
 
-    public function __construct(
-        TransferFundsWebAction $action,
-        TransferFundsInput $input = null
-    ) {
+    public function __construct(TransferFundsWebAction $action, TransferFundsInput $input = null)
+    {
         $this->action = $action;
         $this->input = $input;
     }

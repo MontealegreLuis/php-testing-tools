@@ -111,7 +111,7 @@ class RequestLoggingMiddlewareTest extends TestCase
     }
 
     /** @before */
-    function configureMiddleware()
+    function configureMiddleware(): void
     {
         $this->logger = $this->prophesize(LoggerInterface::class);
         $this->middleware = new RequestLoggingMiddleware($this->logger->reveal());

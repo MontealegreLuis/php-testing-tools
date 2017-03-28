@@ -16,10 +16,8 @@ class StoreEventsMiddleware
     /** @var EventPublisher */
     private $publisher;
 
-    public function __construct(
-        PersistEventsSubscriber $subscriber,
-        EventPublisher $publisher
-    ) {
+    public function __construct(PersistEventsSubscriber $subscriber, EventPublisher $publisher)
+    {
         $this->subscriber = $subscriber;
         $this->publisher = $publisher;
     }

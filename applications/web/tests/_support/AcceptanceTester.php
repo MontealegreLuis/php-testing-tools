@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -27,7 +27,7 @@ class AcceptanceTester extends Actor
 {
     use AcceptanceTesterActions;
 
-    public function amOnTransferFundsPage()
+    public function amOnTransferFundsPage(): void
     {
         $this->amOnPage(TransferFundsPage::$inputTransferInformationPage);
     }
@@ -36,18 +36,18 @@ class AcceptanceTester extends Actor
      * @param string $name Recipient's name
      * @param int $amount Amount in MXN
      */
-    public function enterTransferInformation(string $name, int $amount)
+    public function enterTransferInformation(string $name, int $amount): void
     {
         $this->selectOption(TransferFundsPage::$recipients, $name);
         $this->fillField(TransferFundsPage::$amount, $amount);
     }
 
-    public function makeTheTransfer()
+    public function makeTheTransfer(): void
     {
         $this->click(TransferFundsPage::$transferButton);
     }
 
-    public function seeTransferCompletedConfirmation()
+    public function seeTransferCompletedConfirmation(): void
     {
         $this->seeCurrentUrlMatches('/' . TransferFundsPage::$transferCompletedPage . '/');
         $this->seeElement(TransferFundsPage::$successMessage);

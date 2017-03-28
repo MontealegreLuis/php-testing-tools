@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.1
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -18,7 +18,7 @@ class TransferFundsCest
         $fixture->load();
     }
 
-    public function tryToTransferFundsToARecipient(AcceptanceTester $I)
+    public function tryToTransferFundsToARecipient(AcceptanceTester $I): void
     {
         $I->am('sender');
         $I->wantTo('share my funds with one of my recipients');

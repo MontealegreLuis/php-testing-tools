@@ -44,7 +44,7 @@ class StoreEventsMiddlewareTest extends TestCase
     }
 
     /** @before */
-    function configureMiddleware()
+    function configureMiddleware(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
         $this

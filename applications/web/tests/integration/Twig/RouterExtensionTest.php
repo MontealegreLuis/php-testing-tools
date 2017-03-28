@@ -75,7 +75,7 @@ class RouterExtensionTest extends TestCase
     }
 
     /** @before */
-    function configureExtension()
+    function configureExtension(): void
     {
         $this->router = new Router();
         $this->controller = function () {};

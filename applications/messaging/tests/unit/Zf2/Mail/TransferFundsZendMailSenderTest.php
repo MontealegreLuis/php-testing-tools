@@ -65,7 +65,7 @@ class TransferFundsZendMailSenderTest extends TestCase
     }
 
     /** @before */
-    public function configureMailSender()
+    public function configureMailSender(): void
     {
         $this->template = Mockery::mock(TemplateEngine::class);
         $this->transport = new InMemory();

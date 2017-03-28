@@ -21,10 +21,8 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
     /** @var TransportInterface */
     private $mailTransport;
 
-    public function __construct(
-        TemplateEngine $template,
-        TransportInterface $mailTransport
-    ) {
+    public function __construct(TemplateEngine $template, TransportInterface $mailTransport)
+    {
         $this->template = $template;
         $this->mailTransport = $mailTransport;
     }
@@ -34,7 +32,8 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
         MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
-    ) {
+    ): void
+    {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
@@ -55,7 +54,8 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
         MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
-    ) {
+    ): void
+    {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')

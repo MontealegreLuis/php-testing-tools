@@ -21,12 +21,12 @@ interface TransferFundsEmailSender
         MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
-    );
+    ): void;
 
     public function sendDepositReceivedEmail(
         MemberInformation $sender,
         MemberInformation $recipient,
         Money $amount,
         DateTime $occurredOn
-    );
+    ): void;
 }

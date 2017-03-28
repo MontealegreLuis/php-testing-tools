@@ -59,7 +59,7 @@ class NotifyTransferByEmailCommandTest extends TestCase
     }
 
     /** @before */
-    function configureChannel()
+    function configureChannel(): void
     {
         $configuration = ChannelConfiguration::temporary();
         $this->bindChannel($configuration);

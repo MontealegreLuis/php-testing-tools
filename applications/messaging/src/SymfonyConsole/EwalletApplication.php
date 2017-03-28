@@ -14,9 +14,6 @@ use Symfony\Component\Console\Application;
 
 class EwalletApplication extends Application
 {
-    /**
-     * @param EwalletConsoleContainer $container
-     */
     public function __construct(EwalletMessagingContainer $container)
     {
         parent::__construct('ewallet', '1.0.0');

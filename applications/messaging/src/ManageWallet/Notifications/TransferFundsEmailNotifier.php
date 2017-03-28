@@ -16,10 +16,8 @@ class TransferFundsEmailNotifier
     /** @var TransferFundsEmailSender */
     private $sender;
 
-    public function __construct(
-        Members $members,
-        TransferFundsEmailSender $sender
-    ) {
+    public function __construct(Members $members, TransferFundsEmailSender $sender)
+    {
         $this->members = $members;
         $this->sender = $sender;
     }
@@ -32,13 +30,13 @@ class TransferFundsEmailNotifier
     /**
      * This event is handled after a successful funds transfer
      *
-     * It will send an email to both members, summarizing their last account
+     * It will send an email to both members summarizing their last account
      * transaction
      *
      * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
      * recipient is unknown
      */
-    public function notify(TransferFundsNotification $notification)
+    public function notify(TransferFundsNotification $notification): void
     {
         $sender = $this->members->with($notification->senderId());
         $recipient = $this->members->with($notification->recipientId());

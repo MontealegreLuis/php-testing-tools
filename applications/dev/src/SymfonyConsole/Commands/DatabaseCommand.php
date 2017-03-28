@@ -30,7 +30,8 @@ abstract class DatabaseCommand extends Command
 
         return in_array(
             $this->databaseName($parameters),
-            $connection->getSchemaManager()->listDatabases()
+            $connection->getSchemaManager()->listDatabases(),
+            true
         );
     }
 

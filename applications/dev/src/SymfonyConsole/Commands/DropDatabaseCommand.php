@@ -34,7 +34,7 @@ class DropDatabaseCommand extends DatabaseCommand
         } catch (Exception $e) {
             $this->cannotDropDatabase($output, $parameters, $e);
         } finally {
-            $connection->close();
+            !empty($connection) && $connection->close();
         }
     }
 

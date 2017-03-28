@@ -9,6 +9,9 @@ namespace Ewallet\ManageWallet;
 use Ewallet\Memberships\{MemberId, MembersRepository};
 use Symfony\Component\Console\Input\InputInterface;
 
+/**
+ * Responder implementation to transfer funds in a console application
+ */
 class TransferFundsConsoleResponder implements TransferFundsResponder
 {
     /** @var InputInterface */

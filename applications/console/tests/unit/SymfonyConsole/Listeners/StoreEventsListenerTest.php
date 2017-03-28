@@ -50,7 +50,7 @@ class StoreEventsListenerTest extends TestCase
     }
 
     /** @before */
-    public function configureListener()
+    public function configureListener(): void
     {
         $this->input = Mockery::mock(InputInterface::class);
         $this->output = Mockery::mock(OutputInterface::class);

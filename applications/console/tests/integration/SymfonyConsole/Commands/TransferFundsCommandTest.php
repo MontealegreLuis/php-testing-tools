@@ -30,6 +30,7 @@ class TransferFundsCommandTest extends TestCase
             ->ask($this->input, $this->output, Argument::type(Question::class))
             ->willReturn('LMN', 5)
         ;
+
         $statusCode = $this->command->run($this->input, $this->output);
 
         $this->assertEquals($success = 0, $statusCode);
@@ -40,35 +41,34 @@ class TransferFundsCommandTest extends TestCase
     }
 
     /** @before */
-    public function configureCommand()
+    public function configureCommand(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
-        $fixture->load();
+        (new ThreeMembersWithSameBalanceFixture($this->_entityManager()))->load();
+
+        /** @var \Ewallet\Memberships\MembersRepository $members */
         $members = $this->_repositoryForEntity(Member::class);
         $useCase = new TransferFunds($members);
+
         $this->input = new ArrayInput([]);
         $this->output = new BufferedOutput();
         $this->question = $this->prophesize(QuestionHelper::class);
-        $action = new TransferFundsAction(
-            new TransferFundsConsoleResponder(
-                $this->input,
-                $members,
-                new TransferFundsConsole(
-                    $this->input,
-                    $this->output,
-                    $this->question->reveal(),
-                    new MemberFormatter()
-                )
-            ),
-            $useCase
-        );
+
         $this->command = new TransferFundsCommand(
-            $action,
-            new TransferFundsInputFilter(
-                new TransferFundsFilter(),
-                $members
-            )
+            new TransferFundsAction(
+                new TransferFundsConsoleResponder(
+                    $this->input,
+                    $members,
+                    new TransferFundsConsole(
+                        $this->input,
+                        $this->output,
+                        $this->question->reveal(),
+                        new MemberFormatter()
+                    )
+                ),
+                $useCase
+            ),
+            new TransferFundsInputFilter(new TransferFundsFilter(), $members)
         );
     }
 

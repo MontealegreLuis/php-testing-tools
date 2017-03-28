@@ -6,9 +6,7 @@
  */
 namespace Ewallet\Pimple;
 
-use Ewallet\Pimple\ServiceProviders\{
-    DoctrineServiceProvider, EwalletConsoleServiceProvider
-};
+use Ewallet\Pimple\ServiceProviders\{DoctrineServiceProvider, EwalletConsoleServiceProvider};
 use Pimple\Container;
 
 class EwalletConsoleContainer extends Container

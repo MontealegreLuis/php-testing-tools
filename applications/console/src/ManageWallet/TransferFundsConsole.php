@@ -12,6 +12,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
+/**
+ * Interacts with a sender in a console application to transfer funds to a recipient
+ */
 class TransferFundsConsole
 {
     /** @var InputInterface */
@@ -43,7 +46,7 @@ class TransferFundsConsole
      *
      * @param string[] $messages
      */
-    public function printError(array $messages)
+    public function printError(array $messages): void
     {
         $this->output->writeln('<comment>Please fix the following errors</comment>');
 
@@ -60,7 +63,7 @@ class TransferFundsConsole
      *
      * @param Member[] $recipients
      */
-    public function printRecipients(array $recipients)
+    public function printRecipients(array $recipients): void
     {
         $table = new Table($this->output);
         $table
@@ -80,14 +83,14 @@ class TransferFundsConsole
     /**
      * Show the transaction summary to the sender
      */
-    public function printSummary(TransferFundsSummary $summary)
+    public function printSummary(TransferFundsSummary $summary): void
     {
         $this->output->writeln('<info>Transfer completed successfully!</info>');
         $this->printStatementFor($summary->sender());
         $this->printStatementFor($summary->recipient());
     }
 
-    private function printStatementFor(MemberInformation $member)
+    private function printStatementFor(MemberInformation $member): void
     {
         $this->output->writeln("{$this->formatter->formatMember($member)}");
     }

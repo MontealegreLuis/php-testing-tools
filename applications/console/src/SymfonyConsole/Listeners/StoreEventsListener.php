@@ -28,7 +28,7 @@ class StoreEventsListener
     /**
      * Run from the `ewallet:transfer` command only
      */
-    public function storeEvents(ConsoleCommandEvent $event)
+    public function storeEvents(ConsoleCommandEvent $event): void
     {
         if ('ewallet:transfer' === $event->getCommand()->getName()) {
             $this->publisher->subscribe($this->subscriber);

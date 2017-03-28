@@ -20,17 +20,14 @@ class TransferFundsCommand extends Command
     /** @var TransferFundsInput */
     private $input;
 
-    public function __construct(
-        TransferFundsAction $transferFunds,
-        TransferFundsInput $input
-    ) {
+    public function __construct(TransferFundsAction $transferFunds, TransferFundsInput $input) {
         parent::__construct();
         $this->action = $transferFunds;
         $this->input = $input;
     }
 
     /**
-     * This command has three arguments: sender and recipient IDs an the amount
+     * This command has three arguments: both, the sender and recipient IDs, and the amount
      * to be transferred
      */
     protected function configure()
@@ -56,6 +53,17 @@ class TransferFundsCommand extends Command
         ;
     }
 
+    /**
+     * Allow the sender to enter the transfer information. This will result in 2 possible outcomes:
+     *
+     * - If invalid input is provided, show validation messages and stop.
+     * - If input is correct, execute the transaction and notify the sender appropriately
+     *
+     * @throws \Ewallet\Memberships\InsufficientFunds If sender tries to transfer more than her
+     * current balance
+     * @throws \Ewallet\Memberships\InvalidTransfer If the amount to transfer is not greater than 0
+     * @throws \Ewallet\Memberships\UnknownMember If either the sender or recipient are unknown
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $senderId = MemberId::withIdentity('ABC');

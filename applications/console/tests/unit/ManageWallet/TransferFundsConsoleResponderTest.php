@@ -107,7 +107,7 @@ class TransferFundsConsoleResponderTest extends TestCase
     }
 
     /** @before */
-    public function configureResponder()
+    public function configureResponder(): void
     {
         $command = new TransferFundsCommand(
             $this->prophesize(TransferFundsAction::class)->reveal(),

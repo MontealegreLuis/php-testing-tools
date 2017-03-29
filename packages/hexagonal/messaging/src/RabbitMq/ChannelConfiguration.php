@@ -35,14 +35,14 @@ class ChannelConfiguration
         return new ChannelConfiguration(true, false);
     }
 
-    public function configureExchange(AMQPChannel $channel, string $exchangeName)
+    public function configureExchange(AMQPChannel $channel, string $exchangeName): void
     {
         $channel->exchange_declare(
             $exchangeName, 'fanout', false, $this->durable, $this->autoDeletes
         );
     }
 
-    public function configureQueue(AMQPChannel $channel, string $exchangeName)
+    public function configureQueue(AMQPChannel $channel, string $exchangeName): void
     {
         $channel->queue_declare(
             $exchangeName, false, $this->durable, false, $this->autoDeletes

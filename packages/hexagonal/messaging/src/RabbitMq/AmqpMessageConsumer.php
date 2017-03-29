@@ -35,7 +35,7 @@ class AmqpMessageConsumer implements MessageConsumer
         $this->configuration = $configuration;
     }
 
-    public function open(string $exchangeName)
+    public function open(string $exchangeName): void
     {
         if (null !== $this->channel) {
             return;
@@ -46,7 +46,7 @@ class AmqpMessageConsumer implements MessageConsumer
         $this->channel = $channel;
     }
 
-    public function consume(string $exchangeName, Closure $callback)
+    public function consume(string $exchangeName, Closure $callback): void
     {
         $this->callback = $callback;
         $this->channel->basic_consume(
@@ -70,7 +70,7 @@ class AmqpMessageConsumer implements MessageConsumer
     /**
      * @throws \OutOfBoundsException
      */
-    public function callback(AMQPMessage $message)
+    public function callback(AMQPMessage $message): void
     {
         $callback = $this->callback;
 
@@ -82,7 +82,7 @@ class AmqpMessageConsumer implements MessageConsumer
     /**
      * Close channel and connection
      */
-    public function close()
+    public function close(): void
     {
         $this->channel && $this->channel->close();
         $this->connection->close();

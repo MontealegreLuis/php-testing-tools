@@ -29,7 +29,7 @@ class AmqpMessageProducerTest extends TestCase
         ));
     }
 
-    public function assertMessageBodyHasAllRequiredAttributes(AMQPMessage $message)
+    public function assertMessageBodyHasAllRequiredAttributes(AMQPMessage $message): void
     {
         $this->stopConsumer();
         $body = json_decode($message->getBody());
@@ -41,7 +41,7 @@ class AmqpMessageProducerTest extends TestCase
     }
 
     /** @before */
-    function configureChannel()
+    function configureChannel(): void
     {
         $configuration = ChannelConfiguration::temporary();
         $this->producer = new AmqpMessageProducer($this->connection(), $configuration);

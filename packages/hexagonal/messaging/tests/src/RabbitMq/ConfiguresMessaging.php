@@ -33,7 +33,7 @@ trait ConfiguresMessaging
     /**
      * Configures the channel before publishing
      */
-    public function bindChannel(ChannelConfiguration $configuration)
+    public function bindChannel(ChannelConfiguration $configuration): void
     {
         $channel = $this->channel();
         $configuration->configureExchange($channel, $this->EXCHANGE_NAME);
@@ -41,7 +41,7 @@ trait ConfiguresMessaging
         $channel->queue_bind($this->EXCHANGE_NAME, $this->EXCHANGE_NAME);
     }
 
-    public function publish(StoredEvent $notification)
+    public function publish(StoredEvent $notification): void
     {
         $this->channel()->basic_publish(
             new AMQPMessage($notification->body(), [
@@ -60,7 +60,7 @@ trait ConfiguresMessaging
      * @throws \PhpAmqpLib\Exception\AMQPOutOfBoundsException
      * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
      */
-    public function consume(Closure $testCase)
+    public function consume(Closure $testCase): void
     {
         $this->channel()->basic_consume(
             $this->EXCHANGE_NAME,
@@ -83,7 +83,7 @@ trait ConfiguresMessaging
     /**
      * Stop the consumer triggered by the call the method `consume` in this class
      */
-    public function stopConsumer()
+    public function stopConsumer(): void
     {
         $this->consumed = true;
     }

@@ -73,7 +73,8 @@ class ChannelConfigurationTest extends TestCase
     }
 
     /** @before */
-    public function configureDoubles()
+
+    public function configureDoubles(): void
     {
         $this->channel = Mockery::spy(AMQPChannel::class);
     }

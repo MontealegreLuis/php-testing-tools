@@ -28,7 +28,7 @@ class AmqpMessageProducer implements MessageProducer
         $this->configuration = $configuration;
     }
 
-    public function open(string $exchangeName)
+    public function open(string $exchangeName): void
     {
         if (null !== $this->channel) {
             return;
@@ -41,7 +41,7 @@ class AmqpMessageProducer implements MessageProducer
         $this->channel = $channel;
     }
 
-    public function send(string $exchangeName, StoredEvent $notification)
+    public function send(string $exchangeName, StoredEvent $notification): void
     {
         $this->channel->basic_publish(
             new AMQPMessage($notification->body(), [
@@ -56,7 +56,7 @@ class AmqpMessageProducer implements MessageProducer
     /**
      * Close channel and connection
      */
-    public function close()
+    public function close(): void
     {
         $this->channel && $this->channel->close();
         $this->connection->close();

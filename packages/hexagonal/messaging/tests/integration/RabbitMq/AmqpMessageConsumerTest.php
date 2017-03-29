@@ -26,7 +26,7 @@ class AmqpMessageConsumerTest extends TestCase
         );
     }
 
-    public function assertObjectHasRequiredAttributes(stdClass $notification)
+    public function assertObjectHasRequiredAttributes(stdClass $notification): void
     {
         $this->assertObjectHasAttribute('occurred_on', $notification);
         $this->assertObjectHasAttribute('sender_id', $notification);
@@ -35,7 +35,7 @@ class AmqpMessageConsumerTest extends TestCase
     }
 
     /** @before */
-    function configureChannel()
+    function configureChannel(): void
     {
         $configuration = ChannelConfiguration::temporary();
         $this->bindChannel($configuration);

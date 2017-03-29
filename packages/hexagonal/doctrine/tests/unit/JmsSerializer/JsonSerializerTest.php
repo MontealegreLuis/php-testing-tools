@@ -29,7 +29,7 @@ class JsonSerializerTest extends TestCase
         $json = (new JsonSerializer())->serialize($anEvent);
 
         $this->assertEquals(
-            "{\"occurred_on\":\"$occurredOnDate\",\"member_id\":\"$memberId\",\"amount\":$amountInCents}",
+            "{\"occurred_on\":\"$occurredOnDate\",\"member_id\":\"$memberId\",\"amount\":\"$amountInCents\"}",
             $json,
             'JSON format for serialized event is incorrect'
         );

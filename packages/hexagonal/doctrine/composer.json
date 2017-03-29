@@ -32,6 +32,10 @@
     "repositories": [
         {
             "type": "path",
+            "url": "../../ewallet/application"
+        },
+        {
+            "type": "path",
             "url": "../../ewallet/domain"
         },
         {

@@ -54,7 +54,7 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
      * already a message but it is not equal to `mostRecentPublishedMessage`
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function track(PublishedMessage $mostRecentPublishedMessage)
+    public function track(PublishedMessage $mostRecentPublishedMessage): void
     {
         $builder = $this->createQueryBuilder('p');
         $builder

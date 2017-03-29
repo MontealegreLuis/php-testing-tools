@@ -15,7 +15,7 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
     use ProvidesDoctrineSetup;
 
     /** @before */
-    public function cleanupMessages()
+    public function cleanupMessages(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
 

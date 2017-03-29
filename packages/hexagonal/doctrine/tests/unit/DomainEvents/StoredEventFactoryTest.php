@@ -43,7 +43,7 @@ class StoredEventFactoryTest extends TestCase
     }
 
     /** @before */
-    function configureFactory()
+    function configureFactory(): void
     {
         $this->factory = new StoredEventFactory(new JsonSerializer());
     }

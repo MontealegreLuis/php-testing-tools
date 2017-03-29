@@ -42,7 +42,7 @@ class PersistEventsSubscriberTest extends TestCase
     }
 
     /** @before */
-    function configureSubscriber()
+    function configureSubscriber(): void
     {
         $this->store = Mockery::spy(EventStore::class);
         $this->subscriber = new PersistEventsSubscriber(

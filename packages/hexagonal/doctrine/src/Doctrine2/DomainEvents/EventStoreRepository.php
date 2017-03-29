@@ -11,7 +11,7 @@ use Hexagonal\DomainEvents\{EventStore, StoredEvent};
 
 class EventStoreRepository extends EntityRepository implements EventStore
 {
-    public function append(StoredEvent $anEvent)
+    public function append(StoredEvent $anEvent): void
     {
         $this->_em->persist($anEvent);
         $this->_em->flush($anEvent);

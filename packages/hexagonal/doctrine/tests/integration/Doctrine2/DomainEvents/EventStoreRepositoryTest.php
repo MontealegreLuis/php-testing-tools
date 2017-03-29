@@ -15,7 +15,7 @@ class EventStoreRepositoryTest extends EventStoreTest
     use ProvidesDoctrineSetup;
 
     /** @before */
-    function generateFixtures()
+    function generateFixtures(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
         $this

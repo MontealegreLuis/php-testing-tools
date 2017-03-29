@@ -172,7 +172,7 @@ class MessagePublisherTest extends TestCase
     }
 
     /** @before */
-    function configurePublisher()
+    function configurePublisher(): void
     {
         $this->store = new InMemoryEventStore();
         $this->tracker = new InMemoryMessageTracker();

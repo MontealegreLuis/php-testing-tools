@@ -10,20 +10,12 @@ use Hexagonal\DomainEvents\StoredEvent;
 
 interface MessageProducer
 {
-    /**
-     * @return void
-     */
-    public function open(string $exchangeName);
+    public function open(string $exchangeName): void;
 
-    /**
-     * @return void
-     */
-    public function send(string $exchangeName, StoredEvent $notification);
+    public function send(string $exchangeName, StoredEvent $notification): void;
 
     /**
      * Close channel and connection
-     *
-     * @return void
      */
-    public function close();
+    public function close(): void;
 }

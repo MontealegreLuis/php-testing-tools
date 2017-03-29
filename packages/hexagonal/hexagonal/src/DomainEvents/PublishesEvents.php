@@ -11,7 +11,7 @@ trait PublishesEvents
     /** @var EventPublisher */
     private $publisher;
 
-    public function setPublisher(EventPublisher $publisher)
+    public function setPublisher(EventPublisher $publisher): void
     {
         $this->publisher = $publisher;
     }

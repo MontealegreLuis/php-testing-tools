@@ -12,7 +12,7 @@ namespace Hexagonal\DomainEvents;
  */
 interface EventStore
 {
-    public function append(StoredEvent $anEvent);
+    public function append(StoredEvent $anEvent): void;
 
     /**
      * @return StoredEvent[]

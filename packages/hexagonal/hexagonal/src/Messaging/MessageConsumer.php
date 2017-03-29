@@ -10,20 +10,12 @@ use Closure;
 
 interface MessageConsumer
 {
-    /**
-     * @return void
-     */
-    public function open(string $exchangeName);
+    public function open(string $exchangeName): void;
 
-    /**
-     * @return void
-     */
-    public function consume(string $exchangeName, Closure $callback);
+    public function consume(string $exchangeName, Closure $callback): void;
 
     /**
      * Close channel and connection
-     *
-     * @return void
      */
-    public function close();
+    public function close(): void;
 }

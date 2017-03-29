@@ -14,7 +14,7 @@ trait RecordsEvents
     /** @var SplObjectStorage */
     private $events;
 
-    public function recordThat(Event $event)
+    public function recordThat(Event $event): void
     {
         if (!$this->events) {
             $this->events = new SplObjectStorage();

@@ -38,7 +38,7 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @before */
-    function generateFixtures()
+    function generateFixtures(): void
     {
         $this->store = $this->storeInstance();
         $factory = new StoredEventFactory(new JsonSerializer());

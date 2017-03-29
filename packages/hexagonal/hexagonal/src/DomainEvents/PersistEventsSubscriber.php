@@ -14,10 +14,8 @@ class PersistEventsSubscriber implements EventSubscriber
     /** @var StoredEventFactory */
     private $eventFactory;
 
-    public function __construct(
-        EventStore $eventStore,
-        StoredEventFactory $eventFactory
-    ) {
+    public function __construct(EventStore $eventStore, StoredEventFactory $eventFactory)
+    {
         $this->eventStore = $eventStore;
         $this->eventFactory = $eventFactory;
     }
@@ -31,7 +29,7 @@ class PersistEventsSubscriber implements EventSubscriber
      * @param Event $event
      * @return void
      */
-    public function handle(Event $event)
+    public function handle(Event $event): void
     {
         $this->eventStore->append($this->eventFactory->from($event));
     }

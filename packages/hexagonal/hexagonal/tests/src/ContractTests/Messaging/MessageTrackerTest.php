@@ -7,6 +7,8 @@
 namespace Hexagonal\ContractTests\Messaging;
 
 use Hexagonal\DataBuilders\A;
+use Hexagonal\Messaging\EmptyExchange;
+use Hexagonal\Messaging\InvalidPublishedMessageToTrack;
 use Hexagonal\Messaging\MessageTracker;
 use Hexagonal\Messaging\PublishedMessage;
 use PHPUnit_Framework_TestCase as TestCase;
@@ -28,12 +30,10 @@ abstract class MessageTrackerTest extends TestCase
         $this->assertTrue($this->tracker->hasPublishedMessages('non_empty_exchange'));
     }
 
-    /**
-     * @test
-     * @expectedException \Hexagonal\Messaging\EmptyExchange
-     */
+    /** @test */
     function it_throws_exception_when_trying_to_get_the_last_message_from_an_empty_exchange()
     {
+        $this->expectException(EmptyExchange::class);
         $this->tracker->mostRecentPublishedMessage('non_empty_exchange');
     }
 
@@ -57,12 +57,10 @@ abstract class MessageTrackerTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @expectedException \Hexagonal\Messaging\InvalidPublishedMessageToTrack
-     */
+    /** @test */
     function it_does_not_allow_more_than_one_last_message_for_each_exchange()
     {
+        $this->expectException(InvalidPublishedMessageToTrack::class);
         $originalId = 1;
         $aDifferentId = 2;
         $exchangeName = 'non_empty_exchange';
@@ -82,7 +80,7 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /** @before */
-    function createTracker()
+    function createTracker(): void
     {
         $this->tracker = $this->messageTracker();
     }

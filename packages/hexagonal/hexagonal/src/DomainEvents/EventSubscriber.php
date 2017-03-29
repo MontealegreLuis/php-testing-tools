@@ -10,5 +10,5 @@ interface EventSubscriber
 {
     public function isSubscribedTo(Event $event): bool;
 
-    public function handle(Event $event);
+    public function handle(Event $event): void;
 }

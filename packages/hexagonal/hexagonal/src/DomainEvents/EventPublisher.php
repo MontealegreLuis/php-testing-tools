@@ -14,12 +14,12 @@ class EventPublisher
     /** @var SplObjectStorage */
     private $subscribers;
 
-    public function subscribe(EventSubscriber $subscriber)
+    public function subscribe(EventSubscriber $subscriber): void
     {
         $this->subscribers()->attach($subscriber);
     }
 
-    public function publish(Traversable $events)
+    public function publish(Traversable $events): void
     {
         /** @var Event $event */
         foreach ($events as $event) {
@@ -27,7 +27,7 @@ class EventPublisher
         }
     }
 
-    protected function dispatch(Event $event)
+    protected function dispatch(Event $event): void
     {
         /** @var EventSubscriber $subscriber */
         foreach ($this->subscribers() as $subscriber) {

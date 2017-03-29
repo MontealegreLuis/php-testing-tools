@@ -38,7 +38,7 @@ class PublishedMessage
         return $this->mostRecentMessageId;
     }
 
-    public function updateMostRecentMessageId(int $mostRecentMessageId)
+    public function updateMostRecentMessageId(int $mostRecentMessageId): void
     {
         $this->mostRecentMessageId = $mostRecentMessageId;
     }

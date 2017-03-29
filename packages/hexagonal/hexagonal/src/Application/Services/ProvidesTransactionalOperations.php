@@ -13,7 +13,7 @@ trait ProvidesTransactionalOperations
     /** @var TransactionalSession */
     private $session;
 
-    public function setTransactionalSession(TransactionalSession $session)
+    public function setTransactionalSession(TransactionalSession $session): void
     {
         $this->session = $session;
     }

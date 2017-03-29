@@ -17,9 +17,7 @@ interface MessageTracker
     /**
      * @throws EmptyExchange
      */
-    public function mostRecentPublishedMessage(
-        string $exchangeName
-    ): PublishedMessage;
+    public function mostRecentPublishedMessage(string $exchangeName): PublishedMessage;
 
     /**
      * It either creates or updates the only one entry associated to the message
@@ -30,5 +28,5 @@ interface MessageTracker
      * @throws InvalidPublishedMessageToTrack This exception is thrown if there's
      * already a message but it is not equal to `mostRecentPublishedMessage`
      */
-    public function track(PublishedMessage $mostRecentPublishedMessage);
+    public function track(PublishedMessage $mostRecentPublishedMessage): void;
 }

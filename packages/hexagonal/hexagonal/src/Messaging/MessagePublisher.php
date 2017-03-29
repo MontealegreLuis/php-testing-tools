@@ -80,17 +80,16 @@ class MessagePublisher
         return $this->publishedMessagesCount;
     }
 
-    private function allEvents()
+    private function allEvents(): void
     {
         $this->mostRecentMessage = null;
         $this->unpublishedEvents = $this->store->allEvents();
     }
 
     /**
-     * @param string $exchangeName
      * @throws \Hexagonal\Messaging\EmptyExchange
      */
-    private function onlyUnpublishedEvents(string $exchangeName)
+    private function onlyUnpublishedEvents(string $exchangeName): void
     {
         $this->mostRecentMessage = $this->tracker->mostRecentPublishedMessage(
             $exchangeName
@@ -100,7 +99,7 @@ class MessagePublisher
         );
     }
 
-    private function publish(string $exchangeName)
+    private function publish(string $exchangeName): void
     {
         $this->producer->open($exchangeName);
 
@@ -114,7 +113,7 @@ class MessagePublisher
         $this->producer->close();
     }
 
-    private function createMostRecentMessage(string $exchangeName)
+    private function createMostRecentMessage(string $exchangeName): void
     {
         $this->mostRecentMessage = new PublishedMessage(
             $exchangeName,
@@ -122,14 +121,14 @@ class MessagePublisher
         );
     }
 
-    private function updateMostRecentMessage()
+    private function updateMostRecentMessage(): void
     {
         $this->mostRecentMessage->updateMostRecentMessageId(
             $this->lastPublishedEvent->id()
         );
     }
 
-    private function startMessageTracking()
+    private function startMessageTracking(): void
     {
         $this->publishedMessagesCount = self::NO_MESSAGES_PUBLISHED;
         $this->lastPublishedEvent = null;

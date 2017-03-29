@@ -24,14 +24,14 @@ class InMemoryEventStore implements EventStore
     /**
      * @param StoredEvent[] $events
      */
-    public function appendAll(array $events)
+    public function appendAll(array $events): void
     {
         foreach ($events as $event) {
             $this->append($event);
         }
     }
 
-    public function append(StoredEvent $anEvent)
+    public function append(StoredEvent $anEvent): void
     {
         if ($anEvent->id() === 0) { // Doesn't have an ID
             $this->assignIdTo($anEvent);

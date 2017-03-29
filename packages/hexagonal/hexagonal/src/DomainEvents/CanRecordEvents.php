@@ -10,7 +10,7 @@ use Traversable;
 
 interface CanRecordEvents
 {
-    public function recordThat(Event $event);
+    public function recordThat(Event $event): void;
 
     public function events(): Traversable;
 }

@@ -10,7 +10,7 @@ use Eris\{Generator, TestTrait};
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MemberTest extends TestCase
 {

@@ -40,8 +40,8 @@
     "require-dev": {
         "behat/behat": "^3.3",
         "phpspec/phpspec": "^3.2",
-        "phpunit/phpunit": "^5.4",
-        "giorgiosironi/eris": "^0.8",
+        "phpunit/phpunit": "^6.0",
+        "giorgiosironi/eris": "^0.9",
         "fzaninotto/faker": "^1.6"
     }
 }

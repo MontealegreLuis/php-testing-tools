@@ -7,7 +7,7 @@
 namespace Ewallet\PHPUnit\Constraints;
 
 use Money\Money;
-use PHPUnit_Framework_Constraint as Constraint;
+use PHPUnit\Framework\Constraint\Constraint;
 
 class AmountLowerThanConstraint extends Constraint
 {

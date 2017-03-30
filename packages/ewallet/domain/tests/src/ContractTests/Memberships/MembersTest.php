@@ -10,7 +10,7 @@ use Ewallet\Memberships\{MemberId, Members};
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 abstract class MembersTest extends TestCase
 {

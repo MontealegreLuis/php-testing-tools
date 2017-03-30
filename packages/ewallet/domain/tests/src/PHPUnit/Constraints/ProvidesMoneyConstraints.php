@@ -8,7 +8,7 @@ namespace Ewallet\PHPUnit\Constraints;
 
 use Ewallet\Memberships\Member;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 trait ProvidesMoneyConstraints
 {

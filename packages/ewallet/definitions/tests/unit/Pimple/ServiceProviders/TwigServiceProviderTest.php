@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Pimple\ServiceProviders;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;

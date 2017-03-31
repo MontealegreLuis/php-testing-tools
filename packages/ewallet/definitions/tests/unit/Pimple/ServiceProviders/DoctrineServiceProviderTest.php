@@ -7,7 +7,7 @@
 namespace Ewallet\Pimple\ServiceProviders;
 
 use Doctrine\ORM\EntityManager;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 
 class DoctrineServiceProviderTest extends TestCase

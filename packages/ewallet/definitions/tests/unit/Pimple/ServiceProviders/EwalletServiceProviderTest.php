@@ -13,7 +13,7 @@ use Ewallet\ManageWallet\TransferFundsTransactionally;
 use Ewallet\ManageWallet\TransferWasMadeLogger;
 use Ewallet\Zf2\InputFilter\TransferFundsInputFilter;
 use Monolog\Logger;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 
 /**

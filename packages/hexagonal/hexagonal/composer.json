@@ -34,7 +34,7 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit": "^6.0",
         "ewallet/domain": "^1.0",
         "hexagonal/doctrine": "^1.0",
         "fzaninotto/faker": "^1.6"

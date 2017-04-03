@@ -11,7 +11,7 @@ use Hexagonal\Messaging\EmptyExchange;
 use Hexagonal\Messaging\InvalidPublishedMessageToTrack;
 use Hexagonal\Messaging\MessageTracker;
 use Hexagonal\Messaging\PublishedMessage;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 abstract class MessageTrackerTest extends TestCase
 {

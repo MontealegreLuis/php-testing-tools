@@ -9,7 +9,7 @@ namespace Hexagonal\ContractTests\DomainEvents;
 use Ewallet\DataBuilders\A;
 use Hexagonal\DomainEvents\{EventStore, StoredEvent, StoredEventFactory};
 use Hexagonal\JmsSerializer\JsonSerializer;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 abstract class EventStoreTest extends TestCase
 {

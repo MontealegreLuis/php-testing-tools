@@ -34,8 +34,7 @@
     "require": {
         "beberlei/assert": "^2.7",
         "hexagonal/hexagonal": "^1.0",
-        "moneyphp/money": "^3.0",
-        "roave/security-advisories": "dev-master"
+        "moneyphp/money": "^3.0"
     },
     "require-dev": {
         "behat/behat": "^3.3",

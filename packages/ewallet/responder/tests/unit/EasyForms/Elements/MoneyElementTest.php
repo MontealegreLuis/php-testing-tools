@@ -6,7 +6,7 @@
  */
 namespace Ewallet\EasyForms\Elements;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MoneyElementTest extends TestCase
 {

@@ -8,7 +8,7 @@ namespace Ewallet\EasyForms;
 
 use Ewallet\Memberships\{MemberId, Member};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 
 class MembersConfigurationTest extends TestCase

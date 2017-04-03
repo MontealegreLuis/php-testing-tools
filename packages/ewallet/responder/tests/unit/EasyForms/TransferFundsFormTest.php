@@ -7,7 +7,7 @@
 namespace Ewallet\EasyForms;
 
 use Ewallet\Memberships\MemberId;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TransferFundsFormTest extends TestCase
 {

@@ -11,7 +11,7 @@ use Ewallet\DataBuilders\A;
 use Ewallet\EasyForms\{MembersConfiguration, TransferFundsForm};
 use Ewallet\Templating\TemplateEngine;
 use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
 class TransferFundsFormResponderTest extends TestCase

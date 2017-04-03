@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Zf2\Diactoros;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class DiactorosResponseFactoryTest extends TestCase
 {

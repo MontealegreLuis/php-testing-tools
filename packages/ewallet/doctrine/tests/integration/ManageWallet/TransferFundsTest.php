@@ -12,7 +12,7 @@ use Ewallet\Doctrine2\Application\Services\DoctrineSession;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Exception;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use RuntimeException;
 

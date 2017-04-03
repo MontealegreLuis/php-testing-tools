@@ -8,10 +8,11 @@ namespace Ewallet\PHPUnit;
 
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Exception;
-use PHPUnit_Framework_AssertionFailedError as AssertionFailedError;
-use PHPUnit_Framework_Test as Test;
-use PHPUnit_Framework_TestListener as TestListener;
-use PHPUnit_Framework_TestSuite as TestSuite;
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
 
 class UpdateDatabaseSchemaListener implements TestListener
 {
@@ -57,4 +58,6 @@ class UpdateDatabaseSchemaListener implements TestListener
     public function startTest(Test $test) {}
 
     public function endTest(Test $test, $time) {}
+
+    public function addWarning(Test $test, Warning $e, $time) {}
 }

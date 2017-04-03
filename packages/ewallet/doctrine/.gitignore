@@ -2,3 +2,4 @@
 /cli-config.php
 /phan.txt
 /vendor/
+/composer.lock

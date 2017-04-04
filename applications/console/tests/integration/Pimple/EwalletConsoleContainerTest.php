@@ -10,7 +10,7 @@ use Dotenv\Dotenv;
 use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
 use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsoleResponder};
 use Hexagonal\DomainEvents\EventPublisher;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\{Input\ArgvInput, Output\ConsoleOutput};
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

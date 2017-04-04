@@ -8,7 +8,8 @@ namespace Ewallet\SymfonyConsole\Listeners;
 
 use Hexagonal\DomainEvents\{EventPublisher, PersistEventsSubscriber};
 use Mockery;
-use PHPUnit_Framework_TestCase as TestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,6 +17,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class StoreEventsListenerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @test */
     function it_ignores_commands_except_the_transfer_funds_one()
     {

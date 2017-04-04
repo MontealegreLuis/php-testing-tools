@@ -9,7 +9,7 @@ namespace Ewallet\ManageWallet;
 use Ewallet\Memberships\{MemberId, MemberFormatter, MembersRepository};
 use Ewallet\DataBuilders\A;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;

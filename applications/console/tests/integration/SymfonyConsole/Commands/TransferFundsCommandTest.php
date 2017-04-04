@@ -11,7 +11,7 @@ use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsole, TransferFundsConsoleResponder, TransferFunds};
 use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;

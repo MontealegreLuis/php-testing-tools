@@ -11,11 +11,14 @@ use Ewallet\{DataBuilders\A, Memberships\MemberId};
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PersistEventsSubscriberTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @test */
     function it_subscribes_to_any_event_type()
     {

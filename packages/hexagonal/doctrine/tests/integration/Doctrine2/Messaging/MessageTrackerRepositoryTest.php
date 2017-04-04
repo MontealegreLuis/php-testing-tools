@@ -14,8 +14,14 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
 {
     use ProvidesDoctrineSetup;
 
-    /** @before */
-    public function cleanupMessages(): void
+    function messageTracker(): MessageTracker
+    {
+        $this->cleanUpMessages();
+
+        return $this->entityManager->getRepository(PublishedMessage::class);
+    }
+
+    private function cleanUpMessages(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
 
@@ -24,10 +30,5 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
             ->createQuery('DELETE FROM ' . PublishedMessage::class)
             ->execute()
         ;
-    }
-
-    function messageTracker(): MessageTracker
-    {
-        return $this->entityManager->getRepository(PublishedMessage::class);
     }
 }

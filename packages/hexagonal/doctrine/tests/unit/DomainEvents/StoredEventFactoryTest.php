@@ -11,7 +11,7 @@ use Ewallet\Memberships\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class StoredEventFactoryTest extends TestCase
 {

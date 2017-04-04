@@ -9,7 +9,7 @@ namespace Hexagonal\Messaging;
 use Exception;
 use Hexagonal\DataBuilders\A;
 use Hexagonal\DomainEvents\{InMemoryEventStore, StoredEvent};
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
 class MessagePublisherTest extends TestCase

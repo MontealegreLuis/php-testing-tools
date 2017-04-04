@@ -10,7 +10,7 @@ use DateTime;
 use Ewallet\Memberships\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class JsonSerializerTest extends TestCase
 {

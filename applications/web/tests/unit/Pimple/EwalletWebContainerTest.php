@@ -13,7 +13,7 @@ use Ewallet\ManageWallet\TransferFundsFormResponder;
 use Ewallet\EasyForms\TransferFundsForm;
 use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase as TestCase;
 use Psr\Log\LoggerInterface;
 use Slim\{App, Http\Environment};
 use Twig_Environment as TwigEnvironment;

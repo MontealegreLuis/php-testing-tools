@@ -6,7 +6,7 @@
  */
 namespace Ewallet\Slim\Middleware;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Slim\Http\{Environment, Request, Response};
 use Slim\Route;

@@ -10,7 +10,7 @@ use Ewallet\DataBuilders\A;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Hexagonal\JmsSerializer\JsonSerializer;
 use Hexagonal\DomainEvents\{EventPublisher, PersistEventsSubscriber, StoredEvent, StoredEventFactory};
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplObjectStorage;
 use Slim\{Http\Environment, App};
 

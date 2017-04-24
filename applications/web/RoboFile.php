@@ -11,7 +11,7 @@ class RoboFile extends \Robo\Tasks
      */
     public function acceptance()
     {
-        $this->stopOnFail();
+        //$this->stopOnFail(); // PhantomJS is giving an erroneous exit code
         $this
             ->taskExec('phantomjs')
             ->option('webdriver', 4444)

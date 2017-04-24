@@ -8,7 +8,7 @@ namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Slim\Application;
 use Interop\Container\ContainerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Slim\Http\Environment;
 use Slim\Http\Request;
 

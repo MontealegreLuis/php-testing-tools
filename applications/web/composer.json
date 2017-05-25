@@ -61,10 +61,6 @@
         {
             "type": "path",
             "url": "../../packages/hexagonal/doctrine"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/MontealegreLuis/Codeception"
         }
     ],
     "require": {
@@ -82,7 +78,7 @@
         "phpunit/phpunit": "^6.0",
         "nelmio/alice": "^2.0",
         "mockery/mockery": "dev-master",
-        "codeception/codeception": "dev-phpunit6_support as 2.3",
+        "codeception/codeception": "~2.3",
         "consolidation/robo": "^1.0"
     }
 }

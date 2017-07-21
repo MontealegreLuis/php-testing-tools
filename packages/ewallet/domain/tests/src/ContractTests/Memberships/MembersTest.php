@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ContractTests\Memberships;
 
-use Ewallet\Memberships\{MemberId, Members};
+use Ewallet\Memberships\{MemberId, Members, UnknownMember};
 use Ewallet\DataBuilders\A;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Money\Money;
@@ -16,16 +16,45 @@ abstract class MembersTest extends TestCase
 {
     use ProvidesMoneyConstraints;
 
-    /** @var Members */
-    protected $members;
-
-    /** @var \Ewallet\Memberships\Member */
-    protected $registeredMember;
-
-    /** @var \Ewallet\Memberships\Member A member with 1000 cents */
-    private $sender;
-
     abstract protected function membersInstance(): Members;
+
+    /** @test */
+    function it_finds_a_registered_member()
+    {
+        $registeredMemberId = $this->registeredMember->information()->id();
+
+        $member = $this->members->with($registeredMemberId);
+
+        $this->assertTrue(
+            $member->equals($this->registeredMember),
+            'Registered member with ID "abcd" should be found'
+        );
+    }
+
+    /** @test */
+    function it_does_not_find_a_non_existing_member()
+    {
+        $this->expectException(UnknownMember::class);
+
+        $this->members->with(MemberId::withIdentity('unknown member id'));
+    }
+
+    /** @test */
+    function it_updates_the_information_of_a_registered_member()
+    {
+        $fivePesos = 500;
+        $recipient = A::member()->build();
+        $sender = $this->members->with($this->sender->information()->id());
+
+        $sender->transfer(Money::MXN($fivePesos), $recipient);
+        $this->members->update($sender);
+
+        $this->assertBalanceAmounts(
+            $fivePesos,
+            $this->members->with($sender->information()->id()),
+            "Current member balance should be $fivePesos"
+        );
+    }
 
     /** @before */
     function generateFixtures(): void
@@ -39,38 +68,12 @@ abstract class MembersTest extends TestCase
         $this->members->add(A::member()->build());
     }
 
-    /** @test */
-    function it_finds_a_registered_member()
-    {
-        $member = $this->members->with($this->registeredMember->information()->id());
+    /** @var Members */
+    protected $members;
 
-        $this->assertTrue(
-            $member->equals($this->registeredMember),
-            'Registered member with ID "abcd" should be found'
-        );
-    }
+    /** @var \Ewallet\Memberships\Member */
+    protected $registeredMember;
 
-    /**
-     * @test
-     * @expectedException \Ewallet\Memberships\UnknownMember
-     */
-    function it_does_not_find_a_non_existing_member()
-    {
-        $this->members->with(MemberId::withIdentity('unknown member id'));
-    }
-
-    /** @test */
-    function it_updates_the_information_of_a_registered_member()
-    {
-        $sender = $this->members->with($this->sender->information()->id());
-        $sender->transfer(Money::MXN(500), A::member()->build());
-
-        $this->members->update($sender);
-
-        $this->assertBalanceAmounts(
-            500,
-            $this->members->with($sender->information()->id()),
-            'Current member balance should be 500'
-        );
-    }
+    /** @var \Ewallet\Memberships\Member A member with 1000 cents */
+    private $sender;
 }

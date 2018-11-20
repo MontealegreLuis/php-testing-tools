@@ -7,20 +7,17 @@
 namespace specs\Ewallet\Memberships;
 
 use Assert\InvalidArgumentException;
-use Ewallet\Memberships\{Email, MemberId, InvalidTransfer};
 use Ewallet\DataBuilders\A;
-use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
+use Ewallet\Memberships\{Email, InvalidTransfer, MemberId};
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 
 class MemberSpec extends ObjectBehavior
 {
-    use ProvidesMoneyMatcher;
-
-    const A_VALID_ID = 'abc';
-    const A_VALID_NAME = 'Luis Montealegre';
-    const A_VALID_EMAIL = 'montealegreluis@gmail.com';
-    const A_VALID_AMOUNT = 2000;
+    private const A_VALID_ID = 'abc';
+    private const A_VALID_NAME = 'Luis Montealegre';
+    private const A_VALID_EMAIL = 'montealegreluis@gmail.com';
+    private const A_VALID_AMOUNT = 2000;
 
     function let()
     {

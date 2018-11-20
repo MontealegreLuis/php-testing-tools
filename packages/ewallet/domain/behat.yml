@@ -2,5 +2,5 @@ default:
     autoload: tests/contexts
     suites:
         manage_wallet_features:
-            paths:    [ %paths.base%/features/manage-wallet ]
+            paths:    [ '%paths.base%/features/manage-wallet' ]
             contexts: [ TransferFundsContext ]

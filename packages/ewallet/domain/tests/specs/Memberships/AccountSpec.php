@@ -7,14 +7,11 @@
 namespace specs\Ewallet\Memberships;
 
 use Ewallet\Memberships\InsufficientFunds;
-use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 
 class AccountSpec extends ObjectBehavior
 {
-    use ProvidesMoneyMatcher;
-
     function it_has_an_initial_balance()
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);

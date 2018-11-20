@@ -5,3 +5,5 @@ suites:
         spec_path: tests
         namespace: Ewallet
         psr4_prefix: Ewallet
+extensions:
+    Ewallet\PhpSpec\Extensions\EwalletExtension: ~

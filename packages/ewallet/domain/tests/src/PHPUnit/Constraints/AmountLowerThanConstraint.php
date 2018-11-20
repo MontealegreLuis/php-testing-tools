@@ -25,17 +25,13 @@ class AmountLowerThanConstraint extends Constraint
      * limit
      *
      * @param  Money $other
-     * @return bool
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         return $this->upperLimit->greaterThan($other);
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return "amount is not lower than {$this->upperLimit->getAmount()}";
     }

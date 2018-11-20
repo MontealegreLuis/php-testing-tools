@@ -25,18 +25,14 @@ class ExactAmountConstraint extends Constraint
      * the expected one
      *
      * @param mixed $other
-     * @return boolean
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         /** @var Money $other */
         return $this->expectedAmount == $other->getAmount();
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return "has the correct amount, expecting {$this->expectedAmount}";
     }

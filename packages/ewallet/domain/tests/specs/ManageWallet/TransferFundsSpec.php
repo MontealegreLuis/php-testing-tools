@@ -6,17 +6,14 @@
  */
 namespace specs\Ewallet\ManageWallet;
 
-use Ewallet\Memberships\Members;
 use Ewallet\DataBuilders\A;
-use Ewallet\PhpSpec\Matchers\ProvidesMoneyMatcher;
 use Ewallet\ManageWallet\{CanTransferFunds, TransferFundsInformation, TransferFundsSummary};
+use Ewallet\Memberships\Members;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class TransferFundsSpec extends ObjectBehavior
 {
-    use ProvidesMoneyMatcher;
-
     function it_transfers_funds_between_members(
         Members $members,
         CanTransferFunds $action

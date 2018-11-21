@@ -13,25 +13,10 @@ abstract class Identifier
     /** @var string */
     private $value;
 
-    private function __construct(string $value)
-    {
-        $this->setId(trim($value));
-    }
-
-    /**
-     * @throws \Assert\AssertionFailedException If an empty identifier is given
-     */
-    private function setId(string $value): void
-    {
-        Assertion::notEmpty($value, 'An identifier cannot be empty');
-
-        $this->value = $value;
-    }
-
     /**
      * Identifiers are non-empty strings
      */
-    public static function withIdentity(string $value): Identifier
+    public static function withIdentity(string $value): self
     {
         return new static($value);
     }
@@ -52,5 +37,20 @@ abstract class Identifier
     public function __toString()
     {
         return (string) $this->value;
+    }
+
+    private function __construct(string $value)
+    {
+        $this->setId(trim($value));
+    }
+
+    /**
+     * @throws \Assert\AssertionFailedException If an empty identifier is given
+     */
+    private function setId(string $value): void
+    {
+        Assertion::notEmpty($value, 'An identifier cannot be empty');
+
+        $this->value = $value;
     }
 }

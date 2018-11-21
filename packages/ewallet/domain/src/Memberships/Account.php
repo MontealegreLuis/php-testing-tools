@@ -11,7 +11,7 @@ use Money\Money;
 /**
  * Every member has an account with an initial balance.
  */
-class Account
+final class Account
 {
     /** @var Money */
     private $balance;
@@ -29,9 +29,9 @@ class Account
         return new Account($amount);
     }
 
-    public function information(): AccountInformation
+    public function balance(): Money
     {
-        return new AccountInformation(clone $this->balance);
+        return clone $this->balance;
     }
 
     /**

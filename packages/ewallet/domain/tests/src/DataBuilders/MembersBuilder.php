@@ -33,7 +33,6 @@ class MembersBuilder
     public function __construct()
     {
         $this->faker = Factory::create();
-        $this->reset();
     }
 
     public function named(string $name): MembersBuilder
@@ -50,15 +49,9 @@ class MembersBuilder
         return $this;
     }
 
-    /**
-     * @param integer|Money $amount
-     */
+    /** @param integer|Money $amount */
     public function withBalance($amount): MembersBuilder
     {
-        if (is_int($amount)) {
-            $amount = Money::MXN($amount);
-        }
-
         $this->amount = $amount;
 
         return $this;
@@ -73,22 +66,18 @@ class MembersBuilder
 
     public function build(): Member
     {
+        $amount = Money::MXN($this->faker->numberBetween(1, 10000));
+        if ($this->amount) {
+            $amount = \is_int($this->amount) ? Money::MXN($this->amount) : $this->amount;
+        }
+
         $member = Member::withAccountBalance(
-            MemberId::withIdentity($this->id),
-            $this->name,
-            new Email($this->email),
-            $this->amount
+            MemberId::withIdentity($this->id ?? $this->faker->uuid),
+            $this->name ?? $this->faker->name,
+            new Email($this->email ?? $this->faker->email),
+            $amount
         );
-        $this->reset();
 
         return $member;
-    }
-
-    private function reset(): void
-    {
-        $this->name = $this->faker->name;
-        $this->email = $this->faker->email;
-        $this->amount = Money::MXN($this->faker->numberBetween(0, 10000));
-        $this->id = $this->faker->uuid;
     }
 }

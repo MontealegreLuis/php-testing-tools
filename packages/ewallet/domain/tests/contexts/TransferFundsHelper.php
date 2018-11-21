@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 use Ewallet\Memberships\Member;
-use Ewallet\ManageWallet\{CanTransferFunds, TransferFundsSummary};
+use Ewallet\ManageWallet\{TransferFunds\CanTransferFunds, TransferFunds\TransferFundsSummary};
 use Money\Money;
 
 class TransferFundsHelper implements CanTransferFunds
@@ -16,7 +16,7 @@ class TransferFundsHelper implements CanTransferFunds
     /**
      * Record that transfer was completed
      */
-    public function transferCompleted(TransferFundsSummary $summary): void
+    public function respondToTransferCompleted(TransferFundsSummary $summary): void
     {
         $this->transferWasMade = true;
     }
@@ -35,12 +35,27 @@ class TransferFundsHelper implements CanTransferFunds
     ): void
     {
         assertTrue(
-            $expectedAmount->equals($forMember->information()->accountBalance()),
+            $expectedAmount->equals($forMember->accountBalance()),
             sprintf(
                 'Final balance does not match, expecting %.2f, found %.2f',
                 $expectedAmount->getAmount() / 100,
-                $forMember->information()->accountBalance()->getAmount() / 100
+                $forMember->accountBalance()->getAmount() / 100
             )
         );
+    }
+
+    public function respondToInvalidInput(\Ewallet\Application\Actions\InputValidator $input): void
+    {
+        // TODO: Implement respondToInvalidInput() method.
+    }
+
+    public function respondToUnknownMember(\Ewallet\Memberships\UnknownMember $exception): void
+    {
+        // TODO: Implement respondToUnknownMember() method.
+    }
+
+    public function respondToInsufficientFunds(\Ewallet\Memberships\InsufficientFunds $exception): void
+    {
+        // TODO: Implement respondToInsufficientFunds() method.
     }
 }

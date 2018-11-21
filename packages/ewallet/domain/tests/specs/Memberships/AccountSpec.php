@@ -16,7 +16,7 @@ class AccountSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('withBalance', [Money::MXN(3000)]);
 
-        $this->information()->balance()->shouldAmount(3000);
+        $this->balance()->shouldAmount(3000);
     }
 
     function it_increases_its_balance_after_a_deposit()
@@ -25,7 +25,7 @@ class AccountSpec extends ObjectBehavior
 
         $this->deposit(Money::MXN(500));
 
-        $this->information()->balance()->shouldAmount(3500);
+        $this->balance()->shouldAmount(3500);
     }
 
     function it_decreases_its_balance_after_a_withdrawal()
@@ -34,7 +34,7 @@ class AccountSpec extends ObjectBehavior
 
         $this->withdraw(Money::MXN(500));
 
-        $this->information()->balance()->shouldAmount(2500);
+        $this->balance()->shouldAmount(2500);
     }
 
     function it_cannot_be_overdrawn()

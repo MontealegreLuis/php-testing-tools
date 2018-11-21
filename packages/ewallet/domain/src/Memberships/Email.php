@@ -11,7 +11,7 @@ use Assert\Assertion;
 /**
  * All members receive notifications of their transactions via email
  */
-class Email
+final class Email
 {
     /** @var string */
     private $address;
@@ -24,19 +24,19 @@ class Email
         $this->setAddress($address);
     }
 
+    public function address(): string
+    {
+        return $this->address;
+    }
+
     /**
      * The address is validated before setting it
      *
      * @throws \Assert\AssertionFailedException If the email address is invalid
      */
-    protected function setAddress(string $address): void
+    private function setAddress(string $address): void
     {
         Assertion::email($address, "{$address} is not a valid email address");
         $this->address = $address;
-    }
-
-    public function address(): string
-    {
-        return $this->address;
     }
 }

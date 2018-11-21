@@ -12,8 +12,11 @@
     "require": {
         "php": ">=7.1",
         "beberlei/assert": "~3.1",
+        "doctrine/annotations": "^1.6",
+        "doctrine/cache": "^1.8",
         "hexagonal/hexagonal": "^1.0",
-        "moneyphp/money": "^3.0"
+        "moneyphp/money": "^3.0",
+        "symfony/validator": "^4.1"
     },
     "require-dev": {
         "behat/behat": "^3.3",
@@ -30,7 +33,8 @@
     "autoload": {
         "psr-4": {
             "Ewallet\\": "src/"
-        }
+        },
+        "files": ["annotations.php"]
     },
     "autoload-dev": {
         "psr-4": {

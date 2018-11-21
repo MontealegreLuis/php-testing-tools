@@ -29,6 +29,60 @@ class Member implements CanRecordEvents
     /** @var Account */
     private $account;
 
+    /**
+     * All members have an account with an initial balance
+     */
+    public static function withAccountBalance(
+        MemberId $memberId,
+        string $name,
+        Email $email,
+        Money $amount
+    ): Member {
+        return new Member($memberId, $name, $email, Account::withBalance($amount));
+    }
+
+    /**
+     * Transfer a given amount to a specific member
+     *
+     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
+     * transfer a negative amount
+     * @throws \Ewallet\memberships\InsufficientFunds If the sender tries to
+     * transfer an amount greater than its current balance
+     */
+    public function transfer(Money $amount, Member $recipient): void
+    {
+        $recipient->receiveDeposit($amount);
+        $this->account->withdraw($amount);
+        $this->recordThat(new TransferWasMade(
+            $this->memberId, clone $amount, $recipient->memberId
+        ));
+    }
+
+    public function equals(Member $anotherMember): bool
+    {
+        return $this->memberId->equals($anotherMember->memberId);
+    }
+
+    public function accountBalance(): Money
+    {
+        return clone $this->account->balance();
+    }
+
+    public function id(): MemberId
+    {
+        return $this->memberId;
+    }
+
+    public function idValue(): string
+    {
+        return $this->memberId->value();
+    }
+
+    public function hasId(MemberId $id): bool
+    {
+        return $this->memberId->equals($id);
+    }
+
     private function __construct(
         MemberId $memberId,
         string $name,
@@ -52,45 +106,6 @@ class Member implements CanRecordEvents
     }
 
     /**
-     * All members have an account with an initial balance
-     */
-    public static function withAccountBalance(
-        MemberId $memberId,
-        string $name,
-        Email $email,
-        Money $amount
-    ): Member {
-        return new Member($memberId, $name, $email, Account::withBalance($amount));
-    }
-
-    public function information(): MemberInformation
-    {
-        return new MemberInformation(
-            $this->memberId,
-            $this->name,
-            $this->email,
-            $this->account->information()
-        );
-    }
-
-    /**
-     * Transfer a given amount to a specific member
-     *
-     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
-     * transfer a negative amount
-     * @throws \Ewallet\memberships\InsufficientFunds If the sender tries to
-     * transfer an amount greater than its current balance
-     */
-    public function transfer(Money $amount, Member $recipient): void
-    {
-        $recipient->receiveDeposit($amount);
-        $this->account->withdraw($amount);
-        $this->recordThat(new TransferWasMade(
-            $this->memberId, clone $amount, $recipient->memberId
-        ));
-    }
-
-    /**
      * Deposit the given amount to the recipient's account
      *
      * @throws InvalidTransfer A member cannot transfer a negative amount or 0 to another member
@@ -102,10 +117,5 @@ class Member implements CanRecordEvents
         }
 
         $this->account->deposit($amount);
-    }
-
-    public function equals(Member $anotherMember): bool
-    {
-        return $this->memberId->equals($anotherMember->memberId);
     }
 }

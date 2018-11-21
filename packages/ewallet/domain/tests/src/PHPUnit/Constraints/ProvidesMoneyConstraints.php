@@ -12,67 +12,32 @@ use PHPUnit\Framework\TestCase;
 
 trait ProvidesMoneyConstraints
 {
-    public static function assertBalanceAmounts(
-        int $amountExpected,
-        Member $forMember,
-        string $message = ''
-    ): void
+    public static function assertBalanceAmounts(int $amountExpected, Member $forMember, string $message = ''): void
     {
-        TestCase::assertThat(
-            $forMember->information()->accountBalance(),
-            self::isBalanceAmountCorrect($amountExpected),
-            $message
-        );
+        TestCase::assertThat($forMember->accountBalance(), self::isBalanceAmountCorrect($amountExpected), $message);
     }
 
-    public static function isBalanceAmountCorrect(
-        int $amountExpected
-    ): ExactAmountConstraint
+    public static function isBalanceAmountCorrect(int $amountExpected): ExactAmountConstraint
     {
         return new ExactAmountConstraint($amountExpected);
     }
 
-    public static function assertBalanceIsLowerThan(
-        int $upperLimitAmount,
-        Member $forMember,
-        string $message = ''
-    ): void
+    public static function assertBalanceIsLowerThan(int $upperLimitAmount, Member $forMember, string $message = ''): void
     {
-        TestCase::assertThat(
-            $forMember->information()->accountBalance(),
-            self::isBalanceAmountLowerThan($upperLimitAmount),
-            $message
-        );
+        TestCase::assertThat($forMember->accountBalance(), self::isBalanceAmountLowerThan($upperLimitAmount), $message);
     }
 
-    public static function isBalanceAmountLowerThan(
-        int $upperLimit
-    ): AmountLowerThanConstraint
+    public static function isBalanceAmountLowerThan(int $upperLimit): AmountLowerThanConstraint
     {
         return new AmountLowerThanConstraint(Money::MXN($upperLimit));
     }
 
-    /**
-     * @param int $lowerLimitAmount
-     * @param Member $forMember
-     * @param string $message
-     */
-    public static function assertBalanceIsGreaterThan(
-        int $lowerLimitAmount,
-        Member $forMember,
-        string $message = ''
-    ): void
+    public static function assertBalanceIsGreaterThan(int $lowerLimitAmount, Member $forMember, string $message = ''): void
     {
-        TestCase::assertThat(
-            $forMember->information()->accountBalance(),
-            self::isBalanceAmountGreaterThan($lowerLimitAmount),
-            $message
-        );
+        TestCase::assertThat($forMember->accountBalance(), self::isBalanceAmountGreaterThan($lowerLimitAmount), $message);
     }
 
-    public static function isBalanceAmountGreaterThan(
-        int $lowerLimit
-    ): AmountGreaterThanConstraint
+    public static function isBalanceAmountGreaterThan(int $lowerLimit): AmountGreaterThanConstraint
     {
         return new AmountGreaterThanConstraint(Money::MXN($lowerLimit));
     }

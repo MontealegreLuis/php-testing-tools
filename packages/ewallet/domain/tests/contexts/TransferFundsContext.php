@@ -4,16 +4,17 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Behat\Behat\Context\{Context, SnippetAcceptingContext};
-use Ewallet\Memberships\{InMemoryMembers, MemberId};
+
+use Behat\Behat\Context\Context;
 use Ewallet\DataBuilders\A;
-use Ewallet\ManageWallet\{TransferFunds, TransferFundsInformation};
+use Ewallet\ManageWallet\{TransferFunds\TransferFunds, TransferFunds\TransferFundsInformation};
+use Ewallet\Memberships\{InMemoryMembers, MemberId};
 use Money\Money;
 
 /**
  * Defines steps for the 'Transfer funds' feature
  */
-class TransferFundsContext implements Context, SnippetAcceptingContext
+class TransferFundsContext implements Context
 {
     use MemberDictionary;
 
@@ -32,9 +33,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
     /** @var TransferFunds */
     private $command;
 
-    /**
-     * @BeforeScenario
-     */
+    /** @BeforeScenario */
     public function prepare()
     {
         $this->members = new InMemoryMembers();
@@ -71,7 +70,7 @@ class TransferFundsContext implements Context, SnippetAcceptingContext
         $this->command->transfer(TransferFundsInformation::from([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
-            'amount' => round($amount->getAmount() / 100),
+            'amount' => $amount->getAmount(),
         ]));
     }
 

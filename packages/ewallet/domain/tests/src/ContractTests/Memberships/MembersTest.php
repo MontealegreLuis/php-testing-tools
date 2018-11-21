@@ -21,7 +21,7 @@ abstract class MembersTest extends TestCase
     /** @test */
     function it_finds_a_registered_member()
     {
-        $registeredMemberId = $this->registeredMember->information()->id();
+        $registeredMemberId = $this->registeredMember->id();
 
         $member = $this->members->with($registeredMemberId);
 
@@ -44,14 +44,14 @@ abstract class MembersTest extends TestCase
     {
         $fivePesos = 500;
         $recipient = A::member()->build();
-        $sender = $this->members->with($this->sender->information()->id());
+        $sender = $this->members->with($this->sender->id());
 
         $sender->transfer(Money::MXN($fivePesos), $recipient);
         $this->members->update($sender);
 
         $this->assertBalanceAmounts(
             $fivePesos,
-            $this->members->with($sender->information()->id()),
+            $this->members->with($sender->id()),
             "Current member balance should be $fivePesos"
         );
     }

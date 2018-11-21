@@ -4,14 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\ManageWallet;
+namespace Ewallet\ManageWallet\TransferFunds;
 
 use Ewallet\Memberships\{Member, MemberInformation};
 
 /**
  * Contains the summary of balances for both the recipient and the sender
  */
-class TransferFundsSummary
+final class TransferFundsSummary
 {
     /** @var Member */
     private $sender;

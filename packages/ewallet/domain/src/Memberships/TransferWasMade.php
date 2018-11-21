@@ -13,7 +13,7 @@ use Money\Money;
 /**
  * This event is triggered every time a funds transfer is completed successfully
  */
-class TransferWasMade implements Event
+final class TransferWasMade implements Event
 {
     /** @var DateTime */
     private $occurredOn;
@@ -27,9 +27,8 @@ class TransferWasMade implements Event
     /** @var MemberId */
     private $recipientId;
 
-    public function __construct(
-        MemberId $senderId, Money $amount, MemberId $recipientId
-    ) {
+    public function __construct(MemberId $senderId, Money $amount, MemberId $recipientId)
+    {
         $this->occurredOn = new DateTime('now');
         $this->senderId = $senderId;
         $this->amount = $amount;

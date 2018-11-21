@@ -31,14 +31,14 @@ class MemberSpec extends ObjectBehavior
 
     function it_can_be_registered_with_an_initial_account_balance()
     {
-        $this->information()->accountBalance()->shouldAmount(self::A_VALID_AMOUNT);
+        $this->accountBalance()->shouldAmount(self::A_VALID_AMOUNT);
     }
 
     function it_transfers_funds_to_a_recipient()
     {
         $this->transfer(Money::MXN(500), A::member()->build());
 
-        $this->information()->accountBalance()->shouldAmount(1500);
+        $this->accountBalance()->shouldAmount(1500);
     }
 
     function it_receives_funds_from_a_sender()
@@ -47,7 +47,7 @@ class MemberSpec extends ObjectBehavior
 
         $sender->transfer(Money::MXN(500), $this->getWrappedObject());
 
-        $this->information()->accountBalance()->shouldAmount(2500);
+        $this->accountBalance()->shouldAmount(2500);
     }
 
     function it_cannot_be_registered_with_an_empty_name()

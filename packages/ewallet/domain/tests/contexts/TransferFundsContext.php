@@ -70,7 +70,7 @@ class TransferFundsContext implements Context
         $this->command->transfer(TransferFundsInformation::from([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
-            'amount' => $amount->getAmount(),
+            'amount' => $amount->getAmount() / 100,
         ]));
     }
 

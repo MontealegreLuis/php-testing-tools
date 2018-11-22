@@ -4,7 +4,8 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Doctrine2\Types;
+
+namespace Ports\Doctrine\Ewallet\Types;
 
 use Ewallet\Memberships\{Identifier, MemberId};
 

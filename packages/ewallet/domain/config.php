@@ -7,7 +7,7 @@
 return [
     'doctrine' => [
         'mapping_dirs' => [
-            __DIR__ . '/src/Doctrine2/Resources/config',
+            __DIR__ . '/src/Ports/Doctrine/Ewallet/Resources/config',
         ],
         'dev_mode' => true,
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
@@ -15,7 +15,7 @@ return [
             'url' => 'sqlite:///' . __DIR__ . '/var/ewallet.sq3',
         ],
         'types' => [
-            'MemberId' => 'Ewallet\Doctrine2\Types\MemberIdType',
+            'MemberId' => 'Ports\Doctrine\Ewallet\Types\MemberIdType',
         ],
     ],
 ];

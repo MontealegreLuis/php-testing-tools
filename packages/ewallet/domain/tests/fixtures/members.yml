@@ -1,15 +1,12 @@
-Money\Currency (local):
+Money\Currency:
     mxn:
-        __construct: false
-        code: MXN
+        __construct: ['MXN']
 
-Money\Money (local):
+Money\Money:
     balance:
-        __construct: false
-        amount: 1000
-        currency: '@mxn'
+        __construct: [1000, '@mxn']
 
-Ewallet\Memberships\MemberId (local):
+Ewallet\Memberships\MemberId:
     id0:
         __construct: { withIdentity: ["XYZ"] }
     id1:
@@ -17,16 +14,13 @@ Ewallet\Memberships\MemberId (local):
     id2:
         __construct: { withIdentity: ["LMN"] }
 
-Ewallet\Memberships\Email (local):
+Ewallet\Memberships\Email:
     email0:
-        __construct: false
-        address: <email()>
+        __construct: ['<email()>']
     email1:
-        __construct: false
-        address: <email()>
+        __construct: ['<email()>']
     email2:
-        __construct: false
-        address: <email()>
+        __construct: ['<email()>']
 
 Ewallet\Memberships\Member:
     member0:

@@ -43,7 +43,7 @@ class TransferFundsTest extends TestCase
         $input = TransferFundsInformation::from([
             'senderId' => 'unknown sender',
             'recipientId' => 'unknown recipient',
-            'amount' => 1000 // 10 MXN
+            'amount' => 10 // 10 MXN
         ]);
 
         $this->action->transfer($input);
@@ -61,7 +61,7 @@ class TransferFundsTest extends TestCase
         $input = TransferFundsInformation::from([
             'senderId' => $sender->idValue(),
             'recipientId' => 'unknown recipient',
-            'amount' => 1000 // 10 MXN
+            'amount' => 10 // 10 MXN
         ]);
 
         $this->action->transfer($input);
@@ -81,12 +81,14 @@ class TransferFundsTest extends TestCase
         $input = TransferFundsInformation::from([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
-            'amount' => 1000 // 10 MXN
+            'amount' => 10 // 10 MXN
         ]);
 
         $this->action->transfer($input);
 
-        $this->responder->respondToInsufficientFunds(Argument::type(InsufficientFunds::class))->shouldHaveBeenCalled();
+        $this->responder
+            ->respondToInsufficientFunds(Argument::type(InsufficientFunds::class))
+            ->shouldHaveBeenCalled();
         $this->assertTrue($input->isValid());
     }
 
@@ -101,12 +103,14 @@ class TransferFundsTest extends TestCase
         $input = TransferFundsInformation::from([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
-            'amount' => 1000 // 10 MXN
+            'amount' => 10 // 10 MXN
         ]);
 
         $this->action->transfer($input);
 
-        $this->responder->respondToTransferCompleted(Argument::type(TransferFundsSummary::class))->shouldHaveBeenCalled();
+        $this->responder
+            ->respondToTransferCompleted(Argument::type(TransferFundsSummary::class))
+            ->shouldHaveBeenCalled();
         $this->assertTrue($input->isValid());
     }
 

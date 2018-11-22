@@ -6,7 +6,6 @@
  */
 namespace Ewallet\Doctrine2;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\{EntityManager, EntityManagerInterface};
 use Doctrine\ORM\Tools\{SchemaTool, Setup};
@@ -14,11 +13,11 @@ use Doctrine\ORM\Tools\{SchemaTool, Setup};
 trait ProvidesDoctrineSetup
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private static $entityManager;
 
     public function _entityManager(): EntityManagerInterface
     {
-        return $this->entityManager;
+        return self::$entityManager;
     }
 
     /**
@@ -28,7 +27,7 @@ trait ProvidesDoctrineSetup
      */
     public function _setUpDoctrine(array $options): void
     {
-        if ($this->entityManager) { // Do not initialize twice
+        if (self::$entityManager) { // Do not initialize twice
             return;
         }
 
@@ -37,26 +36,17 @@ trait ProvidesDoctrineSetup
             $options['doctrine']['dev_mode'],
             $options['doctrine']['proxy_dir']
         );
-        $this->entityManager = EntityManager::create(
+        self::$entityManager = EntityManager::create(
             $options['doctrine']['connection'], $configuration
         );
 
-        $platform = $this->entityManager->getConnection()->getDatabasePlatform();
+        $platform = self::$entityManager->getConnection()->getDatabasePlatform();
         foreach ($options['doctrine']['types'] as $type => $class) {
             !Type::hasType($type) && Type::addType($type, $class);
             $platform->registerDoctrineTypeMapping($type, $type);
         }
-    }
 
-    public function _updateDatabaseSchema(array $options): void
-    {
-        $this->_setUpDoctrine($options);
-        $tool = new SchemaTool($em = $this->_entityManager());
-        $tool->updateSchema($em->getMetadataFactory()->getAllMetadata(), true);
-    }
-
-    public function _repositoryForEntity(string $class): ObjectRepository
-    {
-        return $this->_entityManager()->getRepository($class);
+        $tool = new SchemaTool(self::$entityManager);
+        $tool->updateSchema(self::$entityManager->getMetadataFactory()->getAllMetadata(), true);
     }
 }

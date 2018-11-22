@@ -4,10 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Memberships;
 
 use Ewallet\ContractTests\Memberships\MembersTest;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 
 class MembersRepositoryTest extends MembersTest
 {
@@ -27,6 +29,6 @@ class MembersRepositoryTest extends MembersTest
 
     protected function membersInstance(): Members
     {
-        return $this->_entityManager()->getRepository(Member::class);
+        return new MembersRepository($this->_entityManager());
     }
 }

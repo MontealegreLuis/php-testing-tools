@@ -4,19 +4,19 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\ManageWallet;
+namespace Ewallet\ManageWallet\TransferFunds;
 
-use Ewallet\Memberships\Member;
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Doctrine2\Application\Services\DoctrineSession;
 use Ewallet\Doctrine2\ProvidesDoctrineSetup;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Exception;
 use PHPUnit\Framework\TestCase;
+use Ports\Doctrine\Application\Services\DoctrineSession;
+use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 use Prophecy\Argument;
 use RuntimeException;
 
-class TransferFundsTest extends TestCase
+class TransferFundsTransactionallyTest extends TestCase
 {
     use ProvidesDoctrineSetup, ProvidesMoneyConstraints;
 
@@ -28,14 +28,8 @@ class TransferFundsTest extends TestCase
 
         $this->useCase->transfer($this->threeMxn);
 
-        $this->assertBalanceAmounts(
-            $withdrawn300Cents,
-            $this->members->with($this->senderId)
-        );
-        $this->assertBalanceAmounts(
-            $deposited300Cents,
-            $this->members->with($this->recipientId)
-        );
+        $this->assertBalanceAmounts($withdrawn300Cents, $this->members->with($this->senderId));
+        $this->assertBalanceAmounts($deposited300Cents, $this->members->with($this->recipientId));
     }
 
     /** @test */
@@ -44,7 +38,7 @@ class TransferFundsTest extends TestCase
         $originalBalanceInCents = 1000;
         $this
             ->action
-            ->transferCompleted(Argument::type(TransferFundsSummary::class))
+            ->respondToTransferCompleted(Argument::type(TransferFundsSummary::class))
             ->willThrow(RuntimeException::class)
         ;
 
@@ -52,25 +46,19 @@ class TransferFundsTest extends TestCase
             $this->useCase->transfer($this->threeMxn);
         } catch(Exception $ignore) {}
 
-        $this->assertBalanceAmounts(
-            $originalBalanceInCents,
-            $this->members->with($this->senderId)
-        );
-        $this->assertBalanceAmounts(
-            $originalBalanceInCents,
-            $this->members->with($this->recipientId)
-        );
+        $this->assertBalanceAmounts($originalBalanceInCents, $this->members->with($this->senderId));
+        $this->assertBalanceAmounts($originalBalanceInCents, $this->members->with($this->recipientId));
     }
 
     /** @before */
     public function configureUseCase(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
+        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
 
         $fixtures = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixtures->load();
 
-        $this->members = $this->_repositoryForEntity(Member::class);
+        $this->members = new MembersRepository($this->_entityManager());
 
         $this->useCase = new TransferFundsTransactionally($this->members);
         $this->useCase->setTransactionalSession(new DoctrineSession($this->_entityManager()));

@@ -4,11 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Alice;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ewallet\Memberships\Member;
-use Nelmio\Alice\Fixtures;
+use Nelmio\Alice\Loader\NativeLoader;
 
 /**
  * Fixture with 3 members, one with predefined information, 2 random. All of
@@ -32,11 +33,16 @@ class ThreeMembersWithSameBalanceFixture
         $this
             ->objectManager
             ->createQuery('DELETE FROM ' . Member::class)
-            ->execute()
-        ;
-        Fixtures::load(
-            __DIR__ . '/../../fixtures/members.yml',
-            $this->objectManager
-        );
+            ->execute();
+
+        $loader = new NativeLoader();
+        $objectSet = $loader->loadFile(__DIR__ . '/../../fixtures/members.yml');
+
+        foreach ($objectSet->getObjects() as $object) {
+            if ($object instanceof Member) {
+                $this->objectManager->persist($object);
+                $this->objectManager->flush($object);
+            }
+        }
     }
 }

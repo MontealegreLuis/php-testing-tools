@@ -52,7 +52,7 @@ final class TransferFundsInformation extends InputValidator
 
     public function amount(): Money
     {
-        return Money::MXN($this->amount);
+        return Money::MXN($this->amount * 100);
     }
 
     /**

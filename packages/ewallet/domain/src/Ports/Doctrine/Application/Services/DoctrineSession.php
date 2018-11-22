@@ -4,18 +4,19 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Doctrine2\Application\Services;
 
-use Doctrine\ORM\EntityManager;
-use Hexagonal\Application\Services\TransactionalSession;
+namespace Ports\Doctrine\Application\Services;
+
 use Closure;
+use Doctrine\ORM\EntityManagerInterface;
+use Hexagonal\Application\Services\TransactionalSession;
 
 class DoctrineSession implements TransactionalSession
 {
-    /** @var EntityManager */
+    /** @var EntityManagerInterface */
     private $entityManager;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
@@ -26,9 +27,6 @@ class DoctrineSession implements TransactionalSession
      */
     public function executeAtomically(callable $operation)
     {
-        return $this
-            ->entityManager
-            ->transactional(Closure::fromCallable($operation))
-        ;
+        return $this->entityManager->transactional(Closure::fromCallable($operation));
     }
 }

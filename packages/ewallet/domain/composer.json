@@ -17,6 +17,7 @@
         "doctrine/orm": "^2.6",
         "hexagonal/hexagonal": "^1.0",
         "moneyphp/money": "^3.0",
+        "pimple/pimple": "^3.2",
         "symfony/validator": "^4.1"
     },
     "require-dev": {

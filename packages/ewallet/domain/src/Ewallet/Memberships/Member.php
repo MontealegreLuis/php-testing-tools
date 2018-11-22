@@ -78,6 +78,11 @@ class Member implements CanRecordEvents
         return $this->memberId->value();
     }
 
+    public function name(): string
+    {
+        return $this->name;
+    }
+
     public function hasId(MemberId $id): bool
     {
         return $this->memberId->equals($id);

@@ -13,7 +13,7 @@ use Money\Money;
  */
 class MemberFormatter
 {
-    public function formatMember(MemberInformation $member): string
+    public function formatMember(Member $member): string
     {
         return "{$member->name()} {$this->formatMoney($member->accountBalance())}";
     }

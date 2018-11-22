@@ -7,8 +7,12 @@
 
 namespace Application\DependencyInjection;
 
-use Doctrine\{DBAL\Types\Type, ORM\EntityManager, ORM\Tools\Setup};
-use Pimple\{Container, ServiceProviderInterface};
+use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Setup;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class DoctrineServiceProvider implements ServiceProviderInterface
 {
@@ -17,7 +21,7 @@ class DoctrineServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['doctrine.em'] = function () use ($container) {
+        $container[EntityManagerInterface::class] = function () use ($container) {
             $configuration = Setup::createXMLMetadataConfiguration(
                 $container['doctrine']['mapping_dirs'],
                 $container['doctrine']['dev_mode'],

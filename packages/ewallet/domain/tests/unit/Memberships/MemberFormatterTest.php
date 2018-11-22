@@ -4,11 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Memberships;
 
 use Ewallet\DataBuilders\A;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MemberFormatterTest extends TestCase
 {
@@ -51,7 +52,7 @@ class MemberFormatterTest extends TestCase
 
         $this->assertEquals(
             'Mario Montealegre $15,000.25 MXN',
-            $this->formatter->formatMember($aMember->information())
+            $this->formatter->formatMember($aMember)
         );
     }
 

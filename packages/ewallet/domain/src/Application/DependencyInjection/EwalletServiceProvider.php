@@ -7,9 +7,12 @@
 
 namespace Application\DependencyInjection;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
-use Hexagonal\DomainEvents\EventPublisher;
-use Pimple\{Container, ServiceProviderInterface};
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
+use Ewallet\Memberships\Members;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Ports\Doctrine\Application\Services\DoctrineSession;
 use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 
@@ -17,18 +20,14 @@ class EwalletServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $container['ewallet.transfer_funds'] =  function () use ($container) {
-            $transferFunds = new TransactionalTransferFundsAction($container['ewallet.member_repository']);
-            $transferFunds->setTransactionalSession(new DoctrineSession($container['doctrine.em']));
-            $transferFunds->setPublisher($container['ewallet.events_publisher']);
+        $container[TransferFundsAction::class] =  function () use ($container) {
+            $transferFunds = new TransactionalTransferFundsAction($container[Members::class]);
+            $transferFunds->setTransactionalSession(new DoctrineSession($container[EntityManagerInterface::class]));
 
             return $transferFunds;
         };
-        $container['ewallet.member_repository'] = function () use ($container) {
-            return new MembersRepository($container['doctrine.em']);
-        };
-        $container['ewallet.events_publisher'] = function () {
-            return new EventPublisher();
+        $container[Members::class] = function () use ($container) {
+            return new MembersRepository($container[EntityManagerInterface::class]);
         };
     }
 }

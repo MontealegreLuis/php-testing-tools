@@ -7,7 +7,7 @@
 
 namespace Application\DependencyInjection;
 
-use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\Members;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
@@ -22,7 +22,7 @@ class EwalletServiceProviderTest extends TestCase
         $container->register(new DoctrineServiceProvider());
         $container->register(new EwalletServiceProvider());
 
-        $this->assertInstanceOf(Members::class, $container['ewallet.member_repository']);
-        $this->assertInstanceOf(TransactionalTransferFundsAction::class, $container['ewallet.transfer_funds']);
+        $this->assertInstanceOf(Members::class, $container[Members::class]);
+        $this->assertInstanceOf(TransferFundsAction::class, $container[TransferFundsAction::class]);
     }
 }

@@ -8,6 +8,7 @@
 namespace Application\DependencyInjection;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 
@@ -20,6 +21,6 @@ class DoctrineServiceProviderTest extends TestCase
         $container = new Container($options);
         $container->register(new DoctrineServiceProvider());
 
-        $this->assertInstanceOf(EntityManager::class, $container['doctrine.em']);
+        $this->assertInstanceOf(EntityManagerInterface::class, $container[EntityManagerInterface::class]);
     }
 }

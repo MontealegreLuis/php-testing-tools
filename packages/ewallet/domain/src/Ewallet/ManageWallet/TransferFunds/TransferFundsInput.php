@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Information needed to make a transfer
  */
-final class TransferFundsInformation extends InputValidator
+final class TransferFundsInput extends InputValidator
 {
     /**
      * @Assert\NotBlank(message="Sender ID cannot be blank")
@@ -35,7 +35,7 @@ final class TransferFundsInformation extends InputValidator
      */
     private $amount;
 
-    public static function from(array $validInput): TransferFundsInformation
+    public static function from(array $validInput): TransferFundsInput
     {
         return new self($validInput);
     }

@@ -9,12 +9,12 @@ namespace Ewallet\ManageWallet\TransferFunds;
 
 use PHPUnit\Framework\TestCase;
 
-class TransferFundsInformationTest extends TestCase
+class TransferFundsInputTest extends TestCase
 {
     /** @test */
     function it_does_not_pass_validation_if_no_input_is_present()
     {
-        $input = TransferFundsInformation::from([]);
+        $input = TransferFundsInput::from([]);
 
         $isValid = $input->isValid();
 
@@ -28,7 +28,7 @@ class TransferFundsInformationTest extends TestCase
     /** @test */
     function it_does_not_pass_validation_if_ids_are_empty()
     {
-        $input = TransferFundsInformation::from([
+        $input = TransferFundsInput::from([
             'senderId' => '  ',
             'amount' => 1000,
         ]);
@@ -44,7 +44,7 @@ class TransferFundsInformationTest extends TestCase
     /** @test */
     function it_does_not_pass_validation_if_amount_is_not_greater_than_zero()
     {
-        $input = TransferFundsInformation::from([
+        $input = TransferFundsInput::from([
             'senderId' => 'ABC',
             'recipientId' => 'DEF',
             'amount' => 0,

@@ -7,7 +7,7 @@
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Ewallet\Doctrine\ProvidesDoctrineSetup;
 use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +16,7 @@ use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 use Prophecy\Argument;
 use RuntimeException;
 
-class TransferFundsTransactionallyTest extends TestCase
+class TransactionalTransferFundsActionTest extends TestCase
 {
     use ProvidesDoctrineSetup, ProvidesMoneyConstraints;
 
@@ -60,13 +60,13 @@ class TransferFundsTransactionallyTest extends TestCase
 
         $this->members = new MembersRepository($this->_entityManager());
 
-        $this->useCase = new TransferFundsTransactionally($this->members);
+        $this->useCase = new TransactionalTransferFundsAction($this->members);
         $this->useCase->setTransactionalSession(new DoctrineSession($this->_entityManager()));
 
-        $this->action = $this->prophesize(CanTransferFunds::class);
+        $this->action = $this->prophesize(TransferFundsResponder::class);
         $this->useCase->attach($this->action->reveal());
 
-        $this->threeMxn = TransferFundsInformation::from([
+        $this->threeMxn = TransferFundsInput::from([
             'senderId' => 'XYZ',
             'recipientId' => 'ABC',
             'amount' => 3,
@@ -75,7 +75,7 @@ class TransferFundsTransactionallyTest extends TestCase
         $this->recipientId = $this->threeMxn->recipientId();
     }
 
-    /** @var TransferFundsTransactionally Subject under test */
+    /** @var TransactionalTransferFundsAction Subject under test */
     private $useCase;
 
     /** @var \Ewallet\Memberships\MemberId */
@@ -84,10 +84,10 @@ class TransferFundsTransactionallyTest extends TestCase
     /** @var \Ewallet\Memberships\MemberId */
     private $senderId;
 
-    /** @var CanTransferFunds */
+    /** @var TransferFundsResponder */
     private $action;
 
-    /** @var TransferFundsInformation */
+    /** @var TransferFundsInput */
     private $threeMxn;
 
     /** @var \Ewallet\Memberships\Members $members */

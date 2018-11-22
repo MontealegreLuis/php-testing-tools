@@ -15,20 +15,20 @@ use LogicException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
-class TransferFundsTest extends TestCase
+class TransferFundsActionTest extends TestCase
 {
     /** @test */
     function it_fails_to_transfer_if_no_responder_is_given()
     {
         $this->expectException(LogicException::class);
-        $this->action->transfer(TransferFundsInformation::from([]));
+        $this->action->transfer(TransferFundsInput::from([]));
     }
 
     /** @test */
     function it_provides_feedback_if_input_is_invalid()
     {
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInformation::from([]);
+        $input = TransferFundsInput::from([]);
 
         $this->action->transfer($input);
 
@@ -40,7 +40,7 @@ class TransferFundsTest extends TestCase
     function it_provides_feedback_if_sender_cannot_be_found()
     {
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInformation::from([
+        $input = TransferFundsInput::from([
             'senderId' => 'unknown sender',
             'recipientId' => 'unknown recipient',
             'amount' => 10 // 10 MXN
@@ -58,7 +58,7 @@ class TransferFundsTest extends TestCase
         $sender = A::member()->build();
         $this->members->add($sender);
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInformation::from([
+        $input = TransferFundsInput::from([
             'senderId' => $sender->idValue(),
             'recipientId' => 'unknown recipient',
             'amount' => 10 // 10 MXN
@@ -78,7 +78,7 @@ class TransferFundsTest extends TestCase
         $this->members->add($sender);
         $this->members->add($recipient);
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInformation::from([
+        $input = TransferFundsInput::from([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
             'amount' => 10 // 10 MXN
@@ -100,7 +100,7 @@ class TransferFundsTest extends TestCase
         $this->members->add($sender);
         $this->members->add($recipient);
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInformation::from([
+        $input = TransferFundsInput::from([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
             'amount' => 10 // 10 MXN
@@ -118,16 +118,16 @@ class TransferFundsTest extends TestCase
     function configure()
     {
         $this->members = new InMemoryMembers();
-        $this->responder = $this->prophesize(CanTransferFunds::class);
-        $this->action = new TransferFunds($this->members);
+        $this->responder = $this->prophesize(TransferFundsResponder::class);
+        $this->action = new TransferFundsAction($this->members);
     }
 
     /** @var \Ewallet\Memberships\Members */
     private $members;
 
-    /** @var CanTransferFunds */
+    /** @var TransferFundsResponder */
     private $responder;
 
-    /** @var TransferFunds */
+    /** @var TransferFundsAction */
     private $action;
 }

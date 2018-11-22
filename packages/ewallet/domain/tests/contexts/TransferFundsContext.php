@@ -7,7 +7,7 @@
 
 use Behat\Behat\Context\Context;
 use Ewallet\DataBuilders\A;
-use Ewallet\ManageWallet\{TransferFunds\TransferFunds, TransferFunds\TransferFundsInformation};
+use Ewallet\ManageWallet\{TransferFunds\TransferFundsAction, TransferFunds\TransferFundsInput};
 use Ewallet\Memberships\{InMemoryMembers, MemberId};
 use Money\Money;
 
@@ -27,18 +27,18 @@ class TransferFundsContext implements Context
     /** @var \Ewallet\Memberships\Members */
     private $members;
 
-    /** @var TransferFundsHelper */
+    /** @var TransferFundsResponderHelper */
     private $helper;
 
-    /** @var TransferFunds */
+    /** @var TransferFundsAction */
     private $command;
 
     /** @BeforeScenario */
     public function prepare()
     {
         $this->members = new InMemoryMembers();
-        $this->helper = new TransferFundsHelper();
-        $this->command = new TransferFunds($this->members);
+        $this->helper = new TransferFundsResponderHelper();
+        $this->command = new TransferFundsAction($this->members);
         $this->command->attach($this->helper);
     }
 
@@ -67,7 +67,7 @@ class TransferFundsContext implements Context
      */
     public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
-        $this->command->transfer(TransferFundsInformation::from([
+        $this->command->transfer(TransferFundsInput::from([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
             'amount' => $amount->getAmount() / 100,

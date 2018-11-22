@@ -6,12 +6,12 @@
  */
 
 use Application\Actions\InputValidator;
-use Ewallet\ManageWallet\{TransferFunds\CanTransferFunds, TransferFunds\TransferFundsSummary};
+use Ewallet\ManageWallet\{TransferFunds\TransferFundsResponder, TransferFunds\TransferFundsSummary};
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\UnknownMember;
 use Money\Money;
 
-class TransferFundsHelper implements CanTransferFunds
+class TransferFundsResponderHelper implements TransferFundsResponder
 {
     /** @var bool */
     private $transferWasMade = false;

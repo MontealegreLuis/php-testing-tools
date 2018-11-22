@@ -4,7 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Doctrine2;
+namespace Ewallet\Doctrine;
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\{EntityManager, EntityManagerInterface};

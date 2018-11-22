@@ -15,14 +15,14 @@ use LogicException;
 /**
  * Command to transfer funds between a recipient and a sender
  */
-class TransferFunds
+class TransferFundsAction
 {
     use PublishesEvents;
 
     /** @var Members */
     private $members;
 
-    /** @var CanTransferFunds */
+    /** @var TransferFundsResponder */
     private $responder;
 
     public function __construct(Members $members)
@@ -36,27 +36,27 @@ class TransferFunds
      * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to transfer a negative amount
      * @throws LogicException If no action is attached to the current command
      */
-    public function transfer(TransferFundsInformation $information): void
+    public function transfer(TransferFundsInput $input): void
     {
-        if (!$information->isValid()) {
-            $this->responder()->respondToInvalidInput($information);
+        if (!$input->isValid()) {
+            $this->responder()->respondToInvalidInput($input);
             return;
         }
-        $this->tryToTransferFunds($information);
+        $this->tryToTransferFunds($input);
     }
 
-    private function tryToTransferFunds(TransferFundsInformation $information): void
+    private function tryToTransferFunds(TransferFundsInput $input): void
     {
         try {
-            $sender = $this->members->with($information->senderId());
-            $recipient = $this->members->with($information->recipientId());
+            $sender = $this->members->with($input->senderId());
+            $recipient = $this->members->with($input->recipientId());
         } catch (UnknownMember $exception) {
             $this->responder()->respondToUnknownMember($exception);
             return;
         }
 
         try {
-            $sender->transfer($information->amount(), $recipient);
+            $sender->transfer($input->amount(), $recipient);
         } catch (InsufficientFunds $exception) {
             $this->responder()->respondToInsufficientFunds($exception);
             return;
@@ -70,13 +70,13 @@ class TransferFunds
         $this->responder()->respondToTransferCompleted(new TransferFundsSummary($sender, $recipient));
     }
 
-    public function attach(CanTransferFunds $action): void
+    public function attach(TransferFundsResponder $responder): void
     {
-        $this->responder = $action;
+        $this->responder = $responder;
     }
 
-    /** @throws LogicException If no action is attached to this command */
-    private function responder(): CanTransferFunds
+    /** @throws LogicException If no responder is attached to this action */
+    private function responder(): TransferFundsResponder
     {
         if ($this->responder) {
             return $this->responder;

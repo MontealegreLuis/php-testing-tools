@@ -14,7 +14,7 @@ use Ewallet\Memberships\UnknownMember;
  * Represents the action executed by a member, it is usually implemented as a controller or a console command.
  * It is meant to provide feedback to a member that wants to transfer funds
  */
-interface CanTransferFunds extends ActionResponder
+interface TransferFundsResponder extends ActionResponder
 {
     public function respondToTransferCompleted(TransferFundsSummary $summary): void;
 

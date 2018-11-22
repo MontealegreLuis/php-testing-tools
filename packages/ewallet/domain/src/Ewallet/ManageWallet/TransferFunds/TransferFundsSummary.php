@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Ewallet\Memberships\{Member, MemberInformation};
+use Ewallet\Memberships\Member;
 
 /**
  * Contains the summary of balances for both the recipient and the sender
@@ -25,13 +25,13 @@ final class TransferFundsSummary
         $this->recipient = $recipient;
     }
 
-    public function sender(): MemberInformation
+    public function sender(): Member
     {
-        return $this->sender->information();
+        return $this->sender;
     }
 
-    public function recipient(): MemberInformation
+    public function recipient(): Member
     {
-        return $this->recipient->information();
+        return $this->recipient;
     }
 }

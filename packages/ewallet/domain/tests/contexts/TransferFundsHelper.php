@@ -4,14 +4,20 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\Memberships\Member;
+
+use Application\Actions\InputValidator;
 use Ewallet\ManageWallet\{TransferFunds\CanTransferFunds, TransferFunds\TransferFundsSummary};
+use Ewallet\Memberships\Member;
+use Ewallet\Memberships\UnknownMember;
 use Money\Money;
 
 class TransferFundsHelper implements CanTransferFunds
 {
     /** @var bool */
     private $transferWasMade = false;
+
+    /** @var bool */
+    private $senderHasEnoughFunds = true;
 
     /**
      * Record that transfer was completed
@@ -29,10 +35,7 @@ class TransferFundsHelper implements CanTransferFunds
         assertTrue($this->transferWasMade, 'Transfer is incomplete.');
     }
 
-    public function assertBalanceIs(
-        Money $expectedAmount,
-        Member $forMember
-    ): void
+    public function assertBalanceIs(Money $expectedAmount, Member $forMember): void
     {
         assertTrue(
             $expectedAmount->equals($forMember->accountBalance()),
@@ -44,18 +47,23 @@ class TransferFundsHelper implements CanTransferFunds
         );
     }
 
-    public function respondToInvalidInput(\Ewallet\Application\Actions\InputValidator $input): void
-    {
-        // TODO: Implement respondToInvalidInput() method.
-    }
-
-    public function respondToUnknownMember(\Ewallet\Memberships\UnknownMember $exception): void
-    {
-        // TODO: Implement respondToUnknownMember() method.
-    }
-
     public function respondToInsufficientFunds(\Ewallet\Memberships\InsufficientFunds $exception): void
     {
-        // TODO: Implement respondToInsufficientFunds() method.
+        $this->senderHasEnoughFunds = true;
+    }
+
+    public function assertSenderDoesNotHaveEnoughFunds(): void
+    {
+        assertTrue($this->senderHasEnoughFunds, 'Sender should not have enough funds.');
+    }
+
+    public function respondToInvalidInput(InputValidator $input): void
+    {
+        // Covered by TransferFundsTest
+    }
+
+    public function respondToUnknownMember(UnknownMember $exception): void
+    {
+        // Covered by TransferFundsTest
     }
 }

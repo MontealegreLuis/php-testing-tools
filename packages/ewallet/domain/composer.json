@@ -31,8 +31,9 @@
         "sort-packages": true
     },
     "autoload": {
-        "psr-4": {
-            "Ewallet\\": "src/"
+        "psr-0": {
+            "Ewallet\\": "src/",
+            "Application": "src/"
         },
         "files": ["annotations.php"]
     },

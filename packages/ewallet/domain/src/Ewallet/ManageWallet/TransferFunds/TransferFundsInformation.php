@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Ewallet\Application\Actions\InputValidator;
+use Application\Actions\InputValidator;
 use Ewallet\Memberships\MemberId;
 use Money\Money;
 use Symfony\Component\Validator\Constraints as Assert;

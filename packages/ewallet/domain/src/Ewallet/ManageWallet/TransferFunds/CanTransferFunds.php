@@ -6,7 +6,7 @@
  */
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Ewallet\Application\Actions\ActionResponder;
+use Application\Actions\ActionResponder;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\UnknownMember;
 

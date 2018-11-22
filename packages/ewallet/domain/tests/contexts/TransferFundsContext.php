@@ -99,4 +99,12 @@ class TransferFundsContext implements Context
         $recipient = $this->members->with(MemberId::withIdentity($this->recipientId));
         $this->helper->assertBalanceIs($amount, $recipient);
     }
+
+    /**
+     * @Then /^the sender is notified that she does not have enough funds to complete the transfer$/
+     */
+    public function theSenderIsNotifiedThatSheDoesNotHaveEnoughFundsToCompleteTheTransfer()
+    {
+        $this->helper->assertSenderDoesNotHaveEnoughFunds();
+    }
 }

@@ -10,3 +10,10 @@ Feature: Transfer funds
     Then the sender is notified that the transfer is complete
     And the sender's balance should be "3000" MXN
     And the recipient's balance should be "6000" MXN
+
+  Scenario: Sender does not have enough funds
+    Given a sender with an account balance of "2000" MXN
+    And a recipient with an account balance of "4000" MXN
+    Then the sender is notified that she does not have enough funds to complete the transfer
+    And the sender's balance should be "2000" MXN
+    And the recipient's balance should be "4000" MXN

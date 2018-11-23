@@ -6,17 +6,17 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Memberships\{Member, MemberFormatter};
 use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
-use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsole, TransferFundsConsoleResponder, TransferFunds};
-use Ewallet\Zf2\InputFilter\{Filters\TransferFundsFilter, TransferFundsInputFilter};
+use Ewallet\Doctrine\ProvidesDoctrineSetup;
+use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
+use Ewallet\ManageWallet\TransferFundsConsole;
+use Ewallet\Memberships\MemberFormatter;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
+use Ports\Doctrine\Application\Services\DoctrineSession;
+use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Question\Question;
 
 class TransferFundsCommandTest extends TestCase
 {
@@ -25,19 +25,72 @@ class TransferFundsCommandTest extends TestCase
     /** @test */
     function it_transfers_funds_between_members()
     {
-        $this
-            ->question
-            ->ask($this->input, $this->output, Argument::type(Question::class))
-            ->willReturn('LMN', 5)
-        ;
+        $input = new ArrayInput([
+            'senderId' => 'ABC',
+            'recipientId' => 'LMN',
+            'amount' => 5,
+        ]);
 
-        $statusCode = $this->command->run($this->input, $this->output);
+        $statusCode = $this->command->run($input, $this->output);
 
+        $this->assertRegExp('/Transfer completed successfully!/', $this->output->fetch());
         $this->assertEquals($success = 0, $statusCode);
-        $this->assertRegExp(
-            '/Transfer completed successfully!/',
-            $this->output->fetch()
-        );
+    }
+
+    /** @test */
+    function it_shows_error_messages_when_invalid_input_is_provided()
+    {
+        $input = new ArrayInput([]);
+
+        $statusCode = $this->command->run($input, $this->output);
+
+        $this->assertRegExp('/FUNDS-422-001/', $this->output->fetch());
+        $this->assertEquals($error = 1, $statusCode);
+    }
+
+    /** @test */
+    function it_shows_error_message_if_sender_cannot_be_found()
+    {
+        $input = new ArrayInput([
+            'senderId' => 'not a known ID',
+            'recipientId' => 'LMN',
+            'amount' => 5,
+        ]);
+
+        $statusCode = $this->command->run($input, $this->output);
+
+        $this->assertRegExp('/FUNDS-400-001/', $this->output->fetch());
+        $this->assertEquals($success = 1, $statusCode);
+    }
+
+    /** @test */
+    function it_shows_error_message_if_recipient_cannot_be_found()
+    {
+        $input = new ArrayInput([
+            'senderId' => 'ABC',
+            'recipientId' => 'not a known ID',
+            'amount' => 5,
+        ]);
+
+        $statusCode = $this->command->run($input, $this->output);
+
+        $this->assertRegExp('/FUNDS-400-001/', $this->output->fetch());
+        $this->assertEquals($success = 1, $statusCode);
+    }
+
+    /** @test */
+    function it_shows_error_message_if_sender_does_not_have_enough_funds()
+    {
+        $input = new ArrayInput([
+            'senderId' => 'ABC',
+            'recipientId' => 'LMN',
+            'amount' => 50000, // Not enough funds
+        ]);
+
+        $statusCode = $this->command->run($input, $this->output);
+
+        $this->assertRegExp('/FUNDS-400-002/', $this->output->fetch());
+        $this->assertEquals($success = 1, $statusCode);
     }
 
     /** @before */
@@ -45,31 +98,13 @@ class TransferFundsCommandTest extends TestCase
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
         (new ThreeMembersWithSameBalanceFixture($this->_entityManager()))->load();
-
-        /** @var \Ewallet\Memberships\MembersRepository $members */
-        $members = $this->_repositoryForEntity(Member::class);
-        $useCase = new TransferFunds($members);
-
+        $members = new MembersRepository($this->_entityManager());
+        $action = new TransactionalTransferFundsAction($members);
+        $action->setTransactionalSession(new DoctrineSession($this->_entityManager()));
         $this->input = new ArrayInput([]);
         $this->output = new BufferedOutput();
-        $this->question = $this->prophesize(QuestionHelper::class);
-
-        $this->command = new TransferFundsCommand(
-            new TransferFundsAction(
-                new TransferFundsConsoleResponder(
-                    $this->input,
-                    $members,
-                    new TransferFundsConsole(
-                        $this->input,
-                        $this->output,
-                        $this->question->reveal(),
-                        new MemberFormatter()
-                    )
-                ),
-                $useCase
-            ),
-            new TransferFundsInputFilter(new TransferFundsFilter(), $members)
-        );
+        $console = new TransferFundsConsole($this->output, new MemberFormatter());
+        $this->command = new TransferFundsCommand($action, $console);
     }
 
     /** @var TransferFundsCommand Subject under test */

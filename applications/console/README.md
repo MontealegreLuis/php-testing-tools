@@ -12,7 +12,7 @@ This console application has one command that allows one member transfer funds
 to another.
 
 ```bash
-$ bin/console ewallet:transfer
+$ bin/console ewallet:transfer ABC LMV 10
 ```
 
 ## Tests

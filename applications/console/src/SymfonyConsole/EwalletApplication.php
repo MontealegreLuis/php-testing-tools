@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\SymfonyConsole;
 
 use Ewallet\Pimple\EwalletConsoleContainer;
@@ -15,12 +16,7 @@ class EwalletApplication extends Application
     public function __construct(EwalletConsoleContainer $container)
     {
         parent::__construct('ewallet', '1.0.0');
-        $this
-            ->add(new TransferFundsCommand(
-                $container['ewallet.transfer_funds_console_action'],
-                $container['ewallet.transfer_filter_request']
-            ))
-        ;
+        $this->add($container[TransferFundsCommand::class]);
         $this->setDispatcher($container['ewallet.console.dispatcher']);
     }
 }

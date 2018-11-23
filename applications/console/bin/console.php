@@ -4,10 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 require __DIR__ . '/../vendor/autoload.php';
 
-use Ewallet\{Pimple\EwalletConsoleContainer, SymfonyConsole\EwalletApplication};
 use Dotenv\Dotenv;
+use Ewallet\Pimple\EwalletConsoleContainer;
+use Ewallet\SymfonyConsole\EwalletApplication;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 $environment = new Dotenv(__DIR__ . '/../');
 $environment->load();
@@ -17,7 +21,4 @@ $application = new EwalletApplication($container = new EwalletConsoleContainer(
     require __DIR__ . '/../config.php'
 ));
 
-$application->run(
-    $container['ewallet.console_input'],
-    $container['ewallet.console_output']
-);
+$application->run($container[InputInterface::class], $container[OutputInterface::class]);

@@ -6,12 +6,15 @@
  */
 namespace Ewallet\Pimple;
 
-use Dotenv\Dotenv;
+use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
-use Ewallet\ManageWallet\{TransferFundsAction, TransferFundsConsoleResponder};
 use Hexagonal\DomainEvents\EventPublisher;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\{Input\ArgvInput, Output\ConsoleOutput};
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class EwalletConsoleContainerTest extends TestCase
@@ -24,31 +27,23 @@ class EwalletConsoleContainerTest extends TestCase
 
         $this->assertInstanceOf(
             ArgvInput::class,
-            $container['ewallet.console_input']
+            $container[InputInterface::class]
         );
         $this->assertInstanceOf(
             ConsoleOutput::class,
-            $container['ewallet.console_output']
+            $container[OutputInterface::class]
         );
         $this->assertInstanceOf(
-            TransferFundsConsoleResponder::class,
-            $container['ewallet.transfer_funds_console_responder']
-        );
-        $this->assertInstanceOf(
-            TransferFundsAction::class,
-            $container['ewallet.transfer_funds_console_action']
+            TransactionalTransferFundsAction::class,
+            $container[TransferFundsAction::class]
         );
         $this->assertInstanceOf(
             EventPublisher::class,
-            $container['ewallet.events_publisher']
-        );
-        $this->assertInstanceOf(
-            StoreEventsListener::class,
-            $container['ewallet.store_events_listener']
+            $container[EventPublisher::class]
         );
         $this->assertInstanceOf(
             EventDispatcher::class,
-            $container['ewallet.console.dispatcher']
+            $container[EventDispatcher::class]
         );
     }
 }

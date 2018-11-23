@@ -7,7 +7,7 @@
 return [
     'doctrine' => [
         'mapping_dirs' => [
-            __DIR__ . '/vendor/ewallet/doctrine/src/Doctrine2/Resources/config',
+            __DIR__ . '/vendor/ewallet/domain/src/Ports/Doctrine/Ewallet/Resources/config',
             __DIR__ . '/vendor/hexagonal/doctrine/src/Doctrine2/Resources/config',
         ],
         'dev_mode' => getenv('APP_ENV') !== 'production',
@@ -16,7 +16,7 @@ return [
             'url' => str_replace('{{DIR}}', '//' . __DIR__ . '/', getenv('DB_URL')),
         ],
         'types' => [
-            'MemberId' => 'Ewallet\Doctrine2\Types\MemberIdType',
+            'MemberId' => 'Ports\Doctrine\Ewallet\Types\MemberIdType',
         ],
     ],
     'monolog' => [

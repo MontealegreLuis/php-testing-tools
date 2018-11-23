@@ -4,40 +4,28 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\ManageWallet;
 
-use Ewallet\Memberships\{Member, MemberFormatter, MemberInformation};
-use Symfony\Component\Console\Helper\{QuestionHelper, Table};
-use Symfony\Component\Console\Input\InputInterface;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
+use Ewallet\Memberships\Member;
+use Ewallet\Memberships\MemberFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 
 /**
  * Interacts with a sender in a console application to transfer funds to a recipient
  */
 class TransferFundsConsole
 {
-    /** @var InputInterface */
-    private $input;
-
     /** @var OutputInterface */
     private $output;
-
-    /** @var QuestionHelper */
-    private $question;
 
     /** @var MemberFormatter */
     private $formatter;
 
-    public function __construct(
-        InputInterface $input,
-        OutputInterface $output,
-        QuestionHelper $question,
-        MemberFormatter $formatter
-    ) {
-        $this->input = $input;
+    public function __construct(OutputInterface $output, MemberFormatter $formatter)
+    {
         $this->output = $output;
-        $this->question = $question;
         $this->formatter = $formatter;
     }
 
@@ -46,38 +34,15 @@ class TransferFundsConsole
      *
      * @param string[] $messages
      */
-    public function printError(array $messages): void
+    public function printError(array $messages, string $errorCode): void
     {
-        $this->output->writeln('<comment>Please fix the following errors</comment>');
+        $this->output->writeln("<comment>[{$errorCode}] Please fix the following errors</comment>");
 
-        array_map(function (array $messages) {
-            $message = implode(', ', $messages);
+        array_map(function (string $message) {
             $this->output->writeln("<error>{$message}</error>");
         }, $messages);
 
         $this->output->writeln('<info>Try again please.</info>');
-    }
-
-    /**
-     * Show the list of recipients to the sender
-     *
-     * @param Member[] $recipients
-     */
-    public function printRecipients(array $recipients): void
-    {
-        $table = new Table($this->output);
-        $table
-            ->setHeaders(['ID', 'Name', 'Balance'])
-            ->setRows(array_map(function (Member $recipient) {
-                $recipient = $recipient->information();
-                return [
-                    $recipient->id(),
-                    $recipient->name(),
-                    $this->formatter->formatMoney($recipient->accountBalance())
-                ];
-            }, $recipients))
-        ;
-        $table->render();
     }
 
     /**
@@ -90,26 +55,8 @@ class TransferFundsConsole
         $this->printStatementFor($summary->recipient());
     }
 
-    private function printStatementFor(MemberInformation $member): void
+    private function printStatementFor(Member $member): void
     {
         $this->output->writeln("{$this->formatter->formatMember($member)}");
-    }
-
-    public function promptRecipientId(): string
-    {
-        return $this->question->ask(
-            $this->input,
-            $this->output,
-            new Question('Transfer to ID: ')
-        );
-    }
-
-    public function promptAmountToTransfer(): string
-    {
-        return $this->question->ask(
-            $this->input,
-            $this->output,
-            new Question('Amount to transfer: ')
-        );
     }
 }

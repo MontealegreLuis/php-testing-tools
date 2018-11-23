@@ -15,6 +15,6 @@ class UnknownMember extends RuntimeException
 {
     public static function identifiedBy(MemberId $memberId): UnknownMember
     {
-        return new self("Member with ID {$memberId->value()} cannot be found");
+        return new self("Member with ID '{$memberId->value()}' cannot be found");
     }
 }

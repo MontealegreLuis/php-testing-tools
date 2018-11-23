@@ -6,24 +6,40 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
+use Application\Actions\InputValidator;
+use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
+use Ewallet\ManageWallet\TransferFundsConsole;
+use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\MemberId;
-use Ewallet\ManageWallet\{TransferFundsInput, TransferFundsAction};
+use Ewallet\Memberships\UnknownMember;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\{InputArgument, InputInterface};
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TransferFundsCommand extends Command
+class TransferFundsCommand extends Command implements TransferFundsResponder
 {
-    /** @var TransferFundsAction */
+    private const SUCCESS = 0;
+    private const ERROR = 1;
+
+    /** @var int */
+    private $exitCode;
+
+    /** @var TransactionalTransferFundsAction */
     private $action;
 
-    /** @var TransferFundsInput */
-    private $input;
+    /** @var TransferFundsConsole */
+    private $console;
 
-    public function __construct(TransferFundsAction $transferFunds, TransferFundsInput $input) {
+    public function __construct(TransactionalTransferFundsAction $transferFunds, TransferFundsConsole $console)
+    {
         parent::__construct();
         $this->action = $transferFunds;
-        $this->input = $input;
+        $this->action->attach($this);
+        $this->console = $console;
     }
 
     /**
@@ -66,10 +82,32 @@ class TransferFundsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $senderId = MemberId::withIdentity('ABC');
-        $input->setArgument('senderId', $senderId->value());
-        $this->action->enterTransferInformation($senderId);
-        $this->input->populate($input->getArguments());
-        $this->action->transfer($this->input);
+        $this->action->transfer(TransferFundsInput::from($input->getArguments()));
+
+        return $this->exitCode;
+    }
+
+    public function respondToTransferCompleted(TransferFundsSummary $summary): void
+    {
+        $this->console->printSummary($summary);
+        $this->exitCode = self::SUCCESS;
+    }
+
+    public function respondToInvalidInput(InputValidator $input): void
+    {
+        $this->console->printError($input->errors(), 'FUNDS-422-001');
+        $this->exitCode = self::ERROR;
+    }
+
+    public function respondToUnknownMember(UnknownMember $exception): void
+    {
+        $this->console->printError([$exception->getMessage()], 'FUNDS-400-001');
+        $this->exitCode = self::ERROR;
+    }
+
+    public function respondToInsufficientFunds(InsufficientFunds $exception): void
+    {
+        $this->console->printError([$exception->getMessage()], 'FUNDS-400-002');
+        $this->exitCode = self::ERROR;
     }
 }

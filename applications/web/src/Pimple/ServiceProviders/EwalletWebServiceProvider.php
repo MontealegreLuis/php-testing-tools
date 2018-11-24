@@ -4,16 +4,23 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Ewallet\EasyForms\TransferFundsForm;
+use Application\DependencyInjection\EwalletServiceProvider;
+use Doctrine\ORM\EntityManagerInterface;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
+use Ewallet\ManageWallet\Web\TransferFundsWebAction;
+use Ewallet\Memberships\MemberFormatter;
+use Ewallet\Memberships\MembersWebRepository;
+use Ewallet\Slim\Controllers\ShowTransferFormController;
 use Ewallet\Slim\Controllers\TransferFundsController;
+use Ewallet\Twig\Extensions\EwalletExtension;
 use Ewallet\Twig\RouterExtension;
-use Ewallet\ManageWallet\{TransferFundsFormResponder, Web\TransferFundsWebAction};
-use Ewallet\Zf2\Diactoros\DiactorosResponseFactory;
+use Ewallet\Twig\TwigTemplateEngine;
 use Pimple\Container;
-use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
+use Twig_Loader_Filesystem as Loader;
 
 class EwalletWebServiceProvider extends EwalletServiceProvider
 {
@@ -24,35 +31,20 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
     public function register(Container $container)
     {
         parent::register($container);
-
-        $container['ewallet.transfer_form'] = function () {
-            return new TransferFundsForm();
-        };
-        $container['ewallet.transfer_funds_web_responder'] = function () use ($container) {
-            return new TransferFundsFormResponder(
-                $container['ewallet.template_engine'],
-                new DiactorosResponseFactory(),
-                $container['ewallet.transfer_form'],
-                $container['ewallet.members_configuration']
+        $container[ShowTransferFormController::class] = function () use ($container) {
+            return new ShowTransferFormController(
+                new MembersWebRepository($container[EntityManagerInterface::class]),
+                $container[TwigTemplateEngine::class]
             );
         };
-        $container['ewallet.transfer_form_controller'] = function () use ($container) {
-            return new TransferFundsController(new TransferFundsWebAction(
-                $container['ewallet.transfer_funds_web_responder']
-            ));
+        $container[TwigTemplateEngine::class] = function () use ($container) {
+            return new TwigTemplateEngine($container['twig.environment']);
         };
-        $container['ewallet.transfer_funds_controller'] = function () use ($container) {
+        $container[TransferFundsController::class] = function () use ($container) {
             return new TransferFundsController(
-                new TransferFundsWebAction(
-                    $container['ewallet.transfer_funds_web_responder'],
-                    $container['ewallet.transfer_funds']
-                ),
-                $container['ewallet.transfer_filter_request']
-            );
-        };
-        $container['slim.twig_extension'] = function () use ($container) {
-            return new RouterExtension(
-                $container['router'], $container['request']
+                $container[TransferFundsAction::class],
+                $container[TwigTemplateEngine::class],
+                new MembersWebRepository($container[EntityManagerInterface::class])
             );
         };
         $container->extend(
@@ -68,11 +60,17 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
         $container->extend(
             'twig.environment',
             function (Environment $twig) use ($container) {
-                $twig->addExtension($container['ewallet.twig.extension']);
-                $twig->addExtension($container['slim.twig_extension']);
+                $twig->addExtension($container[EwalletExtension::class]);
+                $twig->addExtension($container[RouterExtension::class]);
 
                 return $twig;
             }
         );
+        $container[EwalletExtension::class] = function () {
+            return new EwalletExtension(new MemberFormatter());
+        };
+        $container[RouterExtension::class] = function () use ($container) {
+            return new RouterExtension($container['router'], $container['request']);
+        };
     }
 }

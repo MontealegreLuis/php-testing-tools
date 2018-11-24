@@ -4,8 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Slim\Controllers;
 
+use Ewallet\Doctrine\ProvidesDoctrineSetup;
 use Ewallet\Slim\Application;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
@@ -14,6 +16,8 @@ use Slim\Http\Request;
 
 class TransferFundsControllerTest extends TestCase
 {
+    use ProvidesDoctrineSetup;
+
     /** @test */
     function it_returns_an_ok_response_on_enter_transfer_information_action()
     {
@@ -23,7 +27,7 @@ class TransferFundsControllerTest extends TestCase
 
         $response = $this->app->run(true);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode(), "Actual response is: {$response->getBody()}");
     }
 
     /** @test */
@@ -50,8 +54,10 @@ class TransferFundsControllerTest extends TestCase
     /** @before */
     public function configureApplication(): void
     {
-        $this->app = new Application(require __DIR__ . '/../../../../config.php');
+        $options = require __DIR__ . '/../../../../config.php';
+        $this->app = new Application($options);
         $this->container = $this->app->getContainer();
+        $this->_setUpDoctrine($options);
     }
 
     /** @var  Application */

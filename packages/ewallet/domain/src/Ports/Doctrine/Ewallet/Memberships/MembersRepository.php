@@ -15,7 +15,7 @@ use Ewallet\Memberships\UnknownMember;
 class MembersRepository implements Members
 {
     /** @var EntityManagerInterface */
-    private $manager;
+    protected $manager;
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -54,20 +54,5 @@ class MembersRepository implements Members
     {
         $this->manager->persist($member);
         $this->manager->flush($member);
-    }
-
-    /** @return Member[] */
-    public function excluding(MemberId $senderId): array
-    {
-        $builder = $this->manager->createQueryBuilder();
-
-        $builder
-            ->select('m')
-            ->from(Member::class, 'm')
-            ->where('m.memberId <> :id')
-            ->setParameter('id', $senderId)
-        ;
-
-        return $builder->getQuery()->getResult();
     }
 }

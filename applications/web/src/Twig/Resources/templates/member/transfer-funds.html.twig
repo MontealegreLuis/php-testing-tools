@@ -1,0 +1,55 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block content %}
+    {% if summary is defined %}
+        <div
+            id="transfer-message"
+            class="alert alert-success alert-dismissible"
+            role="alert"
+        >
+            <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+            >
+                <span aria-hidden="true">&times;</span>
+            </button>
+            Your beneficiary summary is {{ member(summary.recipient) }} <br>
+            Your summary is {{ member(summary.sender) }}
+        </div>
+    {% endif %}
+    <form action="{{ url_for('transfer_funds') }}" method="post">
+        <input type="hidden" name="senderId" value="{{ senderId }}">
+        <div class="form-group">
+            <label for="recipient">Recipient</label>
+            <select name="recipientId" id="recipient" class="form-control">
+                {% for recipient in recipients %}
+                    <option
+                        value="{{ recipient.id }}"
+                        {% if recipientId is defined and recipient.hasId(recipientId) %} selected{% endif %}
+                    >
+                        {{ member(recipient) }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% if errors is defined and errors.recipientId is defined %}
+                <div class="alert alert-block alert-danger" role="alert">{{ errors.recipientId }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" id="amount" name="amount" class="form-control">
+            </div>
+            {% if errors is defined and errors.amount is defined %}
+                <div class="alert alert-block alert-danger" role="alert">{{ errors.amount }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-share"></span> Transfer
+        </button>
+    </form>
+{% endblock %}

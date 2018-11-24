@@ -4,15 +4,20 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Slim\Middleware;
 
 use Ewallet\DataBuilders\A;
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Ewallet\Doctrine\ProvidesDoctrineSetup;
+use Hexagonal\DomainEvents\EventPublisher;
+use Hexagonal\DomainEvents\PersistEventsSubscriber;
+use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\DomainEvents\StoredEventFactory;
 use Hexagonal\JmsSerializer\JsonSerializer;
-use Hexagonal\DomainEvents\{EventPublisher, PersistEventsSubscriber, StoredEvent, StoredEventFactory};
 use PHPUnit\Framework\TestCase;
+use Slim\App;
+use Slim\Http\Environment;
 use SplObjectStorage;
-use Slim\{Http\Environment, App};
 
 class StoreEventsMiddlewareTest extends TestCase
 {

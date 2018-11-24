@@ -4,9 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Slim\Providers;
 
-use Pimple\{Container, ServiceProviderInterface};
+use Ewallet\Slim\Controllers\ShowTransferFormController;
+use Ewallet\Slim\Controllers\TransferFundsController;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Slim\App;
 use Slim\Http\{Request, Response};
 
@@ -33,11 +37,11 @@ class EwalletControllerProvider implements ServiceProviderInterface
         )->setName('ewallet_home');
         $this->app->get(
             '/transfer-form',
-            'ewallet.transfer_form_controller:enterTransferInformation'
+            ShowTransferFormController::class . ':enterTransferInformation'
         )->setName('transfer_form');
         $this->app->post(
             '/transfer-funds',
-            'ewallet.transfer_funds_controller:transfer'
+            TransferFundsController::class . ':transfer'
         )->setName('transfer_funds');
     }
 }

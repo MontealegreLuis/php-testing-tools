@@ -4,18 +4,17 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Pimple;
 
+use Ewallet\Slim\Controllers\ShowTransferFormController;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Slim\Middleware\{RequestLoggingMiddleware, StoreEventsMiddleware};
 use Ewallet\Twig\RouterExtension;
-use Ewallet\ManageWallet\TransferFundsFormResponder;
-use Ewallet\EasyForms\TransferFundsForm;
 use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
 use Hexagonal\DomainEvents\PersistEventsSubscriber;
-use PHPUnit\Framework\TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Slim\{App, Http\Environment};
 use Twig_Environment as TwigEnvironment;
 use Twig_Loader_Filesystem as Loader;
 
@@ -25,7 +24,7 @@ class EwalletWebContainerTest extends TestCase
     function it_creates_the_web_application_services()
     {
         $options = require __DIR__ . '/../../../config.php';
-        $container = new EwalletWebContainer($options, new App());
+        $container = new EwalletWebContainer($options);
 
         $this->assertInstanceOf(
             TwigEnvironment::class,
@@ -36,24 +35,16 @@ class EwalletWebContainerTest extends TestCase
             $container['twig.loader']
         );
         $this->assertInstanceOf(
-            TransferFundsForm::class,
-            $container['ewallet.transfer_form']
-        );
-        $this->assertInstanceOf(
-            TransferFundsFormResponder::class,
-            $container['ewallet.transfer_funds_web_responder']
+            ShowTransferFormController::class,
+            $container[ShowTransferFormController::class]
         );
         $this->assertInstanceOf(
             TransferFundsController::class,
-            $container['ewallet.transfer_form_controller']
-        );
-        $this->assertInstanceOf(
-            TransferFundsController::class,
-            $container['ewallet.transfer_funds_controller']
+            $container[TransferFundsController::class]
         );
         $this->assertInstanceOf(
             RouterExtension::class,
-            $container['slim.twig_extension']
+            $container[RouterExtension::class]
         );
 
         $this->assertInstanceOf(

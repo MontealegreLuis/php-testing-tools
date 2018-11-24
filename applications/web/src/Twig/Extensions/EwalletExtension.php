@@ -6,7 +6,8 @@
  */
 namespace Ewallet\Twig\Extensions;
 
-use Ewallet\Memberships\{MemberInformation, MemberFormatter};
+use Ewallet\Memberships\Member;
+use Ewallet\Memberships\MemberFormatter;
 use Money\Money;
 use Twig_Extension as Extension;
 use Twig_SimpleFunction as SimpleFunction;
@@ -33,7 +34,7 @@ class EwalletExtension extends Extension
         ];
     }
 
-    public function formatMember(MemberInformation $member): string
+    public function formatMember(Member $member): string
     {
         return $this->formatter->formatMember($member);
     }

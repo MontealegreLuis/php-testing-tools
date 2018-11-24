@@ -4,9 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Pimple\{Container, ServiceProviderInterface};
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Environment as Environment;
 

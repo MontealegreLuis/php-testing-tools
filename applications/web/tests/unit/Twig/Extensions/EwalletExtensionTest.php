@@ -6,9 +6,10 @@
  */
 namespace Ewallet\Twig\Extensions;
 
-use Ewallet\{DataBuilders\A, Memberships\MemberFormatter};
+use Ewallet\DataBuilders\A;
+use Ewallet\Memberships\MemberFormatter;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
 class EwalletExtensionTest extends TestCase
@@ -45,7 +46,7 @@ class EwalletExtensionTest extends TestCase
     /** @test */
     function it_delegates_formatting_a_member()
     {
-        $member = A::member()->build()->information();
+        $member = A::member()->build();
         $this
             ->formatter
             ->formatMember($member)

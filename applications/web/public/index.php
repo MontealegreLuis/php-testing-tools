@@ -4,10 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Ewallet\Slim\Application;
-use Dotenv\{Loader, Validator};
+use Dotenv\Loader;
+use Dotenv\Validator;
 
 $validator = new Validator(['APP_ENV', 'DB_URL'], new Loader(null));
 

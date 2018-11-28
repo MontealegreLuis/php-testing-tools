@@ -6,7 +6,6 @@
     <entity
         name="Hexagonal\Messaging\PublishedMessage"
         table="published_messages"
-        repository-class="Hexagonal\Doctrine2\Messaging\MessageTrackerRepository"
     >
         <id name="id" type="integer" column="message_id">
             <generator strategy="AUTO" />

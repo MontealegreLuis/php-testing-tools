@@ -9,7 +9,7 @@ namespace Hexagonal\DomainEvents;
 use DateTime;
 use Ewallet\Memberships\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
-use Hexagonal\JmsSerializer\JsonSerializer;
+use Ports\JmsSerializer\DomainEvents\JsonSerializer;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 

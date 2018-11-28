@@ -9,7 +9,7 @@ namespace Hexagonal\DomainEvents;
 use DateTime;
 use Ewallet\{DataBuilders\A, Memberships\MemberId};
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
-use Hexagonal\JmsSerializer\JsonSerializer;
+use Ports\JmsSerializer\DomainEvents\JsonSerializer;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Money\Money;

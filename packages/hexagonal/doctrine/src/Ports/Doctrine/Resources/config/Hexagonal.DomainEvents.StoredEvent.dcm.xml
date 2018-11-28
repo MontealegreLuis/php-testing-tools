@@ -6,7 +6,6 @@
     <entity
         name="Hexagonal\DomainEvents\StoredEvent"
         table="domain_events"
-        repository-class="Hexagonal\Doctrine2\DomainEvents\EventStoreRepository"
     >
         <id name="id" type="integer" column="event_id">
             <generator strategy="AUTO" />

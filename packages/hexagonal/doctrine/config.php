@@ -7,7 +7,7 @@
 return [
     'doctrine' => [
         'mapping_dirs' => [
-            __DIR__ . '/src/Doctrine2/Resources/config',
+            __DIR__ . '/src/Ports/Doctrine/Resources/config',
         ],
         'dev_mode' => true,
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',

@@ -4,23 +4,23 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\Doctrine2\Messaging;
+namespace Ports\Doctrine\Messaging;
 
-use Doctrine\ORM\{EntityRepository, NoResultException};
-use Hexagonal\Messaging\{
-    EmptyExchange,
-    InvalidPublishedMessageToTrack,
-    MessageTracker,
-    PublishedMessage
-};
+use Hexagonal\Messaging\EmptyExchange;
+use Hexagonal\Messaging\InvalidPublishedMessageToTrack;
+use Hexagonal\Messaging\MessageTracker;
+use Hexagonal\Messaging\PublishedMessage;
+use Ports\Application\DataStorage\Repository;
 
-class MessageTrackerRepository extends EntityRepository implements MessageTracker
+class MessageTrackerRepository extends Repository implements MessageTracker
 {
+    /** @throws \Doctrine\ORM\NonUniqueResultException */
     public function hasPublishedMessages(string $exchangeName): bool
     {
-        $builder = $this->createQueryBuilder('p');
+        $builder = $this->manager->createQueryBuilder();
         $builder
             ->select('COUNT(p)')
+            ->from(PublishedMessage::class, 'p')
             ->where('p.exchangeName = :exchangeName')
             ->setParameter('exchangeName', $exchangeName)
         ;
@@ -32,20 +32,20 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
      * @throws EmptyExchange If no message has been published to this exchange
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function mostRecentPublishedMessage(
-        string $exchangeName
-    ): PublishedMessage
+    public function mostRecentPublishedMessage(string $exchangeName): PublishedMessage
     {
-        $builder = $this->createQueryBuilder('p');
+        $builder = $this->manager->createQueryBuilder();
         $builder
+            ->select('p')
+            ->from(PublishedMessage::class, 'p')
             ->where('p.exchangeName = :exchangeName')
-            ->setParameter('exchangeName', $exchangeName)
-        ;
-        try {
-            return $builder->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
+            ->setParameter('exchangeName', $exchangeName);
+
+        $publishedMessage = $builder->getQuery()->getOneOrNullResult();
+        if (!$publishedMessage) {
             throw new EmptyExchange("$exchangeName has no published messages");
         }
+        return $publishedMessage;
     }
 
     /**
@@ -53,24 +53,23 @@ class MessageTrackerRepository extends EntityRepository implements MessageTracke
      * entries associated with an exchange, this exception is thrown if there's
      * already a message but it is not equal to `mostRecentPublishedMessage`
      * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
      */
     public function track(PublishedMessage $mostRecentPublishedMessage): void
     {
-        $builder = $this->createQueryBuilder('p');
+        $builder = $this->manager->createQueryBuilder();
         $builder
-            ->andWhere('p.exchangeName = :exchangeName')
-            ->setParameter(
-                'exchangeName',
-                $mostRecentPublishedMessage->exchangeName()
-            )
-        ;
+            ->select('p')
+            ->from(PublishedMessage::class, 'p')
+            ->where('p.exchangeName = :exchangeName')
+            ->setParameter('exchangeName', $mostRecentPublishedMessage->exchangeName());
 
         $currentMessage = $builder->getQuery()->getOneOrNullResult();
         if ($currentMessage && !$currentMessage->equals($mostRecentPublishedMessage)) {
             throw new InvalidPublishedMessageToTrack();
         }
 
-        $this->_em->persist($mostRecentPublishedMessage);
-        $this->_em->flush($mostRecentPublishedMessage);
+        $this->manager->persist($mostRecentPublishedMessage);
+        $this->manager->flush($mostRecentPublishedMessage);
     }
 }

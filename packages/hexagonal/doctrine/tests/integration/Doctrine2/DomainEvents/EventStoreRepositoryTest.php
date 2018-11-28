@@ -8,7 +8,8 @@ namespace Hexagonal\Doctrine2\DomainEvents;
 
 use Hexagonal\ContractTests\DomainEvents\EventStoreTest;
 use Hexagonal\DomainEvents\{EventStore, StoredEvent};
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Ewallet\Doctrine\ProvidesDoctrineSetup;
+use Ports\Doctrine\DomainEvents\EventStoreRepository;
 
 class EventStoreRepositoryTest extends EventStoreTest
 {
@@ -18,8 +19,7 @@ class EventStoreRepositoryTest extends EventStoreTest
     function generateFixtures(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
-        $this
-            ->entityManager
+        self::$entityManager
             ->createQuery('DELETE FROM ' . StoredEvent::class)
             ->execute()
         ;
@@ -28,6 +28,6 @@ class EventStoreRepositoryTest extends EventStoreTest
 
     function storeInstance(): EventStore
     {
-        return $this->entityManager->getRepository(StoredEvent::class);
+        return new EventStoreRepository(self::$entityManager);
     }
 }

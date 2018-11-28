@@ -4,11 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Hexagonal\Doctrine2\Messaging;
 
 use Hexagonal\ContractTests\Messaging\MessageTrackerTest;
-use Hexagonal\Messaging\{MessageTracker, PublishedMessage};
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+use Hexagonal\Messaging\MessageTracker;
+use Hexagonal\Messaging\PublishedMessage;
+use Ewallet\Doctrine\ProvidesDoctrineSetup;
+use Ports\Doctrine\Messaging\MessageTrackerRepository;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest
 {
@@ -18,15 +21,14 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
     {
         $this->cleanUpMessages();
 
-        return $this->entityManager->getRepository(PublishedMessage::class);
+        return new MessageTrackerRepository(self::$entityManager);
     }
 
     private function cleanUpMessages(): void
     {
         $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
 
-        $this
-            ->entityManager
+        self::$entityManager
             ->createQuery('DELETE FROM ' . PublishedMessage::class)
             ->execute()
         ;

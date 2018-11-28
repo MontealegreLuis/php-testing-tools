@@ -11,6 +11,7 @@ use Ewallet\Memberships\MemberId;
 use Hexagonal\Fakes\DomainEvents\InstantaneousEvent;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Ports\JmsSerializer\DomainEvents\JsonSerializer;
 
 class JsonSerializerTest extends TestCase
 {

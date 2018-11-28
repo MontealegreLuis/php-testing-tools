@@ -2,7 +2,7 @@
 <phpunit
     colors="true"
     verbose="true"
-    bootstrap="tests/bootstrap.php"
+    bootstrap="vendor/autoload.php"
 >
     <testsuites>
         <testsuite name="integration">
@@ -12,12 +12,4 @@
             <directory>tests/unit</directory>
         </testsuite>
     </testsuites>
-
-    <listeners>
-        <listener class="\Ewallet\PHPUnit\UpdateDatabaseSchemaListener">
-            <arguments>
-                <string>config.php</string>
-            </arguments>
-        </listener>
-    </listeners>
 </phpunit>

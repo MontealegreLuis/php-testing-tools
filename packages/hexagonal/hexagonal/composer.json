@@ -1,17 +1,36 @@
 {
     "name": "hexagonal/hexagonal",
     "description": "Transactional services, events and messaging.",
-    "license": "MIT",
     "version": "1.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Luis Montealegre",
             "email": "montealegreluis@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "doctrine/orm": "~2.6",
+        "ewallet/domain": "~1.0",
+        "fzaninotto/faker": "~1.8",
+        "jms/serializer": "~1.13",
+        "mockery/mockery": "~1.2",
+        "phpunit/phpunit": "~7.4"
+    },
+    "suggest": {
+        "doctrine/orm": "Transactional services and domain events via Doctrine ORM",
+        "jms/serializer": "Serialize domain events before persisting them"
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
     "autoload": {
-        "psr-4": {
-            "Hexagonal\\": "src/"
+        "psr-0": {
+            "Hexagonal\\": "src/",
+            "Ports\\": "src/"
         }
     },
     "autoload-dev": {
@@ -19,9 +38,6 @@
             "Hexagonal\\": "tests/src/",
             "Ewallet\\": "vendor/ewallet/domain/tests/src"
         }
-    },
-    "config": {
-        "bin-dir": "bin/"
     },
     "repositories": [
         {
@@ -32,11 +48,5 @@
             "type": "path",
             "url": "../../ewallet/domain"
         }
-    ],
-    "require-dev": {
-        "phpunit/phpunit": "^6.0",
-        "ewallet/domain": "^1.0",
-        "hexagonal/doctrine": "^1.0",
-        "fzaninotto/faker": "^1.6"
-    }
+    ]
 }

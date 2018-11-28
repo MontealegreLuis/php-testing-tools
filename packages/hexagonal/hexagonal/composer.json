@@ -18,11 +18,14 @@
         "fzaninotto/faker": "~1.8",
         "jms/serializer": "~1.13",
         "mockery/mockery": "~1.2",
-        "phpunit/phpunit": "~7.4"
+        "php-amqplib/php-amqplib": "~2.8",
+        "phpunit/phpunit": "~7.4",
+        "vlucas/phpdotenv": "~2.5"
     },
     "suggest": {
         "doctrine/orm": "Transactional services and domain events via Doctrine ORM",
-        "jms/serializer": "Serialize domain events before persisting them"
+        "jms/serializer": "Serialize domain events before persisting them",
+        "php-amqplib/php-amqplib": "Process domain events via messaging with RabbitMQ"
     },
     "config": {
         "bin-dir": "bin/"

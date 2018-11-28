@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\RabbitMq;
+namespace Ports\Messaging\RabbitMq;
 
 use Closure;
 use Hexagonal\Messaging\MessageConsumer;
+use Ports\Messaging\RabbitMq\ChannelConfiguration;
 use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
 
 class AmqpMessageConsumer implements MessageConsumer

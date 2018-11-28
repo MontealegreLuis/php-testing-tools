@@ -7,8 +7,9 @@
 namespace Hexagonal\RabbitMq;
 
 use PhpAmqpLib\Channel\AMQPChannel;
-use PHPUnit_Framework_TestCase as TestCase;
 use Mockery;
+use PHPUnit\Framework\TestCase;
+use Ports\Messaging\RabbitMq\ChannelConfiguration;
 
 class ChannelConfigurationTest extends TestCase
 {
@@ -19,12 +20,11 @@ class ChannelConfigurationTest extends TestCase
         $autoDelete = true;
 
         $configuration = ChannelConfiguration::temporary();
-        $configuration->configureExchange($this->channel, $this->exchangeName);
+        $configuration->configureExchange($this->channel->reveal(), $this->exchangeName);
 
         $this->channel
-            ->shouldHaveReceived('exchange_declare')
-            ->with($this->exchangeName, 'fanout', false, $nonDurable, $autoDelete)
-        ;
+            ->exchange_declare($this->exchangeName, 'fanout', false, $nonDurable, $autoDelete)
+            ->shouldHaveBeenCalled();
     }
 
     /** @test */
@@ -34,12 +34,11 @@ class ChannelConfigurationTest extends TestCase
         $doNotDelete = false;
 
         $configuration = ChannelConfiguration::durable();
-        $configuration->configureExchange($this->channel, $this->exchangeName);
+        $configuration->configureExchange($this->channel->reveal(), $this->exchangeName);
 
         $this->channel
-            ->shouldHaveReceived('exchange_declare')
-            ->with($this->exchangeName, 'fanout', false, $durable, $doNotDelete)
-        ;
+            ->exchange_declare($this->exchangeName, 'fanout', false, $durable, $doNotDelete)
+            ->shouldHaveBeenCalled();
     }
 
     /** @test */
@@ -49,12 +48,11 @@ class ChannelConfigurationTest extends TestCase
         $autoDelete = true;
 
         $configuration = ChannelConfiguration::temporary();
-        $configuration->configureQueue($this->channel, $this->exchangeName);
+        $configuration->configureQueue($this->channel->reveal(), $this->exchangeName);
 
         $this->channel
-            ->shouldHaveReceived('queue_declare')
-            ->with($this->exchangeName, false, $nonDurable, false, $autoDelete)
-        ;
+            ->queue_declare($this->exchangeName, false, $nonDurable, false, $autoDelete)
+            ->shouldHaveBeenCalled();
     }
 
     /** @test */
@@ -64,19 +62,17 @@ class ChannelConfigurationTest extends TestCase
         $doNotDelete = false;
 
         $configuration = ChannelConfiguration::durable();
-        $configuration->configureQueue($this->channel, $this->exchangeName);
+        $configuration->configureQueue($this->channel->reveal(), $this->exchangeName);
 
         $this->channel
-            ->shouldHaveReceived('queue_declare')
-            ->with($this->exchangeName, false, $durable, false, $doNotDelete)
-        ;
+            ->queue_declare($this->exchangeName, false, $durable, false, $doNotDelete)
+            ->shouldHaveBeenCalled();
     }
 
     /** @before */
-
     public function configureDoubles(): void
     {
-        $this->channel = Mockery::spy(AMQPChannel::class);
+        $this->channel = $this->prophesize(AMQPChannel::class);
     }
 
     /** @var AMQPChannel */

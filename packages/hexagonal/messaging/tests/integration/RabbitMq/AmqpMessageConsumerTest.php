@@ -8,7 +8,9 @@ namespace Hexagonal\RabbitMq;
 
 use Closure;
 use Hexagonal\DataBuilders\A;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Ports\Messaging\RabbitMq\AmqpMessageConsumer;
+use Ports\Messaging\RabbitMq\ChannelConfiguration;
 use stdClass;
 
 class AmqpMessageConsumerTest extends TestCase

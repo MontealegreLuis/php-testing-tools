@@ -1,20 +1,32 @@
 {
     "name": "hexagonal/messaging",
     "description": "AMQP Messaging port.",
-    "license": "MIT",
     "version": "1.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Luis Montealegre",
             "email": "montealegreluis@gmail.com"
         }
     ],
+    "require": {
+        "hexagonal/hexagonal": "~1.0",
+        "php-amqplib/php-amqplib": "^2.6"
+    },
+    "require-dev": {
+        "ewallet/domain": "^1.0",
+        "fzaninotto/faker": "^1.6",
+        "jms/serializer": "^1.13",
+        "mockery/mockery": "~1.2",
+        "phpunit/phpunit": "~7.4",
+        "vlucas/phpdotenv": "^2.3"
+    },
     "config": {
         "bin-dir": "bin/"
     },
     "autoload": {
-        "psr-4": {
-            "Hexagonal\\": "src/"
+        "psr-0": {
+            "Ports\\": "src/"
         }
     },
     "autoload-dev": {
@@ -29,26 +41,11 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../doctrine"
-        },
-        {
-            "type": "path",
             "url": "../../ewallet/domain"
         },
         {
             "type": "path",
             "url": "../hexagonal"
         }
-    ],
-    "require": {
-        "hexagonal/doctrine": "^1.0",
-        "php-amqplib/php-amqplib": "^2.6"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^5.4",
-        "mockery/mockery": "^0.9",
-        "vlucas/phpdotenv": "^2.3",
-        "ewallet/domain": "^1.0",
-        "fzaninotto/faker": "^1.6"
-    }
+    ]
 }

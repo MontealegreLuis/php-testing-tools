@@ -4,10 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\RabbitMq;
 
-use Hexagonal\{DomainEvents\StoredEvent, Messaging\MessageProducer};
-use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
+namespace Ports\Messaging\RabbitMq;
+
+use Hexagonal\DomainEvents\StoredEvent;
+use Hexagonal\Messaging\MessageProducer;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 class AmqpMessageProducer implements MessageProducer
 {

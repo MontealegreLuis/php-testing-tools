@@ -11,6 +11,7 @@ use Hexagonal\DomainEvents\StoredEvent;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Ports\Messaging\RabbitMq\ChannelConfiguration;
 
 /**
  * Publishes and Consumes messages to help the creation of integration tests

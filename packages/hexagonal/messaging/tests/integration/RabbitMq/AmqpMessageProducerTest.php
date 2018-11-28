@@ -10,7 +10,9 @@ use Closure;
 use Ewallet\Memberships\TransferWasMade;
 use Hexagonal\DataBuilders\A;
 use PhpAmqpLib\Message\AMQPMessage;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Ports\Messaging\RabbitMq\AmqpMessageProducer;
+use Ports\Messaging\RabbitMq\ChannelConfiguration;
 
 class AmqpMessageProducerTest extends TestCase
 {

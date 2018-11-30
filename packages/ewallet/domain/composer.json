@@ -15,7 +15,6 @@
         "doctrine/annotations": "^1.6",
         "doctrine/cache": "^1.8",
         "doctrine/orm": "^2.6",
-        "hexagonal/hexagonal": "^1.0",
         "moneyphp/money": "^3.0",
         "pimple/pimple": "^3.2",
         "symfony/validator": "^4.1"
@@ -24,10 +23,14 @@
         "behat/behat": "^3.3",
         "fzaninotto/faker": "^1.6",
         "giorgiosironi/eris": "~0.11",
+        "jms/serializer": "^1.13",
+        "mockery/mockery": "^1.2",
         "nelmio/alice": "^3.5",
+        "php-amqplib/php-amqplib": "^2.8",
         "phpspec/phpspec": "~5.1",
         "phpunit/phpunit": "~7.4",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "vlucas/phpdotenv": "^2.5"
     },
     "config": {
         "bin-dir": "bin/",
@@ -44,17 +47,11 @@
         ]
     },
     "autoload-dev": {
-        "psr-4": {
-            "Ewallet\\": "tests/src"
+        "psr-0": {
+            "": "tests/src"
         },
         "files": [
             "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"
         ]
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../../hexagonal/hexagonal"
-        }
-    ]
+    }
 }

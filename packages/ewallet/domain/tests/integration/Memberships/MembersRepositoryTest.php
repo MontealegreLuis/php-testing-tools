@@ -7,8 +7,8 @@
 
 namespace Ewallet\Memberships;
 
+use Doctrine\ProvidesDoctrineSetup;
 use Ewallet\ContractTests\Memberships\MembersTest;
-use Ewallet\Doctrine\ProvidesDoctrineSetup;
 use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 
 class MembersRepositoryTest extends MembersTest

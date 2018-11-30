@@ -6,8 +6,9 @@
  */
 namespace Ewallet\Memberships;
 
+use Application\DomainEvents\CanRecordEvents;
 use Assert\Assertion;
-use Hexagonal\DomainEvents\{CanRecordEvents, RecordsEvents};
+use Application\DomainEvents\{RecordsEvents};
 use Money\Money;
 
 /**

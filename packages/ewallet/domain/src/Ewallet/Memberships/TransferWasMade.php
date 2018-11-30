@@ -7,7 +7,7 @@
 namespace Ewallet\Memberships;
 
 use DateTime;
-use Hexagonal\DomainEvents\Event;
+use Application\DomainEvents\Event;
 use Money\Money;
 
 /**

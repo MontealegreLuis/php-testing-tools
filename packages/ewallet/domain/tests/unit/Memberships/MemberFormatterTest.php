@@ -7,7 +7,7 @@
 
 namespace Ewallet\Memberships;
 
-use Ewallet\DataBuilders\A;
+use DataBuilders\A;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 

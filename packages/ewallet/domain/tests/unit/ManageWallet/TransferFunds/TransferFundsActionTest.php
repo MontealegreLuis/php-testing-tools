@@ -7,7 +7,7 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Ewallet\DataBuilders\A;
+use DataBuilders\A;
 use Ewallet\Memberships\InMemoryMembers;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\UnknownMember;

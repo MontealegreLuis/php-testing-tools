@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Alice;
+namespace Alice;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ewallet\Memberships\Member;

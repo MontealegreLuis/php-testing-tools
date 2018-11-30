@@ -6,10 +6,10 @@
  */
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Doctrine\ProvidesDoctrineSetup;
-use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
+use Doctrine\ProvidesDoctrineSetup;
+use Alice\ThreeMembersWithSameBalanceFixture;
 use Exception;
+use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
 use Ports\Doctrine\Application\Services\DoctrineSession;
 use Ports\Doctrine\Ewallet\Memberships\MembersRepository;

@@ -6,10 +6,11 @@
  */
 namespace Ewallet\Memberships;
 
-use Eris\{Generator, TestTrait};
-use Ewallet\DataBuilders\A;
-use Ewallet\PHPUnit\Constraints\ProvidesMoneyConstraints;
+use DataBuilders\A;
+use Eris\Generator;
+use Eris\TestTrait;
 use Money\Money;
+use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
 
 class MemberTest extends TestCase

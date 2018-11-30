@@ -9,7 +9,7 @@ namespace Ports\Doctrine\Application\Services;
 
 use Closure;
 use Doctrine\ORM\EntityManagerInterface;
-use Hexagonal\Application\Services\TransactionalSession;
+use Application\Services\TransactionalSession;
 
 class DoctrineSession implements TransactionalSession
 {

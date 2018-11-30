@@ -4,7 +4,8 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\PHPUnit\Constraints;
+
+namespace PHPUnit\Constraints;
 
 use Ewallet\Memberships\Member;
 use Money\Money;

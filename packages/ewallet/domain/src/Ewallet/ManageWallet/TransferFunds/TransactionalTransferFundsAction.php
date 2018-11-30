@@ -7,7 +7,7 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Hexagonal\Application\Services\ProvidesTransactionalOperations;
+use Application\Services\ProvidesTransactionalOperations;
 
 class TransactionalTransferFundsAction extends TransferFundsAction
 {

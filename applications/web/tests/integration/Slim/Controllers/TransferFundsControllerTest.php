@@ -7,7 +7,7 @@
 
 namespace Ewallet\Slim\Controllers;
 
-use Ewallet\Doctrine\ProvidesDoctrineSetup;
+use Doctrine\ProvidesDoctrineSetup;
 use Ewallet\Slim\Application;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;

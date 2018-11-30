@@ -6,7 +6,8 @@
  */
 namespace Ewallet\Slim\Middleware;
 
-use Hexagonal\DomainEvents\{EventPublisher, PersistEventsSubscriber};
+use Application\DomainEvents\EventPublisher;
+use Application\DomainEvents\PersistEventsSubscriber;
 
 class StoreEventsMiddleware
 {

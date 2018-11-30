@@ -7,17 +7,16 @@
 
 namespace Ewallet\Pimple\ServiceProviders;
 
+use Application\DomainEvents\EventPublisher;
+use Application\DomainEvents\PersistEventsSubscriber;
+use Application\DomainEvents\StoredEventFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\Slim\Middleware\RequestLoggingMiddleware;
 use Ewallet\Slim\Middleware\StoreEventsMiddleware;
-use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
-use Hexagonal\DomainEvents\EventPublisher;
-use Hexagonal\DomainEvents\PersistEventsSubscriber;
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\DomainEvents\StoredEventFactory;
-use Hexagonal\JmsSerializer\JsonSerializer;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 class MiddlewareServiceProvider implements ServiceProviderInterface
 {
@@ -45,7 +44,7 @@ class MiddlewareServiceProvider implements ServiceProviderInterface
             );
         };
         $container[EventStoreRepository::class] = function () use ($container) {
-            return $container[EntityManagerInterface::class]->getRepository(StoredEvent::class);
+            return new EventStoreRepository($container[EntityManagerInterface::class]);
         };
     }
 }

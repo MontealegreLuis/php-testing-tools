@@ -13,9 +13,7 @@ class RoboFile extends \Robo\Tasks
     {
         //$this->stopOnFail(); // PhantomJS is giving an erroneous exit code
         $this
-            ->taskExec('phantomjs')
-            ->option('webdriver', 4444)
-            ->option('webdriver-loglevel', 'WARNING')
+            ->taskExec('npm run browser')
             ->background()
             ->run()
         ;

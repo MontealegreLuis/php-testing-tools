@@ -22,7 +22,7 @@
     <form action="{{ url_for('transfer_funds') }}" method="post">
         <input type="hidden" name="senderId" value="{{ senderId }}">
         <div class="form-group">
-            <label for="recipient">Recipient</label>
+            <label for="recipient">Transfer to</label>
             <select name="recipientId" id="recipient" class="form-control">
                 {% for recipient in recipients %}
                     <option

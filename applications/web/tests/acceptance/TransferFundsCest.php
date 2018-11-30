@@ -4,8 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Doctrine2\ProvidesDoctrineSetup;
+
+use Alice\ThreeMembersWithSameBalanceFixture;
+use Doctrine\ProvidesDoctrineSetup;
 
 class TransferFundsCest
 {

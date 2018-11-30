@@ -7,13 +7,13 @@
 
 namespace Ewallet\Pimple;
 
+use Application\DomainEvents\PersistEventsSubscriber;
 use Ewallet\Slim\Controllers\ShowTransferFormController;
 use Ewallet\Slim\Controllers\TransferFundsController;
 use Ewallet\Slim\Middleware\{RequestLoggingMiddleware, StoreEventsMiddleware};
 use Ewallet\Twig\RouterExtension;
-use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
-use Hexagonal\DomainEvents\PersistEventsSubscriber;
 use PHPUnit\Framework\TestCase;
+use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
 use Psr\Log\LoggerInterface;
 use Twig_Environment as TwigEnvironment;
 use Twig_Loader_Filesystem as Loader;
@@ -53,11 +53,11 @@ class EwalletWebContainerTest extends TestCase
         );
         $this->assertInstanceOf(
             EventStoreRepository::class,
-            $container['ewallet.event_store']
+            $container[EventStoreRepository::class]
         );
         $this->assertInstanceOf(
             PersistEventsSubscriber::class,
-            $container['ewallet.event_persist_subscriber']
+            $container[PersistEventsSubscriber::class]
         );
         $this->assertInstanceOf(
             RequestLoggingMiddleware::class,

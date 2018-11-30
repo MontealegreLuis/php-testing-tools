@@ -11,8 +11,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "ewallet/domain": "^1.0",
-        "hexagonal/doctrine": "^1.0",
+        "ewallet/domain": "~1.0",
         "monolog/monolog": "^1.16",
         "slim/slim": "^3.4",
         "twig/twig": "^2.5",
@@ -21,9 +20,10 @@
     "require-dev": {
         "codeception/codeception": "~2.3",
         "consolidation/robo": "^1.0",
-        "mockery/mockery": "dev-master",
+        "mockery/mockery": "~1.2",
         "nelmio/alice": "^2.0",
-        "phpunit/phpunit": "^6.0"
+        "phpunit/phpunit": "^7.4",
+        "roave/security-advisories": "dev-master"
     },
     "config": {
         "bin-dir": "bin/",
@@ -45,14 +45,6 @@
         {
             "type": "path",
             "url": "../../packages/ewallet/domain"
-        },
-        {
-            "type": "path",
-            "url": "../../packages/hexagonal/hexagonal"
-        },
-        {
-            "type": "path",
-            "url": "../../packages/hexagonal/doctrine"
         }
     ]
 }

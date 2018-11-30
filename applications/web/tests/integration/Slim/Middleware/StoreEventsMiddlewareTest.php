@@ -7,14 +7,15 @@
 
 namespace Ewallet\Slim\Middleware;
 
-use Ewallet\DataBuilders\A;
-use Ewallet\Doctrine\ProvidesDoctrineSetup;
-use Hexagonal\DomainEvents\EventPublisher;
-use Hexagonal\DomainEvents\PersistEventsSubscriber;
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\DomainEvents\StoredEventFactory;
-use Hexagonal\JmsSerializer\JsonSerializer;
+use Application\DomainEvents\EventPublisher;
+use Application\DomainEvents\PersistEventsSubscriber;
+use Application\DomainEvents\StoredEvent;
+use Application\DomainEvents\StoredEventFactory;
+use DataBuilders\A;
+use Doctrine\ProvidesDoctrineSetup;
 use PHPUnit\Framework\TestCase;
+use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Slim\App;
 use Slim\Http\Environment;
 use SplObjectStorage;
@@ -58,8 +59,7 @@ class StoreEventsMiddlewareTest extends TestCase
             ->execute()
         ;
 
-        /** @var \Hexagonal\Doctrine2\DomainEvents\EventStoreRepository $store */
-        $this->store = $this->_repositoryForEntity(StoredEvent::class);
+        $this->store = new EventStoreRepository($this->_entityManager());
         $this->publisher = new EventPublisher();
         $this->middleware = new StoreEventsMiddleware(
             new PersistEventsSubscriber(
@@ -75,6 +75,6 @@ class StoreEventsMiddlewareTest extends TestCase
     /** @var  EventPublisher */
     private $publisher;
 
-    /** @var \Hexagonal\Doctrine2\DomainEvents\EventStoreRepository */
+    /** @var \Ports\Doctrine\DomainEvents\EventStoreRepository */
     private $store;
 }

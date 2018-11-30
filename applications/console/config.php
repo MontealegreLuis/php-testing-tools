@@ -8,7 +8,6 @@ return [
     'doctrine' => [
         'mapping_dirs' => [
             __DIR__ . '/vendor/ewallet/domain/src/Ports/Doctrine/Ewallet/Resources/config',
-            __DIR__ . '/vendor/hexagonal/doctrine/src/Doctrine2/Resources/config',
         ],
         'dev_mode' => getenv('APP_ENV') !== 'production',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',

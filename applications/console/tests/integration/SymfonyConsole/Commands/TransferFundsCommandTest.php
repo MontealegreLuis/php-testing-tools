@@ -6,8 +6,8 @@
  */
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Ewallet\Alice\ThreeMembersWithSameBalanceFixture;
-use Ewallet\Doctrine\ProvidesDoctrineSetup;
+use Alice\ThreeMembersWithSameBalanceFixture;
+use Doctrine\ProvidesDoctrineSetup;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
 use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\MemberFormatter;

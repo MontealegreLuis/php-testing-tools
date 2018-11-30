@@ -11,9 +11,8 @@
     ],
     "require": {
         "php": ">=7.1",
-        "ewallet/domain": "^1.0",
-        "hexagonal/doctrine": "^1.0",
-        "monolog/monolog": "^1.16",
+        "ewallet/domain": "~1.0",
+        "monolog/monolog": "~1.16",
         "symfony/console": "~4.1",
         "symfony/event-dispatcher": "~4.1",
         "vlucas/phpdotenv": "^2.0"
@@ -44,14 +43,6 @@
         {
             "type": "path",
             "url": "../../packages/ewallet/domain"
-        },
-        {
-            "type": "path",
-            "url": "../../packages/hexagonal/hexagonal"
-        },
-        {
-            "type": "path",
-            "url": "../../packages/hexagonal/doctrine"
         }
     ]
 }

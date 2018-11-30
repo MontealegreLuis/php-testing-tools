@@ -7,17 +7,16 @@
 namespace Ewallet\Pimple\ServiceProviders;
 
 use Application\DependencyInjection\EwalletServiceProvider;
+use Application\DomainEvents\EventPublisher;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
 use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
-use Hexagonal\DomainEvents\EventPublisher;
 use Monolog\Handler\SyslogHandler;
 use Monolog\Logger;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;

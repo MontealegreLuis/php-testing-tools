@@ -6,10 +6,9 @@
  */
 namespace Ewallet\Pimple;
 
+use Application\DomainEvents\EventPublisher;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
-use Ewallet\SymfonyConsole\Listeners\StoreEventsListener;
-use Hexagonal\DomainEvents\EventPublisher;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;

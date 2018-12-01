@@ -4,9 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\SymfonyConsole\Listeners;
 
-use Hexagonal\DomainEvents\{EventPublisher, PersistEventsSubscriber};
+use Application\DomainEvents\EventPublisher;
+use Application\DomainEvents\PersistEventsSubscriber;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;

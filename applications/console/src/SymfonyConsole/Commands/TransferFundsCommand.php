@@ -13,7 +13,6 @@ use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
 use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\InsufficientFunds;
-use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\UnknownMember;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

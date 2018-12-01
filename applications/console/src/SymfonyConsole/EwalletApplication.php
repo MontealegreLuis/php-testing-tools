@@ -17,6 +17,5 @@ class EwalletApplication extends Application
     {
         parent::__construct('ewallet', '1.0.0');
         $this->add($container[TransferFundsCommand::class]);
-        $this->setDispatcher($container['ewallet.console.dispatcher']);
     }
 }

@@ -4,9 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Twig;
 
-use Slim\{Http\Request, Router};
+use Slim\Http\Request;
+use Slim\Router;
 use Twig_SimpleFunction as SimpleFunction;
 use Twig_Extension as Extension;
 
@@ -49,7 +51,7 @@ class RouterExtension extends Extension
         return preg_replace(
             '#/+#',
             '/',
-            sprintf('%s%s', dirname($this->request->getUri()->getBasePath()), $path)
+            sprintf('%s%s', \dirname($this->request->getUri()->getBasePath()), $path)
         );
     }
 }

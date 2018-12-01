@@ -10,13 +10,13 @@ namespace Ewallet\Pimple;
 use Application\DomainEvents\PersistEventsSubscriber;
 use Ewallet\Slim\Controllers\ShowTransferFormController;
 use Ewallet\Slim\Controllers\TransferFundsController;
-use Ewallet\Slim\Middleware\{RequestLoggingMiddleware, StoreEventsMiddleware};
+use Ewallet\Slim\Middleware\{RequestLoggingMiddleware};
 use Ewallet\Twig\RouterExtension;
 use PHPUnit\Framework\TestCase;
 use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
 use Psr\Log\LoggerInterface;
-use Twig_Environment as TwigEnvironment;
-use Twig_Loader_Filesystem as Loader;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class EwalletWebContainerTest extends TestCase
 {
@@ -27,12 +27,12 @@ class EwalletWebContainerTest extends TestCase
         $container = new EwalletWebContainer($options);
 
         $this->assertInstanceOf(
-            TwigEnvironment::class,
-            $container['twig.environment']
+            Environment::class,
+            $container[Environment::class]
         );
         $this->assertInstanceOf(
-            Loader::class,
-            $container['twig.loader']
+            FilesystemLoader::class,
+            $container[FilesystemLoader::class]
         );
         $this->assertInstanceOf(
             ShowTransferFormController::class,
@@ -61,11 +61,7 @@ class EwalletWebContainerTest extends TestCase
         );
         $this->assertInstanceOf(
             RequestLoggingMiddleware::class,
-            $container['slim.middleware.request_logging']
-        );
-        $this->assertInstanceOf(
-            StoreEventsMiddleware::class,
-            $container['slim.middleware.store_events']
+            $container[RequestLoggingMiddleware::class]
         );
     }
 }

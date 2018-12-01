@@ -7,7 +7,6 @@
 
 namespace Ewallet\Memberships;
 
-
 use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 
 class MembersWebRepository extends MembersRepository

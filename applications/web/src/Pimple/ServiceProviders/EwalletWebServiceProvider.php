@@ -10,7 +10,6 @@ namespace Ewallet\Pimple\ServiceProviders;
 use Application\DependencyInjection\EwalletServiceProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
-use Ewallet\ManageWallet\Web\TransferFundsWebAction;
 use Ewallet\Memberships\MemberFormatter;
 use Ewallet\Memberships\MembersWebRepository;
 use Ewallet\Slim\Controllers\ShowTransferFormController;
@@ -19,8 +18,8 @@ use Ewallet\Twig\Extensions\EwalletExtension;
 use Ewallet\Twig\RouterExtension;
 use Ewallet\Twig\TwigTemplateEngine;
 use Pimple\Container;
-use Twig_Environment as Environment;
-use Twig_Loader_Filesystem as Loader;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class EwalletWebServiceProvider extends EwalletServiceProvider
 {
@@ -38,7 +37,7 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
             );
         };
         $container[TwigTemplateEngine::class] = function () use ($container) {
-            return new TwigTemplateEngine($container['twig.environment']);
+            return new TwigTemplateEngine($container[Environment::class]);
         };
         $container[TransferFundsController::class] = function () use ($container) {
             return new TransferFundsController(
@@ -48,8 +47,8 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
             );
         };
         $container->extend(
-            'twig.loader',
-            function (Loader $loader) use ($container) {
+            FilesystemLoader::class,
+            function (FilesystemLoader $loader) use ($container) {
                 foreach ($container['twig']['loader_paths'] as $path) {
                     $loader->addPath($path);
                 }
@@ -58,7 +57,7 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
             }
         );
         $container->extend(
-            'twig.environment',
+            Environment::class,
             function (Environment $twig) use ($container) {
                 $twig->addExtension($container[EwalletExtension::class]);
                 $twig->addExtension($container[RouterExtension::class]);

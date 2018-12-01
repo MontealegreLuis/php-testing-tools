@@ -9,8 +9,8 @@ namespace Ewallet\Pimple\ServiceProviders;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Twig_Loader_Filesystem as Loader;
-use Twig_Environment as Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 class TwigServiceProvider implements ServiceProviderInterface
 {
@@ -19,12 +19,12 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['twig.loader'] = function () use ($container) {
-            return new Loader($container['twig']['loader_paths']);
+        $container[FilesystemLoader::class] = function () use ($container) {
+            return new FilesystemLoader($container['twig']['loader_paths']);
         };
-        $container['twig.environment'] = function () use ($container) {
+        $container[Environment::class] = function () use ($container) {
             return new Environment(
-                $container['twig.loader'],
+                $container[FilesystemLoader::class],
                 $container['twig']['options']
             );
         };

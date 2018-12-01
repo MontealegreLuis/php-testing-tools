@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Twig;
 
 use Ewallet\Templating\TemplateEngine;
@@ -19,6 +20,11 @@ class TwigTemplateEngine implements TemplateEngine
         $this->twig = $twig;
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function render(string $template, array $values): string
     {
         return $this->twig->render("{$template}.twig", $values);

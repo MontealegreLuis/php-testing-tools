@@ -4,9 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Slim\Providers;
 
-use Pimple\{Container, ServiceProviderInterface};
+use Ewallet\Slim\Middleware\RequestLoggingMiddleware;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Slim\App;
 
 class EwalletMiddlewareProvider implements ServiceProviderInterface
@@ -21,7 +24,6 @@ class EwalletMiddlewareProvider implements ServiceProviderInterface
 
     public function register(Container $container)
     {
-        $this->app->add($container['slim.middleware.request_logging']);
-        $this->app->add($container['slim.middleware.store_events']);
+        $this->app->add($container[RequestLoggingMiddleware::class]);
     }
 }

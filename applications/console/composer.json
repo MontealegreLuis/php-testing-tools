@@ -12,13 +12,11 @@
     "require": {
         "php": ">=7.1",
         "ewallet/domain": "~1.0",
-        "monolog/monolog": "~1.16",
+        "monolog/monolog": "~1.24",
         "symfony/console": "~4.1",
-        "symfony/event-dispatcher": "~4.1",
-        "vlucas/phpdotenv": "^2.0"
+        "vlucas/phpdotenv": "~2.5"
     },
     "require-dev": {
-        "mockery/mockery": "~1.2",
         "nelmio/alice": "~3.5",
         "phpunit/phpunit": "~7.4",
         "roave/security-advisories": "dev-master"

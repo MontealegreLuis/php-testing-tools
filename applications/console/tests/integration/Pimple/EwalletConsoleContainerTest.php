@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class EwalletConsoleContainerTest extends TestCase
 {
@@ -40,10 +39,6 @@ class EwalletConsoleContainerTest extends TestCase
         $this->assertInstanceOf(
             EventPublisher::class,
             $container[EventPublisher::class]
-        );
-        $this->assertInstanceOf(
-            EventDispatcher::class,
-            $container[EventDispatcher::class]
         );
     }
 }

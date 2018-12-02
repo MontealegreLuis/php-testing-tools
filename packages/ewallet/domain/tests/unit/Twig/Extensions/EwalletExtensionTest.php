@@ -10,6 +10,7 @@ use DataBuilders\A;
 use Ewallet\Memberships\MemberFormatter;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Ports\Twig\Ewallet\Extensions\EwalletExtension;
 use Prophecy\Argument;
 
 class EwalletExtensionTest extends TestCase

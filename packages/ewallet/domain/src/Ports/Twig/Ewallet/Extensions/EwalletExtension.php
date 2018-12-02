@@ -5,15 +5,15 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Twig\Extensions;
+namespace Ports\Twig\Ewallet\Extensions;
 
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberFormatter;
 use Money\Money;
-use Twig_Extension as Extension;
-use Twig_SimpleFunction as SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class EwalletExtension extends Extension
+class EwalletExtension extends AbstractExtension
 {
     /** @var MemberFormatter */
     private $formatter;
@@ -23,15 +23,13 @@ class EwalletExtension extends Extension
         $this->formatter = $formatter;
     }
 
-    /**
-     * @return SimpleFunction[]
-     */
-    public function getFunctions()
+    /** @return TwigFunction[] */
+    public function getFunctions(): array
     {
         return [
-            new SimpleFunction('member', [$this, 'formatMember']),
-            new SimpleFunction('money_amount', [$this, 'formatMoneyAmount']),
-            new SimpleFunction('money', [$this, 'formatMoney']),
+            new TwigFunction('member', [$this, 'formatMember']),
+            new TwigFunction('money_amount', [$this, 'formatMoneyAmount']),
+            new TwigFunction('money', [$this, 'formatMoney']),
         ];
     }
 
@@ -50,10 +48,8 @@ class EwalletExtension extends Extension
         return $this->formatter->formatMoneyAmount($amount);
     }
 
-    /**
-     * @return string The extension name
-     */
-    public function getName()
+    /** @return string The extension name */
+    public function getName(): string
     {
         return 'ewallet';
     }

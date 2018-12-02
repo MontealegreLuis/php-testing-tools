@@ -24,7 +24,7 @@
         "behat/behat": "~3.5",
         "fzaninotto/faker": "~1.8",
         "giorgiosironi/eris": "~0.11",
-        "mockery/mockery": "~1.2",
+        "mockery/mockery": "^1.2",
         "nelmio/alice": "~3.5",
         "php-amqplib/php-amqplib": "~2.8",
         "phpspec/phpspec": "~5.1",

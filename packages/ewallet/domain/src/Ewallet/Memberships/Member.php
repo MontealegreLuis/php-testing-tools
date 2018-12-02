@@ -84,6 +84,11 @@ class Member implements CanRecordEvents
         return $this->name;
     }
 
+    public function emailAddress(): string
+    {
+        return $this->email->address();
+    }
+
     public function hasId(MemberId $id): bool
     {
         return $this->memberId->equals($id);

@@ -14,10 +14,10 @@ use Ewallet\Memberships\MemberFormatter;
 use Ewallet\Memberships\MembersWebRepository;
 use Ewallet\Slim\Controllers\ShowTransferFormController;
 use Ewallet\Slim\Controllers\TransferFundsController;
-use Ports\Twig\Ewallet\Extensions\EwalletExtension;
 use Ewallet\Twig\RouterExtension;
-use Ports\Twig\Application\Templating\TwigTemplateEngine;
 use Pimple\Container;
+use Ports\Twig\Application\Templating\TwigTemplateEngine;
+use Ports\Twig\Ewallet\Extensions\EwalletExtension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -35,9 +35,6 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
                 new MembersWebRepository($container[EntityManagerInterface::class]),
                 $container[TwigTemplateEngine::class]
             );
-        };
-        $container[TwigTemplateEngine::class] = function () use ($container) {
-            return new TwigTemplateEngine($container[Environment::class]);
         };
         $container[TransferFundsController::class] = function () use ($container) {
             return new TransferFundsController(
@@ -59,7 +56,6 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
         $container->extend(
             Environment::class,
             function (Environment $twig) use ($container) {
-                $twig->addExtension($container[EwalletExtension::class]);
                 $twig->addExtension($container[RouterExtension::class]);
 
                 return $twig;

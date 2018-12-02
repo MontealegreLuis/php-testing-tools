@@ -7,10 +7,13 @@
 
 namespace Application\DependencyInjection;
 
+use Ewallet\Memberships\MemberFormatter;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Twig\Loader\FilesystemLoader;
+use Ports\Twig\Application\Templating\TwigTemplateEngine;
+use Ports\Twig\Ewallet\Extensions\EwalletExtension;
 use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class TwigServiceProvider implements ServiceProviderInterface
 {
@@ -19,14 +22,19 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
+        $container[TwigTemplateEngine::class] = function () use ($container) {
+            return new TwigTemplateEngine($container[Environment::class]);
+        };
         $container[FilesystemLoader::class] = function () use ($container) {
             return new FilesystemLoader($container['twig']['loader_paths']);
         };
         $container[Environment::class] = function () use ($container) {
-            return new Environment(
+            $twig = new Environment(
                 $container[FilesystemLoader::class],
                 $container['twig']['options']
             );
+            $twig->addExtension(new EwalletExtension(new MemberFormatter()));
+            return $twig;
         };
     }
 }

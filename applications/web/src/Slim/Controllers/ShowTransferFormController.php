@@ -9,7 +9,7 @@ namespace Ewallet\Slim\Controllers;
 
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\MembersWebRepository;
-use Ewallet\Templating\TemplateEngine;
+use Application\Templating\TemplateEngine;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Response;
 

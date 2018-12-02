@@ -11,7 +11,7 @@ use Application\DependencyInjection\DoctrineServiceProvider;
 use Ewallet\Pimple\ServiceProviders\ApplicationServiceProvider;
 use Ewallet\Pimple\ServiceProviders\EwalletWebServiceProvider;
 use Ewallet\Pimple\ServiceProviders\MiddlewareServiceProvider;
-use Ewallet\Pimple\ServiceProviders\TwigServiceProvider;
+use Application\DependencyInjection\TwigServiceProvider;
 use Slim\Container;
 
 class EwalletWebContainer extends Container

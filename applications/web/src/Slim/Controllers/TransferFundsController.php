@@ -16,7 +16,7 @@ use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\MembersWebRepository;
 use Ewallet\Memberships\UnknownMember;
-use Ewallet\Templating\TemplateEngine;
+use Application\Templating\TemplateEngine;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;

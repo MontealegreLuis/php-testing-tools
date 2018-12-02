@@ -4,12 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Hexagonal\Messaging\MessagePublisher;
-use Symfony\Component\Console\{
-    Command\Command, Input\InputInterface, Output\OutputInterface
-};
+use Application\Messaging\MessagePublisher;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class PublishMessagesCommand extends Command
 {

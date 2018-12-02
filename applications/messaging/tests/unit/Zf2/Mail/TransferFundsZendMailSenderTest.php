@@ -4,26 +4,30 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Zf2\Mail;
 
-use Ewallet\DataBuilders\A;
+use Application\Templating\TemplateEngine;
+use DataBuilders\A;
 use DateTime;
-use Ewallet\Templating\TemplateEngine;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Money\Money;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Mail\Transport\InMemory;
 
 class TransferFundsZendMailSenderTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @test */
     function it_notifies_sender_by_email()
     {
         $senderEmail = 'montealegreluis@gmail.com';
 
         $this->sender->sendFundsTransferredEmail(
-            A::member()->withEmail($senderEmail)->build()->information(),
-            A::member()->build()->information(),
+            A::member()->withEmail($senderEmail)->build(),
+            A::member()->build(),
             Money::MXN(500),
             new DateTime()
         );
@@ -46,8 +50,8 @@ class TransferFundsZendMailSenderTest extends TestCase
         $recipientEmail = 'montealegreluis@gmail.com';
 
         $this->sender->sendDepositReceivedEmail(
-            A::member()->build()->information(),
-            A::member()->withEmail($recipientEmail)->build()->information(),
+            A::member()->build(),
+            A::member()->withEmail($recipientEmail)->build(),
             Money::MXN(500),
             new DateTime()
         );

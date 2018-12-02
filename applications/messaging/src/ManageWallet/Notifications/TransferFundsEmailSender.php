@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\ManageWallet\Notifications;
 
 use DateTime;
-use Ewallet\Memberships\MemberInformation;
+use Ewallet\Memberships\Member;
 use Money\Money;
 
 /**
@@ -17,15 +18,15 @@ use Money\Money;
 interface TransferFundsEmailSender
 {
     public function sendFundsTransferredEmail(
-        MemberInformation $sender,
-        MemberInformation $recipient,
+        Member $sender,
+        Member $recipient,
         Money $amount,
         DateTime $occurredOn
     ): void;
 
     public function sendDepositReceivedEmail(
-        MemberInformation $sender,
-        MemberInformation $recipient,
+        Member $sender,
+        Member $recipient,
         Money $amount,
         DateTime $occurredOn
     ): void;

@@ -4,16 +4,21 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Pimple\ServiceProviders;
 
+use Application\DependencyInjection\DoctrineServiceProvider;
+use Application\DependencyInjection\TwigServiceProvider;
+use Application\Messaging\MessagePublisher;
+use Application\Messaging\MessageTracker;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
-use Hexagonal\Doctrine2\DomainEvents\EventStoreRepository;
-use Hexagonal\Doctrine2\Messaging\MessageTrackerRepository;
-use Hexagonal\Messaging\MessagePublisher;
-use Hexagonal\RabbitMq\{AmqpMessageConsumer, AmqpMessageProducer};
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Pimple\Container;
+use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Ports\Doctrine\Application\Messaging\MessageTrackerRepository;
+use Ports\RabbitMq\Application\Messaging\AmqpMessageConsumer;
+use Ports\RabbitMq\Application\Messaging\AmqpMessageProducer;
 
 class EwalletMessagingServiceProviderTest extends TestCase
 {
@@ -24,7 +29,7 @@ class EwalletMessagingServiceProviderTest extends TestCase
         $container = new Container($options);
         $container->register(new TwigServiceProvider());
         $container->register(new DoctrineServiceProvider());
-        $container->register(new HexagonalServiceProvider());
+        $container->register(new MessagingServiceProvider());
         $container->register(new EwalletMessagingServiceProvider());
         $this->assertInstanceOf(
             TransferFundsEmailNotifier::class,
@@ -32,11 +37,11 @@ class EwalletMessagingServiceProviderTest extends TestCase
         );
         $this->assertInstanceOf(
             EventStoreRepository::class,
-            $container['hexagonal.event_store_repository']
+            $container[EventStoreRepository::class]
         );
         $this->assertInstanceOf(
             MessageTrackerRepository::class,
-            $container['hexagonal.message_tracker_repository']
+            $container[MessageTracker::class]
         );
         $this->assertInstanceOf(
             AMQPStreamConnection::class,

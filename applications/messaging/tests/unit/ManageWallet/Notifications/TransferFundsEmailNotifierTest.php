@@ -4,15 +4,20 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\ManageWallet\Notifications;
 
-use Ewallet\Memberships\{Members, TransferWasMade};
-use Ewallet\DataBuilders\A;
+use DataBuilders\A;
+use Ewallet\Memberships\Members;
+use Ewallet\Memberships\TransferWasMade;
 use Mockery;
-use PHPUnit_Framework_TestCase as TestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 
 class TransferFundsEmailNotifierTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @test */
     function it_only_notifies_on_transfer_was_made_events()
     {

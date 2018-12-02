@@ -4,21 +4,23 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\SymfonyConsole\Commands;
 
-use DateTime;
-use Ewallet\Memberships\TransferWasMade;
+use DataBuilders\A;
 use Ewallet\ManageWallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
-use Hexagonal\DataBuilders\A;
-use Hexagonal\DomainEvents\StoredEvent;
-use Hexagonal\RabbitMq\{AmqpMessageConsumer, ChannelConfiguration, ConfiguresMessaging};
+use Ewallet\Memberships\TransferWasMade;
 use Mockery;
-use PHPUnit_Framework_TestCase as TestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
+use Ports\RabbitMq\Application\Messaging\AmqpMessageConsumer;
+use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
+use RabbitMq\ConfiguresMessaging;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class NotifyTransferByEmailCommandTest extends TestCase
 {
-    use ConfiguresMessaging;
+    use MockeryPHPUnitIntegration, ConfiguresMessaging;
 
     /** @test */
     function it_notifies_when_a_transfer_is_completed()

@@ -4,13 +4,16 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Pimple\ServiceProviders;
 
+use Application\DependencyInjection\EwalletServiceProvider;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
+use Ewallet\Memberships\Members;
 use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
 use Pimple\Container;
-use Twig_Loader_Filesystem as Loader;
-use Twig_Environment as Environment;
+use Ports\Twig\Application\Templating\TwigTemplateEngine;
+use Twig\Loader\FilesystemLoader;
 use Zend\Mail\Transport\Sendmail;
 
 class EwalletMessagingServiceProvider extends EwalletServiceProvider
@@ -24,30 +27,22 @@ class EwalletMessagingServiceProvider extends EwalletServiceProvider
         parent::register($container);
         $container['ewallet.transfer_mail_sender'] = function () use ($container) {
             return new TransferFundsZendMailSender(
-                $container['ewallet.template_engine'],
+                $container[TwigTemplateEngine::class],
                 new Sendmail()
             );
         };
         $container['ewallet.transfer_mail_notifier'] = function () use ($container) {
             return new TransferFundsEmailNotifier(
-                $container['ewallet.member_repository'],
+                $container[Members::class],
                 $container['ewallet.transfer_mail_sender']
             );
         };
         $container->extend(
-            'twig.loader',
-            function (Loader $loader) {
+            FilesystemLoader::class,
+            function (FilesystemLoader $loader) {
                 $loader->addPath(__DIR__ . '/../../Resources/templates');
 
                 return $loader;
-            }
-        );
-        $container->extend(
-            'twig.environment',
-            function (Environment $twig) use ($container) {
-                $twig->addExtension($container['ewallet.twig.extension']);
-
-                return $twig;
             }
         );
     }

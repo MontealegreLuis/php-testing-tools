@@ -4,14 +4,16 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Zf2\Mail;
 
+use Application\Templating\TemplateEngine;
 use DateTime;
-use Ewallet\Memberships\MemberInformation;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailSender;
-use Ewallet\Templating\TemplateEngine;
+use Ewallet\Memberships\Member;
 use Money\Money;
-use Zend\Mail\{Message, Transport\TransportInterface};
+use Zend\Mail\Message;
+use Zend\Mail\Transport\TransportInterface;
 
 class TransferFundsZendMailSender implements TransferFundsEmailSender
 {
@@ -28,16 +30,15 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
     }
 
     public function sendFundsTransferredEmail(
-        MemberInformation $sender,
-        MemberInformation $recipient,
+        Member $sender,
+        Member $recipient,
         Money $amount,
         DateTime $occurredOn
-    ): void
-    {
+    ): void {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
-            ->setTo($sender->email()->address())
+            ->setTo($sender->emailAddress())
             ->setSubject('Funds transfer completed')
             ->setBody($this->template->render('email/transfer.html', [
                 'sender' => $sender,
@@ -50,16 +51,15 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
     }
 
     public function sendDepositReceivedEmail(
-        MemberInformation $sender,
-        MemberInformation $recipient,
+        Member $sender,
+        Member $recipient,
         Money $amount,
         DateTime $occurredOn
-    ): void
-    {
+    ): void {
         $message = new Message();
         $message
             ->setFrom('hello@ewallet.com')
-            ->setTo($recipient->email()->address())
+            ->setTo($recipient->emailAddress())
             ->setSubject('You have received a deposit')
             ->setBody($this->template->render('email/deposit.html', [
                 'sender' => $sender,

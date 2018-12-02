@@ -4,9 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\ManageWallet\Notifications;
 
-use Ewallet\Memberships\{Members, TransferWasMade};
+use Ewallet\Memberships\Members;
+use Ewallet\Memberships\TransferWasMade;
 
 class TransferFundsEmailNotifier
 {
@@ -42,15 +44,15 @@ class TransferFundsEmailNotifier
         $recipient = $this->members->with($notification->recipientId());
 
         $this->sender->sendFundsTransferredEmail(
-            $sender->information(),
-            $recipient->information(),
+            $sender,
+            $recipient,
             $notification->amount(),
             $notification->occurredOn()
         );
 
         $this->sender->sendDepositReceivedEmail(
-            $sender->information(),
-            $recipient->information(),
+            $sender,
+            $recipient,
             $notification->amount(),
             $notification->occurredOn()
         );

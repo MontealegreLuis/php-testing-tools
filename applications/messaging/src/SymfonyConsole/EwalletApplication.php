@@ -4,12 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\SymfonyConsole;
 
 use Ewallet\Pimple\EwalletMessagingContainer;
-use Ewallet\SymfonyConsole\Commands\{
-    NotifyTransferByEmailCommand, PublishMessagesCommand
-};
+use Ewallet\SymfonyConsole\Commands\NotifyTransferByEmailCommand;
+use Ewallet\SymfonyConsole\Commands\PublishMessagesCommand;
 use Symfony\Component\Console\Application;
 
 class EwalletApplication extends Application

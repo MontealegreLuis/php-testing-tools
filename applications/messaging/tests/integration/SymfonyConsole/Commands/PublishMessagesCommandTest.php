@@ -4,15 +4,19 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\SymfonyConsole\Commands;
 
-use Hexagonal\Messaging\MessagePublisher;
+use Application\Messaging\MessagePublisher;
 use Mockery;
-use PHPUnit_Framework_TestCase as TestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class PublishMessagesCommandTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @test */
     function it_returns_count_of_published_messages()
     {

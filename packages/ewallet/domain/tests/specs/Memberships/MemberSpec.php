@@ -4,11 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace specs\Ewallet\Memberships;
 
 use Assert\InvalidArgumentException;
-use Ewallet\DataBuilders\A;
-use Ewallet\Memberships\{Email, InvalidTransfer, MemberId};
+use DataBuilders\A;
+use Ewallet\Memberships\Email;
+use Ewallet\Memberships\InvalidTransfer;
+use Ewallet\Memberships\MemberId;
 use Money\Money;
 use PhpSpec\ObjectBehavior;
 

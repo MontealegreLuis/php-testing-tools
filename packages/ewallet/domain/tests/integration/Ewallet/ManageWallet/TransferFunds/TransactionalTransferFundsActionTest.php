@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Doctrine\ProvidesDoctrineSetup;
@@ -53,7 +54,7 @@ class TransactionalTransferFundsActionTest extends TestCase
     /** @before */
     public function configureUseCase(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
+        $this->_setUpDoctrine(require __DIR__ . '/../../../../../config.php');
 
         $fixtures = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
         $fixtures->load();

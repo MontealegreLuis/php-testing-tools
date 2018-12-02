@@ -6,9 +6,11 @@
  */
 
 use Behat\Behat\Context\Context;
-use Ewallet\DataBuilders\A;
-use Ewallet\ManageWallet\{TransferFunds\TransferFundsAction, TransferFunds\TransferFundsInput};
-use Ewallet\Memberships\{InMemoryMembers, MemberId};
+use DataBuilders\A;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
+use Ewallet\Memberships\InMemoryMembers;
+use Ewallet\Memberships\MemberId;
 use Money\Money;
 
 /**

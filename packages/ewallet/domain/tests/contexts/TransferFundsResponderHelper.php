@@ -6,7 +6,8 @@
  */
 
 use Application\Actions\InputValidator;
-use Ewallet\ManageWallet\{TransferFunds\TransferFundsResponder, TransferFunds\TransferFundsSummary};
+use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\UnknownMember;
 use Money\Money;

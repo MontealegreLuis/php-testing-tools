@@ -4,11 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Hexagonal\RabbitMq;
+
+namespace Ports\RabbitMq\Application\Messaging;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PHPUnit\Framework\TestCase;
-use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
 
 class ChannelConfigurationTest extends TestCase
 {

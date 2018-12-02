@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\PhpSpec\Extensions;
 
-use Ewallet\PhpSpec\Matchers\MoneyMatcher;
+namespace PhpSpec\Extensions;
+
 use PhpSpec\Extension;
+use PhpSpec\Matchers\MoneyMatcher;
 use PhpSpec\ServiceContainer;
 
 class EwalletExtension implements Extension

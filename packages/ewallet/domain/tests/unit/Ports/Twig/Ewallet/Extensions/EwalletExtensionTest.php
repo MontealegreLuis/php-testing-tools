@@ -4,13 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\Twig\Extensions;
+
+namespace Ports\Twig\Ewallet\Extensions;
 
 use DataBuilders\A;
 use Ewallet\Memberships\MemberFormatter;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use Ports\Twig\Ewallet\Extensions\EwalletExtension;
 use Prophecy\Argument;
 
 class EwalletExtensionTest extends TestCase

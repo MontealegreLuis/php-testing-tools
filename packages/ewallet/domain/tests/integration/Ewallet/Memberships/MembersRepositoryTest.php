@@ -18,7 +18,7 @@ class MembersRepositoryTest extends MembersTest
     /** @before */
     function generateFixtures(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../config.php');
+        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
         $this
             ->_entityManager()
             ->createQuery('DELETE FROM ' . Member::class)

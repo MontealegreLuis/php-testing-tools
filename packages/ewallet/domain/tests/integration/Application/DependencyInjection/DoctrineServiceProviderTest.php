@@ -7,7 +7,6 @@
 
 namespace Application\DependencyInjection;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
@@ -17,7 +16,7 @@ class DoctrineServiceProviderTest extends TestCase
     /** @test */
     function it_creates_the_entity_manager()
     {
-        $options = require __DIR__ . '/../../../config.php';
+        $options = require __DIR__ . '/../../../../config.php';
         $container = new Container($options);
         $container->register(new DoctrineServiceProvider());
 

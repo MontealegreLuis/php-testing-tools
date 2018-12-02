@@ -4,10 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Application\ContractTests\DomainEvents;
 
-use Application\DomainEvents\EventStore;
-use Application\DomainEvents\StoredEvent;
 use DataBuilders\A;
 use PHPUnit\Framework\TestCase;
 use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;

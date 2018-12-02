@@ -1,9 +1,0 @@
-{%- block money -%}
-    <div class="input-group"><div class="input-group-addon">$</div>
-        {%- set options = options|merge({'block': 'input'}) -%}
-        {%- if value.amount is defined -%}
-            {%- set attr = attr|merge({'value': money_amount(value.amount * 1)}) -%}
-        {%- endif -%}
-        {{- element(element.amount, attr, options) -}}
-        <div class="input-group-addon">{{ element.currency }}</div></div>
-{%- endblock money -%}

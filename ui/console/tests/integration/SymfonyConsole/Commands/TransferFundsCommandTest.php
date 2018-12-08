@@ -8,21 +8,18 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Alice\ThreeMembersWithSameBalanceFixture;
-use Doctrine\ProvidesDoctrineSetup;
+use Doctrine\DataStorageSetup;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
 use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\MemberFormatter;
 use PHPUnit\Framework\TestCase;
 use Ports\Doctrine\Application\Services\DoctrineSession;
 use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
-use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 class TransferFundsCommandTest extends TestCase
 {
-    use ProvidesDoctrineSetup;
-
     /** @test */
     function it_transfers_funds_between_members()
     {
@@ -97,11 +94,12 @@ class TransferFundsCommandTest extends TestCase
     /** @before */
     public function configureCommand(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
-        (new ThreeMembersWithSameBalanceFixture($this->_entityManager()))->load();
-        $members = new MembersRepository($this->_entityManager());
+        $setup = new DataStorageSetup(require __DIR__ . '/../../../../config.php');
+        $setup->updateSchema();
+        (new ThreeMembersWithSameBalanceFixture($setup->entityManager()))->load();
+        $members = new MembersRepository($setup->entityManager());
         $action = new TransactionalTransferFundsAction($members);
-        $action->setTransactionalSession(new DoctrineSession($this->_entityManager()));
+        $action->setTransactionalSession(new DoctrineSession($setup->entityManager()));
         $this->input = new ArrayInput([]);
         $this->output = new BufferedOutput();
         $console = new TransferFundsConsole($this->output, new MemberFormatter());
@@ -110,9 +108,6 @@ class TransferFundsCommandTest extends TestCase
 
     /** @var TransferFundsCommand Subject under test */
     private $command;
-
-    /** @var QuestionHelper */
-    private $question;
 
     /** @var ArrayInput */
     private $input;

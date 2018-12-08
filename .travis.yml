@@ -8,37 +8,23 @@ services:
 
 before_script:
   - composer self-update
-  - cd applications/console && composer install --prefer-source --no-interaction --dev
+  - cd ui/console && composer install --prefer-source --no-interaction --dev
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
   - cp .env.travis .env.tests
   - cd ../web && composer install --prefer-source --no-interaction --dev
   - cp ../../containers/templates/index_dev.php public/index_dev.php
   - npm install -g phantomjs-prebuilt
-  - cd ../../packages/ewallet/domain && composer install --prefer-source --no-interaction --dev
-  - cd ../application && composer install --prefer-source --no-interaction --dev
-  - cd ../definitions && composer install --prefer-source --no-interaction --dev
-  - cd ../doctrine && composer install --prefer-source --no-interaction --dev
-  - cp ../../../containers/templates/cli-config.php cli-config.php
-  - cd ../responder && composer install --prefer-source --no-interaction --dev
-  - cd ../templating && composer install --prefer-source --no-interaction --dev
-  - cd ../validation && composer install --prefer-source --no-interaction --dev
-  - cd ../../hexagonal/doctrine && composer install --prefer-source --no-interaction --dev
+  - cd ../../ewallet && composer install --prefer-source --no-interaction --dev
   - cp ../../../containers/templates/cli-config.php cli-config.php
   - cd ../messaging && composer install --prefer-source --no-interaction --dev
   - cp .env.travis .env.tests
 
 script:
-  - cd ../../../applications/console && bin/phpunit -v
+  - cd ../../../ui/console && bin/phpunit -v
   - cd ../messaging && bin/phpunit -v
   - cd ../web && bin/phpunit -v
   - bin/robo acceptance
-  - cd ../../packages/ewallet/domain && bin/phpspec run -v
+  - cd ../../ewallet && bin/phpspec run -v
   - bin/behat -v
-  - cd ../application && bin/phpunit -v
-  - cd ../definitions && bin/phpunit -v
-  - cd ../doctrine && bin/phpunit -v
-  - cd ../responder && bin/phpunit -v
-  - cd ../templating && bin/phpunit -v
-  - cd ../validation && bin/phpunit -v
-  - cd ../../hexagonal/doctrine && bin/phpunit -v
+  - bin/phpunit -v
   - cd ../messaging && bin/phpunit -v

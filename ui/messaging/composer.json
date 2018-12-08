@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "ewallet/domain": "~1.0",
+        "ewallet/application": "~1.0",
         "symfony/console": "~4.2",
         "vlucas/phpdotenv": "~2.0",
         "zendframework/zend-mail": "~2.10"
@@ -21,9 +21,6 @@
         "phpunit/phpunit": "~7.4",
         "roave/security-advisories": "dev-master"
     },
-    "config": {
-        "bin-dir": "bin/"
-    },
     "autoload": {
         "psr-4": {
             "Ewallet\\": "src/"
@@ -31,13 +28,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Ewallet\\": "vendor/ewallet/domain/tests/src"
+            "Ewallet\\": "vendor/ewallet/application/tests/src"
         }
     },
     "repositories": [
         {
             "type": "path",
-            "url": "../../packages/ewallet/domain"
+            "url": "../../ewallet"
         }
     ]
 }

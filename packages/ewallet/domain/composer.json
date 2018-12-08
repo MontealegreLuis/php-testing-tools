@@ -38,7 +38,6 @@
         "twig/twig": "To share display formatting between application via Twig"
     },
     "config": {
-        "bin-dir": "bin/",
         "sort-packages": true
     },
     "autoload": {
@@ -58,5 +57,8 @@
         "files": [
             "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"
         ]
-    }
+    },
+    "bin": [
+        "bin/setup"
+    ]
 }

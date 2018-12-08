@@ -10,26 +10,34 @@ namespace Ports\Doctrine\Application\Messaging;
 use Application\ContractTests\Messaging\MessageTrackerTest;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
-use Doctrine\ProvidesDoctrineSetup;
+use Doctrine\DataStorageSetup;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest
 {
-    use ProvidesDoctrineSetup;
-
-    function messageTracker(): MessageTracker
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function messageTracker(): MessageTracker
     {
         $this->cleanUpMessages();
 
-        return new MessageTrackerRepository(self::$entityManager);
+        return new MessageTrackerRepository($this->setup->entityManager());
     }
 
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\ORM\ORMException
+     */
     private function cleanUpMessages(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../../../config.php');
+        $options = require __DIR__ . '/../../../../../../config.php';
 
-        self::$entityManager
-            ->createQuery('DELETE FROM ' . PublishedMessage::class)
-            ->execute()
-        ;
+        $this->setup = new DataStorageSetup($options);
+        $this->setup->updateSchema();
+        $this->setup->entityManager()->createQuery('DELETE FROM ' . PublishedMessage::class)->execute();
     }
+
+    /** @var DataStorageSetup */
+    private $setup;
 }

@@ -8,25 +8,26 @@
 namespace Ports\Doctrine\Application\DomainEvents;
 
 use Application\ContractTests\DomainEvents\EventStoreTest;
-use Doctrine\ProvidesDoctrineSetup;
+use Application\DomainEvents\EventStore;
+use Application\DomainEvents\StoredEvent;
+use Doctrine\DataStorageSetup;
 
 class EventStoreRepositoryTest extends EventStoreTest
 {
-    use ProvidesDoctrineSetup;
-
     /** @before */
     function generateFixtures(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../../../config.php');
-        self::$entityManager
-            ->createQuery('DELETE FROM ' . \Application\DomainEvents\StoredEvent::class)
-            ->execute()
-        ;
+        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../../config.php');
+        $this->setup->updateSchema();
+        $this->setup->entityManager()->createQuery('DELETE FROM ' . StoredEvent::class)->execute();
         parent::generateFixtures();
     }
 
-    function storeInstance(): \Application\DomainEvents\EventStore
+    public function storeInstance(): EventStore
     {
-        return new EventStoreRepository(self::$entityManager);
+        return new EventStoreRepository($this->setup->entityManager());
     }
+
+    /** @var DataStorageSetup */
+    private $setup;
 }

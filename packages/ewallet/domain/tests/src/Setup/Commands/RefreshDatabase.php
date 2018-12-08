@@ -4,10 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\SymfonyConsole\Commands;
+
+namespace Setup\Commands;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\{ArrayInput, InputInterface, InputOption};
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RefreshDatabase extends Command
@@ -54,10 +57,7 @@ HELP
 
         if ($input->getOption('seed')) {
             $command = $this->getApplication()->find('ewallet:db:seed');
-            $command->run(
-                new ArrayInput(['command' => 'ewallet:db:seed']),
-                $output
-            );
+            $command->run(new ArrayInput(['command' => 'ewallet:db:seed']), $output);
         }
     }
 }

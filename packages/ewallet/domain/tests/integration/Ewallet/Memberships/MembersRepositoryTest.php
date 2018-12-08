@@ -7,28 +7,26 @@
 
 namespace Ewallet\Memberships;
 
-use Doctrine\ProvidesDoctrineSetup;
+use Doctrine\DataStorageSetup;
 use Ewallet\ContractTests\Memberships\MembersTest;
 use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
 
 class MembersRepositoryTest extends MembersTest
 {
-    use ProvidesDoctrineSetup;
-
     /** @before */
     function generateFixtures(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../config.php');
-        $this
-            ->_entityManager()
-            ->createQuery('DELETE FROM ' . Member::class)
-            ->execute()
-        ;
+        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../config.php');
+        $this->setup->updateSchema();
+        $this->setup->entityManager()->createQuery('DELETE FROM ' . Member::class)->execute();
         parent::generateFixtures();
     }
 
     protected function membersInstance(): Members
     {
-        return new MembersRepository($this->_entityManager());
+        return new MembersRepository($this->setup->entityManager());
     }
+
+    /** @var DataStorageSetup */
+    private $setup;
 }

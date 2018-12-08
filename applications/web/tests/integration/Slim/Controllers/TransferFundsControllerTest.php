@@ -7,7 +7,7 @@
 
 namespace Ewallet\Slim\Controllers;
 
-use Doctrine\ProvidesDoctrineSetup;
+use Doctrine\DataStorageSetup;
 use Ewallet\Slim\Application;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
@@ -16,8 +16,6 @@ use Slim\Http\Request;
 
 class TransferFundsControllerTest extends TestCase
 {
-    use ProvidesDoctrineSetup;
-
     /** @test */
     function it_returns_an_ok_response_on_enter_transfer_information_action()
     {
@@ -55,9 +53,10 @@ class TransferFundsControllerTest extends TestCase
     public function configureApplication(): void
     {
         $options = require __DIR__ . '/../../../../config.php';
+        $setup = new DataStorageSetup($options);
+        $setup->updateSchema();
         $this->app = new Application($options);
         $this->container = $this->app->getContainer();
-        $this->_setUpDoctrine($options);
     }
 
     /** @var  Application */

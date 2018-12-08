@@ -7,8 +7,8 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Doctrine\ProvidesDoctrineSetup;
 use Alice\ThreeMembersWithSameBalanceFixture;
+use Doctrine\DataStorageSetup;
 use Exception;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ use RuntimeException;
 
 class TransactionalTransferFundsActionTest extends TestCase
 {
-    use ProvidesDoctrineSetup, ProvidesMoneyConstraints;
+    use ProvidesMoneyConstraints;
 
     /** @test */
     function it_transfers_funds_between_members()
@@ -27,7 +27,7 @@ class TransactionalTransferFundsActionTest extends TestCase
         $withdrawn300Cents = 700;
         $deposited300Cents = 1300;
 
-        $this->useCase->transfer($this->threeMxn);
+        $this->action->transfer($this->threeMxn);
 
         $this->assertBalanceAmounts($withdrawn300Cents, $this->members->with($this->senderId));
         $this->assertBalanceAmounts($deposited300Cents, $this->members->with($this->recipientId));
@@ -38,13 +38,13 @@ class TransactionalTransferFundsActionTest extends TestCase
     {
         $originalBalanceInCents = 1000;
         $this
-            ->action
+            ->responder
             ->respondToTransferCompleted(Argument::type(TransferFundsSummary::class))
             ->willThrow(RuntimeException::class)
         ;
 
         try {
-            $this->useCase->transfer($this->threeMxn);
+            $this->action->transfer($this->threeMxn);
         } catch(Exception $ignore) {}
 
         $this->assertBalanceAmounts($originalBalanceInCents, $this->members->with($this->senderId));
@@ -54,18 +54,20 @@ class TransactionalTransferFundsActionTest extends TestCase
     /** @before */
     public function configureUseCase(): void
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../../../../config.php');
+        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../config.php');
+        $this->setup->updateSchema();
+        $entityManager = $this->setup->entityManager();
 
-        $fixtures = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
+        $fixtures = new ThreeMembersWithSameBalanceFixture($entityManager);
         $fixtures->load();
 
-        $this->members = new MembersRepository($this->_entityManager());
+        $this->members = new MembersRepository($entityManager);
 
-        $this->useCase = new TransactionalTransferFundsAction($this->members);
-        $this->useCase->setTransactionalSession(new DoctrineSession($this->_entityManager()));
+        $this->action = new TransactionalTransferFundsAction($this->members);
+        $this->action->setTransactionalSession(new DoctrineSession($entityManager));
 
-        $this->action = $this->prophesize(TransferFundsResponder::class);
-        $this->useCase->attach($this->action->reveal());
+        $this->responder = $this->prophesize(TransferFundsResponder::class);
+        $this->action->attach($this->responder->reveal());
 
         $this->threeMxn = TransferFundsInput::from([
             'senderId' => 'XYZ',
@@ -77,7 +79,7 @@ class TransactionalTransferFundsActionTest extends TestCase
     }
 
     /** @var TransactionalTransferFundsAction Subject under test */
-    private $useCase;
+    private $action;
 
     /** @var \Ewallet\Memberships\MemberId */
     private $recipientId;
@@ -86,11 +88,14 @@ class TransactionalTransferFundsActionTest extends TestCase
     private $senderId;
 
     /** @var TransferFundsResponder */
-    private $action;
+    private $responder;
 
     /** @var TransferFundsInput */
     private $threeMxn;
 
     /** @var \Ewallet\Memberships\Members $members */
     private $members;
+
+    /** @var DataStorageSetup */
+    private $setup;
 }

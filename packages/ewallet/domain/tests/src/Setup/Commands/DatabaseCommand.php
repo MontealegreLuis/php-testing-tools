@@ -4,7 +4,8 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\SymfonyConsole\Commands;
+
+namespace Setup\Commands;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command;
@@ -19,20 +20,13 @@ abstract class DatabaseCommand extends Command
         return $filtered;
     }
 
-    protected function databaseExists(
-        array $parameters,
-        Connection $connection
-    ): bool
+    protected function databaseExists(array $parameters, Connection $connection): bool
     {
         if ($this->hasPath($parameters)) {
             return file_exists($this->databaseName($parameters));
         }
 
-        return in_array(
-            $this->databaseName($parameters),
-            $connection->getSchemaManager()->listDatabases(),
-            true
-        );
+        return \in_array($this->databaseName($parameters), $connection->getSchemaManager()->listDatabases(), true);
     }
 
     protected function databaseName(array $parameters): string

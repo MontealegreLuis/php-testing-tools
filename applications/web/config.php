@@ -4,6 +4,9 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
+use Ports\Doctrine\Ewallet\Types\MemberIdType;
+
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
@@ -18,9 +21,10 @@ return [
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
             'url' => str_replace('{{DIR}}', '//' . __DIR__ . '/', getenv('DB_URL')),
+            'driver' => getenv('DB_DRIVER'),
         ],
         'types' => [
-            'MemberId' => 'Ports\Doctrine\Ewallet\Types\MemberIdType',
+            'MemberId' => MemberIdType::class,
         ],
     ],
     'twig' => [
@@ -32,9 +36,6 @@ return [
         'loader_paths' => [
             __DIR__ . '/src/Twig/Resources/templates',
         ],
-    ],
-    'forms' => [
-        'theme' => 'layouts/bootstrap3.html.twig',
     ],
     'monolog' => [
         'app' => [

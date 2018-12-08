@@ -4,14 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\SymfonyConsole\Commands;
 
-use Doctrine\DBAL\{Connection, DriverManager};
+namespace Setup\Commands;
+
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use Exception;
-use Symfony\Component\Console\{
-    Input\InputInterface,
-    Output\OutputInterface
-};
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateDatabaseCommand extends DatabaseCommand
 {
@@ -30,22 +30,17 @@ class CreateDatabaseCommand extends DatabaseCommand
     {
         $parameters = $this->getHelper('db')->getConnection()->getParams();
         try {
-            $connection = DriverManager::getConnection(
-                $this->withoutDatabaseName($parameters)
-            );
-            $this->createIfExists($output, $parameters, $connection);
+            $connection = DriverManager::getConnection($this->withoutDatabaseName($parameters));
+            $this->createIfNotExists($output, $parameters, $connection);
         } catch (Exception $e) {
             $this->cannotCreateDatabase($output, $parameters, $e);
         } finally {
-            !empty($connection) && $connection->close();
+            $connection !== null && $connection->close();
         }
     }
 
-    private function createIfExists(
-        OutputInterface $output,
-        array $parameters,
-        Connection $connection
-    ): void
+    /** @throws \Doctrine\DBAL\DBALException */
+    private function createIfNotExists(OutputInterface $output, array $parameters, Connection $connection): void
     {
         if ($this->databaseExists($parameters, $connection)) {
             $this->doNotCreateDatabase($output, $parameters);
@@ -54,18 +49,12 @@ class CreateDatabaseCommand extends DatabaseCommand
         }
     }
 
-    private function createDatabase(
-        OutputInterface $output,
-        Connection $connection,
-        array $parameters
-    ): void
+    /** @throws \Doctrine\DBAL\DBALException */
+    private function createDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);
         if (!$this->hasPath($parameters)) {
-            $name = $connection
-                ->getDatabasePlatform()
-                ->quoteSingleIdentifier($name)
-            ;
+            $name = $connection->getDatabasePlatform()->quoteSingleIdentifier($name);
         }
 
         $connection->getSchemaManager()->createDatabase($name);
@@ -76,10 +65,7 @@ class CreateDatabaseCommand extends DatabaseCommand
         ));
     }
 
-    protected function doNotCreateDatabase(
-        OutputInterface $output,
-        array $parameters
-    ): void
+    protected function doNotCreateDatabase(OutputInterface $output, array $parameters): void
     {
         $output->writeln(sprintf(
             '<info>Database <comment>%s</comment> already exists.</info>',
@@ -87,11 +73,7 @@ class CreateDatabaseCommand extends DatabaseCommand
         ));
     }
 
-    protected function cannotCreateDatabase(
-        OutputInterface $output,
-        array $parameters,
-        Exception $exception
-    ): void
+    protected function cannotCreateDatabase(OutputInterface $output, array $parameters, Exception $exception): void
     {
         $output->writeln(sprintf(
             '<error>Could not create database <comment>%s</comment></error>',

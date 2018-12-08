@@ -4,11 +4,11 @@ SHELL = /bin/bash
 
 tests:
 	@echo "Running scenarios.."
-	@bin/behat
+	@vendor/bin/behat
 	@echo "Running specs"
-	@bin/phpspec run
+	@vendor/bin/phpspec run
 	@echo "Running unit tests"
-	@bin/phpunit --testdox
+	@vendor/bin/phpunit --testdox
 
 setup:
 	@echo "Installing application dependencies"

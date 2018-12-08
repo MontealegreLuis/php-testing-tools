@@ -4,11 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-namespace Ewallet\SymfonyConsole\Commands;
 
-use Doctrine\DBAL\{Connection, DriverManager};
+namespace Setup\Commands;
+
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use Exception;
-use Symfony\Component\Console\{Input\InputInterface, Output\OutputInterface};
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DropDatabaseCommand extends DatabaseCommand
 {
@@ -27,22 +30,17 @@ class DropDatabaseCommand extends DatabaseCommand
     {
         $parameters = $this->getHelper('db')->getConnection()->getParams();
         try {
-            $connection = DriverManager::getConnection(
-                $this->withoutDatabaseName($parameters)
-            );
+            $arr = $this->withoutDatabaseName($parameters);
+            $connection = DriverManager::getConnection($arr);
             $this->dropIfExists($output, $parameters, $connection);
         } catch (Exception $e) {
             $this->cannotDropDatabase($output, $parameters, $e);
         } finally {
-            !empty($connection) && $connection->close();
+            $connection !== null && $connection->close();
         }
     }
 
-    private function dropIfExists(
-        OutputInterface $output,
-        array $parameters,
-        Connection $connection
-    ): void
+    private function dropIfExists(OutputInterface $output, array $parameters, Connection $connection): void
     {
         if ($this->databaseExists($parameters, $connection)) {
             $this->dropDatabase($output, $connection, $parameters);
@@ -51,18 +49,12 @@ class DropDatabaseCommand extends DatabaseCommand
         }
     }
 
-    private function dropDatabase(
-        OutputInterface $output,
-        Connection $connection,
-        array $parameters
-    ): void
+    /** @throws \Doctrine\DBAL\DBALException */
+    private function dropDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);
         if (!$this->hasPath($parameters)) {
-            $name = $connection
-                ->getDatabasePlatform()
-                ->quoteSingleIdentifier($name)
-            ;
+            $name = $connection->getDatabasePlatform()->quoteSingleIdentifier($name);
         }
 
         $connection->getSchemaManager()->dropDatabase($name);
@@ -73,10 +65,7 @@ class DropDatabaseCommand extends DatabaseCommand
         ));
     }
 
-    private function doNotDropDatabase(
-        OutputInterface $output,
-        array $parameters
-    ): void
+    private function doNotDropDatabase(OutputInterface $output, array $parameters): void
     {
         $output->writeln(sprintf(
             '<info>Database <comment>%s</comment> doesn\'t exist. Skipped.</info>',
@@ -84,11 +73,7 @@ class DropDatabaseCommand extends DatabaseCommand
         ));
     }
 
-    protected function cannotDropDatabase(
-        OutputInterface $output,
-        array $parameters,
-        Exception $exception
-    ): void
+    protected function cannotDropDatabase(OutputInterface $output, array $parameters, Exception $exception): void
     {
         $output->writeln(sprintf(
             '<error>Could not drop database ,<comment>%s</comment></error>',

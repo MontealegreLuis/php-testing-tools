@@ -1,6 +1,6 @@
 {
-    "name": "ewallet/domain",
-    "description": "Ewallet core domain",
+    "name": "ewallet/application",
+    "description": "Electronic Wallet application (ewallet)",
     "version": "1.0",
     "license": "MIT",
     "authors": [
@@ -35,7 +35,7 @@
     },
     "suggest": {
         "php-amqplib/php-amqplib": "To spread domain events via RabbitMQ",
-        "twig/twig": "To share display formatting between application via Twig"
+        "twig/twig": "To share display formatting between applications via Twig"
     },
     "config": {
         "sort-packages": true

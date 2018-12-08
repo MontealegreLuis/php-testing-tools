@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "ewallet/domain": "~1.0",
+        "ewallet/application": "~1.0",
         "monolog/monolog": "~1.24",
         "slim/slim": "~3.11",
         "twig/twig": "~2.5",
@@ -37,14 +37,14 @@
     "autoload-dev": {
         "psr-4": {
             "Ewallet\\": [
-                "vendor/ewallet/domain/tests/src"
+                "vendor/ewallet/application/tests/src"
             ]
         }
     },
     "repositories": [
         {
             "type": "path",
-            "url": "../../packages/ewallet/domain"
+            "url": "../../ewallet"
         }
     ]
 }

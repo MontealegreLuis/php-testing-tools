@@ -14,8 +14,8 @@ return [
     ],
     'doctrine' => [
         'mapping_dirs' => [
-            __DIR__ . '/vendor/ewallet/domain/src/Ports/Doctrine/Ewallet/Resources/config',
-            __DIR__ . '/vendor/ewallet/domain/src/Ports/Doctrine/Application/Resources/config',
+            __DIR__ . '/vendor/ewallet/application/src/Ports/Doctrine/Ewallet/Resources/config',
+            __DIR__ . '/vendor/ewallet/application/src/Ports/Doctrine/Application/Resources/config',
         ],
         'dev_mode' => getenv('APP_ENV') !== 'production',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',

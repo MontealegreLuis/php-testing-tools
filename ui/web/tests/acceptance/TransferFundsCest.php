@@ -6,16 +6,19 @@
  */
 
 use Alice\ThreeMembersWithSameBalanceFixture;
-use Doctrine\ProvidesDoctrineSetup;
+use Doctrine\DataStorageSetup;
 
 class TransferFundsCest
 {
-    use ProvidesDoctrineSetup;
-
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function _before()
     {
-        $this->_setUpDoctrine(require __DIR__ . '/../../config.php');
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->_entityManager());
+        $setup = new DataStorageSetup(require __DIR__ . '/../../config.php');
+        $setup->updateSchema();
+        $fixture = new ThreeMembersWithSameBalanceFixture($setup->entityManager());
         $fixture->load();
     }
 

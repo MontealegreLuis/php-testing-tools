@@ -7,11 +7,12 @@
 
 namespace Ewallet\Pimple;
 
+use UI\Slim\DependencyInjection\EwalletWebContainer;
 use Application\DomainEvents\PersistEventsSubscriber;
-use Ewallet\Slim\Controllers\ShowTransferFormController;
-use Ewallet\Slim\Controllers\TransferFundsController;
-use Ewallet\Slim\Middleware\{RequestLoggingMiddleware};
-use Ewallet\Twig\RouterExtension;
+use UI\Slim\Controllers\ShowTransferFormController;
+use UI\Slim\Controllers\TransferFundsController;
+use UI\Slim\Middleware\{RequestLoggingMiddleware};
+use Ports\Twig\Application\Templating\RouterExtension;
 use PHPUnit\Framework\TestCase;
 use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
 use Psr\Log\LoggerInterface;

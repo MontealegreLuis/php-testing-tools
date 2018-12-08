@@ -5,11 +5,11 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Slim;
+namespace UI\Slim;
 
-use Ewallet\Pimple\EwalletWebContainer;
-use Ewallet\Slim\Providers\EwalletControllerProvider;
-use Ewallet\Slim\Providers\EwalletMiddlewareProvider;
+use UI\Slim\DependencyInjection\EwalletWebContainer;
+use UI\Slim\DependencyInjection\EwalletControllerProvider;
+use UI\Slim\DependencyInjection\EwalletMiddlewareProvider;
 use Slim\App;
 
 class Application extends App

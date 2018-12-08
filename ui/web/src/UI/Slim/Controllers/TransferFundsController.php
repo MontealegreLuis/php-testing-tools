@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Slim\Controllers;
+namespace UI\Slim\Controllers;
 
 use Application\Actions\InputValidator;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;

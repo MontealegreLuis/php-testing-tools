@@ -30,8 +30,11 @@
         "sort-packages": true
     },
     "autoload": {
-        "psr-4": {
-            "Ewallet\\": "src/"
+        "psr-0": {
+            "Application\\": "src/",
+            "Ewallet\\": "src/",
+            "Ports\\": "src/",
+            "UI\\": "src/"
         }
     },
     "autoload-dev": {

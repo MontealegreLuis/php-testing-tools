@@ -8,7 +8,7 @@
 namespace Ewallet\Slim\Controllers;
 
 use Doctrine\DataStorageSetup;
-use Ewallet\Slim\Application;
+use UI\Slim\Application;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Environment;

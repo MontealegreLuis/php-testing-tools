@@ -7,6 +7,7 @@
 namespace Ewallet\Twig;
 
 use PHPUnit\Framework\TestCase;
+use Ports\Twig\Application\Templating\RouterExtension;
 use Slim\Http\{Environment, Request};
 use Slim\Router;
 

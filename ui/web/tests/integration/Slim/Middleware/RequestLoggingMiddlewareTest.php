@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Slim\Http\{Environment, Request, Response};
 use Slim\Route;
+use UI\Slim\Middleware\RequestLoggingMiddleware;
 
 class RequestLoggingMiddlewareTest extends TestCase
 {

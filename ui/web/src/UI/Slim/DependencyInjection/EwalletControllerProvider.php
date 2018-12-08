@@ -5,14 +5,15 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Slim\Providers;
+namespace UI\Slim\DependencyInjection;
 
-use Ewallet\Slim\Controllers\ShowTransferFormController;
-use Ewallet\Slim\Controllers\TransferFundsController;
+use UI\Slim\Controllers\ShowTransferFormController;
+use UI\Slim\Controllers\TransferFundsController;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Slim\App;
-use Slim\Http\{Request, Response};
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 class EwalletControllerProvider implements ServiceProviderInterface
 {

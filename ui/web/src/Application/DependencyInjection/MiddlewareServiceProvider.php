@@ -5,9 +5,9 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Pimple\ServiceProviders;
+namespace Application\DependencyInjection;
 
-use Ewallet\Slim\Middleware\RequestLoggingMiddleware;
+use UI\Slim\Middleware\RequestLoggingMiddleware;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

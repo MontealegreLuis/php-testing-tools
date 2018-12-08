@@ -34,7 +34,7 @@ return [
             'strict_variables' => true,
         ],
         'loader_paths' => [
-            __DIR__ . '/src/Twig/Resources/templates',
+            __DIR__ . '/src/Ports/Twig/Application/Templating/Resources/templates',
         ],
     ],
     'monolog' => [

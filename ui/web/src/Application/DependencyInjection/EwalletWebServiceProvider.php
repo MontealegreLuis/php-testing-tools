@@ -5,16 +5,15 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Pimple\ServiceProviders;
+namespace Application\DependencyInjection;
 
-use Application\DependencyInjection\EwalletServiceProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\MemberFormatter;
 use Ewallet\Memberships\MembersWebRepository;
-use Ewallet\Slim\Controllers\ShowTransferFormController;
-use Ewallet\Slim\Controllers\TransferFundsController;
-use Ewallet\Twig\RouterExtension;
+use UI\Slim\Controllers\ShowTransferFormController;
+use UI\Slim\Controllers\TransferFundsController;
+use Ports\Twig\Application\Templating\RouterExtension;
 use Pimple\Container;
 use Ports\Twig\Application\Templating\TwigTemplateEngine;
 use Ports\Twig\Ewallet\Extensions\EwalletExtension;

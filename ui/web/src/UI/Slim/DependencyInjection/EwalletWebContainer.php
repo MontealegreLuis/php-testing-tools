@@ -5,12 +5,12 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Pimple;
+namespace UI\Slim\DependencyInjection;
 
+use Application\DependencyInjection\ApplicationServiceProvider;
 use Application\DependencyInjection\DoctrineServiceProvider;
-use Ewallet\Pimple\ServiceProviders\ApplicationServiceProvider;
-use Ewallet\Pimple\ServiceProviders\EwalletWebServiceProvider;
-use Ewallet\Pimple\ServiceProviders\MiddlewareServiceProvider;
+use Application\DependencyInjection\EwalletWebServiceProvider;
+use Application\DependencyInjection\MiddlewareServiceProvider;
 use Application\DependencyInjection\TwigServiceProvider;
 use Slim\Container;
 

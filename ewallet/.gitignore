@@ -1,4 +1,3 @@
-/humbuglog.txt
-/phan.txt
 /vendor/
 /composer.lock
+.env.tests

@@ -24,16 +24,16 @@ class PersistEventsSubscriber implements EventSubscriber
         $this->eventFactory = $eventFactory;
     }
 
-    public function isSubscribedTo(Event $event): bool
+    public function isSubscribedTo(DomainEvent $event): bool
     {
         return true;
     }
 
     /**
-     * @param Event $event
+     * @param DomainEvent $event
      * @return void
      */
-    public function handle(Event $event): void
+    public function handle(DomainEvent $event): void
     {
         $this->eventStore->append($this->eventFactory->from($event));
     }

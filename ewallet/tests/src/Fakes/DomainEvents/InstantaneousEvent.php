@@ -7,12 +7,12 @@
 
 namespace Fakes\DomainEvents;
 
-use Application\DomainEvents\Event;
+use Application\DomainEvents\DomainEvent;
 use DateTime;
 use Ewallet\Memberships\MemberId;
 use Money\Money;
 
-class InstantaneousEvent implements Event
+class InstantaneousEvent implements DomainEvent
 {
     /** @var DateTime */
     private $occurredOn;

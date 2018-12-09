@@ -7,7 +7,7 @@
 
 namespace Ports\JmsSerializer\Application\DomainEvents;
 
-use Application\DomainEvents\Event;
+use Application\DomainEvents\DomainEvent;
 use Application\DomainEvents\EventSerializer;
 use DateTime;
 use Ewallet\Memberships\MemberId;
@@ -56,7 +56,7 @@ class JsonSerializer implements EventSerializer
         ;
     }
 
-    public function serialize(Event $anEvent): string
+    public function serialize(DomainEvent $anEvent): string
     {
         return $this->serializer->serialize($anEvent, 'json');
     }

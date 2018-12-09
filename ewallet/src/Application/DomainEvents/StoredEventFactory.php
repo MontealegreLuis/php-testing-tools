@@ -20,7 +20,7 @@ class StoredEventFactory
         $this->serializer = $serializer;
     }
 
-    public function from(Event $event): StoredEvent
+    public function from(DomainEvent $event): StoredEvent
     {
         return new StoredEvent(
             $this->serializer->serialize($event),

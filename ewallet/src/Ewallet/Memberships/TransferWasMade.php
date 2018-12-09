@@ -7,13 +7,13 @@
 namespace Ewallet\Memberships;
 
 use DateTime;
-use Application\DomainEvents\Event;
+use Application\DomainEvents\DomainEvent;
 use Money\Money;
 
 /**
  * This event is triggered every time a funds transfer is completed successfully
  */
-final class TransferWasMade implements Event
+final class TransferWasMade implements DomainEvent
 {
     /** @var DateTime */
     private $occurredOn;

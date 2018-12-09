@@ -12,7 +12,7 @@ use DateTime;
 /**
  * Representation of a persisted domain event
  */
-class StoredEvent implements Event
+class StoredEvent implements DomainEvent
 {
     /** @var integer */
     private $id;

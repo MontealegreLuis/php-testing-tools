@@ -12,8 +12,8 @@ namespace Application\DomainEvents;
  */
 interface CanRecordEvents
 {
-    public function recordThat(Event $event): void;
+    public function recordThat(DomainEvent $event): void;
 
-    /** @return Event[] */
+    /** @return DomainEvent[] */
     public function events(): array;
 }

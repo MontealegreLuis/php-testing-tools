@@ -9,7 +9,7 @@ namespace Application\DomainEvents;
 
 trait RecordsEvents
 {
-    /** @var Event[] */
+    /** @var DomainEvent[] */
     private $events;
 
     public function __construct()
@@ -17,12 +17,12 @@ trait RecordsEvents
         $this->events = [];
     }
 
-    public function recordThat(Event $event): void
+    public function recordThat(DomainEvent $event): void
     {
         $this->events[] = $event;
     }
 
-    /** @return Event[] */
+    /** @return DomainEvent[] */
     public function events(): array
     {
         return $this->events;

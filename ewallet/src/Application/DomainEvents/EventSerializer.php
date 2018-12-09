@@ -12,5 +12,5 @@ namespace Application\DomainEvents;
  */
 interface EventSerializer
 {
-    public function serialize(Event $anEvent): string;
+    public function serialize(DomainEvent $anEvent): string;
 }

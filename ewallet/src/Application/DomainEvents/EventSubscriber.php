@@ -12,7 +12,7 @@ namespace Application\DomainEvents;
  */
 interface EventSubscriber
 {
-    public function isSubscribedTo(Event $event): bool;
+    public function isSubscribedTo(DomainEvent $event): bool;
 
-    public function handle(Event $event): void;
+    public function handle(DomainEvent $event): void;
 }

@@ -12,7 +12,7 @@ use DateTime;
 /**
  * An event is something relevant to the domain that happened in the past
  */
-interface Event
+interface DomainEvent
 {
     public function occurredOn(): DateTime;
 }

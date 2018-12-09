@@ -25,7 +25,7 @@ class EventPublisher
         $this->subscribers[] = $subscriber;
     }
 
-    /** @param Event[] $events */
+    /** @param DomainEvent[] $events */
     public function publish(array $events): void
     {
         foreach ($events as $event) {
@@ -33,7 +33,7 @@ class EventPublisher
         }
     }
 
-    protected function dispatch(Event $event): void
+    protected function dispatch(DomainEvent $event): void
     {
         foreach ($this->subscribers as $subscriber) {
             if ($subscriber->isSubscribedTo($event)) {

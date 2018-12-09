@@ -11,6 +11,8 @@ use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\Members;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
+use Ports\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
+use Ports\Pimple\Application\DependencyInjection\EwalletServiceProvider;
 
 class EwalletServiceProviderTest extends TestCase
 {

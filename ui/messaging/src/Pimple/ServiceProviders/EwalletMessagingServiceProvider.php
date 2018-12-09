@@ -7,11 +7,11 @@
 
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Application\DependencyInjection\EwalletServiceProvider;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
 use Ewallet\Memberships\Members;
 use Ewallet\Zf2\Mail\TransferFundsZendMailSender;
 use Pimple\Container;
+use Ports\Pimple\Application\DependencyInjection\EwalletServiceProvider;
 use Ports\Twig\Application\Templating\TwigTemplateEngine;
 use Twig\Loader\FilesystemLoader;
 use Zend\Mail\Transport\Sendmail;

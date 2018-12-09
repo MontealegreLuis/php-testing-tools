@@ -7,9 +7,9 @@
 
 namespace Ewallet\Pimple;
 
-use Application\DependencyInjection\DoctrineServiceProvider;
 use Ewallet\Pimple\ServiceProviders\EwalletConsoleServiceProvider;
 use Pimple\Container;
+use Ports\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
 
 class EwalletConsoleContainer extends Container
 {

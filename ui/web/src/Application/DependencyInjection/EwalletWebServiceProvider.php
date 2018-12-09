@@ -11,14 +11,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\MemberFormatter;
 use Ewallet\Memberships\MembersWebRepository;
-use UI\Slim\Controllers\ShowTransferFormController;
-use UI\Slim\Controllers\TransferFundsController;
-use Ports\Twig\Application\Templating\RouterExtension;
 use Pimple\Container;
+use Ports\Pimple\Application\DependencyInjection\EwalletServiceProvider;
+use Ports\Twig\Application\Templating\RouterExtension;
 use Ports\Twig\Application\Templating\TwigTemplateEngine;
 use Ports\Twig\Ewallet\Extensions\EwalletExtension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use UI\Slim\Controllers\ShowTransferFormController;
+use UI\Slim\Controllers\TransferFundsController;
 
 class EwalletWebServiceProvider extends EwalletServiceProvider
 {

@@ -7,8 +7,6 @@
 
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Application\DependencyInjection\DoctrineServiceProvider;
-use Application\DependencyInjection\TwigServiceProvider;
 use Application\Messaging\MessagePublisher;
 use Application\Messaging\MessageTracker;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
@@ -17,6 +15,8 @@ use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
 use Ports\Doctrine\Application\Messaging\MessageTrackerRepository;
+use Ports\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
+use Ports\Pimple\Application\DependencyInjection\TwigServiceProvider;
 use Ports\RabbitMq\Application\Messaging\AmqpMessageConsumer;
 use Ports\RabbitMq\Application\Messaging\AmqpMessageProducer;
 

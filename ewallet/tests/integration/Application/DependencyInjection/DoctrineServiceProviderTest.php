@@ -10,6 +10,7 @@ namespace Application\DependencyInjection;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
+use Ports\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
 
 class DoctrineServiceProviderTest extends TestCase
 {

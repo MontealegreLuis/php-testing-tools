@@ -7,24 +7,23 @@
 
 namespace Application\DomainEvents;
 
-use SplObjectStorage;
-use Traversable;
-
 trait RecordsEvents
 {
-    /** @var SplObjectStorage */
+    /** @var Event[] */
     private $events;
+
+    public function __construct()
+    {
+        $this->events = [];
+    }
 
     public function recordThat(Event $event): void
     {
-        if (!$this->events) {
-            $this->events = new SplObjectStorage();
-        }
-
-        $this->events->attach($event);
+        $this->events[] = $event;
     }
 
-    public function events(): Traversable
+    /** @return Event[] */
+    public function events(): array
     {
         return $this->events;
     }

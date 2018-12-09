@@ -6,10 +6,10 @@
  */
 namespace Ewallet\ManageWallet\TransferFunds;
 
+use Application\DomainEvents\EventPublisher;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
-use Application\DomainEvents\PublishesEvents;
 use LogicException;
 
 /**
@@ -17,17 +17,19 @@ use LogicException;
  */
 class TransferFundsAction
 {
-    use PublishesEvents;
-
     /** @var Members */
     private $members;
 
     /** @var TransferFundsResponder */
     private $responder;
 
-    public function __construct(Members $members)
+    /** @var EventPublisher */
+    private $publisher;
+
+    public function __construct(Members $members, EventPublisher $publisher)
     {
         $this->members = $members;
+        $this->publisher = $publisher;
     }
 
     /**
@@ -65,7 +67,7 @@ class TransferFundsAction
         $this->members->update($sender);
         $this->members->update($recipient);
 
-        $this->publisher()->publish($sender->events());
+        $this->publisher->publish($sender->events());
 
         $this->responder()->respondToTransferCompleted(new TransferFundsSummary($sender, $recipient));
     }

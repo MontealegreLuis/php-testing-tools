@@ -7,6 +7,9 @@
 
 namespace Application\DomainEvents;
 
+/**
+ * Generic event subscriber that saves all domain events to a data store via an event store
+ */
 class PersistEventsSubscriber implements EventSubscriber
 {
     /** @var EventStore */

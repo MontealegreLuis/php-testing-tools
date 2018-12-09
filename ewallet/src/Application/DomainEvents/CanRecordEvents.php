@@ -7,11 +7,13 @@
 
 namespace Application\DomainEvents;
 
-use Traversable;
-
+/**
+ * Domain aggregates are usually the ones in charge to produce and record domain events
+ */
 interface CanRecordEvents
 {
     public function recordThat(Event $event): void;
 
-    public function events(): Traversable;
+    /** @return Event[] */
+    public function events(): array;
 }

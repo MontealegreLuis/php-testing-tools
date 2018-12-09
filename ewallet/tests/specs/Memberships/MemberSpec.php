@@ -87,7 +87,7 @@ class MemberSpec extends ObjectBehavior
     {
         $this->transfer(Money::MXN(500), A::member()->build());
 
-        $this->events()->count()->shouldBe(1);
+        $this->events()->shouldHaveCount(1);
     }
 
     function it_can_recognize_her_identity()

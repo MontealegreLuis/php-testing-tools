@@ -9,6 +9,9 @@ namespace Application\DomainEvents;
 
 use DateTime;
 
+/**
+ * An event is something relevant to the domain that happened in the past
+ */
 interface Event
 {
     public function occurredOn(): DateTime;

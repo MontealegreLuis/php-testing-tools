@@ -23,12 +23,11 @@ use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 class EwalletServiceProvider implements ServiceProviderInterface
 {
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container[TransferFundsAction::class] =  function () use ($container) {
-            $transferFunds = new TransactionalTransferFundsAction($container[Members::class]);
+            $transferFunds = new TransactionalTransferFundsAction($container[Members::class], $container[EventPublisher::class]);
             $transferFunds->setTransactionalSession(new DoctrineSession($container[EntityManagerInterface::class]));
-            $transferFunds->setPublisher($container[EventPublisher::class]);
             return $transferFunds;
         };
         $container[EventPublisher::class] = function () use ($container) {

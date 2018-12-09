@@ -7,6 +7,9 @@
 
 namespace Application\DomainEvents;
 
+/**
+ * Subscribers can be subscribed to all events or to a specific type of events
+ */
 interface EventSubscriber
 {
     public function isSubscribedTo(Event $event): bool;

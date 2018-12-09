@@ -7,22 +7,27 @@
 
 namespace Application\DomainEvents;
 
-use SplObjectStorage;
-use Traversable;
-
+/**
+ * A publisher notifies a group of event subscribers when domain events have been published
+ */
 class EventPublisher
 {
-    /** @var SplObjectStorage */
+    /** @var EventSubscriber[] */
     private $subscribers;
+
+    public function __construct()
+    {
+        $this->subscribers = [];
+    }
 
     public function subscribe(EventSubscriber $subscriber): void
     {
-        $this->subscribers()->attach($subscriber);
+        $this->subscribers[] = $subscriber;
     }
 
-    public function publish(Traversable $events): void
+    /** @param Event[] $events */
+    public function publish(array $events): void
     {
-        /** @var Event $event */
         foreach ($events as $event) {
             $this->dispatch($event);
         }
@@ -30,20 +35,10 @@ class EventPublisher
 
     protected function dispatch(Event $event): void
     {
-        /** @var EventSubscriber $subscriber */
-        foreach ($this->subscribers() as $subscriber) {
+        foreach ($this->subscribers as $subscriber) {
             if ($subscriber->isSubscribedTo($event)) {
                 $subscriber->handle($event);
             }
         }
-    }
-
-    protected function subscribers(): SplObjectStorage
-    {
-        if (!$this->subscribers) {
-            $this->subscribers = new SplObjectStorage();
-        }
-
-        return $this->subscribers;
     }
 }

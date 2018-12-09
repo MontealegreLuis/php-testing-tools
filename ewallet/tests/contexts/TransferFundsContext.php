@@ -5,6 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
+use Application\DomainEvents\EventPublisher;
 use Behat\Behat\Context\Context;
 use DataBuilders\A;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
@@ -33,15 +34,15 @@ class TransferFundsContext implements Context
     private $helper;
 
     /** @var TransferFundsAction */
-    private $command;
+    private $action;
 
     /** @BeforeScenario */
     public function prepare()
     {
         $this->members = new InMemoryMembers();
         $this->helper = new TransferFundsResponderHelper();
-        $this->command = new TransferFundsAction($this->members);
-        $this->command->attach($this->helper);
+        $this->action = new TransferFundsAction($this->members, new EventPublisher());
+        $this->action->attach($this->helper);
     }
 
     /**
@@ -69,7 +70,7 @@ class TransferFundsContext implements Context
      */
     public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
-        $this->command->transfer(TransferFundsInput::from([
+        $this->action->transfer(TransferFundsInput::from([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
             'amount' => $amount->getAmount() / 100,

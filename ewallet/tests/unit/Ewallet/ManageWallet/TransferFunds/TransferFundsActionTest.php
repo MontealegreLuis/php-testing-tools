@@ -7,6 +7,7 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
+use Application\DomainEvents\EventPublisher;
 use DataBuilders\A;
 use Ewallet\Memberships\InMemoryMembers;
 use Ewallet\Memberships\InsufficientFunds;
@@ -119,7 +120,7 @@ class TransferFundsActionTest extends TestCase
     {
         $this->members = new InMemoryMembers();
         $this->responder = $this->prophesize(TransferFundsResponder::class);
-        $this->action = new TransferFundsAction($this->members);
+        $this->action = new TransferFundsAction($this->members, new EventPublisher());
     }
 
     /** @var \Ewallet\Memberships\Members */

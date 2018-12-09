@@ -8,6 +8,7 @@
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Alice\ThreeMembersWithSameBalanceFixture;
+use Application\DomainEvents\EventPublisher;
 use Doctrine\DataStorageSetup;
 use Exception;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
@@ -63,7 +64,7 @@ class TransactionalTransferFundsActionTest extends TestCase
 
         $this->members = new MembersRepository($entityManager);
 
-        $this->action = new TransactionalTransferFundsAction($this->members);
+        $this->action = new TransactionalTransferFundsAction($this->members, new EventPublisher());
         $this->action->setTransactionalSession(new DoctrineSession($entityManager));
 
         $this->responder = $this->prophesize(TransferFundsResponder::class);

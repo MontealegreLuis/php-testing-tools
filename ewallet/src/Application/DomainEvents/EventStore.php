@@ -8,8 +8,7 @@
 namespace Application\DomainEvents;
 
 /**
- * Provide a mechanism to persist domain events in order to spread them across
- * bounded contexts
+ * Provide a mechanism to persist domain events in order to spread them across bounded contexts
  */
 interface EventStore
 {

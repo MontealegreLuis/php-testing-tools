@@ -6,15 +6,15 @@
  */
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Application\Actions\InputValidator;
 use Ewallet\Memberships\MemberId;
 use Money\Money;
+use Ports\Symfony\Application\Actions\ConstraintValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Information needed to make a transfer
  */
-final class TransferFundsInput extends InputValidator
+final class TransferFundsInput extends ConstraintValidator
 {
     /**
      * @Assert\NotBlank(message="Sender ID cannot be blank")

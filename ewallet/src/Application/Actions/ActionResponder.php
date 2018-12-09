@@ -7,6 +7,9 @@
 
 namespace Application\Actions;
 
+/**
+ * All application responders provide feedback when user input does not pass validation
+ */
 interface ActionResponder
 {
     public function respondToInvalidInput(InputValidator $input): void;

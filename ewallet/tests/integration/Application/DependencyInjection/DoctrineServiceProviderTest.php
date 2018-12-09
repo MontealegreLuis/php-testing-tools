@@ -16,7 +16,7 @@ class DoctrineServiceProviderTest extends TestCase
     /** @test */
     function it_creates_the_entity_manager()
     {
-        $options = require __DIR__ . '/../../../../config.php';
+        $options = require __DIR__ . '/../../../../config/config.php';
         $container = new Container($options);
         $container->register(new DoctrineServiceProvider());
 

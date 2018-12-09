@@ -17,7 +17,7 @@ class EwalletServiceProviderTest extends TestCase
     /** @test */
     function it_should_create_ewallet_shared_services()
     {
-        $options = require __DIR__ . '/../../../../config.php';
+        $options = require __DIR__ . '/../../../../config/config.php';
         $container = new Container($options);
         $container->register(new DoctrineServiceProvider());
         $container->register(new EwalletServiceProvider());

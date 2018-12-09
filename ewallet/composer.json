@@ -47,7 +47,7 @@
             "Ports\\": "src/"
         },
         "files": [
-            "annotations.php"
+            "config/annotations.php"
         ]
     },
     "autoload-dev": {

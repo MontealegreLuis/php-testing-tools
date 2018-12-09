@@ -17,7 +17,7 @@ class EventStoreRepositoryTest extends EventStoreTest
     /** @before */
     function generateFixtures(): void
     {
-        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../../config.php');
+        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../../config/config.php');
         $this->setup->updateSchema();
         $this->setup->entityManager()->createQuery('DELETE FROM ' . StoredEvent::class)->execute();
         parent::generateFixtures();

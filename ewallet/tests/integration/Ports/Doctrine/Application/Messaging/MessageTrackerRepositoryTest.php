@@ -31,7 +31,7 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
      */
     private function cleanUpMessages(): void
     {
-        $options = require __DIR__ . '/../../../../../../config.php';
+        $options = require __DIR__ . '/../../../../../../config/config.php';
 
         $this->setup = new DataStorageSetup($options);
         $this->setup->updateSchema();

@@ -16,7 +16,7 @@ class MembersRepositoryTest extends MembersTest
     /** @before */
     function generateFixtures(): void
     {
-        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../config.php');
+        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../config/config.php');
         $this->setup->updateSchema();
         $this->setup->entityManager()->createQuery('DELETE FROM ' . Member::class)->execute();
         parent::generateFixtures();

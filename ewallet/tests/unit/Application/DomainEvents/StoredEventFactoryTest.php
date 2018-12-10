@@ -7,9 +7,9 @@
 
 namespace Application\DomainEvents;
 
-use DateTime;
+use Application\Clock;
 use Ewallet\Memberships\MemberId;
-use Fakes\DomainEvents\InstantaneousEvent;
+use Ewallet\Memberships\TransferWasMade;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
@@ -19,28 +19,25 @@ class StoredEventFactoryTest extends TestCase
     /** @test */
     function it_creates_an_stored_event_from_a_given_domain_event()
     {
-        $memberId = 'abc';
-        $amountInCents = 500000;
-        $occurredOnDate = '2015-10-25 19:59:00';
-        $event = new InstantaneousEvent(
-            MemberId::withIdentity($memberId),
-            Money::MXN($amountInCents),
-            new DateTime($occurredOnDate)
-        );
+        $occurredOn = Clock::fromFormattedString('2015-10-25 19:59:00');
+        Clock::freezeTimeAt($occurredOn);
 
-        $storedEvent = $this->factory->from($event);
+        $storedEvent = $this->factory->from(new TransferWasMade(
+            MemberId::withIdentity('abc'),
+            Money::MXN(500000),
+            MemberId::withIdentity('xyz')
+        ));
 
         // Stored events get an identifier ONLY AFTER being persisted
         $this->assertEquals(0, $storedEvent->id());
         $this->assertEquals(
-            "{\"occurred_on\":\"$occurredOnDate\",\"member_id\":\"$memberId\",\"amount\":\"$amountInCents\"}",
+            '{"occurred_on":"2015-10-25 19:59:00","sender_id":"abc","amount":"500000","recipient_id":"xyz"}',
             $storedEvent->body()
         );
-        $this->assertEquals(InstantaneousEvent::class, $storedEvent->type());
-        $this->assertEquals(
-            $occurredOnDate,
-            $storedEvent->occurredOn()->format('Y-m-d H:i:s')
-        );
+        $this->assertEquals(TransferWasMade::class, $storedEvent->type());
+        $this->assertEquals($occurredOn, $storedEvent->occurredOn());
+
+        Clock::continue();
     }
 
     /** @before */

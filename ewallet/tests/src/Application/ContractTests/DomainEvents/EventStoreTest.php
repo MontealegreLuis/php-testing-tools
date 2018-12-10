@@ -7,7 +7,10 @@
 
 namespace Application\ContractTests\DomainEvents;
 
-use DataBuilders\A;
+use Application\Clock;
+use Application\DomainEvents\EventStore;
+use Application\DomainEvents\StoredEventFactory;
+use Fakes\DomainEvents\InstantaneousEvent;
 use PHPUnit\Framework\TestCase;
 use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
@@ -41,12 +44,13 @@ abstract class EventStoreTest extends TestCase
     function generateFixtures(): void
     {
         $this->store = $this->storeInstance();
-        $factory = new \Application\DomainEvents\StoredEventFactory(new JsonSerializer());
+        $factory = new StoredEventFactory(new JsonSerializer());
 
-        $event1 = $factory->from(A::transferWasMadeEvent()->build());
-        $this->event2 = $factory->from(A::transferWasMadeEvent()->build());
-        $event3 = $factory->from(A::transferWasMadeEvent()->build());
-        $this->event4 = $factory->from(A::transferWasMadeEvent()->build());
+        $instant = Clock::now();
+        $event1 = $factory->from(new InstantaneousEvent($instant));
+        $this->event2 = $factory->from(new InstantaneousEvent($instant));
+        $event3 = $factory->from(new InstantaneousEvent($instant));
+        $this->event4 = $factory->from(new InstantaneousEvent($instant));
 
         $this->store->append($event1);
         $this->store->append($this->event2);
@@ -54,9 +58,9 @@ abstract class EventStoreTest extends TestCase
         $this->store->append($this->event4);
     }
 
-    abstract function storeInstance(): \Application\DomainEvents\EventStore;
+    abstract function storeInstance(): EventStore;
 
-    /** @var \Application\DomainEvents\EventStore */
+    /** @var EventStore */
     private $store;
 
     /** @var \Application\DomainEvents\StoredEvent */

@@ -7,9 +7,9 @@
 
 namespace Ports\JmsSerializer\Application\DomainEvents;
 
-use DateTime;
+use Application\Clock;
 use Ewallet\Memberships\MemberId;
-use Fakes\DomainEvents\InstantaneousEvent;
+use Ewallet\Memberships\TransferWasMade;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -18,21 +18,20 @@ class JsonSerializerTest extends TestCase
     /** @test */
     function it_serializes_a_domain_event_to_json()
     {
-        $memberId = 'abc';
-        $amountInCents = 10000;
-        $occurredOnDate = '2015-10-24 12:39:51';
-        $anEvent = new InstantaneousEvent(
-            MemberId::withIdentity($memberId),
-            Money::MXN($amountInCents),
-            new DateTime($occurredOnDate)
-        );
+        Clock::freezeTimeAt(Clock::fromFormattedString('2015-10-24 12:39:51'));
 
-        $json = (new JsonSerializer())->serialize($anEvent);
+        $json = (new JsonSerializer())->serialize(new TransferWasMade(
+            MemberId::withIdentity('abc'),
+            Money::MXN(10000),
+            MemberId::withIdentity('xyz')
+        ));
 
         $this->assertEquals(
-            "{\"occurred_on\":\"$occurredOnDate\",\"member_id\":\"$memberId\",\"amount\":\"$amountInCents\"}",
+            '{"occurred_on":"2015-10-24 12:39:51","sender_id":"abc","amount":"10000","recipient_id":"xyz"}',
             $json,
             'JSON format for serialized event is incorrect'
         );
+
+        Clock::continue();
     }
 }

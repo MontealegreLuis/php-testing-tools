@@ -17,6 +17,7 @@
         "doctrine/orm": "~2.6",
         "jms/serializer": "~1.13",
         "moneyphp/money": "~3.1",
+        "nesbot/carbon": "~2.7",
         "pimple/pimple": "~3.2",
         "symfony/validator": "~4.2"
     },

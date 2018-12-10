@@ -7,13 +7,11 @@
 
 namespace Application\DomainEvents;
 
+use Application\Clock;
 use DataBuilders\A;
-use DateTime;
-use Ewallet\Memberships\MemberId;
 use Fakes\DomainEvents\InstantaneousEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
@@ -24,9 +22,7 @@ class PersistEventsSubscriberTest extends TestCase
     /** @test */
     function it_subscribes_to_any_event_type()
     {
-        $instantaneousEvent = new InstantaneousEvent(
-            MemberId::withIdentity('any'), Money::MXN(100000), new DateTime('now')
-        );
+        $instantaneousEvent = new InstantaneousEvent(Clock::now());
         $transferWasMadeEvent = A::transferWasMadeEvent()->build();
 
         $this->assertTrue($this->subscriber->isSubscribedTo($instantaneousEvent));

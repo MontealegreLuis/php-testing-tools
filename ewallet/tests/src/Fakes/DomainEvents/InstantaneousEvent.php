@@ -9,33 +9,18 @@ namespace Fakes\DomainEvents;
 
 use Application\DomainEvents\DomainEvent;
 use DateTime;
-use Ewallet\Memberships\MemberId;
-use Money\Money;
 
 class InstantaneousEvent implements DomainEvent
 {
     /** @var DateTime */
     private $occurredOn;
 
-    /** @var MemberId */
-    private $memberId;
-
-    /** @var Money */
-    private $amount;
-
-    public function __construct(
-        MemberId $memberId,
-        Money $amount,
-        DateTime $instant
-    ) {
-        $this->memberId = $memberId;
-        $this->amount = $amount;
+    public function __construct(DateTime $instant)
+    {
         $this->occurredOn = $instant;
     }
 
-    /**
-     * @return DateTime
-     */
+    /** @return DateTime */
     public function occurredOn(): DateTime
     {
         return $this->occurredOn;

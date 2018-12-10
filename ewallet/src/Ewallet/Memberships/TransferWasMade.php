@@ -6,8 +6,9 @@
  */
 namespace Ewallet\Memberships;
 
-use DateTime;
+use Application\Clock;
 use Application\DomainEvents\DomainEvent;
+use DateTime;
 use Money\Money;
 
 /**
@@ -29,7 +30,7 @@ final class TransferWasMade implements DomainEvent
 
     public function __construct(MemberId $senderId, Money $amount, MemberId $recipientId)
     {
-        $this->occurredOn = new DateTime('now');
+        $this->occurredOn = Clock::now();
         $this->senderId = $senderId;
         $this->amount = $amount;
         $this->recipientId = $recipientId;

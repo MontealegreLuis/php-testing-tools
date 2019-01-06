@@ -54,9 +54,7 @@ class Member implements CanRecordEvents
     {
         $recipient->receiveDeposit($amount);
         $this->account->withdraw($amount);
-        $this->recordThat(new TransferWasMade(
-            $this->memberId, clone $amount, $recipient->memberId
-        ));
+        $this->recordThat(new TransferWasMade($this->memberId, clone $amount, $recipient->memberId));
     }
 
     public function equals(Member $anotherMember): bool

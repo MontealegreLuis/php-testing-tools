@@ -72,7 +72,7 @@ class TransferFundsActionTest extends TestCase
     }
 
     /** @test */
-    function it_provides_feedback_if_recipient_does_not_have_enough_funds()
+    function it_fails_transfer_if_recipient_does_not_have_enough_funds()
     {
         $sender = A::member()->withBalance(500)->build(); // 5 MXN
         $recipient = A::member()->build();
@@ -85,12 +85,8 @@ class TransferFundsActionTest extends TestCase
             'amount' => 10 // 10 MXN
         ]);
 
+        $this->expectException(InsufficientFunds::class);
         $this->action->transfer($input);
-
-        $this->responder
-            ->respondToInsufficientFunds(Argument::type(InsufficientFunds::class))
-            ->shouldHaveBeenCalled();
-        $this->assertTrue($input->isValid());
     }
 
     /** @test */

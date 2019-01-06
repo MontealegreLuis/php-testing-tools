@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Application\DomainEvents\EventPublisher;
@@ -32,12 +33,7 @@ class TransferFundsAction
         $this->publisher = $publisher;
     }
 
-    /**
-     * @throws \Ewallet\Memberships\UnknownMember If either the sender or the recipient are unknown
-     * @throws \Ewallet\Memberships\InsufficientFunds If the sender tries to transfer an amount greater than its current balance
-     * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to transfer a negative amount
-     * @throws LogicException If no action is attached to the current command
-     */
+    /** @throws LogicException If no action is attached to the current command */
     public function transfer(TransferFundsInput $input): void
     {
         if (!$input->isValid()) {
@@ -57,12 +53,7 @@ class TransferFundsAction
             return;
         }
 
-        try {
-            $sender->transfer($input->amount(), $recipient);
-        } catch (InsufficientFunds $exception) {
-            $this->responder()->respondToInsufficientFunds($exception);
-            return;
-        }
+        $sender->transfer($input->amount(), $recipient);
 
         $this->members->update($sender);
         $this->members->update($recipient);
@@ -78,7 +69,7 @@ class TransferFundsAction
     }
 
     /** @throws LogicException If no responder is attached to this action */
-    private function responder(): TransferFundsResponder
+    protected function responder(): TransferFundsResponder
     {
         if ($this->responder) {
             return $this->responder;

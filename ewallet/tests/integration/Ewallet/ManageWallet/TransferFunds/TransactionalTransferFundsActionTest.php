@@ -55,9 +55,9 @@ class TransactionalTransferFundsActionTest extends TestCase
     /** @before */
     public function configureUseCase(): void
     {
-        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../config/config.php');
-        $this->setup->updateSchema();
-        $entityManager = $this->setup->entityManager();
+        $setup = new DataStorageSetup(require __DIR__ . '/../../../../../config/config.php');
+        $setup->updateSchema();
+        $entityManager = $setup->entityManager();
 
         $fixtures = new ThreeMembersWithSameBalanceFixture($entityManager);
         $fixtures->load();
@@ -96,7 +96,4 @@ class TransactionalTransferFundsActionTest extends TestCase
 
     /** @var \Ewallet\Memberships\Members $members */
     private $members;
-
-    /** @var DataStorageSetup */
-    private $setup;
 }

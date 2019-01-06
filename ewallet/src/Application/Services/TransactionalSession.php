@@ -7,10 +7,10 @@
 
 namespace Application\Services;
 
+/**
+ * Used by actions that need to execute operations atomically
+ */
 interface TransactionalSession
 {
-    /**
-     * @return mixed
-     */
-    public function executeAtomically(callable $operation);
+    public function executeAtomically(callable $operation): void;
 }

@@ -1,28 +1,31 @@
-# Ewallet Messaging Application
+# eWallet Messaging Application
 
-The following commands are meant to be run from the `dev` container in this
-folder.
+If you're using the Docker setup, the following commands are meant to be run from the `dev` container in this directory.
 
 ```bash
-$ cd applications/messaging
+cd ui/messaging
 ```
 
 ## Setup
 
 ```bash
-$ composer install
+make bootstrap
+```
+
+## Configuration
+
+If you're using the Docker setup you may skip this step.
+Otherwise you'll need a `.env` with the settings to connect to RabbitMQ.
+We're using Mailcatcher to see the sent emails, please install and configure locally.
+
+```bash
+make setup
 ```
 
 ## Tests
 
-Setup the testing database
-
-```bash
-$ ENV=testing bin/doctrine orm:schema-tool:update --force
-```
-
 Run the tests
 
 ```bash
-$ bin/phpunit --testdox
+make tests
 ```

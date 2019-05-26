@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install bcmath
 
 # Add the console `bin` folder to the PATH environment variable
-ENV PATH /usr/src/myapp/applications/console/bin:$PATH
+ENV PATH /usr/src/myapp/ui/console/bin:$PATH

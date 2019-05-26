@@ -27,7 +27,7 @@ class EwalletWebServiceProvider extends EwalletServiceProvider
      * Register the services for Transfer Funds feature delivered through a
      * web interface
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         parent::register($container);
         $container[ShowTransferFormController::class] = function () use ($container) {

@@ -7,11 +7,14 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Ewallet\Slim\Application;
+use UI\Slim\Application;
 use Dotenv\Loader;
 use Dotenv\Validator;
 
-$validator = new Validator(['APP_ENV', 'DB_URL'], new Loader(null));
+if (!isset($_ENV['APP_ENV'])) {
+    // We' re not running the application from the containers
+    $validator = new Validator(['APP_ENV', 'DB_URL'], new Loader(null));
+}
 
 $app = new Application(require __DIR__ . '/../config.php');
 $app->run();

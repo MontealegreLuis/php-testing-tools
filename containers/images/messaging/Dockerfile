@@ -20,4 +20,4 @@ RUN apt-get install -y ssmtp && \
 RUN apt-get install -y cron
 
 # Run the command on container startup
-CMD cron -f
+CMD env >> /etc/environment && cron -f

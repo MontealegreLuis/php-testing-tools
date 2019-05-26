@@ -5,6 +5,8 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
+use Ports\Doctrine\Ewallet\Types\MemberIdType;
+
 return [
     'doctrine' => [
         'mapping_dirs' => [
@@ -18,7 +20,7 @@ return [
             'path' => __DIR__ . '/var/ewallet.sq3',
         ],
         'types' => [
-            'MemberId' => 'Ports\Doctrine\Ewallet\Types\MemberIdType',
+            'MemberId' => MemberIdType::class,
         ],
     ],
     'twig' => [

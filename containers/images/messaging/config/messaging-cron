@@ -1,0 +1,2 @@
+* * * * * root /usr/local/bin/php /usr/src/myapp/ui/messaging/bin/console ewallet:events:spread > /proc/1/fd/1 2> /proc/1/fd/2
+* * * * * root /usr/local/bin/php /usr/src/myapp/ui/messaging/bin/console ewallet:transfer:email > /proc/1/fd/1 2> /proc/1/fd/2

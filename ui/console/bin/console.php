@@ -13,9 +13,12 @@ use Ewallet\SymfonyConsole\EwalletApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-$environment = new Dotenv(__DIR__ . '/../');
-$environment->load();
-$environment->required(['APP_ENV', 'DB_URL']);
+if (!isset($_ENV['APP_ENV'])) {
+    // We' re not running the application from the containers
+    $environment = new Dotenv(__DIR__ . '/../');
+    $environment->load();
+    $environment->required(['APP_ENV', 'DB_URL']);
+}
 
 $application = new EwalletApplication($container = new EwalletConsoleContainer(
     require __DIR__ . '/../config.php'

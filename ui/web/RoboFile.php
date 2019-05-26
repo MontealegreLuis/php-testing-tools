@@ -4,7 +4,10 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
-class RoboFile extends \Robo\Tasks
+
+use Robo\Tasks;
+
+class RoboFile extends Tasks
 {
     /**
      * @description Run all the Codeception acceptance tests in PhantomJS
@@ -13,9 +16,11 @@ class RoboFile extends \Robo\Tasks
     {
         //$this->stopOnFail(); // PhantomJS is giving an erroneous exit code
         $this
-            ->taskExec('npm run browser')
+            ->taskExec('phantomjs')
+            ->option('webdriver', 4444)
+            ->option('webdriver-loglevel', 'WARNING')
             ->background()
-            ->run()
+        ->run()
         ;
         sleep(3); // Allow PhantomJS to start
         $this

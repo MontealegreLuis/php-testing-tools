@@ -9,8 +9,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../');
-
 $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
 $environment->required(['APP_ENV', 'DB_URL']);

@@ -4,14 +4,20 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use Ewallet\Slim\Application;
+use UI\Slim\Application;
+
+if ($_ENV['APP_ENV'] === 'production') {
+    http_response_code(404);
+    die;
+}
 
 $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
 $environment->load();
-$environment->required(['APP_ENV', 'DB_URL']);
+$environment->required(['APP_ENV', 'DB_URL', 'PDO_DRIVER']);
 
 $app = new Application(require __DIR__ . '/../config.php');
 $app->run();

@@ -1,20 +1,12 @@
 FROM php:7.1-cli
 
-COPY ./config/group.sh /group.sh
+ENV DEBIAN_FRONTEND noninteractive
+
 COPY ./config/php.ini /usr/local/etc/php/
-
-# Add execution permission
-RUN chmod a+x /group.sh
-
-# Create custom user and group to match the ones in the host machine
-RUN /group.sh
-RUN useradd -ms /bin/bash -g ${DEV_GROUP_ID} -u ${DEV_USER_ID} ${DEV_USER}
-RUN mv /home/${DEV_USER}/.bashrc /etc/bashrc
-COPY ./config/.bashrc /home/${DEV_USER}/.bashrc
 
 # Install modules
 RUN apt-get update && apt-get install -y \
-    && apt-get install -y zlib1g zlib1g-dev git-core zip unzip \
+    && apt-get install -y zlib1g zlib1g-dev git-core zip unzip curl \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath \
@@ -25,17 +17,6 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_connect_back=on" >> /usr/local/etc/php/conf.d/xdebug.ini
-
-# Install Phan
-RUN apt-get install -y git
-
-RUN git clone https://github.com/nikic/php-ast.git \
-    && cd php-ast \
-    && phpize \
-    && ./configure \
-    && make install \
-    && echo 'extension=ast.so' > /usr/local/etc/php/php.ini \
-    && cd .. && rm -rf php-ast
 
 # Install Composer
 RUN mkdir -p /composer/.composer
@@ -57,26 +38,14 @@ RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
 
 RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer && rm -rf /tmp/composer-setup.php
 
-# Copy Composer's Github token
-COPY ./config/auth.json /composer/
-
-RUN composer global require "etsy/phan:dev-master"
-RUN composer global require "humbug/humbug=~1.0@dev"
-
-RUN chown -R ${DEV_USER} /composer
-
 # Install MySQL's client
 RUN apt-get -y install mysql-client
 
 # Install PhantomJS
-RUN apt-get install -y libfreetype6 libfontconfig bzip2
-RUN apt-get install -y nodejs-legacy
-RUN apt-get install -y npm
-RUN npm install -g phantomjs-prebuilt
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs libfreetype6 libfontconfig bzip2
+RUN npm install -g phantomjs-prebuilt --unsafe-perm
 
 WORKDIR /usr/src/myapp
-
-USER ${DEV_USER}
-ENV HOME /home/${DEV_USER}
 
 EXPOSE 8000 4444

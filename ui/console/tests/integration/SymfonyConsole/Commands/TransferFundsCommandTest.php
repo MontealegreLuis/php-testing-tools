@@ -8,6 +8,7 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use Alice\ThreeMembersWithSameBalanceFixture;
+use Application\DomainEvents\EventPublisher;
 use Doctrine\DataStorageSetup;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
 use Ewallet\ManageWallet\TransferFundsConsole;
@@ -98,7 +99,7 @@ class TransferFundsCommandTest extends TestCase
         $setup->updateSchema();
         (new ThreeMembersWithSameBalanceFixture($setup->entityManager()))->load();
         $members = new MembersRepository($setup->entityManager());
-        $action = new TransactionalTransferFundsAction($members);
+        $action = new TransactionalTransferFundsAction($members, new EventPublisher());
         $action->setTransactionalSession(new DoctrineSession($setup->entityManager()));
         $this->input = new ArrayInput([]);
         $this->output = new BufferedOutput();

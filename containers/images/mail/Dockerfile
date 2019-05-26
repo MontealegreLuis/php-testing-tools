@@ -1,6 +1,6 @@
-FROM ruby:2.3
+FROM ruby:2.6
 
-RUN gem install mailcatcher --no-rdoc --no-ri
+RUN gem install mailcatcher
 
 # smtp (25) and ip (8080) ports
 EXPOSE 25 8080

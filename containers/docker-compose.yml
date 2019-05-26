@@ -1,0 +1,106 @@
+version: '2'
+
+services:
+  dev:
+    container_name: ewallet_dev
+    build:
+      context: ./images/dev
+    image: ewallet/dev
+    ports:
+      - "8000:8000"
+    links:
+      - db
+      - queue
+    volumes:
+      - ./../:/usr/src/myapp
+      - ~/.composer:/root/.composer
+    environment:
+      APP_ENV: ${APP_ENV}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_HOST: ${MYSQL_HOST}
+      PDO_DRIVER: ${PDO_DRIVER}
+      RABBIT_MQ_USER: ${RABBIT_MQ_USER}
+      RABBIT_MQ_PASSWORD: ${RABBIT_MQ_PASSWORD}
+      RABBIT_MQ_HOST: ${RABBIT_MQ_HOST}
+  web:
+    container_name: ewallet_web
+    build:
+      context: ./images/web
+    image: ewallet/web
+    ports:
+      - "80:80"
+    links:
+      - db
+    volumes:
+      - ./../:/usr/src/myapp
+    environment:
+      APP_ENV: ${APP_ENV}
+      DB_URL: ${DB_URL}
+      PDO_DRIVER: ${PDO_DRIVER}
+  console:
+    container_name: ewallet_console
+    build:
+      context: ./images/console
+    image: ewallet/console
+    links:
+      - db
+    volumes:
+      - ./../:/usr/src/myapp
+    environment:
+      APP_ENV: ${APP_ENV}
+      DB_URL: ${DB_URL}
+  messaging:
+    container_name: ewallet_messaging
+    build:
+      context: ./images/messaging
+    image: ewallet/messaging
+    links:
+      - db
+      - queue
+      - mail
+    volumes:
+      - ./../:/usr/src/myapp
+    environment:
+      APP_ENV: ${APP_ENV}
+      RABBIT_MQ_USER: ${RABBIT_MQ_USER}
+      RABBIT_MQ_PASSWORD: ${RABBIT_MQ_PASSWORD}
+      RABBIT_MQ_HOST: ${RABBIT_MQ_HOST}
+      DB_URL: ${DB_URL}
+  queue:
+    container_name: ewallet_queue
+    build:
+      context: ./images/queue
+    image: ewallet/queue
+    ports:
+      - "5674:5672"
+    environment:
+        RABBITMQ_DEFAULT_USER: ${RABBIT_MQ_USER}
+        RABBITMQ_DEFAULT_PASS: ${RABBIT_MQ_PASSWORD}
+  mail:
+    container_name: ewallet_mail
+    build:
+      context: ./images/mail
+    image: ewallet/mail
+    ports:
+      - "8080:8080"
+  data:
+    container_name: ewallet_data
+    build:
+      context: ./images/data
+    image: ewallet/data
+  db:
+    container_name: ewallet_db
+    build:
+      context: ./images/db
+    image: ewallet/db
+    volumes_from:
+      - data
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}

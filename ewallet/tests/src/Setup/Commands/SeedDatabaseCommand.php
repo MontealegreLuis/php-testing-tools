@@ -34,7 +34,8 @@ class SeedDatabaseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $metadataFactory = $this->getHelper('em')->getEntityManager()->getMetadataFactory();
+        $entityManager = $this->getHelper('em')->getEntityManager();
+        $metadataFactory = $entityManager->getMetadataFactory();
         $metadata = $metadataFactory->getAllMetadata();
         /** @var ClassMetadata $entityMetadata */
         foreach ($metadata as $entityMetadata) {
@@ -42,7 +43,7 @@ class SeedDatabaseCommand extends Command
                 $this->truncateTable($entityMetadata);
             }
         }
-        $fixture = new ThreeMembersWithSameBalanceFixture($this->entityManager);
+        $fixture = new ThreeMembersWithSameBalanceFixture($entityManager);
         $fixture->load();
         $output->writeln('Database seed <info>completed successfully</info>!');
     }

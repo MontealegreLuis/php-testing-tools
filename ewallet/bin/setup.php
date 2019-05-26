@@ -7,14 +7,15 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Dotenv\Dotenv;
 use Setup\SetupApplication;
 
-$configFile = getcwd() . '/setup.php';
-
-if (!file_exists($configFile)) {
-    echo 'You are missing a "setup.php" file in your project, which is required to get the database setup working';
-    exit(1);
+if (!isset($_ENV['APP_ENV'])) {
+    // We' re not running the application from the containers
+    $environment = new Dotenv(__DIR__ . '/../', '.env');
+    $environment->load();
+    $environment->required(['APP_ENV']);
 }
 
-$application = new SetupApplication(require $configFile);
+$application = new SetupApplication(require __DIR__ . '/../setup.php');
 $application->run();

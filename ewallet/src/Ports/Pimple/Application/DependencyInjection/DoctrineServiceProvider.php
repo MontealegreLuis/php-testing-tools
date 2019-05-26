@@ -27,9 +27,7 @@ class DoctrineServiceProvider implements ServiceProviderInterface
                 $container['doctrine']['dev_mode'],
                 $container['doctrine']['proxy_dir']
             );
-            $entityManager = EntityManager::create(
-                $container['doctrine']['connection'], $configuration
-            );
+            $entityManager = EntityManager::create($container['doctrine']['connection'], $configuration);
 
             $platform = $entityManager->getConnection()->getDatabasePlatform();
             foreach ($container['doctrine']['types'] as $type => $class) {

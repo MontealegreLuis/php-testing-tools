@@ -1,33 +1,38 @@
 # Ewallet Web Application
 
-The following commands are meant to be run from the `dev` container in this
-folder.
+The following commands are meant to be run from the `dev` container in this folder.
 
 ```bash
-$ cd applications/web
+$ cd ui/web
 ```
 
 ## Setup
 
 ```bash
-$ composer install
+make bootstrap
+```
+
+## Configuration
+
+If you're using the Docker containers, skip this step
+
+```bash
+make setup
 ```
 
 ## Run application
 
+If you're using the Docker containers, skip this step
+
 ```bash
-$
-$ php -S localhost:8000 -t public
+make server
 ```
 
 ## Tests
 
-```bash
-$ bin/phpunit --testdox
-$ bin/robo acceptance
-```
-## Static analysis
+End to end tests use PhantomJS, please install it globally so you can run the test suite.
+If you're using the Docker containers no need to worry about it.
 
 ```bash
-$ phan -p -o phan.txt
+make tests
 ```

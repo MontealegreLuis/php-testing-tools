@@ -10,7 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Dotenv\Dotenv;
 use UI\Slim\Application;
 
-if ($_ENV['APP_ENV'] === 'production') {
+if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
     http_response_code(404);
     die;
 }

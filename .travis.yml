@@ -8,23 +8,19 @@ services:
 
 before_script:
   - composer self-update
-  - cd ui/console && composer install --prefer-source --no-interaction --dev
-  - cd ../messaging && composer install --prefer-source --no-interaction --dev
+  - cd ui/console && composer install --prefer-source --no-interaction
+  - cd ../messaging && composer install --prefer-source --no-interaction
   - cp .env.travis .env.tests
-  - cd ../web && composer install --prefer-source --no-interaction --dev
-  - cp ../../containers/templates/index_dev.php public/index_dev.php
+  - cd ../web && composer install --prefer-source --no-interaction
   - npm install -g phantomjs-prebuilt
-  - cd ../../ewallet && composer install --prefer-source --no-interaction --dev
-  - cp ../../../containers/templates/cli-config.php cli-config.php
-  - cd ../messaging && composer install --prefer-source --no-interaction --dev
+  - cd ../../ewallet && composer install --prefer-source --no-interaction
   - cp .env.travis .env.tests
 
 script:
-  - cd ../../../ui/console && bin/phpunit -v
-  - cd ../messaging && bin/phpunit -v
+  - cd ../ui/console && vendor/bin/phpunit -v
+  - cd ../messaging && vendor/bin/phpunit -v
   - cd ../web && bin/phpunit -v
   - bin/robo acceptance
-  - cd ../../ewallet && bin/phpspec run -v
-  - bin/behat -v
-  - bin/phpunit -v
-  - cd ../messaging && bin/phpunit -v
+  - cd ../../ewallet && vendor/bin/phpspec run -v
+  - vendor/bin/behat -v
+  - vendor/bin/phpunit -v

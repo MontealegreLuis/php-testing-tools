@@ -1,6 +1,6 @@
-# Ewallet Web Application
+# eWallet Web Application
 
-The following commands are meant to be run from the `dev` container in this folder.
+The following commands are meant to be run from the `dev` container in this directory.
 
 ```bash
 $ cd ui/web
@@ -14,7 +14,8 @@ make bootstrap
 
 ## Configuration
 
-If you're using the Docker containers, skip this step
+In order to run the application you will need an `.env` file with your database credentials.
+**If you're using the Docker containers, skip this step**
 
 ```bash
 make setup
@@ -22,7 +23,7 @@ make setup
 
 ## Run application
 
-If you're using the Docker containers, skip this step
+**If you're using the Docker containers, skip this step**
 
 ```bash
 make server

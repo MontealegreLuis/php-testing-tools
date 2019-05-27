@@ -1,5 +1,4 @@
 /.env
-/node_modules
-/phan.txt
 /bin/
 /vendor/
+.php_cs.cache

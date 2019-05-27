@@ -1,6 +1,6 @@
 /.env
 /cli-config.php
-/humbuglog.txt
 /phan.txt
 /options.php
 /vendor/
+.php_cs.cache

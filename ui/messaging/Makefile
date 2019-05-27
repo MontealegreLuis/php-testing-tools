@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: bootstrap setup tests
+.PHONY: bootstrap setup tests check format
 
 bootstrap:
 	@echo "Installing application dependencies"
@@ -13,3 +13,17 @@ setup:
 tests:
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
+
+check:
+	@echo "Looking for static analysis violations"
+	@vendor/bin/phpstan analyse src --level 7
+	@echo "Looking for CS violation in src directory"
+	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
+	@echo "Looking for CS violation in tests directory"
+	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs_tests
+
+format:
+	@echo "Fixing CS violation in src directory"
+	@vendor/bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs
+	@echo "Fixing CS violation in tests directory"
+	@vendor/bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs_tests

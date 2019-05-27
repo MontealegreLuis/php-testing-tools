@@ -7,7 +7,8 @@
 
 namespace Ports\Doctrine\Ewallet\Types;
 
-use Ewallet\Memberships\{Identifier, MemberId};
+use Ewallet\Memberships\Identifier;
+use Ewallet\Memberships\MemberId;
 
 /**
  * UUID fields will be stored as a string in the database and converted back to

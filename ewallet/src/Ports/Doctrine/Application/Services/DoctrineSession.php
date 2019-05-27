@@ -7,9 +7,9 @@
 
 namespace Ports\Doctrine\Application\Services;
 
+use Application\Services\TransactionalSession;
 use Closure;
 use Doctrine\ORM\EntityManagerInterface;
-use Application\Services\TransactionalSession;
 
 class DoctrineSession implements TransactionalSession
 {
@@ -21,9 +21,6 @@ class DoctrineSession implements TransactionalSession
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @param callable $operation
-     */
     public function executeAtomically(callable $operation): void
     {
         $this->entityManager->transactional(Closure::fromCallable($operation));

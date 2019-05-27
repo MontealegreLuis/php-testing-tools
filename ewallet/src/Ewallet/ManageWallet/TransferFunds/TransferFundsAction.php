@@ -8,7 +8,6 @@
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Application\DomainEvents\EventPublisher;
-use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
 use LogicException;

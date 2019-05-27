@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ports\RabbitMq\Application\Messaging;
 
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -38,14 +39,22 @@ class ChannelConfiguration
     public function configureExchange(AMQPChannel $channel, string $exchangeName): void
     {
         $channel->exchange_declare(
-            $exchangeName, 'fanout', false, $this->durable, $this->autoDeletes
+            $exchangeName,
+            'fanout',
+            false,
+            $this->durable,
+            $this->autoDeletes
         );
     }
 
     public function configureQueue(AMQPChannel $channel, string $exchangeName): void
     {
         $channel->queue_declare(
-            $exchangeName, false, $this->durable, false, $this->autoDeletes
+            $exchangeName,
+            false,
+            $this->durable,
+            false,
+            $this->autoDeletes
         );
     }
 }

@@ -7,10 +7,10 @@
 
 namespace Ports\Doctrine\Ewallet\Types;
 
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\GuidType;
 use Doctrine\DBAL\Types\Type;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Ewallet\Memberships\Identifier;
 use InvalidArgumentException;
 
@@ -21,7 +21,6 @@ use InvalidArgumentException;
 abstract class UuidType extends GuidType
 {
     /**
-     * @param  AbstractPlatform $platform
      * @throws ConversionException
      * @return Identifier|null
      */

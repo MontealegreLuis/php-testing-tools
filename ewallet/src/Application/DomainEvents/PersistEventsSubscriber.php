@@ -29,10 +29,6 @@ class PersistEventsSubscriber implements EventSubscriber
         return true;
     }
 
-    /**
-     * @param DomainEvent $event
-     * @return void
-     */
     public function handle(DomainEvent $event): void
     {
         $this->eventStore->append($this->eventFactory->from($event));

@@ -12,7 +12,6 @@ use Application\Messaging\MessageProducer;
 use BadMethodCallException;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
 
 class AmqpMessageProducer implements MessageProducer
 {
@@ -56,7 +55,7 @@ class AmqpMessageProducer implements MessageProducer
             new AMQPMessage($notification->body(), [
                 'type' => $notification->type(),
                 'timestamp' => $notification->occurredOn()->getTimestamp(),
-                'message_id' => $notification->id()
+                'message_id' => $notification->id(),
             ]),
             $exchangeName
         );

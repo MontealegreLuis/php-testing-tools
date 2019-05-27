@@ -4,13 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ports\RabbitMq\Application\Messaging;
 
+use Application\Messaging\MessageConsumer;
 use BadMethodCallException;
 use Closure;
-use Application\Messaging\MessageConsumer;
-use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
-use PhpAmqpLib\{Connection\AMQPStreamConnection, Message\AMQPMessage};
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 class AmqpMessageConsumer implements MessageConsumer
 {

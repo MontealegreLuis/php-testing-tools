@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Memberships;
 
 use Money\Money;
@@ -17,8 +18,7 @@ class InsufficientFunds extends RuntimeException
     public static function withdrawing(
         Money $amount,
         Money $currentBalance
-    ): InsufficientFunds
-    {
+    ): InsufficientFunds {
         return new self(sprintf(
             'Cannot withdraw %.2f %s, current balance is %.2f %s',
             $amount->getAmount() / 100,

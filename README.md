@@ -23,26 +23,27 @@ I'm also starting to use it to describe an [hexagonal architecture][12] in PHP.
 
 ## Installation
 
-You will need [Docker][16] and [Docker Compose][17] to run this example. 
+*It is recommended to use [Docker][16] and [Docker Compose][17] to run this example.
+However it is also possible to install all the required software locally and run it without the containers.* 
+
+All instructions below assume a Docker setup. 
 
 Once you have them installed, run this command:
 
 ```bash
-make containers
-make bootstrap
+make containers     # Build the Docker images
+source .alias       # Aliases to ease the use of the Docker containers
+dev make bootstrap  # Install Composer dependencies for all applications
 ```
 
-I created some aliases to ease the use of the containers.
-
-```bash
-$ source .alias
-```
+You may need a [Github token][14] as you will be running composer install for multiple applications.
+Please follow Composer documentation on [OAuth tokens][18] to use your newly created token with Composer.
+No need to do anything with your `dev` container, it is configured to share your local Composer configuration.
 
 In order to run the application you'll need to seed the development database
 
 ```bash
-dev bash
-make setup
+dev make setup # Creates and seeds a development database
 ```
 
 ## Usage
@@ -63,7 +64,7 @@ You can transfer funds to another member like in the web application with this
 command:
 
 ```bash
-console ewallet:transfer
+console ewallet:transfer ABC LMN 5 # Transfers $5 MXN from sender with ID ABC to recipient with ID LMN 
 ```
 
 ### Messaging
@@ -74,7 +75,7 @@ Browse to [http://localhost:8080/][15] to see the emails that are sent after tra
 To start the messaging container run this command:
 
 ```bash
-messaging
+messaging # Container with the cron jobs that send emails to MailCatcher based on the messages in RabbitMQ
 ```
 
 ### Tests
@@ -104,3 +105,4 @@ Please read them for more details.
 [15]: http://localhost:8080/
 [16]: https://www.docker.com/
 [17]: https://docs.docker.com/compose/
+[18]: https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens

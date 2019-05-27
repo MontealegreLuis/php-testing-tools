@@ -4,7 +4,7 @@ SHELL = /bin/bash
 
 containers:
 	@echo "Building containers..."
-	@docker-compose -f containers/docker-compose.yml up -d
+	@docker-compose build
 
 bootstrap:
 	@echo "Installing PHP dependencies..."

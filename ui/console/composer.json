@@ -17,6 +17,7 @@
         "vlucas/phpdotenv": "~2.5"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.15",
         "nelmio/alice": "~3.5",
         "phpstan/phpstan": "^0.11.7",
         "phpunit/phpunit": "~7.4",

@@ -9,8 +9,8 @@ namespace Ports\Twig\Application\Templating;
 
 use Slim\Http\Request;
 use Slim\Router;
-use Twig_SimpleFunction as SimpleFunction;
 use Twig_Extension as Extension;
+use Twig_SimpleFunction as SimpleFunction;
 
 /**
  * Registers the function `url_for` in order to be able to use Slim named routes

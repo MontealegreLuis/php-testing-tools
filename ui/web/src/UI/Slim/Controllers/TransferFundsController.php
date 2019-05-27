@@ -8,6 +8,7 @@
 namespace UI\Slim\Controllers;
 
 use Application\Actions\InputValidator;
+use Application\Templating\TemplateEngine;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
@@ -16,7 +17,6 @@ use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\MembersWebRepository;
 use Ewallet\Memberships\UnknownMember;
-use Application\Templating\TemplateEngine;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;

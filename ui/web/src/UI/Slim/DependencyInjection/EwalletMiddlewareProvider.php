@@ -7,10 +7,10 @@
 
 namespace UI\Slim\DependencyInjection;
 
-use UI\Slim\Middleware\RequestLoggingMiddleware;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Slim\App;
+use UI\Slim\Middleware\RequestLoggingMiddleware;
 
 class EwalletMiddlewareProvider implements ServiceProviderInterface
 {

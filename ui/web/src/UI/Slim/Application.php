@@ -7,10 +7,10 @@
 
 namespace UI\Slim;
 
-use UI\Slim\DependencyInjection\EwalletWebContainer;
+use Slim\App;
 use UI\Slim\DependencyInjection\EwalletControllerProvider;
 use UI\Slim\DependencyInjection\EwalletMiddlewareProvider;
-use Slim\App;
+use UI\Slim\DependencyInjection\EwalletWebContainer;
 
 class Application extends App
 {

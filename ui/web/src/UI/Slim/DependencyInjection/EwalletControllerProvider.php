@@ -7,13 +7,13 @@
 
 namespace UI\Slim\DependencyInjection;
 
-use UI\Slim\Controllers\ShowTransferFormController;
-use UI\Slim\Controllers\TransferFundsController;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use UI\Slim\Controllers\ShowTransferFormController;
+use UI\Slim\Controllers\TransferFundsController;
 
 class EwalletControllerProvider implements ServiceProviderInterface
 {

@@ -7,9 +7,9 @@
 
 namespace Application\DependencyInjection;
 
-use UI\Slim\Middleware\RequestLoggingMiddleware;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use UI\Slim\Middleware\RequestLoggingMiddleware;
 
 class MiddlewareServiceProvider implements ServiceProviderInterface
 {

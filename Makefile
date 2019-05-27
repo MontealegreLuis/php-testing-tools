@@ -42,14 +42,11 @@ db:
 tests:
 	@echo "Running tests for packages..."
 	@echo "ewallet/application..."
-	@cd ewallet && vendor/bin/behat
-	@cd ewallet && vendor/bin/phpspec run
-	@cd ewallet && vendor/bin/phpunit --testdox
+	@cd ewallet && make tests
 	@echo "Console application"
-	@cd ui/console && vendor/bin/phpunit --testdox
+	@cd ui/console && make tests
 	@echo "Messaging application"
-	@cd ui/messaging && vendor/bin/phpunit --testdox
+	@cd ui/messaging && make tests
 	@echo "Web application"
-	@cd ui/web && bin/phpunit --testdox
-	@cd ui/web && bin/robo acceptance
+	@cd ui/web && make tests
 	@echo "Done!"

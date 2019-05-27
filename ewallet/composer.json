@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "behat/behat": "~3.5",
+        "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "~1.8",
         "giorgiosironi/eris": "~0.11",
         "mockery/mockery": "^1.2",

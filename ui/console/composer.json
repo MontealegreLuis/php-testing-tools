@@ -18,6 +18,7 @@
     },
     "require-dev": {
         "nelmio/alice": "~3.5",
+        "phpstan/phpstan": "^0.11.7",
         "phpunit/phpunit": "~7.4",
         "roave/security-advisories": "dev-master"
     },

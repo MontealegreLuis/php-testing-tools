@@ -40,7 +40,10 @@ class TransferFundsEmailNotifierTest extends TestCase
         $senderId = 'abc';
         $recipientId = 'xyz';
         $notification = new TransferFundsNotification(
-            $senderId, 500, $recipientId, '2016-08-15 00:00:00'
+            $senderId,
+            500,
+            $recipientId,
+            '2016-08-15 00:00:00'
         );
         $this->members
             ->shouldReceive('with')

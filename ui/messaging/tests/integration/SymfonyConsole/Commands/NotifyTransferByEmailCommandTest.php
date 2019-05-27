@@ -8,7 +8,8 @@
 namespace Ewallet\SymfonyConsole\Commands;
 
 use DataBuilders\A;
-use Ewallet\ManageWallet\Notifications\{TransferFundsEmailNotifier, TransferFundsNotification};
+use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
+use Ewallet\ManageWallet\Notifications\TransferFundsNotification;
 use Ewallet\Memberships\TransferWasMade;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -68,7 +69,9 @@ class NotifyTransferByEmailCommandTest extends TestCase
         $consumer = new AmqpMessageConsumer($this->connection(), $configuration);
         $this->notifier = Mockery::mock(TransferFundsEmailNotifier::class);
         $this->tester = new CommandTester(new NotifyTransferByEmailCommand(
-            $this->notifier, $consumer, $this->EXCHANGE_NAME
+            $this->notifier,
+            $consumer,
+            $this->EXCHANGE_NAME
         ));
     }
 

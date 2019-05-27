@@ -19,7 +19,7 @@ Its goal is to provide a set of examples using some of the coolest tools for tes
 
 It was used for a testing [class][1]. The slides are available [here][2].
 
-I'm also starting to use it to describe how an [hexagonal architecture][12] might look like in PHP.
+I'm also starting to use it to describe an [hexagonal architecture][12] in PHP.
 
 ## Installation
 
@@ -28,7 +28,8 @@ You will need [Docker][16] and [Docker Compose][17] to run this example.
 Once you have them installed, run this command:
 
 ```bash
-$ make containers
+make containers
+make bootstrap
 ```
 
 I created some aliases to ease the use of the containers.
@@ -40,11 +41,8 @@ $ source .alias
 In order to run the application you'll need to seed the development database
 
 ```bash
-dev
-cd ewallet
-make bootstrap
-cd ..
-make db
+dev bash
+make setup
 ```
 
 ## Usage
@@ -54,7 +52,7 @@ make db
 You can run the Web application with this command:
 
 ```bash
-$ web
+web
 ```
 
 Browse to [http://localhost/][13] to see the web interface.
@@ -65,28 +63,30 @@ You can transfer funds to another member like in the web application with this
 command:
 
 ```bash
-$ console ewallet:transfer
+console ewallet:transfer
 ```
 
 ### Messaging
 
 Both the Web and the console application generate domain events, those events trigger email notifications. 
-Browse to [http://localhost:8080/][15] to see the emails that are sent after transferring funds either from the console or the web application. 
+Browse to [http://localhost:8080/][15] to see the emails that are sent after transferring funds either from the console or the Web application. 
+
 To start the messaging container run this command:
 
 ```bash
-$ messaging
+messaging
 ```
 
 ### Tests
 
-You can start a `bash` session and run the tests of all the applications and packages with this command:
+Run the tests of all the applications and packages with this command:
 
 ```bash
-$ dev
+dev make tests
 ```
 
-Each folder in the `ui` and `ewallet` directories, has its own `README` file. See them for more details.
+Each folder in the `ui` and `ewallet` directories, has its own `README` file. 
+Please read them for more details.
 
 [1]: http://escuela.it/cursos/php-web-congress-2015/
 [2]: http://bit.ly/php-testing-tools

@@ -1,4 +1,4 @@
 alias console='docker-compose run --rm console console'
-alias dev='docker-compose run --rm -p 8000:8000 dev bash'
+alias dev='docker-compose run --rm -p 8000:8000 dev'
 alias web='docker-compose up -d web'
 alias messaging='docker-compose up -d messaging'

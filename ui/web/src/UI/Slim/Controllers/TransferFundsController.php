@@ -55,17 +55,17 @@ class TransferFundsController implements TransferFundsResponder
      */
     public function transfer(Request $request): ResponseInterface
     {
-        $this->action->transfer(TransferFundsInput::from($request->getParsedBody()));
+        $this->action->transfer(TransferFundsInput::from((array)$request->getParsedBody()));
 
         return $this->response;
     }
 
     public function respondToInvalidInput(InputValidator $input): void
     {
-        $recipients = $this->members->excluding(MemberId::withIdentity($input->values()['senderId']));
+        $recipients = $this->members->excluding(new MemberId($input->values()['senderId']));
         $html = $this->template->render('member/transfer-funds.html', [
             'senderId' => $input->values()['senderId'],
-            'recipientId' => MemberId::withIdentity($input->values()['recipientId']),
+            'recipientId' => new MemberId($input->values()['recipientId']),
             'recipients' => $recipients,
             'amount' => $input->values()['amount'],
             'errors' => $input->errors(),
@@ -93,7 +93,7 @@ class TransferFundsController implements TransferFundsResponder
 
     public function respondToUnknownMember(UnknownMember $exception): void
     {
-        $senderId = MemberId::withIdentity('ABC');
+        $senderId = new MemberId('ABC');
         $recipients = $this->members->excluding($senderId);
         $html = $this->template->render('member/transfer-funds.html', [
             'senderId' => $senderId,
@@ -108,7 +108,7 @@ class TransferFundsController implements TransferFundsResponder
 
     public function respondToInsufficientFunds(InsufficientFunds $exception): void
     {
-        $senderId = MemberId::withIdentity('ABC');
+        $senderId = new MemberId('ABC');
         $recipients = $this->members->excluding($senderId);
         $html = $this->template->render('member/transfer-funds.html', [
             'senderId' => $senderId,

@@ -32,7 +32,7 @@ class ShowTransferFormController
      */
     public function enterTransferInformation(): ResponseInterface
     {
-        $senderId = MemberId::withIdentity('ABC');
+        $senderId = new MemberId('ABC');
 
         $html = $this->template->render('member/transfer-funds.html', [
             'senderId' => $senderId,

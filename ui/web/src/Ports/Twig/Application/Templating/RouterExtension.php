@@ -48,10 +48,12 @@ class RouterExtension extends Extension
 
     public function asset(string $path): string
     {
-        return preg_replace(
+        /** @var \Slim\Http\Uri $uri */
+        $uri = $this->request->getUri();
+        return (string)preg_replace(
             '#/+#',
             '/',
-            sprintf('%s%s', \dirname($this->request->getUri()->getBasePath()), $path)
+            sprintf('%s%s', \dirname($uri->getBasePath()), $path)
         );
     }
 }

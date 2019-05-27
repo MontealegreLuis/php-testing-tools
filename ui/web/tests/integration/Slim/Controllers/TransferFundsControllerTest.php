@@ -8,11 +8,11 @@
 namespace Ewallet\Slim\Controllers;
 
 use Doctrine\DataStorageSetup;
-use UI\Slim\Application;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Environment;
 use Slim\Http\Request;
+use UI\Slim\Application;
 
 class TransferFundsControllerTest extends TestCase
 {

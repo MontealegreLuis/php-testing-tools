@@ -4,11 +4,13 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Twig;
 
 use PHPUnit\Framework\TestCase;
 use Ports\Twig\Application\Templating\RouterExtension;
-use Slim\Http\{Environment, Request};
+use Slim\Http\Environment;
+use Slim\Http\Request;
 use Slim\Router;
 
 class RouterExtensionTest extends TestCase
@@ -79,7 +81,8 @@ class RouterExtensionTest extends TestCase
     function configureExtension(): void
     {
         $this->router = new Router();
-        $this->controller = function () {};
+        $this->controller = function () {
+        };
         $this->extension = new RouterExtension(
             $this->router,
             Request::createFromEnvironment(Environment::mock())

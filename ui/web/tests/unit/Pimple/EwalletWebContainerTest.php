@@ -7,17 +7,17 @@
 
 namespace Ewallet\Pimple;
 
-use UI\Slim\DependencyInjection\EwalletWebContainer;
 use Application\DomainEvents\PersistEventsSubscriber;
-use UI\Slim\Controllers\ShowTransferFormController;
-use UI\Slim\Controllers\TransferFundsController;
-use UI\Slim\Middleware\{RequestLoggingMiddleware};
-use Ports\Twig\Application\Templating\RouterExtension;
 use PHPUnit\Framework\TestCase;
 use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Ports\Twig\Application\Templating\RouterExtension;
 use Psr\Log\LoggerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use UI\Slim\Controllers\ShowTransferFormController;
+use UI\Slim\Controllers\TransferFundsController;
+use UI\Slim\DependencyInjection\EwalletWebContainer;
+use UI\Slim\Middleware\{RequestLoggingMiddleware};
 
 class EwalletWebContainerTest extends TestCase
 {

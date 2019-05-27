@@ -4,11 +4,14 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Slim\Middleware;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Slim\Http\{Environment, Request, Response};
+use Slim\Http\Environment;
+use Slim\Http\Request;
+use Slim\Http\Response;
 use Slim\Route;
 use UI\Slim\Middleware\RequestLoggingMiddleware;
 

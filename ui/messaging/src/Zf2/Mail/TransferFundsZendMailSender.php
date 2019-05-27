@@ -8,7 +8,7 @@
 namespace Ewallet\Zf2\Mail;
 
 use Application\Templating\TemplateEngine;
-use DateTime;
+use DateTimeInterface;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailSender;
 use Ewallet\Memberships\Member;
 use Money\Money;
@@ -33,7 +33,7 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
         Member $sender,
         Member $recipient,
         Money $amount,
-        DateTime $occurredOn
+        DateTimeInterface $occurredOn
     ): void {
         $message = new Message();
         $message
@@ -54,7 +54,7 @@ class TransferFundsZendMailSender implements TransferFundsEmailSender
         Member $sender,
         Member $recipient,
         Money $amount,
-        DateTime $occurredOn
+        DateTimeInterface $occurredOn
     ): void {
         $message = new Message();
         $message

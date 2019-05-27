@@ -7,13 +7,15 @@
 
 namespace Ewallet\ManageWallet\Notifications;
 
-use DateTime;
+use Application\Clock;
+use DateTimeInterface;
 use Ewallet\Memberships\MemberId;
+use Money\Currency;
 use Money\Money;
 
 class TransferFundsNotification
 {
-    /** @var DateTime */
+    /** @var DateTimeInterface */
     private $occurredOn;
 
     /** @var MemberId */
@@ -31,13 +33,13 @@ class TransferFundsNotification
         string $recipientId,
         string $occurredOn
     ) {
-        $this->occurredOn = DateTime::createFromFormat('Y-m-d H:i:s', $occurredOn);
-        $this->senderId = MemberId::withIdentity($senderId);
-        $this->amount = Money::MXN($amount);
-        $this->recipientId = MemberId::withIdentity($recipientId);
+        $this->occurredOn = Clock::fromFormattedString($occurredOn);
+        $this->senderId = new MemberId($senderId);
+        $this->amount = new Money($amount, new Currency('MXN'));
+        $this->recipientId = new MemberId($recipientId);
     }
 
-    public function occurredOn(): DateTime
+    public function occurredOn(): DateTimeInterface
     {
         return $this->occurredOn;
     }

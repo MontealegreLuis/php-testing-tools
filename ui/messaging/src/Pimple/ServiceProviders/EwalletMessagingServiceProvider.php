@@ -22,7 +22,7 @@ class EwalletMessagingServiceProvider extends EwalletServiceProvider
      * Register the services for Transfer Funds feature delivered through a
      * console command
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         parent::register($container);
         $container['ewallet.transfer_mail_sender'] = function () use ($container) {

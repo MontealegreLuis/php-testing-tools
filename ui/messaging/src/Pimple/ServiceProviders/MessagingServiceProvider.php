@@ -34,7 +34,7 @@ class MessagingServiceProvider implements ServiceProviderInterface
                 $container['rabbit_mq']['password']
             );
         };
-        $container['hexagonal.amqp_configuration'] = function () use ($container) {
+        $container['hexagonal.amqp_configuration'] = function () {
             return ChannelConfiguration::durable();
         };
         $container['hexagonal.messages_producer'] = function () use ($container) {

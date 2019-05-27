@@ -7,7 +7,7 @@
 
 namespace Ewallet\ManageWallet\Notifications;
 
-use DateTime;
+use DateTimeInterface;
 use Ewallet\Memberships\Member;
 use Money\Money;
 
@@ -21,13 +21,13 @@ interface TransferFundsEmailSender
         Member $sender,
         Member $recipient,
         Money $amount,
-        DateTime $occurredOn
+        DateTimeInterface $occurredOn
     ): void;
 
     public function sendDepositReceivedEmail(
         Member $sender,
         Member $recipient,
         Money $amount,
-        DateTime $occurredOn
+        DateTimeInterface $occurredOn
     ): void;
 }

@@ -23,7 +23,7 @@ use Ports\RabbitMq\Application\Messaging\AmqpMessageProducer;
 class EwalletMessagingServiceProviderTest extends TestCase
 {
     /** @test */
-    function it_creates_the_service_for_the_messaging_application()
+    function it_creates_the_services_for_the_messaging_application()
     {
         $options = require __DIR__ . '/../../../../config.tests.php';
         $container = new Container($options);

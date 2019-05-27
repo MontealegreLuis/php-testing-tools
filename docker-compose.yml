@@ -4,7 +4,7 @@ services:
   dev:
     container_name: ewallet_dev
     build:
-      context: ./images/dev
+      context: ./containers/dev
     image: ewallet/dev
     ports:
       - "8000:8000"
@@ -12,7 +12,7 @@ services:
       - db
       - queue
     volumes:
-      - ./../:/usr/src/myapp
+      - ./:/usr/src/myapp
       - ~/.composer:/root/.composer
     environment:
       APP_ENV: ${APP_ENV}
@@ -27,14 +27,14 @@ services:
   web:
     container_name: ewallet_web
     build:
-      context: ./images/web
+      context: ./containers/web
     image: ewallet/web
     ports:
       - "80:80"
     links:
       - db
     volumes:
-      - ./../:/usr/src/myapp
+      - ./:/usr/src/myapp
     environment:
       APP_ENV: ${APP_ENV}
       DB_URL: ${DB_URL}
@@ -42,26 +42,26 @@ services:
   console:
     container_name: ewallet_console
     build:
-      context: ./images/console
+      context: ./containers/console
     image: ewallet/console
     links:
       - db
     volumes:
-      - ./../:/usr/src/myapp
+      - ./:/usr/src/myapp
     environment:
       APP_ENV: ${APP_ENV}
       DB_URL: ${DB_URL}
   messaging:
     container_name: ewallet_messaging
     build:
-      context: ./images/messaging
+      context: ./containers/messaging
     image: ewallet/messaging
     links:
       - db
       - queue
       - mail
     volumes:
-      - ./../:/usr/src/myapp
+      - ./:/usr/src/myapp
     environment:
       APP_ENV: ${APP_ENV}
       RABBIT_MQ_USER: ${RABBIT_MQ_USER}
@@ -71,7 +71,7 @@ services:
   queue:
     container_name: ewallet_queue
     build:
-      context: ./images/queue
+      context: ./containers/queue
     image: ewallet/queue
     ports:
       - "5674:5672"
@@ -81,19 +81,19 @@ services:
   mail:
     container_name: ewallet_mail
     build:
-      context: ./images/mail
+      context: ./containers/mail
     image: ewallet/mail
     ports:
       - "8080:8080"
   data:
     container_name: ewallet_data
     build:
-      context: ./images/data
+      context: ./containers/data
     image: ewallet/data
   db:
     container_name: ewallet_db
     build:
-      context: ./images/db
+      context: ./containers/db
     image: ewallet/db
     volumes_from:
       - data

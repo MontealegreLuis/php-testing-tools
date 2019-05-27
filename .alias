@@ -1,4 +1,4 @@
-alias console='docker-compose -f containers/docker-compose.yml run --rm console console'
-alias dev='docker-compose -f containers/docker-compose.yml run --rm -p 8000:8000 dev bash'
-alias web='docker-compose -f containers/docker-compose.yml up -d web'
-alias messaging='docker-compose -f containers/docker-compose.yml up -d messaging'
+alias console='docker-compose run --rm console console'
+alias dev='docker-compose run --rm -p 8000:8000 dev bash'
+alias web='docker-compose up -d web'
+alias messaging='docker-compose up -d messaging'

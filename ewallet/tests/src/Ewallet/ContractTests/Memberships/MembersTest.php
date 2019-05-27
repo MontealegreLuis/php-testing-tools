@@ -33,11 +33,11 @@ abstract class MembersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_find_a_non_existing_member()
+    function it_fails_to_find_an_unknown_member()
     {
         $this->expectException(UnknownMember::class);
 
-        $this->members->with(MemberId::withIdentity('unknown member id'));
+        $this->members->with(new MemberId('unknown member id'));
     }
 
     /** @test */

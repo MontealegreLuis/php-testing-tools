@@ -47,12 +47,12 @@ class MembersRepository implements Members
     public function add(Member $member): void
     {
         $this->manager->persist($member);
-        $this->manager->flush($member);
+        $this->manager->flush();
     }
 
     public function update(Member $member): void
     {
         $this->manager->persist($member);
-        $this->manager->flush($member);
+        $this->manager->flush();
     }
 }

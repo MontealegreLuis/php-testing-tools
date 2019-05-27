@@ -25,7 +25,7 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @test */
-    function it_retrieves_2_out_of_4_events_if_second_event_id_is_provided()
+    function it_retrieves_all_events_stored_after_a_given_event()
     {
         $events = $this->store->eventsStoredAfter($this->event2->id());
 

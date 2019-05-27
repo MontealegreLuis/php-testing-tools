@@ -72,7 +72,7 @@ class MembersBuilder
         }
 
         $member = Member::withAccountBalance(
-            MemberId::withIdentity($this->id ?? $this->faker->uuid),
+            new MemberId($this->id ?? $this->faker->uuid),
             $this->name ?? $this->faker->name,
             new Email($this->email ?? $this->faker->email),
             $amount

@@ -7,6 +7,7 @@
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Ewallet\Memberships\MemberId;
+use Money\Currency;
 use Money\Money;
 use Ports\Symfony\Application\Actions\ConstraintValidator;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,19 +41,21 @@ final class TransferFundsInput extends ConstraintValidator
         return new self($validInput);
     }
 
+    /** @throws \Assert\AssertionFailedException If given identifier is invalid */
     public function senderId(): MemberId
     {
-        return MemberId::withIdentity($this->senderId);
+        return new MemberId($this->senderId);
     }
 
+    /** @throws \Assert\AssertionFailedException If given identifier is invalid */
     public function recipientId(): MemberId
     {
-        return MemberId::withIdentity($this->recipientId);
+        return new MemberId($this->recipientId);
     }
 
     public function amount(): Money
     {
-        return Money::MXN($this->amount * 100);
+        return new Money($this->amount * 100, new Currency('MXN'));
     }
 
     /**

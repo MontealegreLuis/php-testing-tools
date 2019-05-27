@@ -8,11 +8,11 @@ Money\Money:
 
 Ewallet\Memberships\MemberId:
     id0:
-        __construct: { withIdentity: ["XYZ"] }
+        __construct: ["XYZ"]
     id1:
-        __construct: { withIdentity: ["ABC"] }
+        __construct: ["ABC"]
     id2:
-        __construct: { withIdentity: ["LMN"] }
+        __construct: ["LMN"]
 
 Ewallet\Memberships\Email:
     email0:

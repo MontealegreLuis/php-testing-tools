@@ -7,26 +7,31 @@
 
 namespace Application;
 
-use Carbon\Carbon;
-use DateTime;
+use Carbon\CarbonImmutable;
+use DateTimeInterface;
 use DateTimeZone;
+use InvalidArgumentException;
 
 class Clock
 {
-    /** @var DateTime */
+    /** @var DateTimeInterface|null */
     private static $now;
 
-    public static function now(): DateTime
+    public static function now(): DateTimeInterface
     {
-        return self::$now ?? Carbon::now('UTC')->toDate();
+        return self::$now ?? CarbonImmutable::now('UTC');
     }
 
-    public static function fromFormattedString(string $formattedDate): DateTime
+    public static function fromFormattedString(string $formattedDate): DateTimeInterface
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $formattedDate, new DateTimeZone('UTC'))->toDate();
+        $dateTime = CarbonImmutable::createFromFormat('Y-m-d H:i:s', $formattedDate, new DateTimeZone('UTC'));
+        if ($dateTime instanceof DateTimeInterface) {
+            return $dateTime;
+        }
+        throw new InvalidArgumentException("$formattedDate is not valid formatted date");
     }
 
-    public static function freezeTimeAt(DateTime $now): void
+    public static function freezeTimeAt(DateTimeInterface $now): void
     {
         self::$now = $now;
     }

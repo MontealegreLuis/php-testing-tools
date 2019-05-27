@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 abstract class MessageTrackerTest extends TestCase
 {
     /** @test */
-    function it_recognize_empty_exchanges()
+    function it_knows_there_is_no_published_messages_to_track()
     {
         $this->assertFalse($this->tracker->hasPublishedMessages('empty_exchange'));
     }
 
     /** @test */
-    function it_recognizes_non_empty_exchanges()
+    function it_knows_there_is_published_messages_to_track()
     {
         $message = new PublishedMessage('non_empty_exchange', $arbitraryId = 1);
         $this->tracker->track($message);
@@ -32,7 +32,7 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /** @test */
-    function it_throws_exception_when_trying_to_get_the_last_message_from_an_empty_exchange()
+    function it_cannot_track_messages_from_empty_exchanges()
     {
         $this->expectException(EmptyExchange::class);
         $this->tracker->mostRecentPublishedMessage('non_empty_exchange');
@@ -59,9 +59,8 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_allow_more_than_one_last_message_for_each_exchange()
+    function it_cannot_track_a_published_message_unles_it_is_the_most_recent_in_a_given_exchange()
     {
-        $this->expectException(InvalidPublishedMessageToTrack::class);
         $originalId = 1;
         $aDifferentId = 2;
         $exchangeName = 'non_empty_exchange';
@@ -77,6 +76,7 @@ abstract class MessageTrackerTest extends TestCase
             ->build()
         ;
 
+        $this->expectException(InvalidPublishedMessageToTrack::class);
         $this->tracker->track($aDifferentMessage);
     }
 

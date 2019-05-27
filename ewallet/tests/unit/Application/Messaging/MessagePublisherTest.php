@@ -129,7 +129,7 @@ class MessagePublisherTest extends TestCase
     }
 
     /** @test */
-    function it_updates_last_published_message_when_publisher_fails_before_last_one()
+    function it_keeps_track_of_the_last_published_message_in_case_it_fails_to_publish_them_all()
     {
         $exchangeName = 'exchange_name';
         $mostRecentMessageId = 12000;

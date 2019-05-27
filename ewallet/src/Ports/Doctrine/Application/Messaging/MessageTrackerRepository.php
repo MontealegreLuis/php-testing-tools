@@ -66,7 +66,7 @@ class MessageTrackerRepository extends Repository implements MessageTracker
 
         $currentMessage = $builder->getQuery()->getOneOrNullResult();
         if ($currentMessage && !$currentMessage->equals($mostRecentPublishedMessage)) {
-            throw new InvalidPublishedMessageToTrack();
+            throw InvalidPublishedMessageToTrack::isNotTheMostRecent($mostRecentPublishedMessage, $currentMessage);
         }
 
         $this->manager->persist($mostRecentPublishedMessage);

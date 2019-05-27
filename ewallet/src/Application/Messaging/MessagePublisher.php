@@ -23,7 +23,7 @@ class MessagePublisher
     /** @var MessageProducer */
     private $producer;
 
-    /** @var PublishedMessage */
+    /** @var PublishedMessage|null */
     private $mostRecentMessage;
 
     /** @var \Application\DomainEvents\StoredEvent[] */
@@ -32,7 +32,7 @@ class MessagePublisher
     /** @var int */
     private $publishedMessagesCount;
 
-    /** @var \Application\DomainEvents\StoredEvent */
+    /** @var \Application\DomainEvents\StoredEvent|null */
     private $lastPublishedEvent;
 
     public function __construct(
@@ -70,10 +70,14 @@ class MessagePublisher
             /* Ignore any exception produced by any consumer */
         }
 
+        if (!$this->lastPublishedEvent) {
+            return 0; // All unpublished events failed to be published
+        }
+
         if (!$this->mostRecentMessage) {
-            $this->createMostRecentMessage($exchangeName);
+            $this->mostRecentMessage = new PublishedMessage($exchangeName, $this->lastPublishedEvent->id());
         } else {
-            $this->updateMostRecentMessage();
+            $this->mostRecentMessage->updateMostRecentMessageId($this->lastPublishedEvent->id());
         }
 
         $this->tracker->track($this->mostRecentMessage);
@@ -112,21 +116,6 @@ class MessagePublisher
         }
 
         $this->producer->close();
-    }
-
-    private function createMostRecentMessage(string $exchangeName): void
-    {
-        $this->mostRecentMessage = new PublishedMessage(
-            $exchangeName,
-            $this->lastPublishedEvent->id()
-        );
-    }
-
-    private function updateMostRecentMessage(): void
-    {
-        $this->mostRecentMessage->updateMostRecentMessageId(
-            $this->lastPublishedEvent->id()
-        );
     }
 
     private function startMessageTracking(): void

@@ -7,12 +7,12 @@
 
 namespace Application\DomainEvents;
 
-use DateTime;
+use DateTimeInterface;
 
 /**
  * An event is something relevant to the domain that happened in the past
  */
 interface DomainEvent
 {
-    public function occurredOn(): DateTime;
+    public function occurredOn(): DateTimeInterface;
 }

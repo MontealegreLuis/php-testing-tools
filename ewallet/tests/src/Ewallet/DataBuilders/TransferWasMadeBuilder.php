@@ -33,9 +33,9 @@ class TransferWasMadeBuilder
     public function build(): TransferWasMade
     {
         $event = new TransferWasMade(
-            MemberId::withIdentity($this->senderId),
+            new MemberId($this->senderId),
             Money::MXN($this->amount),
-            MemberId::withIdentity($this->recipientId)
+            new MemberId($this->recipientId)
         );
 
         $this->reset();

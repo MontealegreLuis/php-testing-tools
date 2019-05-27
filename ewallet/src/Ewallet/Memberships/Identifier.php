@@ -4,6 +4,7 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\Memberships;
 
 use Assert\Assertion;
@@ -12,14 +13,6 @@ abstract class Identifier
 {
     /** @var string */
     private $value;
-
-    /**
-     * Identifiers are non-empty strings
-     */
-    public static function withIdentity(string $value): self
-    {
-        return new static($value);
-    }
 
     public function equals(Identifier $anotherId): bool
     {
@@ -36,17 +29,16 @@ abstract class Identifier
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return $this->value;
     }
 
-    private function __construct(string $value)
+    /** @throws \Assert\AssertionFailedException If an empty identifier is given */
+    public function __construct(string $value)
     {
         $this->setId(trim($value));
     }
 
-    /**
-     * @throws \Assert\AssertionFailedException If an empty identifier is given
-     */
+    /** @throws \Assert\AssertionFailedException If an empty identifier is given */
     private function setId(string $value): void
     {
         Assertion::notEmpty($value, 'An identifier cannot be empty');

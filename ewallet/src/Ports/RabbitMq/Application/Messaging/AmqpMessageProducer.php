@@ -9,6 +9,7 @@ namespace Ports\RabbitMq\Application\Messaging;
 
 use Application\DomainEvents\StoredEvent;
 use Application\Messaging\MessageProducer;
+use BadMethodCallException;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
@@ -21,7 +22,7 @@ class AmqpMessageProducer implements MessageProducer
     /** @var  ChannelConfiguration */
     private $configuration;
 
-    /** @var  \PhpAmqpLib\Channel\AMQPChannel */
+    /** @var  \PhpAmqpLib\Channel\AMQPChannel|null */
     private $channel;
 
     public function __construct(
@@ -47,6 +48,10 @@ class AmqpMessageProducer implements MessageProducer
 
     public function send(string $exchangeName, StoredEvent $notification): void
     {
+        if (!$this->channel) {
+            throw new BadMethodCallException('No channel has been configure please call AmqpMessageProducer::open first');
+        }
+
         $this->channel->basic_publish(
             new AMQPMessage($notification->body(), [
                 'type' => $notification->type(),
@@ -62,7 +67,9 @@ class AmqpMessageProducer implements MessageProducer
      */
     public function close(): void
     {
-        $this->channel && $this->channel->close();
+        if ($this->channel) {
+            $this->channel->close();
+        }
         $this->connection->close();
     }
 }

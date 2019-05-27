@@ -9,6 +9,7 @@ namespace Ewallet\Memberships;
 use Application\Clock;
 use Application\DomainEvents\DomainEvent;
 use DateTime;
+use DateTimeInterface;
 use Money\Money;
 
 /**
@@ -16,7 +17,7 @@ use Money\Money;
  */
 final class TransferWasMade implements DomainEvent
 {
-    /** @var DateTime */
+    /** @var DateTimeInterface */
     private $occurredOn;
 
     /** @var MemberId */
@@ -36,7 +37,7 @@ final class TransferWasMade implements DomainEvent
         $this->recipientId = $recipientId;
     }
 
-    public function occurredOn(): DateTime
+    public function occurredOn(): DateTimeInterface
     {
         return $this->occurredOn;
     }

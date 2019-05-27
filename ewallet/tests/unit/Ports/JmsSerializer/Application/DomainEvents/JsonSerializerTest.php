@@ -21,9 +21,9 @@ class JsonSerializerTest extends TestCase
         Clock::freezeTimeAt(Clock::fromFormattedString('2015-10-24 12:39:51'));
 
         $json = (new JsonSerializer())->serialize(new TransferWasMade(
-            MemberId::withIdentity('abc'),
+            new MemberId('abc'),
             Money::MXN(10000),
-            MemberId::withIdentity('xyz')
+            new MemberId('xyz')
         ));
 
         $this->assertEquals(

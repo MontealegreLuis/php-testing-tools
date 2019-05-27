@@ -21,7 +21,7 @@ class TransferFundsAction
     /** @var Members */
     private $members;
 
-    /** @var TransferFundsResponder */
+    /** @var TransferFundsResponder|null */
     private $responder;
 
     /** @var EventPublisher */

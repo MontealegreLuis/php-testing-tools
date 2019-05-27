@@ -9,8 +9,9 @@ namespace Ports\JmsSerializer\Application\DomainEvents;
 
 use Application\DomainEvents\DomainEvent;
 use Application\DomainEvents\EventSerializer;
-use DateTime;
+use Carbon\CarbonImmutable;
 use Ewallet\Memberships\MemberId;
+use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
 use Money\Money;
@@ -26,7 +27,7 @@ class JsonSerializer implements EventSerializer
             ->configureHandlers(function (HandlerRegistry $registry) {
                 // We only need to serialize the currency name
                 $registry->registerHandler(
-                    'serialization',
+                    GraphNavigator::DIRECTION_SERIALIZATION,
                     Money::class,
                     'json',
                     function ($visitor, Money $money, array $type) {
@@ -35,7 +36,7 @@ class JsonSerializer implements EventSerializer
                 );
                 // We only need the value of the ID
                 $registry->registerHandler(
-                    'serialization',
+                    GraphNavigator::DIRECTION_SERIALIZATION,
                     MemberId::class,
                     'json',
                     function ($visitor, MemberId $id, array $type) {
@@ -44,10 +45,10 @@ class JsonSerializer implements EventSerializer
                 );
                 // Use specific format for date/time objects
                 $registry->registerHandler(
-                    'serialization',
-                    DateTime::class,
+                    GraphNavigator::DIRECTION_SERIALIZATION,
+                    CarbonImmutable::class,
                     'json',
-                    function ($visitor, DateTime $dateTime, array $type) {
+                    function ($visitor, CarbonImmutable $dateTime, array $type) {
                         return $dateTime->format('Y-m-d H:i:s');
                     }
                 );

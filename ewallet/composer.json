@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=7.1",
+        "ext-json": "*",
         "beberlei/assert": "~3.1",
         "doctrine/annotations": "~1.6",
         "doctrine/cache": "~1.8",

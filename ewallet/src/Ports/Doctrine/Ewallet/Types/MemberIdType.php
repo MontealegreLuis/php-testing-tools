@@ -15,9 +15,10 @@ use Ewallet\Memberships\{Identifier, MemberId};
  */
 class MemberIdType extends UuidType
 {
+    /** @throws \Assert\AssertionFailedException */
     public function identifier(string $value): Identifier
     {
-        return MemberId::withIdentity($value);
+        return new MemberId($value);
     }
 
     /**

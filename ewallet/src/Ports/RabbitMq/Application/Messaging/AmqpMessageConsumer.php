@@ -6,6 +6,7 @@
  */
 namespace Ports\RabbitMq\Application\Messaging;
 
+use BadMethodCallException;
 use Closure;
 use Application\Messaging\MessageConsumer;
 use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
@@ -16,7 +17,7 @@ class AmqpMessageConsumer implements MessageConsumer
     /** @var AMQPStreamConnection */
     private $connection;
 
-    /** @var  \PhpAmqpLib\Channel\AMQPChannel */
+    /** @var  \PhpAmqpLib\Channel\AMQPChannel|null */
     private $channel;
 
     /** @var callable */
@@ -28,10 +29,8 @@ class AmqpMessageConsumer implements MessageConsumer
     /** @var ChannelConfiguration */
     private $configuration;
 
-    public function __construct(
-        AMQPStreamConnection $connection,
-        ChannelConfiguration $configuration
-    ) {
+    public function __construct(AMQPStreamConnection $connection, ChannelConfiguration $configuration)
+    {
         $this->connection = $connection;
         $this->configuration = $configuration;
     }
@@ -49,6 +48,10 @@ class AmqpMessageConsumer implements MessageConsumer
 
     public function consume(string $exchangeName, Closure $callback): void
     {
+        if (!$this->channel) {
+            throw new BadMethodCallException('No channel has been configure please call AmqpMessageConsumer::open first');
+        }
+
         $this->callback = $callback;
         $this->channel->basic_consume(
             $exchangeName,
@@ -85,7 +88,9 @@ class AmqpMessageConsumer implements MessageConsumer
      */
     public function close(): void
     {
-        $this->channel && $this->channel->close();
+        if ($this->channel) {
+            $this->channel->close();
+        }
         $this->connection->close();
     }
 }

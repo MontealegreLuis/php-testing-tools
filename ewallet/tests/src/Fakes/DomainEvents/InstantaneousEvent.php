@@ -8,20 +8,19 @@
 namespace Fakes\DomainEvents;
 
 use Application\DomainEvents\DomainEvent;
-use DateTime;
+use DateTimeInterface;
 
 class InstantaneousEvent implements DomainEvent
 {
-    /** @var DateTime */
+    /** @var DateTimeInterface */
     private $occurredOn;
 
-    public function __construct(DateTime $instant)
+    public function __construct(DateTimeInterface $instant)
     {
         $this->occurredOn = $instant;
     }
 
-    /** @return DateTime */
-    public function occurredOn(): DateTime
+    public function occurredOn(): DateTimeInterface
     {
         return $this->occurredOn;
     }

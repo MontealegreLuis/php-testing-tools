@@ -11,4 +11,14 @@ use InvalidArgumentException;
 
 class InvalidPublishedMessageToTrack extends InvalidArgumentException
 {
+    public static function isNotTheMostRecent(
+        PublishedMessage $mostRecentMessage,
+        PublishedMessage $invalidMessageToTrack
+    ): InvalidPublishedMessageToTrack {
+        return new InvalidPublishedMessageToTrack(sprintf(
+            'Cannot track message with ID %s, most recent message has ID %s',
+            $invalidMessageToTrack->mostRecentMessageId(),
+            $mostRecentMessage->mostRecentMessageId()
+        ));
+    }
 }

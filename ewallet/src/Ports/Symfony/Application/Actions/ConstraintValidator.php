@@ -8,6 +8,7 @@
 namespace Ports\Symfony\Application\Actions;
 
 use Application\Actions\InputValidator;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 
@@ -22,7 +23,7 @@ abstract class ConstraintValidator implements InputValidator
     protected function __construct(array $values)
     {
         $this->inputValues = $values;
-        $this->violations = [];
+        $this->violations = new ConstraintViolationList();
     }
 
     /** Is the raw input valid? */

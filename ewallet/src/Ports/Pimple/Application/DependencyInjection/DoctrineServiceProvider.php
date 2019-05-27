@@ -31,7 +31,9 @@ class DoctrineServiceProvider implements ServiceProviderInterface
 
             $platform = $entityManager->getConnection()->getDatabasePlatform();
             foreach ($container['doctrine']['types'] as $type => $class) {
-                !Type::hasType($type) && Type::addType($type, $class);
+                if (!Type::hasType($type)) {
+                    Type::addType($type, $class);
+                }
                 $platform->registerDoctrineTypeMapping($type, $type);
             }
 

@@ -7,7 +7,7 @@
 
 namespace Application\DomainEvents;
 
-use DateTime;
+use DateTimeInterface;
 
 /**
  * Representation of a persisted domain event
@@ -23,10 +23,10 @@ class StoredEvent implements DomainEvent
     /** @var string */
     private $type;
 
-    /** @var DateTime */
+    /** @var DateTimeInterface */
     private $occurredOn;
 
-    public function __construct(string $body, string $type, DateTime $occurredOn)
+    public function __construct(string $body, string $type, DateTimeInterface $occurredOn)
     {
         $this->body = $body;
         $this->type = $type;
@@ -48,7 +48,7 @@ class StoredEvent implements DomainEvent
         return $this->type;
     }
 
-    public function occurredOn(): DateTime
+    public function occurredOn(): DateTimeInterface
     {
         return $this->occurredOn;
     }

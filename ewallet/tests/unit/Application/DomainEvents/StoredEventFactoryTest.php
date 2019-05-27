@@ -23,9 +23,9 @@ class StoredEventFactoryTest extends TestCase
         Clock::freezeTimeAt($occurredOn);
 
         $storedEvent = $this->factory->from(new TransferWasMade(
-            MemberId::withIdentity('abc'),
+            new MemberId('abc'),
             Money::MXN(500000),
-            MemberId::withIdentity('xyz')
+            new MemberId('xyz')
         ));
 
         // Stored events get an identifier ONLY AFTER being persisted

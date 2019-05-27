@@ -8,12 +8,12 @@
 namespace Application\DataBuilders\DomainEvents;
 
 use Application\DomainEvents\EventSerializer;
+use Application\DomainEvents\StoredEvent;
+use Application\Messaging\PublishedMessage;
 use Ewallet\DataBuilders\TransferWasMadeBuilder;
 use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
 use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
-use Application\DomainEvents\StoredEvent;
-use Application\Messaging\PublishedMessage;
 use ReflectionClass;
 
 class StoredEventBuilder

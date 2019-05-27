@@ -4,10 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace DataBuilders;
 
-use Application\DataBuilders\Messaging\PublishedMessageBuilder;
 use Application\DataBuilders\DomainEvents\StoredEventBuilder;
+use Application\DataBuilders\Messaging\PublishedMessageBuilder;
 use Ewallet\DataBuilders\MembersBuilder;
 use Ewallet\DataBuilders\TransferWasMadeBuilder;
 

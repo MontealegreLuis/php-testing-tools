@@ -27,9 +27,6 @@ class MoneyMatcher extends BasicMatcher
         return $name === 'amount' && \count($arguments) === 1;
     }
 
-    /**
-     * @param mixed $subject
-     */
     protected function matches($subject, array $arguments): bool
     {
         $expectedAmount = $arguments[0];

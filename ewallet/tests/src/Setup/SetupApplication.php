@@ -7,10 +7,10 @@
 
 namespace Setup;
 
+use Doctrine\DataStorageSetup;
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
-use Doctrine\DataStorageSetup;
 use Setup\Commands\CreateDatabaseCommand;
 use Setup\Commands\DropDatabaseCommand;
 use Setup\Commands\RefreshDatabase;

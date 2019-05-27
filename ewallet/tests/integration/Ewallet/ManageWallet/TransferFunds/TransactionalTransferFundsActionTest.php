@@ -46,7 +46,8 @@ class TransactionalTransferFundsActionTest extends TestCase
 
         try {
             $this->action->transfer($this->threeMxn);
-        } catch(Exception $ignore) {}
+        } catch (Exception $ignore) {
+        }
 
         $this->assertBalanceAmounts($originalBalanceInCents, $this->members->with($this->senderId));
         $this->assertBalanceAmounts($originalBalanceInCents, $this->members->with($this->recipientId));

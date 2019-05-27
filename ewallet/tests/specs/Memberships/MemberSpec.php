@@ -24,11 +24,11 @@ class MemberSpec extends ObjectBehavior
 
     function let()
     {
-        $this->beConstructedThrough( 'withAccountBalance', [
+        $this->beConstructedThrough('withAccountBalance', [
             new MemberId(self::A_VALID_ID),
             self::A_VALID_NAME,
             new Email(self::A_VALID_EMAIL),
-            Money::MXN(self::A_VALID_AMOUNT)
+            Money::MXN(self::A_VALID_AMOUNT),
         ]);
     }
 
@@ -59,7 +59,7 @@ class MemberSpec extends ObjectBehavior
             new MemberId(self::A_VALID_ID),
             '',
             new Email(self::A_VALID_EMAIL),
-            Money::MXN(self::A_VALID_AMOUNT)
+            Money::MXN(self::A_VALID_AMOUNT),
         ]);
         $this
             ->shouldThrow(InvalidArgumentException::class)

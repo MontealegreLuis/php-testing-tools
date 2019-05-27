@@ -4,9 +4,11 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\DataBuilders;
 
-use Ewallet\Memberships\{MemberId, TransferWasMade};
+use Ewallet\Memberships\MemberId;
+use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
 use Money\Money;
 

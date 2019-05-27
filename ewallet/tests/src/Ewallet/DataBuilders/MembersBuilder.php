@@ -4,9 +4,12 @@
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
+
 namespace Ewallet\DataBuilders;
 
-use Ewallet\Memberships\{Email, MemberId, Member};
+use Ewallet\Memberships\Email;
+use Ewallet\Memberships\Member;
+use Ewallet\Memberships\MemberId;
 use Faker\Factory;
 use Money\Money;
 

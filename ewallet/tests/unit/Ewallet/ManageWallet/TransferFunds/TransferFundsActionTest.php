@@ -44,7 +44,7 @@ class TransferFundsActionTest extends TestCase
         $input = TransferFundsInput::from([
             'senderId' => 'unknown sender',
             'recipientId' => 'unknown recipient',
-            'amount' => 10 // 10 MXN
+            'amount' => 10, // 10 MXN
         ]);
 
         $this->action->transfer($input);
@@ -62,7 +62,7 @@ class TransferFundsActionTest extends TestCase
         $input = TransferFundsInput::from([
             'senderId' => $sender->idValue(),
             'recipientId' => 'unknown recipient',
-            'amount' => 10 // 10 MXN
+            'amount' => 10, // 10 MXN
         ]);
 
         $this->action->transfer($input);
@@ -82,7 +82,7 @@ class TransferFundsActionTest extends TestCase
         $input = TransferFundsInput::from([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
-            'amount' => 10 // 10 MXN
+            'amount' => 10, // 10 MXN
         ]);
 
         $this->expectException(InsufficientFunds::class);
@@ -100,7 +100,7 @@ class TransferFundsActionTest extends TestCase
         $input = TransferFundsInput::from([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
-            'amount' => 10 // 10 MXN
+            'amount' => 10, // 10 MXN
         ]);
 
         $this->action->transfer($input);

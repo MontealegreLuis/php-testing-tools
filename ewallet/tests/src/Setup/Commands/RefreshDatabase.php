@@ -20,7 +20,8 @@ class RefreshDatabase extends Command
         $this
             ->setName('ewallet:db:refresh')
             ->setDescription('Recreates and optionally seeds the database')
-            ->setHelp(<<<HELP
+            ->setHelp(
+                <<<HELP
 Refresh the database
 
 <info>bin/setup ewallet:db:refresh</info>

@@ -8,7 +8,9 @@
 namespace Ewallet\ContractTests\Memberships;
 
 use DataBuilders\A;
-use Ewallet\Memberships\{MemberId, Members, UnknownMember};
+use Ewallet\Memberships\MemberId;
+use Ewallet\Memberships\Members;
+use Ewallet\Memberships\UnknownMember;
 use Money\Money;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;

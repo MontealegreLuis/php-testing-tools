@@ -23,7 +23,7 @@ class MemberTest extends TestCase
     {
         $this
             ->forAll(Generator\choose(1, 10000))
-            ->then(function(int $amount) {
+            ->then(function (int $amount) {
                 $initialBalance = 10000;
                 $sender = A::member()->withBalance($initialBalance)->build();
                 $recipient = A::member()->build();
@@ -44,7 +44,7 @@ class MemberTest extends TestCase
     {
         $this
             ->forAll(Generator\choose(1, 10000))
-            ->then(function(int $amount) {
+            ->then(function (int $amount) {
                 $initialBalance = 5000;
                 $sender = A::member()->withBalance(10000)->build();
                 $recipient = A::member()->withBalance($initialBalance)->build();

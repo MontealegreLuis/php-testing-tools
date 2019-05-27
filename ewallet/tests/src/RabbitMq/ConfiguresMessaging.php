@@ -49,7 +49,7 @@ trait ConfiguresMessaging
             new AMQPMessage($notification->body(), [
                 'type' => $notification->type(),
                 'timestamp' => $notification->occurredOn()->getTimestamp(),
-                'message_id' => $notification->id()
+                'message_id' => $notification->id(),
             ]),
             $this->EXCHANGE_NAME
         );

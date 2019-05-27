@@ -24,8 +24,6 @@ class ExactAmountConstraint extends Constraint
     /**
      * Returns true only if the amount of provided `Money` object is equal to
      * the expected one
-     *
-     * @param mixed $other
      */
     protected function matches($other): bool
     {

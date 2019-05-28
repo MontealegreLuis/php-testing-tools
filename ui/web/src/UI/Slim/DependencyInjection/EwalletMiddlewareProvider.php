@@ -22,7 +22,7 @@ class EwalletMiddlewareProvider implements ServiceProviderInterface
         $this->app = $app;
     }
 
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $this->app->add($container[RequestLoggingMiddleware::class]);
     }

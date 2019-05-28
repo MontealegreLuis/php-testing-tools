@@ -14,7 +14,7 @@ use Pimple\ServiceProviderInterface;
 
 class ApplicationServiceProvider implements ServiceProviderInterface
 {
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container['slim.logger'] = function () use ($container) {
             $logger = new Logger($container['monolog']['app']['channel']);

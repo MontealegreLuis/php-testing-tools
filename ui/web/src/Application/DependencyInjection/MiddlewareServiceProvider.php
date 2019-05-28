@@ -13,7 +13,7 @@ use UI\Slim\Middleware\RequestLoggingMiddleware;
 
 class MiddlewareServiceProvider implements ServiceProviderInterface
 {
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container[RequestLoggingMiddleware::class] = function () use ($container) {
             return new RequestLoggingMiddleware($container['slim.logger']);

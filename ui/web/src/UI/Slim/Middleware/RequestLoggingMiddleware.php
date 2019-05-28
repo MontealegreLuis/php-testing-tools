@@ -25,7 +25,7 @@ class RequestLoggingMiddleware
     /**
      * Log the current request information and its matched route, if any
      */
-    public function __invoke(Request $request, ResponseInterface $response, $next)
+    public function __invoke(Request $request, ResponseInterface $response, $next): ResponseInterface
     {
         $this->logRequest($request);
 

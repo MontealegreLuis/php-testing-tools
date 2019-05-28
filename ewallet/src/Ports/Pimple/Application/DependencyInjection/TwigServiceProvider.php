@@ -20,7 +20,7 @@ class TwigServiceProvider implements ServiceProviderInterface
     /**
      * Register Twig's loader and environment
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container[TwigTemplateEngine::class] = function () use ($container) {
             return new TwigTemplateEngine($container[Environment::class]);

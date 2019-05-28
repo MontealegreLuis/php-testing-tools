@@ -70,11 +70,11 @@ class MessagePublisher
             /* Ignore any exception produced by any consumer */
         }
 
-        if (!$this->lastPublishedEvent) {
+        if ($this->lastPublishedEvent === null) {
             return 0; // All unpublished events failed to be published
         }
 
-        if (!$this->mostRecentMessage) {
+        if ($this->mostRecentMessage === null) {
             $this->mostRecentMessage = new PublishedMessage($exchangeName, $this->lastPublishedEvent->id());
         } else {
             $this->mostRecentMessage->updateMostRecentMessageId($this->lastPublishedEvent->id());
@@ -126,6 +126,6 @@ class MessagePublisher
 
     private function nothingToPublish(): bool
     {
-        return empty($this->unpublishedEvents);
+        return count($this->unpublishedEvents) === 0;
     }
 }

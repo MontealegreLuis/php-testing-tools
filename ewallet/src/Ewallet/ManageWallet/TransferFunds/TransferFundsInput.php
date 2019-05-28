@@ -20,11 +20,13 @@ final class TransferFundsInput extends ConstraintValidator
 {
     /**
      * @Assert\NotBlank(message="Sender ID cannot be blank")
+     * @var string
      */
     private $senderId;
 
     /**
      * @Assert\NotBlank(message="Recipient ID cannot be blank")
+     * @var string
      */
     private $recipientId;
 
@@ -34,6 +36,7 @@ final class TransferFundsInput extends ConstraintValidator
      *     value=0,
      *     message="Transferred amount must be greater than {{ compared_value }}, '{{ value }}' found"
      * )
+     * @var int
      */
     private $amount;
 

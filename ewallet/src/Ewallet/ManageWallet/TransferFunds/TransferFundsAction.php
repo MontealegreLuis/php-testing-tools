@@ -70,7 +70,7 @@ class TransferFundsAction
     /** @throws LogicException If no responder is attached to this action */
     protected function responder(): TransferFundsResponder
     {
-        if ($this->responder) {
+        if ($this->responder !== null) {
             return $this->responder;
         }
         throw new LogicException('Cannot transfer funds without a responder');

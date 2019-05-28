@@ -35,7 +35,7 @@ class StoredEvent implements DomainEvent
 
     public function id(): int
     {
-        return (int) $this->id;
+        return $this->id;
     }
 
     public function body(): string

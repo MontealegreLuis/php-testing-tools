@@ -28,8 +28,6 @@ class StoredEventFactoryTest extends TestCase
             new MemberId('xyz')
         ));
 
-        // Stored events get an identifier ONLY AFTER being persisted
-        $this->assertEquals(0, $storedEvent->id());
         $this->assertEquals(
             '{"occurred_on":"2015-10-25 19:59:00","sender_id":"abc","amount":"500000","recipient_id":"xyz"}',
             $storedEvent->body()

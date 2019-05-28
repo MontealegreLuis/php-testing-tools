@@ -32,11 +32,10 @@ class InMemoryEventStore implements EventStore
         }
     }
 
+    /** @throws \ReflectionException */
     public function append(StoredEvent $anEvent): void
     {
-        if ($anEvent->id() === 0) { // Doesn't have an ID
-            $this->assignIdTo($anEvent);
-        }
+        $this->assignIdTo($anEvent);
 
         $this->events[] = $anEvent;
     }
@@ -67,12 +66,16 @@ class InMemoryEventStore implements EventStore
         return $this->events;
     }
 
+    /** @throws \ReflectionException */
     private function assignIdTo(StoredEvent $anEvent): void
     {
         $event = new ReflectionObject($anEvent);
         $identifier = $event->getProperty('id');
         $identifier->setAccessible(true);
-        $identifier->setValue($anEvent, self::$nextId);
-        self::$nextId++;
+        $value = $identifier->getValue($anEvent);
+        if ($value === null) {
+            $identifier->setValue($anEvent, self::$nextId);
+            self::$nextId++;
+        }
     }
 }

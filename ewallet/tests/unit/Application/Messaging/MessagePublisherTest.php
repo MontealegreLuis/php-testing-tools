@@ -195,6 +195,6 @@ class MessagePublisherTest extends TestCase
     /** @var MessageTracker */
     private $tracker;
 
-    /** @var InMemoryEventStore */
+    /** @var \Application\DomainEvents\EventStore */
     private $store;
 }

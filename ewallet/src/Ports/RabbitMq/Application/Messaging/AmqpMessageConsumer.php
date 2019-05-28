@@ -49,8 +49,8 @@ class AmqpMessageConsumer implements MessageConsumer
 
     public function consume(string $exchangeName, Closure $callback): void
     {
-        if (!$this->channel) {
-            throw new BadMethodCallException('No channel has been configure please call AmqpMessageConsumer::open first');
+        if ($this->channel === null) {
+            throw new BadMethodCallException('No channel has been configure, call AmqpMessageConsumer::open first');
         }
 
         $this->callback = $callback;
@@ -89,7 +89,7 @@ class AmqpMessageConsumer implements MessageConsumer
      */
     public function close(): void
     {
-        if ($this->channel) {
+        if ($this->channel !== null) {
             $this->channel->close();
         }
         $this->connection->close();

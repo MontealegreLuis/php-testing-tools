@@ -26,7 +26,7 @@ abstract class UuidType extends GuidType
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if (empty($value)) {
+        if ($value ===  null) {
             return null;
         }
 
@@ -43,13 +43,15 @@ abstract class UuidType extends GuidType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if (empty($value)) {
+        if ($value === null) {
             return null;
         }
 
         if ($value instanceof Identifier) {
             return (string) $value;
-        } elseif (is_string($value)) {
+        }
+
+        if (is_string($value)) {
             return $value;
         }
 

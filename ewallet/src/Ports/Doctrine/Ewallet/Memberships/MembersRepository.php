@@ -38,7 +38,8 @@ class MembersRepository implements Members
             ->setParameter('id', $memberId)
         ;
 
-        if (!$member = $builder->getQuery()->getOneOrNullResult()) {
+        $member = $builder->getQuery()->getOneOrNullResult();
+        if ($member === null) {
             throw UnknownMember::identifiedBy($memberId);
         }
 

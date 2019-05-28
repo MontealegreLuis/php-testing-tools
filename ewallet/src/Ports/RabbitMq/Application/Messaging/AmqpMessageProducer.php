@@ -47,8 +47,8 @@ class AmqpMessageProducer implements MessageProducer
 
     public function send(string $exchangeName, StoredEvent $notification): void
     {
-        if (!$this->channel) {
-            throw new BadMethodCallException('No channel has been configure please call AmqpMessageProducer::open first');
+        if ($this->channel === null) {
+            throw new BadMethodCallException('No channel has been configure, call AmqpMessageProducer::open first');
         }
 
         $this->channel->basic_publish(
@@ -66,7 +66,7 @@ class AmqpMessageProducer implements MessageProducer
      */
     public function close(): void
     {
-        if ($this->channel) {
+        if ($this->channel !== null) {
             $this->channel->close();
         }
         $this->connection->close();

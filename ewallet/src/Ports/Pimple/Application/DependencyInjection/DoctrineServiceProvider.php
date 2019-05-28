@@ -19,7 +19,7 @@ class DoctrineServiceProvider implements ServiceProviderInterface
     /**
      * Register Doctrine's entity manager
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container[EntityManagerInterface::class] = function () use ($container) {
             $configuration = Setup::createXMLMetadataConfiguration(

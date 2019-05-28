@@ -43,7 +43,7 @@ class MessageTrackerRepository extends Repository implements MessageTracker
             ->setParameter('exchangeName', $exchangeName);
 
         $publishedMessage = $builder->getQuery()->getOneOrNullResult();
-        if (!$publishedMessage) {
+        if ($publishedMessage === null) {
             throw new EmptyExchange("$exchangeName has no published messages");
         }
         return $publishedMessage;
@@ -66,7 +66,7 @@ class MessageTrackerRepository extends Repository implements MessageTracker
             ->setParameter('exchangeName', $mostRecentPublishedMessage->exchangeName());
 
         $currentMessage = $builder->getQuery()->getOneOrNullResult();
-        if ($currentMessage && !$currentMessage->equals($mostRecentPublishedMessage)) {
+        if ($currentMessage !== null && !$currentMessage->equals($mostRecentPublishedMessage)) {
             throw InvalidPublishedMessageToTrack::isNotTheMostRecent($mostRecentPublishedMessage, $currentMessage);
         }
 

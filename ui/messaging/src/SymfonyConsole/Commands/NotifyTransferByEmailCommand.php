@@ -38,7 +38,7 @@ class NotifyTransferByEmailCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ewallet:transfer:email')
@@ -46,7 +46,7 @@ class NotifyTransferByEmailCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->consumer->open($this->exchangeName);
         $this->consumer->consume(
@@ -54,9 +54,11 @@ class NotifyTransferByEmailCommand extends Command
             Closure::fromCallable([$this, 'notify'])
         );
         $this->consumer->close();
+
+        return 0;
     }
 
-    public function notify(stdClass $message, string $event)
+    public function notify(stdClass $message, string $event): void
     {
         if (!$this->notifier->shouldNotifyOn($event)) {
             return;

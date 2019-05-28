@@ -21,7 +21,7 @@ use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
 
 class MessagingServiceProvider implements ServiceProviderInterface
 {
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container[MessageTracker::class] = function () use ($container) {
             return new MessageTrackerRepository($container[EntityManagerInterface::class]);

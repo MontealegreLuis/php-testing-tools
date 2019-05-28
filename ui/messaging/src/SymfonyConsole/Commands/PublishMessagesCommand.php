@@ -23,7 +23,7 @@ class PublishMessagesCommand extends Command
         $this->publisher = $publisher;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ewallet:events:spread')
@@ -31,7 +31,7 @@ class PublishMessagesCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $messages = $this->publisher->publishTo('ewallet');
 
@@ -39,5 +39,7 @@ class PublishMessagesCommand extends Command
             '<comment>%d</comment> <info>messages published!</info>',
             $messages
         ));
+
+        return 0;
     }
 }

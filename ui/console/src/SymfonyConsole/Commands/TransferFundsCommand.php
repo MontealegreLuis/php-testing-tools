@@ -46,7 +46,7 @@ class TransferFundsCommand extends Command implements TransferFundsResponder
      * This command has three arguments: both, the sender and recipient IDs, and the amount
      * to be transferred
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ewallet:transfer')
@@ -80,7 +80,7 @@ class TransferFundsCommand extends Command implements TransferFundsResponder
      * @throws \Ewallet\Memberships\InvalidTransfer If the amount to transfer is not greater than 0
      * @throws \Ewallet\Memberships\UnknownMember If either the sender or recipient are unknown
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->action->transfer(TransferFundsInput::from($input->getArguments()));
 

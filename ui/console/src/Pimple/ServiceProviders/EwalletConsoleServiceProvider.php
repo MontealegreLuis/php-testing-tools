@@ -25,7 +25,7 @@ class EwalletConsoleServiceProvider extends EwalletServiceProvider implements Se
      * Register the services for Transfer Funds feature delivered through a
      * console command
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         parent::register($container);
         $container[TransferFundsCommand::class] = function () use ($container) {

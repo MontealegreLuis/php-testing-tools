@@ -8,7 +8,8 @@ COPY ./config/php.ini /usr/local/etc/php/
 RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring \
-    && docker-php-ext-install bcmath
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install sockets
 
 COPY ./config/messaging-cron /etc/cron.d/messaging-cron
 RUN chmod 0644 /etc/cron.d/messaging-cron

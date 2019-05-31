@@ -36,7 +36,7 @@
         "psr-0": {
             "Application\\": "src/",
             "Ewallet\\": "src/",
-            "Ports\\": "src/",
+            "Adapters": "src/",
             "UI\\": "src/"
         }
     },

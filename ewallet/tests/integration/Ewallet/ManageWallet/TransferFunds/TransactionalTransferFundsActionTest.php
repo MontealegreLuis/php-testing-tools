@@ -13,8 +13,8 @@ use Doctrine\DataStorageSetup;
 use Exception;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
-use Ports\Doctrine\Application\Services\DoctrineSession;
-use Ports\Doctrine\Ewallet\Memberships\MembersRepository;
+use Adapters\Doctrine\Application\Services\DoctrineSession;
+use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Prophecy\Argument;
 use RuntimeException;
 

@@ -12,7 +12,7 @@ use Closure;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
+use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 
 /**
  * Publishes and Consumes messages to help the creation of integration tests

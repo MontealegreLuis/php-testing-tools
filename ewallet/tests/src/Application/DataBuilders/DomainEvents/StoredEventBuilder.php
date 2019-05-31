@@ -13,7 +13,7 @@ use Application\Messaging\PublishedMessage;
 use Ewallet\DataBuilders\TransferWasMadeBuilder;
 use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
-use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
+use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use ReflectionClass;
 
 class StoredEventBuilder

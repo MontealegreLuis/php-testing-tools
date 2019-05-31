@@ -49,7 +49,7 @@
         "psr-0": {
             "Ewallet\\": "src/",
             "Application\\": "src/",
-            "Ports\\": "src/"
+            "Adapters\\": "src/"
         },
         "files": [
             "config/annotations.php"
@@ -57,7 +57,11 @@
     },
     "autoload-dev": {
         "psr-0": {
-            "": "tests/src"
+            "": [
+                "tests/src",
+                "tests/integration",
+                "tests/unit"
+            ]
         },
         "files": [
             "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"

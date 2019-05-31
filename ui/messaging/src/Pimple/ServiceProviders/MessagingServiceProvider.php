@@ -13,11 +13,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Ports\Doctrine\Application\DomainEvents\EventStoreRepository;
-use Ports\Doctrine\Application\Messaging\MessageTrackerRepository;
-use Ports\RabbitMq\Application\Messaging\AmqpMessageConsumer;
-use Ports\RabbitMq\Application\Messaging\AmqpMessageProducer;
-use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
+use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Adapters\Doctrine\Application\Messaging\MessageTrackerRepository;
+use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
+use Adapters\RabbitMq\Application\Messaging\AmqpMessageProducer;
+use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 
 class MessagingServiceProvider implements ServiceProviderInterface
 {

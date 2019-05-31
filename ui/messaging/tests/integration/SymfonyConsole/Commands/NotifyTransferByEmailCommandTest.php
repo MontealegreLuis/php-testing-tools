@@ -14,8 +14,8 @@ use Ewallet\Memberships\TransferWasMade;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Ports\RabbitMq\Application\Messaging\AmqpMessageConsumer;
-use Ports\RabbitMq\Application\Messaging\ChannelConfiguration;
+use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
+use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 use RabbitMq\ConfiguresMessaging;
 use Symfony\Component\Console\Tester\CommandTester;
 

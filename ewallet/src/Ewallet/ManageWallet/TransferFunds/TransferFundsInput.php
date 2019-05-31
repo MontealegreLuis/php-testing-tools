@@ -10,7 +10,7 @@ namespace Ewallet\ManageWallet\TransferFunds;
 use Ewallet\Memberships\MemberId;
 use Money\Currency;
 use Money\Money;
-use Ports\Symfony\Application\Actions\ConstraintValidator;
+use Adapters\Symfony\Application\Actions\ConstraintValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

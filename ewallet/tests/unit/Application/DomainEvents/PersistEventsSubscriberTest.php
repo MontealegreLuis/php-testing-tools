@@ -13,7 +13,7 @@ use Fakes\DomainEvents\InstantaneousEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Ports\JmsSerializer\Application\DomainEvents\JsonSerializer;
+use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 class PersistEventsSubscriberTest extends TestCase
 {

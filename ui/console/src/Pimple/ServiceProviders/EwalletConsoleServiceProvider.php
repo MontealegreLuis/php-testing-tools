@@ -13,7 +13,7 @@ use Ewallet\Memberships\MemberFormatter;
 use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Ports\Pimple\Application\DependencyInjection\EwalletServiceProvider;
+use Adapters\Pimple\Application\DependencyInjection\EwalletServiceProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;

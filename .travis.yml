@@ -17,7 +17,4 @@ before_script:
   - cp .env.travis .env.tests
 
 script:
-  - cd ../ui/console && make check && make tests
-  - cd ../messaging && make check && make tests
-  - cd ../web && make check && make tests
-  - cd ../../ewallet && make check && make tests
+  - make check

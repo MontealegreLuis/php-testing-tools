@@ -7,15 +7,15 @@
 
 namespace Application\DependencyInjection;
 
+use Adapters\Pimple\Application\DependencyInjection\EwalletServiceProvider;
+use Adapters\Twig\Application\Templating\RouterExtension;
+use Adapters\Twig\Application\Templating\TwigTemplateEngine;
+use Adapters\Twig\Ewallet\Extensions\EwalletExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\MemberFormatter;
 use Ewallet\Memberships\MembersWebRepository;
 use Pimple\Container;
-use Adapters\Pimple\Application\DependencyInjection\EwalletServiceProvider;
-use Adapters\Twig\Application\Templating\RouterExtension;
-use Adapters\Twig\Application\Templating\TwigTemplateEngine;
-use Adapters\Twig\Ewallet\Extensions\EwalletExtension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use UI\Slim\Controllers\ShowTransferFormController;

@@ -7,10 +7,10 @@
 
 namespace Ewallet\Pimple;
 
-use Application\DomainEvents\PersistEventsSubscriber;
-use PHPUnit\Framework\TestCase;
 use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
 use Adapters\Twig\Application\Templating\RouterExtension;
+use Application\DomainEvents\PersistEventsSubscriber;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

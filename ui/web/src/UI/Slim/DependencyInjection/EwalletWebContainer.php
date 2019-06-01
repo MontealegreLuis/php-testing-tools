@@ -7,11 +7,11 @@
 
 namespace UI\Slim\DependencyInjection;
 
+use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
+use Adapters\Pimple\Application\DependencyInjection\TwigServiceProvider;
 use Application\DependencyInjection\ApplicationServiceProvider;
 use Application\DependencyInjection\EwalletWebServiceProvider;
 use Application\DependencyInjection\MiddlewareServiceProvider;
-use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
-use Adapters\Pimple\Application\DependencyInjection\TwigServiceProvider;
 use Slim\Container;
 
 class EwalletWebContainer extends Container

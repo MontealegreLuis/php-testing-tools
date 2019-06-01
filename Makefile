@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: containers bootstrap db tests cleanup
+.PHONY: containers bootstrap db tests cleanup check
 
 containers:
 	@echo "Building containers..."
@@ -51,4 +51,16 @@ tests:
 	@cd ui/messaging && make tests
 	@echo "Web application"
 	@cd ui/web && make tests
+	@echo "Done!"
+
+check:
+	@echo "Running tests for packages..."
+	@echo "ewallet/application..."
+	@cd ewallet && make check && make tests
+	@echo "Console application"
+	@cd ui/console && make check && make tests
+	@echo "Messaging application"
+	@cd ui/messaging && make check && make tests
+	@echo "Web application"
+	@cd ui/web && make check && make tests
 	@echo "Done!"

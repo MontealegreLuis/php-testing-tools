@@ -7,12 +7,12 @@
 
 namespace Application\DependencyInjection;
 
+use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
+use Adapters\Pimple\Application\DependencyInjection\EwalletServiceProvider;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\Members;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
-use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
-use Adapters\Pimple\Application\DependencyInjection\EwalletServiceProvider;
 
 class EwalletServiceProviderTest extends TestCase
 {

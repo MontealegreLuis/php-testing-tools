@@ -7,6 +7,8 @@
 
 namespace Ewallet\SymfonyConsole\Commands;
 
+use Adapters\Doctrine\Application\Services\DoctrineSession;
+use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Application\DomainEvents\EventPublisher;
 use Doctrine\DataStorageSetup;
@@ -14,8 +16,6 @@ use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
 use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\MemberFormatter;
 use PHPUnit\Framework\TestCase;
-use Adapters\Doctrine\Application\Services\DoctrineSession;
-use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 

@@ -7,6 +7,10 @@
 
 namespace Adapters\Pimple\Application\DependencyInjection;
 
+use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Adapters\Doctrine\Application\Services\DoctrineSession;
+use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
+use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\DomainEvents\EventPublisher;
 use Application\DomainEvents\PersistEventsSubscriber;
 use Application\DomainEvents\StoredEventFactory;
@@ -16,10 +20,6 @@ use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\Members;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
-use Adapters\Doctrine\Application\Services\DoctrineSession;
-use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
-use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 class EwalletServiceProvider implements ServiceProviderInterface
 {

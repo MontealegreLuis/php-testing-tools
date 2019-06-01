@@ -7,9 +7,9 @@
 
 namespace Adapters\Doctrine\Application\DomainEvents;
 
+use Adapters\Doctrine\Application\DataStorage\Repository;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
-use Adapters\Doctrine\Application\DataStorage\Repository;
 
 class EventStoreRepository extends Repository implements EventStore
 {

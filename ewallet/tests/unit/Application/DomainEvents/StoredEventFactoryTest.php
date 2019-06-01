@@ -7,12 +7,12 @@
 
 namespace Application\DomainEvents;
 
+use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\Clock;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\TransferWasMade;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 class StoredEventFactoryTest extends TestCase
 {

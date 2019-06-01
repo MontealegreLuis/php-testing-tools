@@ -7,18 +7,18 @@
 
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Application\Messaging\MessagePublisher;
-use Application\Messaging\MessageTracker;
-use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PHPUnit\Framework\TestCase;
-use Pimple\Container;
 use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
 use Adapters\Doctrine\Application\Messaging\MessageTrackerRepository;
 use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
 use Adapters\Pimple\Application\DependencyInjection\TwigServiceProvider;
 use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
 use Adapters\RabbitMq\Application\Messaging\AmqpMessageProducer;
+use Application\Messaging\MessagePublisher;
+use Application\Messaging\MessageTracker;
+use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PHPUnit\Framework\TestCase;
+use Pimple\Container;
 
 class EwalletMessagingServiceProviderTest extends TestCase
 {

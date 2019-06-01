@@ -7,11 +7,11 @@
 
 namespace Adapters\Doctrine\Application\Messaging;
 
+use Adapters\Doctrine\Application\DataStorage\Repository;
 use Application\Messaging\EmptyExchange;
 use Application\Messaging\InvalidPublishedMessageToTrack;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
-use Adapters\Doctrine\Application\DataStorage\Repository;
 
 class MessageTrackerRepository extends Repository implements MessageTracker
 {

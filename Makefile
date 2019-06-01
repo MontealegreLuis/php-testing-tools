@@ -20,13 +20,17 @@ bootstrap:
 cleanup:
 	@echo "Removing packages from ui/console"
 	@rm -rf ui/console/vendor
+	@rm -f ui/console/composer.lock
 	@echo "Removing packages from ui/messaging"
 	@rm -rf ui/messaging/vendor
+	@rm -f ui/messaging/composer.lock
 	@echo "Removing packages from ui/web"
 	@rm -rf ui/web/vendor
 	@rm -rf ui/web/bin
+	@rm -f ui/web/composer.lock
 	@echo "Removing packages from ewallet/application"
 	@rm -rf ewallet/vendor
+	@rm -f ewallet/composer.lock
 
 setup:
 	@echo "Creating database..."

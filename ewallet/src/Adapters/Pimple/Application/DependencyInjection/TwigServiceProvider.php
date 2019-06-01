@@ -7,11 +7,11 @@
 
 namespace Adapters\Pimple\Application\DependencyInjection;
 
+use Adapters\Twig\Application\Templating\TwigTemplateEngine;
+use Adapters\Twig\Ewallet\Extensions\EwalletExtension;
 use Ewallet\Memberships\MemberFormatter;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Adapters\Twig\Application\Templating\TwigTemplateEngine;
-use Adapters\Twig\Ewallet\Extensions\EwalletExtension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

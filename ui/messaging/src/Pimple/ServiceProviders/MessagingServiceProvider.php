@@ -7,17 +7,17 @@
 
 namespace Ewallet\Pimple\ServiceProviders;
 
+use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
+use Adapters\Doctrine\Application\Messaging\MessageTrackerRepository;
+use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
+use Adapters\RabbitMq\Application\Messaging\AmqpMessageProducer;
+use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 use Application\Messaging\MessagePublisher;
 use Application\Messaging\MessageTracker;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
-use Adapters\Doctrine\Application\Messaging\MessageTrackerRepository;
-use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
-use Adapters\RabbitMq\Application\Messaging\AmqpMessageProducer;
-use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 
 class MessagingServiceProvider implements ServiceProviderInterface
 {

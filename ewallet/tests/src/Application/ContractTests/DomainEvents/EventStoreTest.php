@@ -7,12 +7,12 @@
 
 namespace Application\ContractTests\DomainEvents;
 
+use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\Clock;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEventFactory;
 use Fakes\DomainEvents\InstantaneousEvent;
 use PHPUnit\Framework\TestCase;
-use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 abstract class EventStoreTest extends TestCase
 {

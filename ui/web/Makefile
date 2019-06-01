@@ -23,13 +23,13 @@ server:
 check:
 	@echo "Looking for static analysis violations"
 	@bin/phpstan analyse src --level 7
-	@echo "Looking for CS violation in src directory"
+	@echo "Looking for CS violations in src directory"
 	@bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
-	@echo "Looking for CS violation in tests directory"
+	@echo "Looking for CS violations in tests directory"
 	@bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs_tests
 
 format:
-	@echo "Fixing CS violation in src directory"
+	@echo "Fixing CS violations in src directory"
 	@bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs
-	@echo "Fixing CS violation in tests directory"
+	@echo "Fixing CS violations in tests directory"
 	@bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs_tests

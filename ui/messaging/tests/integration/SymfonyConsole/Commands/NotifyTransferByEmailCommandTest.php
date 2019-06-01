@@ -7,6 +7,8 @@
 
 namespace Ewallet\SymfonyConsole\Commands;
 
+use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
+use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 use DataBuilders\A;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
 use Ewallet\ManageWallet\Notifications\TransferFundsNotification;
@@ -14,8 +16,6 @@ use Ewallet\Memberships\TransferWasMade;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
-use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 use RabbitMq\ConfiguresMessaging;
 use Symfony\Component\Console\Tester\CommandTester;
 

@@ -7,11 +7,11 @@
 
 namespace Ewallet\Pimple;
 
+use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
+use Adapters\Pimple\Application\DependencyInjection\TwigServiceProvider;
 use Ewallet\Pimple\ServiceProviders\EwalletMessagingServiceProvider;
 use Ewallet\Pimple\ServiceProviders\MessagingServiceProvider;
 use Pimple\Container;
-use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
-use Adapters\Pimple\Application\DependencyInjection\TwigServiceProvider;
 
 class EwalletMessagingContainer extends Container
 {

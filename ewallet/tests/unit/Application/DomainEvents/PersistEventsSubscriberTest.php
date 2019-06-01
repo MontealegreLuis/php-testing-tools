@@ -7,13 +7,13 @@
 
 namespace Application\DomainEvents;
 
+use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\Clock;
 use DataBuilders\A;
 use Fakes\DomainEvents\InstantaneousEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 
 class PersistEventsSubscriberTest extends TestCase
 {

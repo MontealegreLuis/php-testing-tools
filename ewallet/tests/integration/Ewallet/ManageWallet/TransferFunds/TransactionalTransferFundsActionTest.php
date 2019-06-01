@@ -7,14 +7,14 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
+use Adapters\Doctrine\Application\Services\DoctrineSession;
+use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Application\DomainEvents\EventPublisher;
 use Doctrine\DataStorageSetup;
 use Exception;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
-use Adapters\Doctrine\Application\Services\DoctrineSession;
-use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Prophecy\Argument;
 use RuntimeException;
 

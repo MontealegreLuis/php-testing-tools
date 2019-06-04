@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.2-apache
 
 COPY ./config/ewallet.conf /etc/apache2/sites-available/000-default.conf
 COPY ./config/php.ini /usr/local/etc/php/

@@ -18,7 +18,6 @@ class ExactAmountConstraint extends Constraint
     public function __construct(int $expected)
     {
         $this->expectedAmount = $expected;
-        parent::__construct();
     }
 
     /**
@@ -28,7 +27,7 @@ class ExactAmountConstraint extends Constraint
     protected function matches($other): bool
     {
         /** @var Money $other */
-        return $this->expectedAmount == $other->getAmount();
+        return $this->expectedAmount === (int)$other->getAmount();
     }
 
     public function toString(): string

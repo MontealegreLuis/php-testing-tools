@@ -18,7 +18,7 @@ use Money\Money;
 
 class JsonSerializer implements EventSerializer
 {
-    /** @var \JMS\Serializer\Serializer */
+    /** @var \JMS\Serializer\SerializerInterface */
     private $serializer;
 
     public function __construct()

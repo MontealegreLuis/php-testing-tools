@@ -11,7 +11,7 @@ use Dotenv\Dotenv;
 
 if (!isset($_ENV['APP_ENV'])) {
     // We' re not running the application from the containers
-    $environment = new Dotenv(__DIR__ . '/../', '.env.tests');
+    $environment = Dotenv::create(__DIR__ . '/../', '.env.tests');
     $environment->load();
     $environment->required(['APP_ENV']);
 }

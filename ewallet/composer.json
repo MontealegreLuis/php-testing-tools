@@ -16,7 +16,7 @@
         "doctrine/annotations": "~1.6",
         "doctrine/cache": "~1.8",
         "doctrine/orm": "~2.6",
-        "jms/serializer": "~1.13",
+        "jms/serializer": "~3.0",
         "moneyphp/money": "~3.1",
         "nesbot/carbon": "~2.7",
         "pimple/pimple": "~3.2",
@@ -33,10 +33,10 @@
         "phpspec/phpspec": "~5.1",
         "phpstan/phpstan": "^0.11.7",
         "phpstan/phpstan-strict-rules": "^0.11.1",
-        "phpunit/phpunit": "~7.4",
+        "phpunit/phpunit": "~8.1",
         "roave/security-advisories": "dev-master",
         "twig/twig": "~2.5",
-        "vlucas/phpdotenv": "~2.5"
+        "vlucas/phpdotenv": "~v3.3"
     },
     "suggest": {
         "php-amqplib/php-amqplib": "To spread domain events via RabbitMQ",

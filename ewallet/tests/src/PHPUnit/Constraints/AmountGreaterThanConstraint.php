@@ -18,7 +18,6 @@ class AmountGreaterThanConstraint extends Constraint
     public function __construct(Money $lowerLimit)
     {
         $this->lowerLimit = $lowerLimit;
-        parent::__construct();
     }
 
     /**

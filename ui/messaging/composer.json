@@ -12,15 +12,15 @@
     "require": {
         "ewallet/application": "~1.0",
         "symfony/console": "~4.2",
-        "vlucas/phpdotenv": "~2.0",
+        "vlucas/phpdotenv": "~3.3",
         "zendframework/zend-mail": "~2.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
         "mockery/mockery": "~1.2",
-        "phpunit/phpunit": "~7.4",
+        "phpunit/phpunit": "~8.1",
         "roave/security-advisories": "dev-master",
-        "phpstan/phpstan": "^0.11.7",
+        "phpstan/phpstan": "^0.11",
         "friendsofphp/php-cs-fixer": "^2.15",
         "phpstan/phpstan-strict-rules": "^0.11.1"
     },

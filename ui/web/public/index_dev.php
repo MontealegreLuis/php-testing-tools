@@ -15,7 +15,7 @@ if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
     die;
 }
 
-$environment = new Dotenv(__DIR__ . '/../', '.env.tests');
+$environment = Dotenv::create(__DIR__ . '/../', '.env.tests');
 $environment->load();
 $environment->required(['APP_ENV', 'DB_URL', 'PDO_DRIVER']);
 

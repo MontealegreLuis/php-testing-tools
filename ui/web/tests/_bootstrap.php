@@ -10,6 +10,6 @@ use Codeception\Util\Autoload;
 
 Autoload::addNamespace('Page', __DIR__. '/_support/_pages');
 
-$environment = new Dotenv(__DIR__ . '/../', '.env.tests');
+$environment = Dotenv::create(__DIR__ . '/../', '.env.tests');
 $environment->load();
 $environment->required(['APP_ENV', 'DB_URL']);

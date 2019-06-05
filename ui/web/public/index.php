@@ -7,13 +7,14 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Dotenv\Dotenv;
 use UI\Slim\Application;
-use Dotenv\Loader;
-use Dotenv\Validator;
 
 if (!isset($_ENV['APP_ENV'])) {
     // We' re not running the application from the containers
-    $validator = new Validator(['APP_ENV', 'DB_URL'], new Loader(null));
+    $environment = Dotenv::create(__DIR__ . '/../');
+    $environment->load();
+    $environment->required(['APP_ENV', 'DB_URL', 'PDO_DRIVER']);
 }
 
 $app = new Application(require __DIR__ . '/../config.php');

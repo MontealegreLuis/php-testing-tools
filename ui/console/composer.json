@@ -10,9 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ewallet/application": "~1.0",
-        "monolog/monolog": "~1.24",
         "symfony/console": "~4.1",
         "vlucas/phpdotenv": "~3.3"
     },

@@ -26,7 +26,7 @@ class MessageTrackerRepository extends Repository implements MessageTracker
             ->setParameter('exchangeName', $exchangeName)
         ;
 
-        return (integer) $builder->getQuery()->getSingleScalarResult() > 0;
+        return $builder->getQuery()->getSingleScalarResult() > 0;
     }
 
     /**

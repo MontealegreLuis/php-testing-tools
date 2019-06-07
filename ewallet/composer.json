@@ -27,6 +27,7 @@
         "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "~1.8",
         "giorgiosironi/eris": "~0.11",
+        "infection/infection": "^0.13.1",
         "mockery/mockery": "^1.2",
         "nelmio/alice": "~3.5",
         "php-amqplib/php-amqplib": "~2.8",

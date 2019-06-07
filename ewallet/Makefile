@@ -19,6 +19,8 @@ tests:
 	@vendor/bin/phpspec run
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
+	@echo "Running mutation tests"
+	@vendor/bin/infection --min-msi=75 --min-covered-msi=85 --threads=4
 
 check:
 	@echo "Looking for static analysis violations"

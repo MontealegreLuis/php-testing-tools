@@ -15,7 +15,7 @@ Its goal is to provide a set of examples using some of the coolest tools for tes
 * [Alice][8]
 * [Codeception][9]
 * [Eris][10]
-* [Humbug][11]
+* [Infection][11]
 
 It was used for a testing [class][1]. The slides are available [here][2].
 
@@ -98,7 +98,7 @@ Please read them for more details.
 [8]: https://github.com/nelmio/alice
 [9]: http://codeception.com/
 [10]: https://github.com/giorgiosironi/eris
-[11]: https://github.com/padraic/humbug
+[11]: https://infection.github.io/
 [12]: http://alistair.cockburn.us/Hexagonal+architecture
 [13]: http://localhost/
 [14]: https://github.com/settings/tokens

@@ -15,6 +15,7 @@ tests:
 	@bin/phpunit --testdox
 	@echo "Running end to end tests"
 	@bin/robo acceptance
+	@bin/infection --min-msi=50 --min-covered-msi=70 --threads=4
 
 server:
 	@Starting the Web application in PHP's built-in server

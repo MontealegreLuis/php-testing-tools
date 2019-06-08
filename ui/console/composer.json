@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
+        "infection/infection": "^0.13.1",
         "nelmio/alice": "~3.5",
         "phpstan/phpstan": "^0.11",
         "phpstan/phpstan-strict-rules": "^0.11",

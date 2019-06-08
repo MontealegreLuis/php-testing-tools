@@ -13,6 +13,7 @@ setup:
 tests:
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
+	@vendor/bin/infection --min-msi=65 --min-covered-msi=75 --threads=4
 
 check:
 	@echo "Looking for static analysis violations"

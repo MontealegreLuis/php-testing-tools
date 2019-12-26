@@ -7,7 +7,8 @@
 
 namespace Application\Messaging;
 
-use Application\ContractTests\Messaging\MessageTrackerTest;
+use ContractTests\Application\Messaging\MessageTrackerTest;
+use Fakes\Application\Messaging\InMemoryMessageTracker;
 
 class InMemoryMessageTrackerTest extends MessageTrackerTest
 {

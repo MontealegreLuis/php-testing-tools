@@ -9,7 +9,7 @@ namespace Ewallet\Memberships;
 
 use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Doctrine\DataStorageSetup;
-use Ewallet\ContractTests\Memberships\MembersTest;
+use ContractTests\Ewallet\Memberships\MembersTest;
 
 class MembersRepositoryTest extends MembersTest
 {

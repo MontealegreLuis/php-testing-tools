@@ -5,13 +5,13 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Application\DataBuilders\DomainEvents;
+namespace DataBuilders\Application\DomainEvents;
 
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\DomainEvents\EventSerializer;
 use Application\DomainEvents\StoredEvent;
 use Application\Messaging\PublishedMessage;
-use Ewallet\DataBuilders\TransferWasMadeBuilder;
+use DataBuilders\Ewallet\Memberships\TransferWasMadeBuilder;
 use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
 use ReflectionClass;

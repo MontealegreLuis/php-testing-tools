@@ -7,7 +7,8 @@
 
 namespace Application\DomainEvents;
 
-use Application\ContractTests\DomainEvents\EventStoreTest;
+use ContractTests\Application\DomainEvents\EventStoreTest;
+use Fakes\Application\DomainEvents\InMemoryEventStore;
 
 class InMemoryEventStoreTest extends EventStoreTest
 {

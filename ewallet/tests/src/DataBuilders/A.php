@@ -7,10 +7,10 @@
 
 namespace DataBuilders;
 
-use Application\DataBuilders\DomainEvents\StoredEventBuilder;
-use Application\DataBuilders\Messaging\PublishedMessageBuilder;
-use Ewallet\DataBuilders\MembersBuilder;
-use Ewallet\DataBuilders\TransferWasMadeBuilder;
+use DataBuilders\Application\DomainEvents\StoredEventBuilder;
+use DataBuilders\Application\Messaging\PublishedMessageBuilder;
+use DataBuilders\Ewallet\Memberships\MembersBuilder;
+use DataBuilders\Ewallet\Memberships\TransferWasMadeBuilder;
 
 class A
 {

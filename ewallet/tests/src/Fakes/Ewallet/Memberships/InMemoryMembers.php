@@ -5,8 +5,12 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Memberships;
+namespace Fakes\Ewallet\Memberships;
 
+use Ewallet\Memberships\Member;
+use Ewallet\Memberships\MemberId;
+use Ewallet\Memberships\Members;
+use Ewallet\Memberships\UnknownMember;
 use SplObjectStorage;
 
 class InMemoryMembers implements Members

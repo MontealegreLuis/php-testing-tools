@@ -5,13 +5,13 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Application\ContractTests\DomainEvents;
+namespace ContractTests\Application\DomainEvents;
 
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\Clock;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEventFactory;
-use Fakes\DomainEvents\InstantaneousEvent;
+use Fakes\Application\DomainEvents\InstantaneousEvent;
 use PHPUnit\Framework\TestCase;
 
 abstract class EventStoreTest extends TestCase

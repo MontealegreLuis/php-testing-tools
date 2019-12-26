@@ -7,7 +7,7 @@
 
 namespace Adapters\Doctrine\Application\Messaging;
 
-use Application\ContractTests\Messaging\MessageTrackerTest;
+use ContractTests\Application\Messaging\MessageTrackerTest;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
 use Doctrine\DataStorageSetup;

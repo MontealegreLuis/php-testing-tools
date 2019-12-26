@@ -10,7 +10,7 @@ use Behat\Behat\Context\Context;
 use DataBuilders\A;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
-use Ewallet\Memberships\InMemoryMembers;
+use Fakes\Ewallet\Memberships\InMemoryMembers;
 use Ewallet\Memberships\MemberId;
 use Money\Money;
 

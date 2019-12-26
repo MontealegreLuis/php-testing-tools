@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\DataBuilders;
+namespace DataBuilders\Ewallet\Memberships;
 
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\TransferWasMade;

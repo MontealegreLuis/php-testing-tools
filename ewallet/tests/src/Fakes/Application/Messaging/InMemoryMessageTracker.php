@@ -5,7 +5,12 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Application\Messaging;
+namespace Fakes\Application\Messaging;
+
+use Application\Messaging\EmptyExchange;
+use Application\Messaging\InvalidPublishedMessageToTrack;
+use Application\Messaging\MessageTracker;
+use Application\Messaging\PublishedMessage;
 
 class InMemoryMessageTracker implements MessageTracker
 {

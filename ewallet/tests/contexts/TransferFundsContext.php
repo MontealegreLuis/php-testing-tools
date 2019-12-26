@@ -70,7 +70,7 @@ class TransferFundsContext implements Context
      */
     public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
-        $this->action->transfer(TransferFundsInput::from([
+        $this->action->transfer(new TransferFundsInput([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
             'amount' => $amount->getAmount() / 100,

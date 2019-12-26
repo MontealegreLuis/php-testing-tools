@@ -5,16 +5,16 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\ManageWallet\TransferFunds;
+namespace Adapters\Symfony\Ewallet\ManageWallet\TransferFunds;
 
 use PHPUnit\Framework\TestCase;
 
-class TransferFundsInputTest extends TestCase
+class TransferFundsValidatorTest extends TestCase
 {
     /** @test */
     function it_does_not_pass_validation_if_no_input_is_present()
     {
-        $input = TransferFundsInput::from([]);
+        $input = new TransferFundsValidator([]);
 
         $isValid = $input->isValid();
 
@@ -28,7 +28,7 @@ class TransferFundsInputTest extends TestCase
     /** @test */
     function it_does_not_pass_validation_if_ids_are_empty()
     {
-        $input = TransferFundsInput::from([
+        $input = new TransferFundsValidator([
             'senderId' => '  ',
             'amount' => 1000,
         ]);
@@ -44,7 +44,7 @@ class TransferFundsInputTest extends TestCase
     /** @test */
     function it_does_not_pass_validation_if_amount_is_not_greater_than_zero()
     {
-        $input = TransferFundsInput::from([
+        $input = new TransferFundsValidator([
             'senderId' => 'ABC',
             'recipientId' => 'DEF',
             'amount' => 0,

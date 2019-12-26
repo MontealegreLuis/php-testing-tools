@@ -7,7 +7,6 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Application\Actions\ActionResponder;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\UnknownMember;
 
@@ -15,7 +14,7 @@ use Ewallet\Memberships\UnknownMember;
  * Represents the action executed by a member, it is usually implemented as a controller or a console command.
  * It is meant to provide feedback to a member that wants to transfer funds
  */
-interface TransferFundsResponder extends ActionResponder
+interface TransferFundsResponder
 {
     public function respondToTransferCompleted(TransferFundsSummary $summary): void;
 

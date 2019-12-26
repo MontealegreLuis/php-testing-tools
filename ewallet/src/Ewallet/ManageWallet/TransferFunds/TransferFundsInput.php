@@ -7,37 +7,22 @@
 
 namespace Ewallet\ManageWallet\TransferFunds;
 
-use Adapters\Symfony\Application\Actions\ConstraintValidator;
 use Ewallet\Memberships\MemberId;
 use Money\Currency;
 use Money\Money;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Information needed to make a transfer
  */
-final class TransferFundsInput extends ConstraintValidator
+final class TransferFundsInput
 {
-    /**
-     * @Assert\NotBlank(message="Sender ID cannot be blank")
-     * @var string
-     */
+    /** @var MemberId */
     private $senderId;
 
-    /**
-     * @Assert\NotBlank(message="Recipient ID cannot be blank")
-     * @var string
-     */
+    /** @var MemberId */
     private $recipientId;
 
-    /**
-     * @Assert\Type(type="numeric",message="Transfer amount must be a number, '{{ value }}' found")
-     * @Assert\GreaterThan(
-     *     value=0,
-     *     message="Transferred amount must be greater than {{ compared_value }}, '{{ value }}' found"
-     * )
-     * @var int
-     */
+    /** @var Money */
     private $amount;
 
     public static function from(array $validInput): TransferFundsInput
@@ -48,28 +33,24 @@ final class TransferFundsInput extends ConstraintValidator
     /** @throws \Assert\AssertionFailedException If given identifier is invalid */
     public function senderId(): MemberId
     {
-        return new MemberId($this->senderId);
+        return $this->senderId;
     }
 
     /** @throws \Assert\AssertionFailedException If given identifier is invalid */
     public function recipientId(): MemberId
     {
-        return new MemberId($this->recipientId);
+        return $this->recipientId;
     }
 
     public function amount(): Money
     {
-        return new Money($this->amount * 100, new Currency('MXN'));
+        return $this->amount;
     }
 
-    /**
-     * TransferFundsInformation constructor.
-     */
-    public function __construct(array $values)
+    public function __construct(array $input)
     {
-        parent::__construct($values);
-        $this->senderId = trim($values['senderId'] ?? '');
-        $this->recipientId = trim($values['recipientId'] ?? '');
-        $this->amount = $values['amount'] ?? 0;
+        $this->senderId = new MemberId($input['senderId']);
+        $this->recipientId = new MemberId($input['recipientId']);
+        $this->amount = new Money($input['amount'] * 100, new Currency('MXN'));
     }
 }

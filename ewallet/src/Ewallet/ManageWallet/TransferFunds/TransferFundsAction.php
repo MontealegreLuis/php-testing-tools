@@ -35,15 +35,6 @@ class TransferFundsAction
     /** @throws LogicException If no action is attached to the current command */
     public function transfer(TransferFundsInput $input): void
     {
-        if (! $input->isValid()) {
-            $this->responder()->respondToInvalidInput($input);
-            return;
-        }
-        $this->tryToTransferFunds($input);
-    }
-
-    private function tryToTransferFunds(TransferFundsInput $input): void
-    {
         try {
             $sender = $this->members->with($input->senderId());
             $recipient = $this->members->with($input->recipientId());

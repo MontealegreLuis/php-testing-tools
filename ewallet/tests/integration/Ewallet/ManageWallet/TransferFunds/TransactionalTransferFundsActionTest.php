@@ -54,7 +54,7 @@ class TransactionalTransferFundsActionTest extends TestCase
     }
 
     /** @before */
-    public function configureUseCase(): void
+    public function let(): void
     {
         $setup = new DataStorageSetup(require __DIR__ . '/../../../../../config/config.php');
         $setup->updateSchema();
@@ -71,7 +71,7 @@ class TransactionalTransferFundsActionTest extends TestCase
         $this->responder = $this->prophesize(TransferFundsResponder::class);
         $this->action->attach($this->responder->reveal());
 
-        $this->threeMxn = TransferFundsInput::from([
+        $this->threeMxn = new TransferFundsInput([
             'senderId' => 'XYZ',
             'recipientId' => 'ABC',
             'amount' => 3,

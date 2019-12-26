@@ -14,15 +14,11 @@ use Symfony\Component\Validator\Validation;
 
 abstract class ConstraintValidator implements InputValidator
 {
-    /** @var array */
-    private $inputValues;
-
     /** @var ConstraintViolationListInterface */
     private $violations;
 
-    protected function __construct(array $values)
+    protected function __construct(array $input)
     {
-        $this->inputValues = $values;
         $this->violations = new ConstraintViolationList();
     }
 
@@ -52,6 +48,6 @@ abstract class ConstraintValidator implements InputValidator
      */
     public function values(): array
     {
-        return $this->inputValues;
+        return get_object_vars($this);
     }
 }

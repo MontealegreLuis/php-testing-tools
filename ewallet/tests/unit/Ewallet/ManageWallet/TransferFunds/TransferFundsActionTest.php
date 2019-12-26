@@ -22,26 +22,18 @@ class TransferFundsActionTest extends TestCase
     function it_fails_to_transfer_if_no_responder_is_given()
     {
         $this->expectException(LogicException::class);
-        $this->action->transfer(TransferFundsInput::from([]));
-    }
-
-    /** @test */
-    function it_provides_feedback_if_input_is_invalid()
-    {
-        $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInput::from([]);
-
-        $this->action->transfer($input);
-
-        $this->responder->respondToInvalidInput($input)->shouldHaveBeenCalled();
-        $this->assertFalse($input->isValid());
+        $this->action->transfer(new TransferFundsInput([
+            'senderId' => 'ABC',
+            'recipientId' => 'LMN',
+            'amount' => 10, // 10 MXN
+        ]));
     }
 
     /** @test */
     function it_provides_feedback_if_sender_cannot_be_found()
     {
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInput::from([
+        $input = new TransferFundsInput([
             'senderId' => 'unknown sender',
             'recipientId' => 'unknown recipient',
             'amount' => 10, // 10 MXN
@@ -50,7 +42,6 @@ class TransferFundsActionTest extends TestCase
         $this->action->transfer($input);
 
         $this->responder->respondToUnknownMember(Argument::type(UnknownMember::class))->shouldHaveBeenCalled();
-        $this->assertTrue($input->isValid());
     }
 
     /** @test */
@@ -59,7 +50,7 @@ class TransferFundsActionTest extends TestCase
         $sender = A::member()->build();
         $this->members->add($sender);
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInput::from([
+        $input = new TransferFundsInput([
             'senderId' => $sender->idValue(),
             'recipientId' => 'unknown recipient',
             'amount' => 10, // 10 MXN
@@ -68,7 +59,6 @@ class TransferFundsActionTest extends TestCase
         $this->action->transfer($input);
 
         $this->responder->respondToUnknownMember(Argument::type(UnknownMember::class))->shouldHaveBeenCalled();
-        $this->assertTrue($input->isValid());
     }
 
     /** @test */
@@ -79,7 +69,7 @@ class TransferFundsActionTest extends TestCase
         $this->members->add($sender);
         $this->members->add($recipient);
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInput::from([
+        $input = new TransferFundsInput([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
             'amount' => 10, // 10 MXN
@@ -97,7 +87,7 @@ class TransferFundsActionTest extends TestCase
         $this->members->add($sender);
         $this->members->add($recipient);
         $this->action->attach($this->responder->reveal());
-        $input = TransferFundsInput::from([
+        $input = new TransferFundsInput([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
             'amount' => 10, // 10 MXN
@@ -108,11 +98,10 @@ class TransferFundsActionTest extends TestCase
         $this->responder
             ->respondToTransferCompleted(Argument::type(TransferFundsSummary::class))
             ->shouldHaveBeenCalled();
-        $this->assertTrue($input->isValid());
     }
 
     /** @before */
-    function configure()
+    function let()
     {
         $this->members = new InMemoryMembers();
         $this->responder = $this->prophesize(TransferFundsResponder::class);

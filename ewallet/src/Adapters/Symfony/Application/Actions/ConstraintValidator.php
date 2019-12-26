@@ -40,7 +40,7 @@ abstract class ConstraintValidator implements InputValidator
         $errors  = [];
         /** @var \Symfony\Component\Validator\ConstraintViolation $violation */
         foreach ($this->violations as $violation) {
-            $errors[$violation->getPropertyPath()] = $violation->getMessage();
+            $errors[$violation->getPropertyPath()] = (string) $violation->getMessage();
         }
         return $errors;
     }

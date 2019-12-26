@@ -8,10 +8,11 @@
 namespace ContractTests\Application\DomainEvents;
 
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
-use Application\Clock;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEventFactory;
+use Carbon\CarbonImmutable;
 use Fakes\Application\DomainEvents\InstantaneousEvent;
+use Fakes\Application\FakeClock;
 use PHPUnit\Framework\TestCase;
 
 abstract class EventStoreTest extends TestCase
@@ -41,16 +42,16 @@ abstract class EventStoreTest extends TestCase
     }
 
     /** @before */
-    function generateFixtures(): void
+    function let()
     {
         $this->store = $this->storeInstance();
         $factory = new StoredEventFactory(new JsonSerializer());
 
-        $instant = Clock::now();
-        $event1 = $factory->from(new InstantaneousEvent($instant));
-        $this->event2 = $factory->from(new InstantaneousEvent($instant));
-        $event3 = $factory->from(new InstantaneousEvent($instant));
-        $this->event4 = $factory->from(new InstantaneousEvent($instant));
+        $clock = new FakeClock(CarbonImmutable::parse('2019-12-25 22:53:00'));
+        $event1 = $factory->from(new InstantaneousEvent($clock));
+        $this->event2 = $factory->from(new InstantaneousEvent($clock));
+        $event3 = $factory->from(new InstantaneousEvent($clock));
+        $this->event4 = $factory->from(new InstantaneousEvent($clock));
 
         $this->store->append($event1);
         $this->store->append($this->event2);

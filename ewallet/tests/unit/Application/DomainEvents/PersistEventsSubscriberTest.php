@@ -8,9 +8,10 @@
 namespace Application\DomainEvents;
 
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
-use Application\Clock;
+use Carbon\CarbonImmutable;
 use DataBuilders\A;
 use Fakes\Application\DomainEvents\InstantaneousEvent;
+use Fakes\Application\FakeClock;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +23,8 @@ class PersistEventsSubscriberTest extends TestCase
     /** @test */
     function it_subscribes_to_any_event_type()
     {
-        $instantaneousEvent = new InstantaneousEvent(Clock::now());
+        $clock = new FakeClock(CarbonImmutable::parse('2019-12-25 22:53:00'));
+        $instantaneousEvent = new InstantaneousEvent($clock);
         $transferWasMadeEvent = A::transferWasMadeEvent()->build();
 
         $this->assertTrue($this->subscriber->isSubscribedTo($instantaneousEvent));
@@ -43,7 +45,7 @@ class PersistEventsSubscriberTest extends TestCase
     }
 
     /** @before */
-    function configureSubscriber(): void
+    function let()
     {
         $this->store = Mockery::spy(EventStore::class);
         $this->subscriber = new PersistEventsSubscriber(

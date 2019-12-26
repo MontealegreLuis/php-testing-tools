@@ -8,9 +8,10 @@
 namespace Application\DomainEvents;
 
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
-use Application\Clock;
+use Carbon\CarbonImmutable;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\TransferWasMade;
+use Fakes\Application\FakeClock;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -19,13 +20,14 @@ class StoredEventFactoryTest extends TestCase
     /** @test */
     function it_creates_an_stored_event_from_a_given_domain_event()
     {
-        $occurredOn = Clock::fromFormattedString('2015-10-25 19:59:00');
-        Clock::freezeTimeAt($occurredOn);
+        $occurredOn = CarbonImmutable::parse('2015-10-25 19:59:00');
+        $clock = new FakeClock($occurredOn);
 
         $storedEvent = $this->factory->from(new TransferWasMade(
             new MemberId('abc'),
             Money::MXN(500000),
-            new MemberId('xyz')
+            new MemberId('xyz'),
+            $clock
         ));
 
         $this->assertEquals(
@@ -34,8 +36,6 @@ class StoredEventFactoryTest extends TestCase
         );
         $this->assertEquals(TransferWasMade::class, $storedEvent->type());
         $this->assertEquals($occurredOn, $storedEvent->occurredOn());
-
-        Clock::continue();
     }
 
     /** @before */

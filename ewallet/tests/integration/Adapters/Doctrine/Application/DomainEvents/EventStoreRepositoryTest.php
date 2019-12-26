@@ -15,12 +15,12 @@ use Doctrine\DataStorageSetup;
 class EventStoreRepositoryTest extends EventStoreTest
 {
     /** @before */
-    function generateFixtures(): void
+    function let()
     {
         $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../../config/config.php');
         $this->setup->updateSchema();
         $this->setup->entityManager()->createQuery('DELETE FROM ' . StoredEvent::class)->execute();
-        parent::generateFixtures();
+        parent::let();
     }
 
     public function storeInstance(): EventStore

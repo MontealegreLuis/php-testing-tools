@@ -7,8 +7,10 @@
 
 namespace Ewallet\Memberships;
 
-use Application\Clock;
 use Application\DomainEvents\DomainEvent;
+use Application\Clock;
+use Application\SystemClock;
+use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Money\Money;
 
@@ -17,7 +19,7 @@ use Money\Money;
  */
 final class TransferWasMade implements DomainEvent
 {
-    /** @var DateTimeInterface */
+    /** @var CarbonImmutable */
     private $occurredOn;
 
     /** @var MemberId */
@@ -29,9 +31,10 @@ final class TransferWasMade implements DomainEvent
     /** @var MemberId */
     private $recipientId;
 
-    public function __construct(MemberId $senderId, Money $amount, MemberId $recipientId)
+    public function __construct(MemberId $senderId, Money $amount, MemberId $recipientId, Clock $clock = null)
     {
-        $this->occurredOn = Clock::now();
+        $clock = $clock ?? new SystemClock();
+        $this->occurredOn = $clock->now();
         $this->senderId = $senderId;
         $this->amount = $amount;
         $this->recipientId = $recipientId;

@@ -7,9 +7,10 @@
 
 namespace Adapters\JmsSerializer\Application\DomainEvents;
 
-use Application\Clock;
+use Carbon\CarbonImmutable;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\TransferWasMade;
+use Fakes\Application\FakeClock;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -18,12 +19,13 @@ class JsonSerializerTest extends TestCase
     /** @test */
     function it_serializes_a_domain_event_to_json()
     {
-        Clock::freezeTimeAt(Clock::fromFormattedString('2015-10-24 12:39:51'));
+        $clock = new FakeClock(CarbonImmutable::parse('2015-10-24 12:39:51'));
 
         $json = (new JsonSerializer())->serialize(new TransferWasMade(
             new MemberId('abc'),
             Money::MXN(10000),
-            new MemberId('xyz')
+            new MemberId('xyz'),
+            $clock
         ));
 
         $this->assertEquals(
@@ -31,7 +33,5 @@ class JsonSerializerTest extends TestCase
             $json,
             'JSON format for serialized event is incorrect'
         );
-
-        Clock::continue();
     }
 }

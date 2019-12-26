@@ -8,6 +8,7 @@
 namespace Fakes\Application\DomainEvents;
 
 use Application\DomainEvents\DomainEvent;
+use Application\Clock;
 use DateTimeInterface;
 
 class InstantaneousEvent implements DomainEvent
@@ -15,9 +16,9 @@ class InstantaneousEvent implements DomainEvent
     /** @var DateTimeInterface */
     private $occurredOn;
 
-    public function __construct(DateTimeInterface $instant)
+    public function __construct(Clock $clock)
     {
-        $this->occurredOn = $instant;
+        $this->occurredOn = $clock->now();
     }
 
     public function occurredOn(): DateTimeInterface

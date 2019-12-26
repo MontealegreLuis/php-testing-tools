@@ -44,6 +44,9 @@
         "twig/twig": "To share display formatting between applications via Twig"
     },
     "config": {
+        "platform": {
+            "php": "7.2.19"
+        },
         "sort-packages": true
     },
     "autoload": {

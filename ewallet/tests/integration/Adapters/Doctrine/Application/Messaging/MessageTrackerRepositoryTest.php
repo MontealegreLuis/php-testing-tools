@@ -7,9 +7,9 @@
 
 namespace Adapters\Doctrine\Application\Messaging;
 
-use ContractTests\Application\Messaging\MessageTrackerTest;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
+use ContractTests\Application\Messaging\MessageTrackerTest;
 use Doctrine\DataStorageSetup;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest

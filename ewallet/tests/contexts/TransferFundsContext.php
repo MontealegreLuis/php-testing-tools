@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -10,8 +10,8 @@ use Behat\Behat\Context\Context;
 use DataBuilders\A;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
-use Fakes\Ewallet\Memberships\InMemoryMembers;
 use Ewallet\Memberships\MemberId;
+use Fakes\Ewallet\Memberships\InMemoryMembers;
 use Money\Money;
 
 /**

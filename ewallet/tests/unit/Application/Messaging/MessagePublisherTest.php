@@ -7,10 +7,10 @@
 
 namespace Application\Messaging;
 
-use Fakes\Application\DomainEvents\InMemoryEventStore;
 use Application\DomainEvents\StoredEvent;
 use DataBuilders\A;
 use Exception;
+use Fakes\Application\DomainEvents\InMemoryEventStore;
 use Fakes\Application\Messaging\InMemoryMessageTracker;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;

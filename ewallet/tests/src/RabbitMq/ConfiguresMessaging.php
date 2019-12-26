@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -92,7 +92,7 @@ trait ConfiguresMessaging
 
     private function channel(): AMQPChannel
     {
-        if (!$this->channel) {
+        if (! $this->channel) {
             $this->channel = $this->connection()->channel();
         }
         return $this->channel;
@@ -100,7 +100,7 @@ trait ConfiguresMessaging
 
     public function connection(): AMQPStreamConnection
     {
-        if (!$this->connection) {
+        if (! $this->connection) {
             $this->connection = new AMQPStreamConnection(
                 getenv('RABBIT_MQ_HOST'),
                 5672,

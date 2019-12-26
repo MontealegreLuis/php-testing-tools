@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -50,7 +50,7 @@ class InMemoryEventStore implements EventStore
         $addEvents = false;
         $eventsAfter = [];
         foreach ($this->events as $event) {
-            if (true === $addEvents) {
+            if ($addEvents === true) {
                 $eventsAfter[] = $event;
             }
             if ($event->id() === $lastStoredEventId) {

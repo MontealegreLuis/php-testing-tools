@@ -9,9 +9,9 @@ namespace Ewallet\ManageWallet\TransferFunds;
 
 use Application\DomainEvents\EventPublisher;
 use DataBuilders\A;
-use Fakes\Ewallet\Memberships\InMemoryMembers;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\UnknownMember;
+use Fakes\Ewallet\Memberships\InMemoryMembers;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;

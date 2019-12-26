@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -38,7 +38,7 @@ class AmqpMessageConsumer implements MessageConsumer
 
     public function open(string $exchangeName): void
     {
-        if (null !== $this->channel) {
+        if ($this->channel !== null) {
             return;
         }
 

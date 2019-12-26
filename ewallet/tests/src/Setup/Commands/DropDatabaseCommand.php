@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -53,7 +53,7 @@ class DropDatabaseCommand extends DatabaseCommand
     private function dropDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);
-        if (!$this->hasPath($parameters)) {
+        if (! $this->hasPath($parameters)) {
             $name = $connection->getDatabasePlatform()->quoteSingleIdentifier($name);
         }
 

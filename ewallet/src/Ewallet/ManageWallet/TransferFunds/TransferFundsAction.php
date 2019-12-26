@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -35,7 +35,7 @@ class TransferFundsAction
     /** @throws LogicException If no action is attached to the current command */
     public function transfer(TransferFundsInput $input): void
     {
-        if (!$input->isValid()) {
+        if (! $input->isValid()) {
             $this->responder()->respondToInvalidInput($input);
             return;
         }

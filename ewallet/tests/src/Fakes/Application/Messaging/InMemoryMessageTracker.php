@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -28,7 +28,7 @@ class InMemoryMessageTracker implements MessageTracker
     public function mostRecentPublishedMessage(
         string $exchangeName
     ): PublishedMessage {
-        if (!$this->hasPublishedMessages($exchangeName)) {
+        if (! $this->hasPublishedMessages($exchangeName)) {
             throw new EmptyExchange("No published messages in exchange $exchangeName");
         }
         return array_pop($this->messages);
@@ -40,7 +40,7 @@ class InMemoryMessageTracker implements MessageTracker
     public function track(PublishedMessage $mostRecentPublishedMessage): void
     {
         if (count($this->messages) > 0
-            && !$this->messages[count($this->messages) - 1]->equals($mostRecentPublishedMessage)
+            && ! $this->messages[count($this->messages) - 1]->equals($mostRecentPublishedMessage)
         ) {
             throw new InvalidPublishedMessageToTrack();
         }

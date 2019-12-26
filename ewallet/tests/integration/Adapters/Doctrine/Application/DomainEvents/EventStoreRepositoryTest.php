@@ -7,9 +7,9 @@
 
 namespace Adapters\Doctrine\Application\DomainEvents;
 
-use ContractTests\Application\DomainEvents\EventStoreTest;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
+use ContractTests\Application\DomainEvents\EventStoreTest;
 use Doctrine\DataStorageSetup;
 
 class EventStoreRepositoryTest extends EventStoreTest

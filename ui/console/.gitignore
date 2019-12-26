@@ -1,4 +1,4 @@
 /.env
-/humbuglog.txt
-/phan.txt
 /vendor/
+/infection.log
+/.phpunit.result.cache

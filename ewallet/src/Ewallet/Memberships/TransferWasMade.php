@@ -7,8 +7,8 @@
 
 namespace Ewallet\Memberships;
 
-use Application\DomainEvents\DomainEvent;
 use Application\Clock;
+use Application\DomainEvents\DomainEvent;
 use Application\SystemClock;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;

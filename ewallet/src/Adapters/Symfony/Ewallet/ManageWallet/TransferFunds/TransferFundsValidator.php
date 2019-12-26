@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -36,7 +36,7 @@ class TransferFundsValidator extends ConstraintValidator
 
     public function __construct(array $input)
     {
-        parent::__construct($input);
+        parent::__construct();
         $this->senderId = trim($input['senderId'] ?? '');
         $this->recipientId = trim($input['recipientId'] ?? '');
         $this->amount = $input['amount'] ?? 0;

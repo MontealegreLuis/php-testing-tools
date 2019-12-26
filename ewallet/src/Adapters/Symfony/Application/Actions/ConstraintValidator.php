@@ -17,7 +17,7 @@ abstract class ConstraintValidator implements InputValidator
     /** @var ConstraintViolationListInterface */
     private $violations;
 
-    protected function __construct(array $input)
+    protected function __construct()
     {
         $this->violations = new ConstraintViolationList();
     }

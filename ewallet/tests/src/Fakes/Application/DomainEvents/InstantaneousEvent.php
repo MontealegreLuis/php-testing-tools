@@ -7,8 +7,8 @@
 
 namespace Fakes\Application\DomainEvents;
 
-use Application\DomainEvents\DomainEvent;
 use Application\Clock;
+use Application\DomainEvents\DomainEvent;
 use DateTimeInterface;
 
 class InstantaneousEvent implements DomainEvent

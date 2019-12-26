@@ -7,6 +7,8 @@
 
 use Application\DomainEvents\EventPublisher;
 use Behat\Behat\Context\Context;
+use Behat\Ewallet\ManageWallet\TransferFunds\MemberDictionary;
+use Behat\Ewallet\ManageWallet\TransferFunds\TransferFundsResponderHelper;
 use DataBuilders\A;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
@@ -37,7 +39,7 @@ class TransferFundsContext implements Context
     private $action;
 
     /** @BeforeScenario */
-    public function prepare()
+    public function let()
     {
         $this->members = new InMemoryMembers();
         $this->helper = new TransferFundsResponderHelper();

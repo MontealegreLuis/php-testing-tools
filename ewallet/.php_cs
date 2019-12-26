@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,8 +8,8 @@
 $finder = PhpCsFixer\Finder::create()
     ->in([
         __DIR__ . '/src',
-        __DIR__ . '/tests/contexts',
         __DIR__ . '/tests/src/Alice',
+        __DIR__ . '/tests/src/Behat',
         __DIR__ . '/tests/src/DataBuilders',
         __DIR__ . '/tests/src/Doctrine',
         __DIR__ . '/tests/src/Fakes',

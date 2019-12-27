@@ -9,7 +9,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use Ewallet\Pimple\EwalletConsoleContainer;
-use Ewallet\SymfonyConsole\EwalletApplication;
+use Ewallet\Ui\Console\EwalletApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

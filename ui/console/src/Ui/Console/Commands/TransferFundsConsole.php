@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\ManageWallet;
+namespace Ewallet\Ui\Console\Commands;
 
 use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
 use Ewallet\Memberships\Member;

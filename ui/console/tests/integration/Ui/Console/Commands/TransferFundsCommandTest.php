@@ -5,7 +5,7 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\SymfonyConsole\Commands;
+namespace Ewallet\Ui\Console\Commands;
 
 use Adapters\Doctrine\Application\Services\DoctrineSession;
 use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
@@ -13,7 +13,6 @@ use Alice\ThreeMembersWithSameBalanceFixture;
 use Application\DomainEvents\EventPublisher;
 use Doctrine\DataStorageSetup;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
-use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\MemberFormatter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;

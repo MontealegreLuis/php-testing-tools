@@ -5,10 +5,10 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\SymfonyConsole;
+namespace Ewallet\Ui\Console;
 
 use Ewallet\Pimple\EwalletConsoleContainer;
-use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
+use Ewallet\Ui\Console\Commands\TransferFundsCommand;
 use Symfony\Component\Console\Application;
 
 class EwalletApplication extends Application

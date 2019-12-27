@@ -9,9 +9,9 @@ namespace Ewallet\Pimple\ServiceProviders;
 
 use Adapters\Pimple\Application\DependencyInjection\EwalletServiceProvider;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
-use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\MemberFormatter;
-use Ewallet\SymfonyConsole\Commands\TransferFundsCommand;
+use Ewallet\Ui\Console\Commands\TransferFundsCommand;
+use Ewallet\Ui\Console\Commands\TransferFundsConsole;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Symfony\Component\Console\Input\ArgvInput;

@@ -5,14 +5,13 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\SymfonyConsole\Commands;
+namespace Ewallet\Ui\Console\Commands;
 
-use Application\Actions\InputValidator;
+use Adapters\Symfony\Ewallet\ManageWallet\TransferFunds\TransferFundsValidator;
 use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
-use Ewallet\ManageWallet\TransferFundsConsole;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\UnknownMember;
 use Symfony\Component\Console\Command\Command;
@@ -80,9 +79,15 @@ class TransferFundsCommand extends Command implements TransferFundsResponder
      * @throws \Ewallet\Memberships\InvalidTransfer If the amount to transfer is not greater than 0
      * @throws \Ewallet\Memberships\UnknownMember If either the sender or recipient are unknown
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->action->transfer(TransferFundsInput::from($input->getArguments()));
+        $validator = new TransferFundsValidator($input->getArguments());
+        if (! $validator->isValid()) {
+            $this->console->printError($validator->errors(), 'FUNDS-422-001');
+            return self::ERROR;
+        }
+
+        $this->action->transfer(new TransferFundsInput($input->getArguments()));
 
         return $this->exitCode;
     }
@@ -91,12 +96,6 @@ class TransferFundsCommand extends Command implements TransferFundsResponder
     {
         $this->console->printSummary($summary);
         $this->exitCode = self::SUCCESS;
-    }
-
-    public function respondToInvalidInput(InputValidator $input): void
-    {
-        $this->console->printError($input->errors(), 'FUNDS-422-001');
-        $this->exitCode = self::ERROR;
     }
 
     public function respondToUnknownMember(UnknownMember $exception): void

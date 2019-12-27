@@ -11,20 +11,26 @@
     ],
     "require": {
         "php": ">=7.2",
-        "ewallet/application": "~1.0",
-        "symfony/console": "~4.2",
-        "vlucas/phpdotenv": "~3.3",
-        "zendframework/zend-mail": "~2.10"
+        "ewallet/application": "1.0",
+        "symfony/console": "4.2.8",
+        "vlucas/phpdotenv": "3.3.3",
+        "zendframework/zend-mail": "2.10.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.15",
-        "fzaninotto/faker": "~1.8",
-        "mockery/mockery": "~1.2",
-        "phpstan/phpstan": "^0.11",
-        "phpstan/phpstan-strict-rules": "^0.11.1",
-        "phpunit/phpunit": "~8.1",
-        "roave/security-advisories": "dev-master",
-        "infection/infection": "^0.13.1"
+        "friendsofphp/php-cs-fixer": "2.15.0",
+        "fzaninotto/faker": "1.8.0",
+        "infection/infection": "0.13.1",
+        "mockery/mockery": "1.2.2",
+        "phpstan/phpstan": "0.11.8",
+        "phpstan/phpstan-strict-rules": "0.11.1",
+        "phpunit/phpunit": "8.1.6",
+        "roave/security-advisories": "dev-master"
+    },
+    "config": {
+        "platform": {
+            "php": "7.2.19"
+        },
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -13,7 +13,7 @@ use Ewallet\Ui\Console\EwalletApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-if (!isset($_ENV['APP_ENV'])) {
+if (! isset($_ENV['APP_ENV'])) {
     // We' re not running the application from the containers
     $environment = Dotenv::create(__DIR__ . '/../');
     $environment->load();

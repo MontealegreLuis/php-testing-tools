@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -92,9 +92,9 @@ class TransferFundsCommandTest extends TestCase
     }
 
     /** @before */
-    public function configureCommand(): void
+    public function let(): void
     {
-        $setup = new DataStorageSetup(require __DIR__ . '/../../../../config.php');
+        $setup = new DataStorageSetup(require __DIR__ . '/../../../../../config.php');
         $setup->updateSchema();
         (new ThreeMembersWithSameBalanceFixture($setup->entityManager()))->load();
         $members = new MembersRepository($setup->entityManager());

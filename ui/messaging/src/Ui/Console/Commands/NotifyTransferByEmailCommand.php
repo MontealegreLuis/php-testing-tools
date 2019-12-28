@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\SymfonyConsole\Commands;
+namespace Ewallet\Ui\Console\Commands;
 
 use Application\Messaging\MessageConsumer;
 use Closure;
@@ -32,10 +32,10 @@ class NotifyTransferByEmailCommand extends Command
         MessageConsumer $consumer,
         string $exchangeName = 'ewallet'
     ) {
+        parent::__construct();
         $this->notifier = $notifier;
         $this->consumer = $consumer;
         $this->exchangeName = $exchangeName;
-        parent::__construct();
     }
 
     protected function configure(): void
@@ -46,13 +46,10 @@ class NotifyTransferByEmailCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->consumer->open($this->exchangeName);
-        $this->consumer->consume(
-            $this->exchangeName,
-            Closure::fromCallable([$this, 'notify'])
-        );
+        $this->consumer->consume($this->exchangeName, Closure::fromCallable([$this, 'notify']));
         $this->consumer->close();
 
         return 0;
@@ -60,15 +57,14 @@ class NotifyTransferByEmailCommand extends Command
 
     public function notify(stdClass $message, string $event): void
     {
-        if (!$this->notifier->shouldNotifyOn($event)) {
+        if (! $this->notifier->shouldNotifyOn($event)) {
             return;
         }
 
         $this->notifier->notify(new TransferFundsNotification(
             $message->sender_id,
-            $message->amount,
-            $message->recipient_id,
-            $message->occurred_on
+            (int) $message->amount,
+            $message->recipient_id
         ));
     }
 }

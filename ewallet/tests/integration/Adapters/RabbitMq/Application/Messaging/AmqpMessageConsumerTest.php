@@ -37,7 +37,7 @@ class AmqpMessageConsumerTest extends TestCase
     }
 
     /** @before */
-    function configureChannel(): void
+    function let(): void
     {
         $configuration = ChannelConfiguration::temporary();
         $this->bindChannel($configuration);

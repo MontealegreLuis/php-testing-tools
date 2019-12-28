@@ -39,7 +39,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Ewallet\\": "vendor/ewallet/application/tests/src"
+            "Ewallet\\": [
+                "vendor/ewallet/application/tests/src",
+                "tests/unit",
+                "tests/integration"
+            ]
         }
     },
     "repositories": [

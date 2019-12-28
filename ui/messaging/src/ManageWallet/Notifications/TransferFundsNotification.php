@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -8,14 +8,15 @@
 namespace Ewallet\ManageWallet\Notifications;
 
 use Application\Clock;
-use DateTimeInterface;
+use Application\SystemClock;
+use Carbon\CarbonImmutable;
 use Ewallet\Memberships\MemberId;
 use Money\Currency;
 use Money\Money;
 
 class TransferFundsNotification
 {
-    /** @var DateTimeInterface */
+    /** @var CarbonImmutable */
     private $occurredOn;
 
     /** @var MemberId */
@@ -27,19 +28,16 @@ class TransferFundsNotification
     /** @var MemberId */
     private $recipientId;
 
-    public function __construct(
-        string $senderId,
-        int $amount,
-        string $recipientId,
-        string $occurredOn
-    ) {
-        $this->occurredOn = Clock::fromFormattedString($occurredOn);
+    public function __construct(string $senderId, int $amount, string $recipientId, Clock $clock = null)
+    {
+        $clock = $clock ?? new SystemClock();
+        $this->occurredOn = $clock->now();
         $this->senderId = new MemberId($senderId);
         $this->amount = new Money($amount, new Currency('MXN'));
         $this->recipientId = new MemberId($recipientId);
     }
 
-    public function occurredOn(): DateTimeInterface
+    public function occurredOn(): CarbonImmutable
     {
         return $this->occurredOn;
     }

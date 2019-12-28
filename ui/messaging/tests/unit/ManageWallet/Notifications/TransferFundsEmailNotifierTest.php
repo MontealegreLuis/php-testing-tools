@@ -1,15 +1,17 @@
 <?php
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Ewallet\ManageWallet\Notifications;
 
+use Carbon\CarbonImmutable;
 use DataBuilders\A;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\TransferWasMade;
+use Fakes\Application\FakeClock;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -39,12 +41,8 @@ class TransferFundsEmailNotifierTest extends TestCase
     {
         $senderId = 'abc';
         $recipientId = 'xyz';
-        $notification = new TransferFundsNotification(
-            $senderId,
-            500,
-            $recipientId,
-            '2016-08-15 00:00:00'
-        );
+        $clock = new FakeClock(CarbonImmutable::parse('2016-08-15 00:00:00'));
+        $notification = new TransferFundsNotification($senderId, 500, $recipientId, $clock);
         $this->members
             ->shouldReceive('with')
             ->with($notification->senderId())

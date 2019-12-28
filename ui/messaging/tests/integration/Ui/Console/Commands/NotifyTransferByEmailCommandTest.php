@@ -1,11 +1,11 @@
 <?php
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\SymfonyConsole\Commands;
+namespace Ewallet\Ui\Console\Commands;
 
 use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
 use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
@@ -62,7 +62,7 @@ class NotifyTransferByEmailCommandTest extends TestCase
     }
 
     /** @before */
-    function configureChannel(): void
+    function let(): void
     {
         $configuration = ChannelConfiguration::temporary();
         $this->bindChannel($configuration);

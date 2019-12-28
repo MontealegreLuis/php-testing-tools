@@ -92,7 +92,7 @@ trait ConfiguresMessaging
 
     private function channel(): AMQPChannel
     {
-        if (! $this->channel) {
+        if (!$this->channel) {
             $this->channel = $this->connection()->channel();
         }
         return $this->channel;

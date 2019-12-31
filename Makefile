@@ -47,6 +47,10 @@ tests:
 	@cd ewallet && make tests
 	@echo "Console application"
 	@cd ui/console && make tests
+	@echo "Messaging application"
+	@cd ui/messaging && make tests
+	@echo "Web application"
+	@cd ui/web && make tests
 	@echo "Done!"
 
 check:

@@ -25,6 +25,22 @@ return PhpCsFixer\Config::create()
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'no_whitespace_in_blank_line' => true,
-        'class_attributes_separation' => ['elements' => ['method']],
+        'declare_strict_types' => true,
+        'class_attributes_separation' => ['elements' => ['method', 'property']],
+        'header_comment' => [
+            'commentType' => 'PHPDoc',
+            'header' => 'PHP version 7.2
+
+This source file is subject to the license that is bundled with this package in the file LICENSE.',
+            'separate' => 'bottom',
+            'location' => 'after_declare_strict',
+        ],
+        'single_blank_line_at_eof' => true,
+        'cast_spaces' => ['space' => 'single'],
+        'not_operator_with_successor_space' => true,
+        'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
+        'return_type_declaration' => ['space_before' => 'none'],
+        'modernize_types_casting' => true,
     ])
+    ->setRiskyAllowed(true)
     ->setFinder($finder);

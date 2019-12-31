@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -50,7 +50,7 @@ class RouterExtension extends Extension
     {
         /** @var \Slim\Http\Uri $uri */
         $uri = $this->request->getUri();
-        return (string)preg_replace(
+        return (string) preg_replace(
             '#/+#',
             '/',
             sprintf('%s%s', \dirname($uri->getBasePath()), $path)

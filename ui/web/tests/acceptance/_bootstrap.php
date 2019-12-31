@@ -1,2 +1,6 @@
 <?php
-// Here you can initialize variables that will be available to your tests
+/**
+ * PHP version 7.2
+ *
+ * This source file is subject to the license that is bundled with this package in the file LICENSE.
+ */

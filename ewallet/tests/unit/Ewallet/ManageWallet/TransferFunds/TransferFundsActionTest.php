@@ -15,9 +15,12 @@ use Fakes\Ewallet\Memberships\InMemoryMembers;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class TransferFundsActionTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @test */
     function it_fails_to_transfer_if_no_responder_is_given()
     {

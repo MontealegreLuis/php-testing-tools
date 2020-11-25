@@ -7,7 +7,7 @@
 
 namespace Alice;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Ewallet\Memberships\Member;
 use Nelmio\Alice\Loader\NativeLoader;
 
@@ -17,10 +17,10 @@ use Nelmio\Alice\Loader\NativeLoader;
  */
 class ThreeMembersWithSameBalanceFixture
 {
-    /** @var ObjectManager */
+    /** @var EntityManager */
     private $objectManager;
 
-    public function __construct(ObjectManager $objectManager)
+    public function __construct(EntityManager $objectManager)
     {
         $this->objectManager = $objectManager;
     }

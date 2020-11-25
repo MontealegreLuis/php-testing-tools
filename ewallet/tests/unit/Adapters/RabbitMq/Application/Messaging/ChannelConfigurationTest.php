@@ -9,9 +9,12 @@ namespace Adapters\RabbitMq\Application\Messaging;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ChannelConfigurationTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @test */
     function it_configures_a_temporary_exchange()
     {

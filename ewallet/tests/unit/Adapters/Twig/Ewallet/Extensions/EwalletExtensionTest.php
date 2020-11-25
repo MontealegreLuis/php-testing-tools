@@ -12,9 +12,12 @@ use Ewallet\Memberships\MemberFormatter;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class EwalletExtensionTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @test */
     function it_delegates_formatting_a_money_object()
     {

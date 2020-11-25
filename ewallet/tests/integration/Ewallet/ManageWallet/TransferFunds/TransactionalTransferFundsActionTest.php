@@ -16,10 +16,12 @@ use Exception;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use RuntimeException;
 
 class TransactionalTransferFundsActionTest extends TestCase
 {
+    use ProphecyTrait;
     use ProvidesMoneyConstraints;
 
     /** @test */

@@ -14,9 +14,12 @@ use Fakes\Application\DomainEvents\InMemoryEventStore;
 use Fakes\Application\Messaging\InMemoryMessageTracker;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class MessagePublisherTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @test */
     function it_publishes_a_single_message_to_an_empty_exchange()
     {

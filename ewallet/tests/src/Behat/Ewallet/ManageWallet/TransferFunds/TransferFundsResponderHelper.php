@@ -10,9 +10,11 @@ namespace Behat\Ewallet\ManageWallet\TransferFunds;
 use Application\Actions\InputValidator;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
+use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\UnknownMember;
 use Money\Money;
+use PHPUnit\Framework\Assert;
 
 class TransferFundsResponderHelper implements TransferFundsResponder
 {
@@ -35,12 +37,12 @@ class TransferFundsResponderHelper implements TransferFundsResponder
      */
     public function assertTransferWasMade(): void
     {
-        assertTrue($this->transferWasMade, 'Transfer is incomplete.');
+        Assert::assertTrue($this->transferWasMade, 'Transfer is incomplete.');
     }
 
     public function assertBalanceIs(Money $expectedAmount, Member $forMember): void
     {
-        assertTrue(
+        Assert::assertTrue(
             $expectedAmount->equals($forMember->accountBalance()),
             sprintf(
                 'Final balance does not match, expecting %.2f, found %.2f',
@@ -50,14 +52,14 @@ class TransferFundsResponderHelper implements TransferFundsResponder
         );
     }
 
-    public function respondToInsufficientFunds(\Ewallet\Memberships\InsufficientFunds $exception): void
+    public function respondToInsufficientFunds(InsufficientFunds $exception): void
     {
         $this->senderHasEnoughFunds = true;
     }
 
     public function assertSenderDoesNotHaveEnoughFunds(): void
     {
-        assertTrue($this->senderHasEnoughFunds, 'Sender should not have enough funds.');
+        Assert::assertTrue($this->senderHasEnoughFunds, 'Sender should not have enough funds.');
     }
 
     public function respondToInvalidInput(InputValidator $input): void

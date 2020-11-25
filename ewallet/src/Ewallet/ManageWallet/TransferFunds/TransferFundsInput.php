@@ -30,13 +30,11 @@ final class TransferFundsInput
         return new self($validInput);
     }
 
-    /** @throws \Assert\AssertionFailedException If given identifier is invalid */
     public function senderId(): MemberId
     {
         return $this->senderId;
     }
 
-    /** @throws \Assert\AssertionFailedException If given identifier is invalid */
     public function recipientId(): MemberId
     {
         return $this->recipientId;

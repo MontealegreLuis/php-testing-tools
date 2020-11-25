@@ -10,9 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "ext-json": "*",
-        "beberlei/assert": "~3.1",
         "doctrine/annotations": "~1.6",
         "doctrine/cache": "~1.8",
         "doctrine/orm": "~2.6",
@@ -20,7 +19,8 @@
         "moneyphp/money": "~3.1",
         "nesbot/carbon": "~2.7",
         "pimple/pimple": "~3.2",
-        "symfony/validator": "~4.2"
+        "symfony/validator": "~4.2",
+        "webmozart/assert": "^1.9"
     },
     "require-dev": {
         "behat/behat": "~3.5",
@@ -31,9 +31,9 @@
         "mockery/mockery": "^1.2",
         "nelmio/alice": "~3.5",
         "php-amqplib/php-amqplib": "~2.8",
-        "phpspec/phpspec": "~5.1",
-        "phpstan/phpstan": "^0.11.7",
-        "phpstan/phpstan-strict-rules": "^0.11.1",
+        "phpspec/phpspec": "~6.3",
+        "phpstan/phpstan": "^0.12.57",
+        "phpstan/phpstan-strict-rules": "^0.12.5",
         "phpunit/phpunit": "~8.1",
         "roave/security-advisories": "dev-master",
         "twig/twig": "~2.5",
@@ -45,7 +45,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.2.19"
+            "php": "7.4.12"
         },
         "sort-packages": true
     },

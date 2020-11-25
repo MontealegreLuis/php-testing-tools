@@ -7,7 +7,7 @@
 
 namespace Ewallet\Memberships;
 
-use Assert\Assertion;
+use Webmozart\Assert\Assert;
 
 abstract class Identifier
 {
@@ -24,25 +24,19 @@ abstract class Identifier
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }
 
-    /** @throws \Assert\AssertionFailedException If an empty identifier is given */
     public function __construct(string $value)
     {
         $this->setId(trim($value));
     }
 
-    /** @throws \Assert\AssertionFailedException If an empty identifier is given */
     private function setId(string $value): void
     {
-        Assertion::notEmpty($value, 'An identifier cannot be empty');
-
+        Assert::notEmpty($value);
         $this->value = $value;
     }
 }

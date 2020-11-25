@@ -7,7 +7,7 @@
 
 namespace specs\Ewallet\Memberships;
 
-use Assert\InvalidArgumentException;
+use InvalidArgumentException;
 use Ewallet\Memberships\MemberId;
 use PhpSpec\ObjectBehavior;
 

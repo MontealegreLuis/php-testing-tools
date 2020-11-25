@@ -13,7 +13,7 @@ use RuntimeException;
 /**
  * This exception is thrown when a member tries to transfer a negative amount.
  */
-class InvalidTransfer extends RuntimeException
+final class InvalidTransfer extends RuntimeException
 {
     public static function with(Money $amount): InvalidTransfer
     {

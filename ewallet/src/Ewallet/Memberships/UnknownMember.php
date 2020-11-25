@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * Exception thrown when a member information cannot be found
  */
-class UnknownMember extends RuntimeException
+final class UnknownMember extends RuntimeException
 {
     public static function identifiedBy(MemberId $memberId): UnknownMember
     {

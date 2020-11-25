@@ -7,10 +7,9 @@
 
 namespace Ewallet\Memberships;
 
-use Application\DomainEvents\CanRecordEvents;
-use Application\DomainEvents\{RecordsEvents};
-use Assert\Assertion;
+use Application\DomainEvents\{CanRecordEvents, RecordsEvents};
 use Money\Money;
+use Webmozart\Assert\Assert;
 
 /**
  * Members can transfer money to each other's accounts
@@ -105,13 +104,9 @@ class Member implements CanRecordEvents
         $this->account = $account;
     }
 
-    /**
-     * @throws \Assert\AssertionFailedException If an empty name is given
-     */
     protected function setName(string $name): void
     {
-        Assertion::notEmpty($name, 'A member\'s name cannot be empty');
-
+        Assert::notEmpty($name);
         $this->name = $name;
     }
 

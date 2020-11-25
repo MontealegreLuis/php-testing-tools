@@ -7,7 +7,7 @@
 
 namespace specs\Ewallet\Memberships;
 
-use Assert\InvalidArgumentException;
+use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 
 class EmailSpec extends ObjectBehavior

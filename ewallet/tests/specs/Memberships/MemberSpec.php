@@ -7,7 +7,7 @@
 
 namespace specs\Ewallet\Memberships;
 
-use Assert\InvalidArgumentException;
+use InvalidArgumentException;
 use DataBuilders\A;
 use Ewallet\Memberships\Email;
 use Ewallet\Memberships\InvalidTransfer;

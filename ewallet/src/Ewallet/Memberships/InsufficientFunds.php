@@ -13,7 +13,7 @@ use RuntimeException;
 /**
  * This exception is thrown to prevent a member to overdraw her account
  */
-class InsufficientFunds extends RuntimeException
+final class InsufficientFunds extends RuntimeException
 {
     public static function withdrawing(
         Money $amount,

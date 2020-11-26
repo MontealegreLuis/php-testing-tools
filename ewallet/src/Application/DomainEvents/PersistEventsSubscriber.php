@@ -12,11 +12,9 @@ namespace Application\DomainEvents;
  */
 class PersistEventsSubscriber implements EventSubscriber
 {
-    /** @var EventStore */
-    private $eventStore;
+    private EventStore $eventStore;
 
-    /** @var StoredEventFactory */
-    private $eventFactory;
+    private StoredEventFactory $eventFactory;
 
     public function __construct(EventStore $eventStore, StoredEventFactory $eventFactory)
     {

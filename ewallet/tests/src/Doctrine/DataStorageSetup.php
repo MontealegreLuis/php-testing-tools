@@ -17,10 +17,9 @@ use Doctrine\ORM\Tools\Setup;
 
 class DataStorageSetup
 {
-    private static $migrated = false;
+    private static bool $migrated = false;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * Setup XML mapping configuration, configure entity manager, add custom types

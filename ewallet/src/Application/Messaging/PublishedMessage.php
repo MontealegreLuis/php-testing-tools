@@ -9,14 +9,11 @@ namespace Application\Messaging;
 
 class PublishedMessage
 {
-    /** @var integer */
-    private $id;
+    private ?int $id = null;
 
-    /** @var string */
-    private $exchangeName;
+    private string $exchangeName;
 
-    /** @var int */
-    private $mostRecentMessageId;
+    private int $mostRecentMessageId;
 
     public function __construct(string $exchangeName, int $mostRecentMessageId)
     {

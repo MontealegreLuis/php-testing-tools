@@ -7,6 +7,7 @@
 
 namespace DataBuilders\Ewallet\Memberships;
 
+use Faker\Generator;
 use Ewallet\Memberships\Email;
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberId;
@@ -15,20 +16,16 @@ use Money\Money;
 
 class MembersBuilder
 {
-    /** @var Factory */
-    private $faker;
+    private Generator $faker;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $email;
+    private string $email;
 
     /** @var integer */
     private $amount;
 
-    /** @var string */
-    private $id;
+    private string $id;
 
     /**
      * Initialize member's information with fake data
@@ -69,7 +66,7 @@ class MembersBuilder
 
     public function build(): Member
     {
-        $amount = Money::MXN($this->faker->numberBetween(1, 10000));
+        $amount = Money::MXN($this->faker->numberBetween(1, 10_000));
         if ($this->amount) {
             $amount = \is_int($this->amount) ? Money::MXN($this->amount) : $this->amount;
         }

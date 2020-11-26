@@ -7,6 +7,7 @@
 
 namespace DataBuilders\Application\DomainEvents;
 
+use Faker\Generator;
 use DateTime;
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\DomainEvents\EventSerializer;
@@ -19,26 +20,19 @@ use ReflectionClass;
 
 class StoredEventBuilder
 {
-    /** @var Factory */
-    private $factory;
+    private Generator $factory;
 
-    /** @var TransferWasMadeBuilder */
-    private $eventBuilder;
+    private TransferWasMadeBuilder $eventBuilder;
 
-    /** @var EventSerializer */
-    private $serializer;
+    private JsonSerializer $serializer;
 
-    /** @var integer */
-    private $id;
+    private int $id;
 
-    /** @var string */
-    private $body;
+    private string $body;
 
-    /** @var string */
-    private $type;
+    private string $type;
 
-    /** @var DateTime */
-    private $occurredOn;
+    private DateTime $occurredOn;
 
     /**
      * By default all the stored event bodies are taken from a `TransferWasMade`
@@ -86,7 +80,7 @@ class StoredEventBuilder
 
     protected function reset(): void
     {
-        $this->id = $this->factory->numberBetween(1, 10000);
+        $this->id = $this->factory->numberBetween(1, 10_000);
         $this->body = $this->serializer->serialize($this->eventBuilder->build());
         $this->type = TransferWasMade::class;
         $this->occurredOn = $this->factory->dateTimeThisMonth;

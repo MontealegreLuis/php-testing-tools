@@ -22,17 +22,13 @@ use PhpAmqpLib\Message\AMQPMessage;
  */
 trait ConfiguresMessaging
 {
-    /** @var string */
-    protected $EXCHANGE_NAME = 'test';
+    protected string $EXCHANGE_NAME = 'test';
 
-    /** @var bool */
-    private $consumed = false;
+    private bool $consumed = false;
 
-    /** @var AMQPStreamConnection */
-    private $connection;
+    private ?AMQPStreamConnection $connection = null;
 
-    /** @var AMQPChannel */
-    private $channel;
+    private ?AMQPChannel $channel = null;
 
     /**
      * Configures the channel before publishing
@@ -105,7 +101,7 @@ trait ConfiguresMessaging
         if (! $this->connection) {
             $this->connection = new AMQPStreamConnection(
                 getenv('RABBIT_MQ_HOST'),
-                5672,
+                5_672,
                 getenv('RABBIT_MQ_USER'),
                 getenv('RABBIT_MQ_PASSWORD')
             );

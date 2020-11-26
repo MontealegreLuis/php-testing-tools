@@ -15,7 +15,7 @@ use Application\Messaging\PublishedMessage;
 class InMemoryMessageTracker implements MessageTracker
 {
     /** @var PublishedMessage[] */
-    private $messages = [];
+    private array $messages = [];
 
     public function hasPublishedMessages(string $exchangeName): bool
     {

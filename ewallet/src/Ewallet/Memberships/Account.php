@@ -14,8 +14,7 @@ use Money\Money;
  */
 final class Account
 {
-    /** @var Money */
-    private $balance;
+    private Money $balance;
 
     private function __construct(Money $amount)
     {

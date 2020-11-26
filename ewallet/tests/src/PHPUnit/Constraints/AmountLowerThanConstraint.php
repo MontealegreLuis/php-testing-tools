@@ -12,8 +12,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 class AmountLowerThanConstraint extends Constraint
 {
-    /** @var Money */
-    private $upperLimit;
+    private Money $upperLimit;
 
     public function __construct(Money $upperLimit)
     {

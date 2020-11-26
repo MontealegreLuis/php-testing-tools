@@ -11,8 +11,7 @@ use Webmozart\Assert\Assert;
 
 abstract class Identifier
 {
-    /** @var string */
-    private $value;
+    private string $value;
 
     public function equals(Identifier $anotherId): bool
     {

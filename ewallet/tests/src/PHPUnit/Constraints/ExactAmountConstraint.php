@@ -12,8 +12,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 class ExactAmountConstraint extends Constraint
 {
-    /** @var int */
-    private $expectedAmount;
+    private int $expectedAmount;
 
     public function __construct(int $expected)
     {

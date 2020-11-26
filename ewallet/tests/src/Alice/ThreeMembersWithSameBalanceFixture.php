@@ -17,8 +17,7 @@ use Nelmio\Alice\Loader\NativeLoader;
  */
 class ThreeMembersWithSameBalanceFixture
 {
-    /** @var EntityManager */
-    private $objectManager;
+    private EntityManager $objectManager;
 
     public function __construct(EntityManager $objectManager)
     {

@@ -7,6 +7,7 @@
 
 namespace DataBuilders\Ewallet\Memberships;
 
+use Faker\Generator;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
@@ -14,17 +15,13 @@ use Money\Money;
 
 class TransferWasMadeBuilder
 {
-    /** @var Factory */
-    private $factory;
+    private Generator $factory;
 
-    /** @var string */
-    private $senderId;
+    private string $senderId;
 
-    /** @var integer */
-    private $amount;
+    private int $amount;
 
-    /** @var integer */
-    private $recipientId;
+    private string $recipientId;
 
     public function __construct()
     {
@@ -51,7 +48,7 @@ class TransferWasMadeBuilder
     private function reset(): void
     {
         $this->senderId = $this->factory->uuid;
-        $this->amount = $this->factory->numberBetween(1, 10000);
+        $this->amount = $this->factory->numberBetween(1, 10_000);
         $this->recipientId = $this->factory->uuid;
     }
 }

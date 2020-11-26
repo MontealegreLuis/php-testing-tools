@@ -13,7 +13,7 @@ namespace Application\DomainEvents;
 class EventPublisher
 {
     /** @var EventSubscriber[] */
-    private $subscribers;
+    private array $subscribers;
 
     public function __construct()
     {

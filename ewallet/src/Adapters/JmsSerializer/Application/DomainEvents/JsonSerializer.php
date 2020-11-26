@@ -31,27 +31,21 @@ class JsonSerializer implements EventSerializer
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     Money::class,
                     'json',
-                    function ($visitor, Money $money, array $type): string {
-                        return $money->getAmount();
-                    }
+                    fn($visitor, Money $money, array $type): string => $money->getAmount()
                 );
                 // We only need the value of the ID
                 $registry->registerHandler(
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     MemberId::class,
                     'json',
-                    function ($visitor, MemberId $id, array $type): string {
-                        return (string) $id;
-                    }
+                    fn($visitor, MemberId $id, array $type): string => (string) $id
                 );
                 // Use specific format for date/time objects
                 $registry->registerHandler(
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     CarbonImmutable::class,
                     'json',
-                    function ($visitor, CarbonImmutable $dateTime, array $type): string {
-                        return $dateTime->format('Y-m-d H:i:s');
-                    }
+                    fn($visitor, CarbonImmutable $dateTime, array $type): string => $dateTime->format('Y-m-d H:i:s')
                 );
             })
             ->build();

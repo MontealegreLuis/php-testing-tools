@@ -11,8 +11,7 @@ use Closure;
 
 trait ProvidesTransactionalOperations
 {
-    /** @var TransactionalSession */
-    private $session;
+    private TransactionalSession $session;
 
     public function setTransactionalSession(TransactionalSession $session): void
     {

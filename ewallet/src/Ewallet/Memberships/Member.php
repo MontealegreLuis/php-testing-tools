@@ -18,17 +18,13 @@ class Member implements CanRecordEvents
 {
     use RecordsEvents;
 
-    /** @var MemberId */
-    private $memberId;
+    private MemberId $memberId;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var Email */
-    private $email;
+    private Email $email;
 
-    /** @var Account */
-    private $account;
+    private Account $account;
 
     /**
      * All members have an account with an initial balance

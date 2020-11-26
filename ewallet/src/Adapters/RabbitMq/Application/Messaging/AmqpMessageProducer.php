@@ -16,14 +16,11 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class AmqpMessageProducer implements MessageProducer
 {
-    /** @var AMQPStreamConnection */
-    private $connection;
+    private AMQPStreamConnection $connection;
 
-    /** @var  ChannelConfiguration */
-    private $configuration;
+    private ChannelConfiguration $configuration;
 
-    /** @var  AMQPChannel|null */
-    private $channel;
+    private ?AMQPChannel $channel;
 
     public function __construct(
         AMQPStreamConnection $connection,

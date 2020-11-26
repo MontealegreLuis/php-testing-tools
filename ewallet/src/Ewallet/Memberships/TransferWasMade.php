@@ -19,21 +19,17 @@ use Money\Money;
  */
 final class TransferWasMade implements DomainEvent
 {
-    /** @var CarbonImmutable */
-    private $occurredOn;
+    private DateTimeInterface $occurredOn;
 
-    /** @var MemberId */
-    private $senderId;
+    private MemberId $senderId;
 
-    /** @var Money */
-    private $amount;
+    private Money $amount;
 
-    /** @var MemberId */
-    private $recipientId;
+    private MemberId $recipientId;
 
     public function __construct(MemberId $senderId, Money $amount, MemberId $recipientId, Clock $clock = null)
     {
-        $clock = $clock ?? new SystemClock();
+        $clock ??= new SystemClock();
         $this->occurredOn = $clock->now();
         $this->senderId = $senderId;
         $this->amount = $amount;

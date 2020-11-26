@@ -17,9 +17,7 @@ class EwalletExtension implements Extension
     {
         $container->define(
             'ewallet.matchers.amount',
-            function () {
-                return new MoneyMatcher();
-            },
+            fn() => new MoneyMatcher(),
             ['matchers']
         );
     }

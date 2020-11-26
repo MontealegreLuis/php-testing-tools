@@ -36,17 +36,11 @@ class EwalletServiceProvider implements ServiceProviderInterface
 
             return $publisher;
         };
-        $container[PersistEventsSubscriber::class] = static function () use ($container): PersistEventsSubscriber {
-            return new PersistEventsSubscriber(
-                $container[EventStoreRepository::class],
-                new StoredEventFactory(new JsonSerializer())
-            );
-        };
-        $container[EventStoreRepository::class] = static function () use ($container): EventStoreRepository {
-            return new EventStoreRepository($container[EntityManagerInterface::class]);
-        };
-        $container[Members::class] = static function () use ($container): Members {
-            return new MembersRepository($container[EntityManagerInterface::class]);
-        };
+        $container[PersistEventsSubscriber::class] = static fn(): PersistEventsSubscriber => new PersistEventsSubscriber(
+            $container[EventStoreRepository::class],
+            new StoredEventFactory(new JsonSerializer())
+        );
+        $container[EventStoreRepository::class] = static fn(): EventStoreRepository => new EventStoreRepository($container[EntityManagerInterface::class]);
+        $container[Members::class] = static fn(): Members => new MembersRepository($container[EntityManagerInterface::class]);
     }
 }

@@ -14,17 +14,13 @@ use DateTimeInterface;
  */
 class StoredEvent implements DomainEvent
 {
-    /** @var integer */
-    private $id;
+    private ?int $id = null;
 
-    /** @var string */
-    private $body;
+    private string $body;
 
-    /** @var string */
-    private $type;
+    private string $type;
 
-    /** @var DateTimeInterface */
-    private $occurredOn;
+    private DateTimeInterface $occurredOn;
 
     public function __construct(string $body, string $type, DateTimeInterface $occurredOn)
     {

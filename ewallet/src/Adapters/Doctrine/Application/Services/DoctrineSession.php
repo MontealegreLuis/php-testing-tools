@@ -13,8 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineSession implements TransactionalSession
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

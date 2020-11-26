@@ -15,8 +15,7 @@ use SplObjectStorage;
 
 class InMemoryMembers implements Members
 {
-    /** @var SplObjectStorage */
-    private $members;
+    private SplObjectStorage $members;
 
     /**
      * Create an empty collection of members

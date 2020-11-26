@@ -13,8 +13,7 @@ use DateTimeInterface;
 
 class InstantaneousEvent implements DomainEvent
 {
-    /** @var DateTimeInterface */
-    private $occurredOn;
+    private DateTimeInterface $occurredOn;
 
     public function __construct(Clock $clock)
     {

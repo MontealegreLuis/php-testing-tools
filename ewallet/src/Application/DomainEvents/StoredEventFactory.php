@@ -12,8 +12,7 @@ namespace Application\DomainEvents;
  */
 class StoredEventFactory
 {
-    /** @var EventSerializer */
-    private $serializer;
+    private EventSerializer $serializer;
 
     public function __construct(EventSerializer $serializer)
     {

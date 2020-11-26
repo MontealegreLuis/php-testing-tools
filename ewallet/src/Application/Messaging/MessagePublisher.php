@@ -15,26 +15,20 @@ class MessagePublisher
 {
     private const NO_MESSAGES_PUBLISHED = 0;
 
-    /** @var EventStore */
-    private $store;
+    private EventStore $store;
 
-    /** @var MessageTracker */
-    private $tracker;
+    private MessageTracker $tracker;
 
-    /** @var MessageProducer */
-    private $producer;
+    private MessageProducer $producer;
 
-    /** @var PublishedMessage|null */
-    private $mostRecentMessage;
+    private ?PublishedMessage $mostRecentMessage;
 
     /** @var StoredEvent[] */
-    private $unpublishedEvents;
+    private ?array $unpublishedEvents;
 
-    /** @var int */
-    private $publishedMessagesCount;
+    private ?int $publishedMessagesCount;
 
-    /** @var StoredEvent|null */
-    private $lastPublishedEvent;
+    private ?StoredEvent $lastPublishedEvent;
 
     public function __construct(
         EventStore $store,

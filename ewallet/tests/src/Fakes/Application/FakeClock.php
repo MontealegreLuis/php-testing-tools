@@ -12,8 +12,7 @@ use Carbon\CarbonImmutable;
 
 class FakeClock implements Clock
 {
-    /** @var CarbonImmutable */
-    private $now;
+    private CarbonImmutable $now;
 
     public function __construct(CarbonImmutable $now)
     {

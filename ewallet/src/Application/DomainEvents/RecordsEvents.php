@@ -10,7 +10,7 @@ namespace Application\DomainEvents;
 trait RecordsEvents
 {
     /** @var DomainEvent[] */
-    private $events;
+    private array $events;
 
     public function __construct()
     {

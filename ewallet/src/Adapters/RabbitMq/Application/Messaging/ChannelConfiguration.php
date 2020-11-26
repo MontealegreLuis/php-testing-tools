@@ -11,11 +11,9 @@ use PhpAmqpLib\Channel\AMQPChannel;
 
 class ChannelConfiguration
 {
-    /** @var bool */
-    private $durable;
+    private bool $durable;
 
-    /** @var bool */
-    private $autoDeletes;
+    private bool $autoDeletes;
 
     private function __construct(bool $isDurable, bool $autoDelete)
     {

@@ -15,8 +15,7 @@ use Twig\TwigFunction;
 
 class EwalletExtension extends AbstractExtension
 {
-    /** @var MemberFormatter */
-    private $formatter;
+    private MemberFormatter $formatter;
 
     public function __construct(MemberFormatter $formatter)
     {
@@ -27,15 +26,9 @@ class EwalletExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('member', function (Member $member) : string {
-                return $this->formatMember($member);
-            }),
-            new TwigFunction('money_amount', function (int $amount) : string {
-                return $this->formatMoneyAmount($amount);
-            }),
-            new TwigFunction('money', function (Money $money) : string {
-                return $this->formatMoney($money);
-            }),
+            new TwigFunction('member', fn(Member $member): string => $this->formatMember($member)),
+            new TwigFunction('money_amount', fn(int $amount): string => $this->formatMoneyAmount($amount)),
+            new TwigFunction('money', fn(Money $money): string => $this->formatMoney($money)),
         ];
     }
 

@@ -15,8 +15,7 @@ use Twig\Error\SyntaxError;
 
 class TwigTemplateEngine implements TemplateEngine
 {
-    /** @var Twig */
-    private $twig;
+    private Twig $twig;
 
     public function __construct(Twig $twig)
     {

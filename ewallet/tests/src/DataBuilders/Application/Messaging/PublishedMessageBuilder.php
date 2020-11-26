@@ -7,23 +7,20 @@
 
 namespace DataBuilders\Application\Messaging;
 
+use Faker\Generator;
 use Application\Messaging\PublishedMessage;
 use Faker\Factory;
 use ReflectionClass;
 
 class PublishedMessageBuilder
 {
-    /** @var Factory */
-    private $factory;
+    private Generator $factory;
 
-    /** @var string */
-    private $exchangeName;
+    private string $exchangeName;
 
-    /** @var integer */
-    private $mostRecentMessageId;
+    private int $mostRecentMessageId;
 
-    /** @var integer */
-    private $identifier;
+    private ?int $identifier;
 
     public function __construct()
     {
@@ -68,7 +65,7 @@ class PublishedMessageBuilder
     {
         $this->identifier = null;
         $this->exchangeName = $this->factory->word;
-        $this->mostRecentMessageId = $this->factory->numberBetween(1, 10000);
+        $this->mostRecentMessageId = $this->factory->numberBetween(1, 10_000);
     }
 
     private function assignIdentifierTo(PublishedMessage $message): void

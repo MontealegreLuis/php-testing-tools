@@ -16,14 +16,11 @@ use Money\Money;
  */
 final class TransferFundsInput
 {
-    /** @var MemberId */
-    private $senderId;
+    private MemberId $senderId;
 
-    /** @var MemberId */
-    private $recipientId;
+    private MemberId $recipientId;
 
-    /** @var Money */
-    private $amount;
+    private Money $amount;
 
     /** @param mixed[] $validInput */
     public static function from(array $validInput): TransferFundsInput

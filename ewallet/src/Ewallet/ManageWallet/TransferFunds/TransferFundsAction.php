@@ -17,14 +17,11 @@ use LogicException;
  */
 class TransferFundsAction
 {
-    /** @var Members */
-    private $members;
+    private Members $members;
 
-    /** @var TransferFundsResponder|null */
-    private $responder;
+    private ?TransferFundsResponder $responder = null;
 
-    /** @var EventPublisher */
-    private $publisher;
+    private EventPublisher $publisher;
 
     public function __construct(Members $members, EventPublisher $publisher)
     {

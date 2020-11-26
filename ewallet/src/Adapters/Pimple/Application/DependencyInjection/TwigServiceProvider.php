@@ -22,12 +22,8 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container): void
     {
-        $container[TwigTemplateEngine::class] = static function () use ($container): TwigTemplateEngine {
-            return new TwigTemplateEngine($container[Environment::class]);
-        };
-        $container[FilesystemLoader::class] = static function () use ($container): FilesystemLoader {
-            return new FilesystemLoader($container['twig']['loader_paths']);
-        };
+        $container[TwigTemplateEngine::class] = static fn(): TwigTemplateEngine => new TwigTemplateEngine($container[Environment::class]);
+        $container[FilesystemLoader::class] = static fn(): FilesystemLoader => new FilesystemLoader($container['twig']['loader_paths']);
         $container[Environment::class] = static function () use ($container): Environment {
             $twig = new Environment(
                 $container[FilesystemLoader::class],

@@ -14,25 +14,22 @@ class TransferFundsValidator extends ConstraintValidator
 {
     /**
      * @Assert\NotBlank(message="Sender ID cannot be blank")
-     * @var string
      */
-    protected $senderId;
+    protected string $senderId;
 
     /**
      * @Assert\NotBlank(message="Recipient ID cannot be blank")
-     * @var string
      */
-    protected $recipientId;
+    protected string $recipientId;
 
     /**
-     * @Assert\Type(type="numeric",message="Transfer amount must be a number, '{{ value }}' found")
+     * @Assert\Type(type="numeric", message="Transfer amount must be a number, '{{ value }}' found")
      * @Assert\GreaterThan(
      *     value=0,
      *     message="Transferred amount must be greater than {{ compared_value }}, '{{ value }}' found"
      * )
-     * @var int
      */
-    protected $amount;
+    protected int $amount;
 
     /** @param mixed[] $input */
     public function __construct(array $input)

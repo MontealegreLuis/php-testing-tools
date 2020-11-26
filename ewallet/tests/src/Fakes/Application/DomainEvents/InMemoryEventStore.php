@@ -14,11 +14,10 @@ use ReflectionObject;
 
 class InMemoryEventStore implements EventStore
 {
-    /** @var int */
-    private static $nextId = 1;
+    private static int $nextId = 1;
 
     /** @var StoredEvent[] */
-    private $events;
+    private array $events;
 
     public function __construct()
     {

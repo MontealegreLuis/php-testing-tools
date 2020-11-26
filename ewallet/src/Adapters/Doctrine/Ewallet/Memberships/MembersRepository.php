@@ -16,8 +16,7 @@ use Ewallet\Memberships\UnknownMember;
 
 class MembersRepository implements Members
 {
-    /** @var EntityManagerInterface */
-    protected $manager;
+    protected EntityManagerInterface $manager;
 
     public function __construct(EntityManagerInterface $manager)
     {

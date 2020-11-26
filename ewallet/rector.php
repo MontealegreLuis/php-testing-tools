@@ -30,7 +30,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
     // here we can define, what sets of rules will be applied
-    $parameters->set(Option::SETS, [SetList::CODE_QUALITY]);
+    $parameters->set(Option::SETS, [
+        SetList::CODE_QUALITY,
+        SetList::PHP_74
+    ]);
 
     $parameters->set(Option::EXCLUDE_RECTORS, [
         UseInterfaceOverImplementationInConstructorRector::class,

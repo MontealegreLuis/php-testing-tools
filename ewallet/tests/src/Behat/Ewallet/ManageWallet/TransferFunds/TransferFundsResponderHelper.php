@@ -18,11 +18,9 @@ use PHPUnit\Framework\Assert;
 
 class TransferFundsResponderHelper implements TransferFundsResponder
 {
-    /** @var bool */
-    private $transferWasMade = false;
+    private bool $transferWasMade = false;
 
-    /** @var bool */
-    private $senderHasEnoughFunds = true;
+    private bool $senderHasEnoughFunds = true;
 
     /**
      * Record that transfer was completed

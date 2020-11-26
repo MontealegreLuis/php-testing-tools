@@ -14,8 +14,7 @@ use Webmozart\Assert\Assert;
  */
 final class Email
 {
-    /** @var string */
-    private $address;
+    private string $address;
 
     public function __construct(string $address)
     {

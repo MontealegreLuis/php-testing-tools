@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Adapters\RabbitMq\Application\Messaging;
 
-use PhpAmqpLib\Channel\AMQPChannel;
 use Application\DomainEvents\StoredEvent;
 use Application\Messaging\MessageProducer;
 use BadMethodCallException;
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 

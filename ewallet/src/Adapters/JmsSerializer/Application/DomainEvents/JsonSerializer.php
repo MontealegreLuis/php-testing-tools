@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -31,21 +31,21 @@ class JsonSerializer implements EventSerializer
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     Money::class,
                     'json',
-                    fn($visitor, Money $money, array $type): string => $money->getAmount()
+                    fn ($visitor, Money $money, array $type): string => $money->getAmount()
                 );
                 // We only need the value of the ID
                 $registry->registerHandler(
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     MemberId::class,
                     'json',
-                    fn($visitor, MemberId $id, array $type): string => (string) $id
+                    fn ($visitor, MemberId $id, array $type): string => (string) $id
                 );
                 // Use specific format for date/time objects
                 $registry->registerHandler(
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     CarbonImmutable::class,
                     'json',
-                    fn($visitor, CarbonImmutable $dateTime, array $type): string => $dateTime->format('Y-m-d H:i:s')
+                    fn ($visitor, CarbonImmutable $dateTime, array $type): string => $dateTime->format('Y-m-d H:i:s')
                 );
             })
             ->build();

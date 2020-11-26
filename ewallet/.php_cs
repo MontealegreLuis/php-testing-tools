@@ -40,7 +40,7 @@ return PhpCsFixer\Config::create()
         'class_attributes_separation' => ['elements' => ['method', 'property']],
         'header_comment' => [
             'commentType' => 'PHPDoc',
-            'header' => 'PHP version 7.2
+            'header' => 'PHP version 7.4
 
 This source file is subject to the license that is bundled with this package in the file LICENSE.',
             'separate' => 'bottom',

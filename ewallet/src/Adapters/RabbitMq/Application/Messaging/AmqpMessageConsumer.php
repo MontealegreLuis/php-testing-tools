@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Adapters\RabbitMq\Application\Messaging;
 
-use PhpAmqpLib\Channel\AMQPChannel;
-use OutOfBoundsException;
 use Application\Messaging\MessageConsumer;
 use BadMethodCallException;
 use Closure;
+use OutOfBoundsException;
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -59,7 +59,7 @@ class AmqpMessageConsumer implements MessageConsumer
             true,
             false,
             false,
-            Closure::fromCallable(function (AMQPMessage $message) : void {
+            Closure::fromCallable(function (AMQPMessage $message): void {
                 $this->callback($message);
             })
         );

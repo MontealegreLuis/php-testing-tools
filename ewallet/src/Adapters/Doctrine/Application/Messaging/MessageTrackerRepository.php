@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Adapters\Doctrine\Application\Messaging;
 
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\ORMException;
 use Adapters\Doctrine\Application\DataStorage\Repository;
 use Application\Messaging\EmptyExchange;
 use Application\Messaging\InvalidPublishedMessageToTrack;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 
 class MessageTrackerRepository extends Repository implements MessageTracker
 {

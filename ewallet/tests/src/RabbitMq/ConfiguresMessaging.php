@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace RabbitMq;
 
-use PhpAmqpLib\Exception\AMQPOutOfBoundsException;
-use PhpAmqpLib\Exception\AMQPRuntimeException;
 use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 use Application\DomainEvents\StoredEvent;
 use Closure;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Exception\AMQPOutOfBoundsException;
+use PhpAmqpLib\Exception\AMQPRuntimeException;
 use PhpAmqpLib\Message\AMQPMessage;
 
 /**
@@ -90,7 +90,7 @@ trait ConfiguresMessaging
 
     private function channel(): AMQPChannel
     {
-        if (!$this->channel) {
+        if (! $this->channel) {
             $this->channel = $this->connection()->channel();
         }
         return $this->channel;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -22,8 +22,8 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container): void
     {
-        $container[TwigTemplateEngine::class] = static fn(): TwigTemplateEngine => new TwigTemplateEngine($container[Environment::class]);
-        $container[FilesystemLoader::class] = static fn(): FilesystemLoader => new FilesystemLoader($container['twig']['loader_paths']);
+        $container[TwigTemplateEngine::class] = static fn (): TwigTemplateEngine => new TwigTemplateEngine($container[Environment::class]);
+        $container[FilesystemLoader::class] = static fn (): FilesystemLoader => new FilesystemLoader($container['twig']['loader_paths']);
         $container[Environment::class] = static function () use ($container): Environment {
             $twig = new Environment(
                 $container[FilesystemLoader::class],

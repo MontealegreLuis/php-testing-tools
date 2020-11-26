@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Setup\Commands;
 
-use Doctrine\DBAL\DBALException;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\DBAL\DBALException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

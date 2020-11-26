@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -36,11 +36,11 @@ class EwalletServiceProvider implements ServiceProviderInterface
 
             return $publisher;
         };
-        $container[PersistEventsSubscriber::class] = static fn(): PersistEventsSubscriber => new PersistEventsSubscriber(
+        $container[PersistEventsSubscriber::class] = static fn (): PersistEventsSubscriber => new PersistEventsSubscriber(
             $container[EventStoreRepository::class],
             new StoredEventFactory(new JsonSerializer())
         );
-        $container[EventStoreRepository::class] = static fn(): EventStoreRepository => new EventStoreRepository($container[EntityManagerInterface::class]);
-        $container[Members::class] = static fn(): Members => new MembersRepository($container[EntityManagerInterface::class]);
+        $container[EventStoreRepository::class] = static fn (): EventStoreRepository => new EventStoreRepository($container[EntityManagerInterface::class]);
+        $container[Members::class] = static fn (): Members => new MembersRepository($container[EntityManagerInterface::class]);
     }
 }

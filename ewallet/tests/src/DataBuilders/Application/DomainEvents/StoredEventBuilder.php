@@ -1,21 +1,20 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace DataBuilders\Application\DomainEvents;
 
-use Faker\Generator;
-use DateTime;
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
-use Application\DomainEvents\EventSerializer;
 use Application\DomainEvents\StoredEvent;
 use Application\Messaging\PublishedMessage;
 use DataBuilders\Ewallet\Memberships\TransferWasMadeBuilder;
+use DateTime;
 use Ewallet\Memberships\TransferWasMade;
 use Faker\Factory;
+use Faker\Generator;
 use ReflectionClass;
 
 class StoredEventBuilder

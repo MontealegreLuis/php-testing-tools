@@ -22,7 +22,7 @@ class TransactionalTransferFundsAction extends TransferFundsAction
     public function transfer(TransferFundsInput $input): void
     {
         try {
-            $this->execute(function () use ($input) {
+            $this->execute(function () use ($input): void {
                 parent::transfer($input);
             });
         } catch (InsufficientFunds $exception) {

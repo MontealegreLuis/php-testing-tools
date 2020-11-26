@@ -14,23 +14,24 @@ use Ewallet\Memberships\MemberId;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 use Money\Money;
 
 class JsonSerializer implements EventSerializer
 {
-    /** @var \JMS\Serializer\SerializerInterface */
+    /** @var SerializerInterface */
     private $serializer;
 
     public function __construct()
     {
         $this->serializer = SerializerBuilder::create()
-            ->configureHandlers(function (HandlerRegistry $registry) {
+            ->configureHandlers(function (HandlerRegistry $registry): void {
                 // We only need to serialize the currency name
                 $registry->registerHandler(
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     Money::class,
                     'json',
-                    function ($visitor, Money $money, array $type) {
+                    function ($visitor, Money $money, array $type): string {
                         return $money->getAmount();
                     }
                 );
@@ -39,7 +40,7 @@ class JsonSerializer implements EventSerializer
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     MemberId::class,
                     'json',
-                    function ($visitor, MemberId $id, array $type) {
+                    function ($visitor, MemberId $id, array $type): string {
                         return (string) $id;
                     }
                 );
@@ -48,13 +49,12 @@ class JsonSerializer implements EventSerializer
                     GraphNavigator::DIRECTION_SERIALIZATION,
                     CarbonImmutable::class,
                     'json',
-                    function ($visitor, CarbonImmutable $dateTime, array $type) {
+                    function ($visitor, CarbonImmutable $dateTime, array $type): string {
                         return $dateTime->format('Y-m-d H:i:s');
                     }
                 );
             })
-            ->build()
-        ;
+            ->build();
     }
 
     public function serialize(DomainEvent $anEvent): string

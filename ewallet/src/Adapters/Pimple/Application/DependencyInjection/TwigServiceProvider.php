@@ -22,13 +22,13 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container): void
     {
-        $container[TwigTemplateEngine::class] = function () use ($container) {
+        $container[TwigTemplateEngine::class] = static function () use ($container): TwigTemplateEngine {
             return new TwigTemplateEngine($container[Environment::class]);
         };
-        $container[FilesystemLoader::class] = function () use ($container) {
+        $container[FilesystemLoader::class] = static function () use ($container): FilesystemLoader {
             return new FilesystemLoader($container['twig']['loader_paths']);
         };
-        $container[Environment::class] = function () use ($container) {
+        $container[Environment::class] = static function () use ($container): Environment {
             $twig = new Environment(
                 $container[FilesystemLoader::class],
                 $container['twig']['options']

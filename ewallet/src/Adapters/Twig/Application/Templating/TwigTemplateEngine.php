@@ -8,7 +8,10 @@
 namespace Adapters\Twig\Application\Templating;
 
 use Application\Templating\TemplateEngine;
-use Twig_Environment as Twig;
+use Twig\Environment as Twig;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class TwigTemplateEngine implements TemplateEngine
 {
@@ -21,9 +24,10 @@ class TwigTemplateEngine implements TemplateEngine
     }
 
     /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @param mixed[] $values
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function render(string $template, array $values): string
     {

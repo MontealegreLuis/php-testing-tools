@@ -34,6 +34,7 @@ class TransferFundsValidator extends ConstraintValidator
      */
     protected $amount;
 
+    /** @param mixed[] $input */
     public function __construct(array $input)
     {
         parent::__construct();

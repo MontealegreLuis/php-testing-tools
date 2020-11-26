@@ -25,6 +25,7 @@ final class TransferFundsInput
     /** @var Money */
     private $amount;
 
+    /** @param mixed[] $validInput */
     public static function from(array $validInput): TransferFundsInput
     {
         return new self($validInput);
@@ -45,6 +46,7 @@ final class TransferFundsInput
         return $this->amount;
     }
 
+    /** @param mixed[] $input */
     public function __construct(array $input)
     {
         $this->senderId = new MemberId($input['senderId']);

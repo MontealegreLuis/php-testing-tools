@@ -9,13 +9,14 @@ namespace Adapters\Symfony\Application\Actions;
 
 use Symfony\Component\Validator\ConstraintViolation;
 use Application\Actions\InputValidator;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 
 abstract class ConstraintValidator implements InputValidator
 {
-    /** @var ConstraintViolationListInterface */
+    /** @var ConstraintViolationListInterface<ConstraintViolationInterface> */
     private $violations;
 
     protected function __construct()
@@ -46,6 +47,8 @@ abstract class ConstraintValidator implements InputValidator
      * The original raw input.
      *
      * This is usually shown back to the user through the UI, to provide feedback when validation fails
+     *
+     * @return mixed[]
      */
     public function values(): array
     {

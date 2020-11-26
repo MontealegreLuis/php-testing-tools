@@ -9,5 +9,6 @@ namespace Application\Templating;
 
 interface TemplateEngine
 {
+    /** @param mixed[] $values */
     public function render(string $template, array $values): string;
 }

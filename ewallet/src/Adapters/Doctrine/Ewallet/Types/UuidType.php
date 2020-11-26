@@ -10,7 +10,7 @@ namespace Adapters\Doctrine\Ewallet\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\GuidType;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Ewallet\Memberships\Identifier;
 use InvalidArgumentException;
 
@@ -33,7 +33,7 @@ abstract class UuidType extends GuidType
         try {
             return $this->identifier($value);
         } catch (InvalidArgumentException $e) {
-            throw ConversionException::conversionFailed($value, Type::GUID);
+            throw ConversionException::conversionFailed($value, Types::GUID);
         }
     }
 
@@ -55,7 +55,7 @@ abstract class UuidType extends GuidType
             return $value;
         }
 
-        throw ConversionException::conversionFailed($value, Type::GUID);
+        throw ConversionException::conversionFailed((string) $value, Types::GUID);
     }
 
     abstract public function identifier(string $value): Identifier;

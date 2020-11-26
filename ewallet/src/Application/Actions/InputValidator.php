@@ -22,6 +22,8 @@ interface InputValidator
      * The original raw input.
      *
      * This is usually shown back to the user through the UI, to provide feedback when validation fails
+     *
+     * @return mixed[]
      */
     public function values(): array;
 }

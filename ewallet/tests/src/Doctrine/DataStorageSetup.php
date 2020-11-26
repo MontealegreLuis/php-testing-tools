@@ -7,6 +7,8 @@
 
 namespace Doctrine;
 
+use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\ORMException;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,8 +25,8 @@ class DataStorageSetup
     /**
      * Setup XML mapping configuration, configure entity manager, add custom types
      *
-     * @throws DBAL\DBALException
-     * @throws ORM\ORMException
+     * @throws DBALException
+     * @throws ORMException
      */
     public function __construct(array $options)
     {

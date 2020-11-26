@@ -27,9 +27,15 @@ class EwalletExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('member', [$this, 'formatMember']),
-            new TwigFunction('money_amount', [$this, 'formatMoneyAmount']),
-            new TwigFunction('money', [$this, 'formatMoney']),
+            new TwigFunction('member', function (Member $member) : string {
+                return $this->formatMember($member);
+            }),
+            new TwigFunction('money_amount', function (int $amount) : string {
+                return $this->formatMoneyAmount($amount);
+            }),
+            new TwigFunction('money', function (Money $money) : string {
+                return $this->formatMoney($money);
+            }),
         ];
     }
 

@@ -7,6 +7,7 @@
 
 namespace Adapters\Symfony\Application\Actions;
 
+use Symfony\Component\Validator\ConstraintViolation;
 use Application\Actions\InputValidator;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -34,7 +35,7 @@ abstract class ConstraintValidator implements InputValidator
     public function errors(): array
     {
         $errors  = [];
-        /** @var \Symfony\Component\Validator\ConstraintViolation $violation */
+        /** @var ConstraintViolation $violation */
         foreach ($this->violations as $violation) {
             $errors[$violation->getPropertyPath()] = (string) $violation->getMessage();
         }

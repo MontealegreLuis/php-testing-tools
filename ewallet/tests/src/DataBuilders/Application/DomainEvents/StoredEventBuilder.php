@@ -7,6 +7,7 @@
 
 namespace DataBuilders\Application\DomainEvents;
 
+use DateTime;
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\DomainEvents\EventSerializer;
 use Application\DomainEvents\StoredEvent;
@@ -36,7 +37,7 @@ class StoredEventBuilder
     /** @var string */
     private $type;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     private $occurredOn;
 
     /**

@@ -7,6 +7,7 @@
 
 namespace Adapters\Doctrine\Ewallet\Memberships;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\EntityManagerInterface;
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberId;
@@ -25,7 +26,7 @@ class MembersRepository implements Members
 
     /**
      * @throws UnknownMember
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function with(MemberId $memberId): Member
     {

@@ -7,6 +7,8 @@
 
 namespace Adapters\Doctrine\Application\DomainEvents;
 
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Adapters\Doctrine\Application\DataStorage\Repository;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
@@ -14,8 +16,8 @@ use Application\DomainEvents\StoredEvent;
 class EventStoreRepository extends Repository implements EventStore
 {
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function append(StoredEvent $anEvent): void
     {

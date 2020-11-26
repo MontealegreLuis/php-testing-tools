@@ -7,6 +7,7 @@
 
 namespace Application\Messaging;
 
+use Application\DomainEvents\StoredEvent;
 use Application\DomainEvents\EventStore;
 use Exception;
 
@@ -26,13 +27,13 @@ class MessagePublisher
     /** @var PublishedMessage|null */
     private $mostRecentMessage;
 
-    /** @var \Application\DomainEvents\StoredEvent[] */
+    /** @var StoredEvent[] */
     private $unpublishedEvents;
 
     /** @var int */
     private $publishedMessagesCount;
 
-    /** @var \Application\DomainEvents\StoredEvent|null */
+    /** @var StoredEvent|null */
     private $lastPublishedEvent;
 
     public function __construct(
@@ -47,8 +48,8 @@ class MessagePublisher
 
     /**
      * @return int The amount of messages that were published
-     * @throws \Application\Messaging\InvalidPublishedMessageToTrack
-     * @throws \Application\Messaging\EmptyExchange
+     * @throws InvalidPublishedMessageToTrack
+     * @throws EmptyExchange
      */
     public function publishTo(string $exchangeName): int
     {
@@ -92,7 +93,7 @@ class MessagePublisher
     }
 
     /**
-     * @throws \Application\Messaging\EmptyExchange
+     * @throws EmptyExchange
      */
     private function onlyUnpublishedEvents(string $exchangeName): void
     {
@@ -108,7 +109,7 @@ class MessagePublisher
     {
         $this->producer->open($exchangeName);
 
-        /** @var \Application\DomainEvents\StoredEvent $message */
+        /** @var StoredEvent $message */
         foreach ($this->unpublishedEvents as $message) {
             $this->producer->send($exchangeName, $message);
             $this->lastPublishedEvent = $message;

@@ -7,6 +7,7 @@
 
 namespace Fakes\Application\DomainEvents;
 
+use ReflectionException;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
 use ReflectionObject;
@@ -34,7 +35,7 @@ class InMemoryEventStore implements EventStore
         }
     }
 
-    /** @throws \ReflectionException */
+    /** @throws ReflectionException */
     public function append(StoredEvent $anEvent): void
     {
         $this->assignIdTo($anEvent);
@@ -50,7 +51,7 @@ class InMemoryEventStore implements EventStore
         $addEvents = false;
         $eventsAfter = [];
         foreach ($this->events as $event) {
-            if ($addEvents === true) {
+            if ($addEvents) {
                 $eventsAfter[] = $event;
             }
             if ($event->id() === $lastStoredEventId) {
@@ -68,7 +69,7 @@ class InMemoryEventStore implements EventStore
         return $this->events;
     }
 
-    /** @throws \ReflectionException */
+    /** @throws ReflectionException */
     private function assignIdTo(StoredEvent $anEvent): void
     {
         $event = new ReflectionObject($anEvent);

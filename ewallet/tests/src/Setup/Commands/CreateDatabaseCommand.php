@@ -7,6 +7,7 @@
 
 namespace Setup\Commands;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Exception;
@@ -39,7 +40,7 @@ class CreateDatabaseCommand extends DatabaseCommand
         }
     }
 
-    /** @throws \Doctrine\DBAL\DBALException */
+    /** @throws DBALException */
     private function createIfNotExists(OutputInterface $output, array $parameters, Connection $connection): void
     {
         if ($this->databaseExists($parameters, $connection)) {
@@ -49,7 +50,7 @@ class CreateDatabaseCommand extends DatabaseCommand
         }
     }
 
-    /** @throws \Doctrine\DBAL\DBALException */
+    /** @throws DBALException */
     private function createDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);

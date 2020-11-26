@@ -47,7 +47,7 @@ class Member implements CanRecordEvents
      *
      * @throws \Ewallet\Memberships\InvalidTransfer If the sender tries to
      * transfer a negative amount
-     * @throws \Ewallet\Memberships\InsufficientFunds If the sender tries to
+     * @throws InsufficientFunds If the sender tries to
      * transfer an amount greater than its current balance
      */
     public function transfer(Money $amount, Member $recipient): void

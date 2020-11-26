@@ -7,6 +7,8 @@
 
 namespace Setup;
 
+use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\ORMException;
 use Doctrine\DataStorageSetup;
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
@@ -21,8 +23,8 @@ use Symfony\Component\Console\Helper\HelperSet;
 class SetupApplication extends Application
 {
     /**
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\ORM\ORMException
+     * @throws DBALException
+     * @throws ORMException
      */
     public function __construct(array $options)
     {

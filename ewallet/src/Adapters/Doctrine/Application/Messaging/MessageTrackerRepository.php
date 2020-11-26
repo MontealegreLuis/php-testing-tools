@@ -7,6 +7,8 @@
 
 namespace Adapters\Doctrine\Application\Messaging;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 use Adapters\Doctrine\Application\DataStorage\Repository;
 use Application\Messaging\EmptyExchange;
 use Application\Messaging\InvalidPublishedMessageToTrack;
@@ -15,7 +17,7 @@ use Application\Messaging\PublishedMessage;
 
 class MessageTrackerRepository extends Repository implements MessageTracker
 {
-    /** @throws \Doctrine\ORM\NonUniqueResultException */
+    /** @throws NonUniqueResultException */
     public function hasPublishedMessages(string $exchangeName): bool
     {
         $builder = $this->manager->createQueryBuilder();
@@ -31,7 +33,7 @@ class MessageTrackerRepository extends Repository implements MessageTracker
 
     /**
      * @throws EmptyExchange If no message has been published to this exchange
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function mostRecentPublishedMessage(string $exchangeName): PublishedMessage
     {
@@ -53,8 +55,8 @@ class MessageTrackerRepository extends Repository implements MessageTracker
      * @throws InvalidPublishedMessageToTrack There can only be either 0 or 1
      * entries associated with an exchange, this exception is thrown if there's
      * already a message but it is not equal to `mostRecentPublishedMessage`
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
+     * @throws NonUniqueResultException
+     * @throws ORMException
      */
     public function track(PublishedMessage $mostRecentPublishedMessage): void
     {

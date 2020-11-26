@@ -74,13 +74,11 @@ class MembersBuilder
             $amount = \is_int($this->amount) ? Money::MXN($this->amount) : $this->amount;
         }
 
-        $member = Member::withAccountBalance(
+        return Member::withAccountBalance(
             new MemberId($this->id ?? $this->faker->uuid),
             $this->name ?? $this->faker->name,
             new Email($this->email ?? $this->faker->email),
             $amount
         );
-
-        return $member;
     }
 }

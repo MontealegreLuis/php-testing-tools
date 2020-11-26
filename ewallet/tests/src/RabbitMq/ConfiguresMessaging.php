@@ -7,6 +7,8 @@
 
 namespace RabbitMq;
 
+use PhpAmqpLib\Exception\AMQPOutOfBoundsException;
+use PhpAmqpLib\Exception\AMQPRuntimeException;
 use Adapters\RabbitMq\Application\Messaging\ChannelConfiguration;
 use Application\DomainEvents\StoredEvent;
 use Closure;
@@ -59,8 +61,8 @@ trait ConfiguresMessaging
      * @param Closure $testCase Runs the assertions to verify the correctness of
      * the message being consumed
      *
-     * @throws \PhpAmqpLib\Exception\AMQPOutOfBoundsException
-     * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
+     * @throws AMQPOutOfBoundsException
+     * @throws AMQPRuntimeException
      */
     public function consume(Closure $testCase): void
     {

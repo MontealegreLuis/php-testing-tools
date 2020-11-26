@@ -7,6 +7,7 @@
 
 namespace Setup\Commands;
 
+use Doctrine\DBAL\DBALException;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +26,7 @@ class SeedDatabaseCommand extends Command
     /**
      * Seed some information to our database
      *
-     * @throws \Doctrine\DBAL\DBALException if any of the tables cannot be truncated
+     * @throws DBALException if any of the tables cannot be truncated
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -44,7 +45,7 @@ class SeedDatabaseCommand extends Command
     }
 
     /**
-     * @throws \Doctrine\DBAL\DBALException If any of the queries fail
+     * @throws DBALException If any of the queries fail
      */
     private function truncateTable(ClassMetadata $metadata): void
     {

@@ -7,6 +7,7 @@
 
 namespace Setup\Commands;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Exception;
@@ -49,7 +50,7 @@ class DropDatabaseCommand extends DatabaseCommand
         }
     }
 
-    /** @throws \Doctrine\DBAL\DBALException */
+    /** @throws DBALException */
     private function dropDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);

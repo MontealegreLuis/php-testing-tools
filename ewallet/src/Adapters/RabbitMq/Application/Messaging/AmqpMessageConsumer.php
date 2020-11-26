@@ -7,6 +7,8 @@
 
 namespace Adapters\RabbitMq\Application\Messaging;
 
+use PhpAmqpLib\Channel\AMQPChannel;
+use OutOfBoundsException;
 use Application\Messaging\MessageConsumer;
 use BadMethodCallException;
 use Closure;
@@ -18,7 +20,7 @@ class AmqpMessageConsumer implements MessageConsumer
     /** @var AMQPStreamConnection */
     private $connection;
 
-    /** @var  \PhpAmqpLib\Channel\AMQPChannel|null */
+    /** @var  AMQPChannel|null */
     private $channel;
 
     /** @var callable */
@@ -61,7 +63,9 @@ class AmqpMessageConsumer implements MessageConsumer
             true,
             false,
             false,
-            Closure::fromCallable([$this, 'callback'])
+            Closure::fromCallable(function (AMQPMessage $message) : void {
+                $this->callback($message);
+            })
         );
 
         while (count($this->channel->callbacks)) {
@@ -73,7 +77,7 @@ class AmqpMessageConsumer implements MessageConsumer
     }
 
     /**
-     * @throws \OutOfBoundsException
+     * @throws OutOfBoundsException
      */
     public function callback(AMQPMessage $message): void
     {

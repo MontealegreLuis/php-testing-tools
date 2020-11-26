@@ -7,6 +7,7 @@
 
 namespace Adapters\RabbitMq\Application\Messaging;
 
+use PhpAmqpLib\Channel\AMQPChannel;
 use Application\DomainEvents\StoredEvent;
 use Application\Messaging\MessageProducer;
 use BadMethodCallException;
@@ -21,7 +22,7 @@ class AmqpMessageProducer implements MessageProducer
     /** @var  ChannelConfiguration */
     private $configuration;
 
-    /** @var  \PhpAmqpLib\Channel\AMQPChannel|null */
+    /** @var  AMQPChannel|null */
     private $channel;
 
     public function __construct(

@@ -100,10 +100,10 @@ trait ConfiguresMessaging
     {
         if (! $this->connection) {
             $this->connection = new AMQPStreamConnection(
-                getenv('RABBIT_MQ_HOST'),
+                $_ENV['RABBIT_MQ_HOST'],
                 5_672,
-                getenv('RABBIT_MQ_USER'),
-                getenv('RABBIT_MQ_PASSWORD')
+                $_ENV['RABBIT_MQ_USER'],
+                $_ENV['RABBIT_MQ_PASSWORD'],
             );
         }
 

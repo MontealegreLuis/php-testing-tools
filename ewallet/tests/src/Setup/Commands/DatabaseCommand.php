@@ -12,6 +12,10 @@ use Symfony\Component\Console\Command\Command;
 
 abstract class DatabaseCommand extends Command
 {
+    /**
+     * @param mixed[] $parameters
+     * @return mixed[]
+     */
     protected function withoutDatabaseName(array $parameters): array
     {
         $filtered = $parameters;
@@ -20,6 +24,7 @@ abstract class DatabaseCommand extends Command
         return $filtered;
     }
 
+    /** @param mixed[] $parameters */
     protected function databaseExists(array $parameters, Connection $connection): bool
     {
         if ($this->hasPath($parameters)) {
@@ -29,11 +34,13 @@ abstract class DatabaseCommand extends Command
         return \in_array($this->databaseName($parameters), $connection->getSchemaManager()->listDatabases(), true);
     }
 
+    /** @param mixed[] $parameters */
     protected function databaseName(array $parameters): string
     {
         return $this->hasPath($parameters) ? $parameters['path'] : $parameters['dbname'];
     }
 
+    /** @param mixed[] $parameters */
     protected function hasPath(array $parameters): bool
     {
         return isset($parameters['path']);

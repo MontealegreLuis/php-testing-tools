@@ -45,6 +45,5 @@ class AmqpMessageConsumerTest extends TestCase
         $this->consumer->open($this->EXCHANGE_NAME);
     }
 
-    /** @var AmqpMessageConsumer */
-    private $consumer;
+    private AmqpMessageConsumer $consumer;
 }

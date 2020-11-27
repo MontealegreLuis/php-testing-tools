@@ -9,7 +9,7 @@ namespace Application\Messaging;
 
 use InvalidArgumentException;
 
-class InvalidPublishedMessageToTrack extends InvalidArgumentException
+final class InvalidPublishedMessageToTrack extends InvalidArgumentException
 {
     public static function isNotTheMostRecent(
         PublishedMessage $mostRecentMessage,

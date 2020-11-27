@@ -9,6 +9,6 @@ namespace Application\Messaging;
 
 use RuntimeException;
 
-class EmptyExchange extends RuntimeException
+final class EmptyExchange extends RuntimeException
 {
 }

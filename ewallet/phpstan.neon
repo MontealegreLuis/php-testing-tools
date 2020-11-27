@@ -12,5 +12,7 @@ parameters:
       - 'tests/src/PHPUnit'
       - 'tests/src/RabbitMq'
       - 'tests/src/Setup'
+   ignoreErrors:
+      - '#Unable to resolve the template type T in call to method static method Doctrine\\DBAL\\DriverManager::getConnection\(\)#'
 includes:
    - vendor/phpstan/phpstan-strict-rules/rules.neon

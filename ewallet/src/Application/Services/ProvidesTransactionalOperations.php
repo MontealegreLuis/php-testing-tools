@@ -18,8 +18,8 @@ trait ProvidesTransactionalOperations
         $this->session = $session;
     }
 
-    public function execute(callable $operation): void
+    public function execute(callable $operation): object
     {
-        $this->session->executeAtomically(Closure::fromCallable($operation));
+        return $this->session->executeAtomically(Closure::fromCallable($operation));
     }
 }

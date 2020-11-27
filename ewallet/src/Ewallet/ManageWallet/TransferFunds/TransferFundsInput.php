@@ -17,16 +17,8 @@ use Money\Money;
 final class TransferFundsInput
 {
     private MemberId $senderId;
-
     private MemberId $recipientId;
-
     private Money $amount;
-
-    /** @param mixed[] $validInput */
-    public static function from(array $validInput): TransferFundsInput
-    {
-        return new self($validInput);
-    }
 
     public function senderId(): MemberId
     {

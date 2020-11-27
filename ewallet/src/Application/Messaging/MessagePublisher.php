@@ -16,18 +16,14 @@ class MessagePublisher
     private const NO_MESSAGES_PUBLISHED = 0;
 
     private EventStore $store;
-
     private MessageTracker $tracker;
-
     private MessageProducer $producer;
-
     private ?PublishedMessage $mostRecentMessage;
 
     /** @var StoredEvent[] */
-    private ?array $unpublishedEvents;
+    private array $unpublishedEvents;
 
-    private ?int $publishedMessagesCount;
-
+    private int $publishedMessagesCount;
     private ?StoredEvent $lastPublishedEvent;
 
     public function __construct(
@@ -70,9 +66,9 @@ class MessagePublisher
         }
 
         if ($this->mostRecentMessage === null) {
-            $this->mostRecentMessage = new PublishedMessage($exchangeName, $this->lastPublishedEvent->id());
+            $this->mostRecentMessage = new PublishedMessage($exchangeName, (int) $this->lastPublishedEvent->id());
         } else {
-            $this->mostRecentMessage->updateMostRecentMessageId($this->lastPublishedEvent->id());
+            $this->mostRecentMessage->updateMostRecentMessageId((int) $this->lastPublishedEvent->id());
         }
 
         $this->tracker->track($this->mostRecentMessage);

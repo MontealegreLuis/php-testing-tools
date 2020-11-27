@@ -10,10 +10,9 @@ namespace Application\DomainEvents;
 /**
  * Generic event subscriber that saves all domain events to a data store via an event store
  */
-class PersistEventsSubscriber implements EventSubscriber
+final class PersistEventsSubscriber implements EventSubscriber
 {
     private EventStore $eventStore;
-
     private StoredEventFactory $eventFactory;
 
     public function __construct(EventStore $eventStore, StoredEventFactory $eventFactory)

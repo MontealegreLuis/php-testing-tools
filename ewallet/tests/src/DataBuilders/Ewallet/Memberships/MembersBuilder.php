@@ -12,9 +12,11 @@ use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberId;
 use Faker\Factory;
 use Faker\Generator;
+use function is_int;
+
 use Money\Money;
 
-class MembersBuilder
+final class MembersBuilder
 {
     private Generator $faker;
 
@@ -22,7 +24,7 @@ class MembersBuilder
 
     private string $email;
 
-    /** @var integer */
+    /** @var int|Money|null */
     private $amount;
 
     private string $id;
@@ -49,7 +51,7 @@ class MembersBuilder
         return $this;
     }
 
-    /** @param integer|Money $amount */
+    /** @param int|Money $amount */
     public function withBalance($amount): MembersBuilder
     {
         $this->amount = $amount;
@@ -67,8 +69,8 @@ class MembersBuilder
     public function build(): Member
     {
         $amount = Money::MXN($this->faker->numberBetween(1, 10_000));
-        if ($this->amount) {
-            $amount = \is_int($this->amount) ? Money::MXN($this->amount) : $this->amount;
+        if ($this->amount !== null) {
+            $amount = is_int($this->amount) ? Money::MXN($this->amount) : $this->amount;
         }
 
         return Member::withAccountBalance(

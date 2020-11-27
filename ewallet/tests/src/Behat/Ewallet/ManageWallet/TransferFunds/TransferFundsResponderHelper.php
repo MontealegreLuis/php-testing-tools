@@ -7,36 +7,13 @@
 
 namespace Behat\Ewallet\ManageWallet\TransferFunds;
 
-use Application\Actions\InputValidator;
-use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
-use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
-use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\Member;
-use Ewallet\Memberships\UnknownMember;
 use Money\Money;
 use PHPUnit\Framework\Assert;
 
-class TransferFundsResponderHelper implements TransferFundsResponder
+final class TransferFundsResponderHelper
 {
-    private bool $transferWasMade = false;
-
     private bool $senderHasEnoughFunds = true;
-
-    /**
-     * Record that transfer was completed
-     */
-    public function respondToTransferCompleted(TransferFundsSummary $summary): void
-    {
-        $this->transferWasMade = true;
-    }
-
-    /**
-     * Assert that the 'Transfer was made' event is the last event triggered
-     */
-    public function assertTransferWasMade(): void
-    {
-        Assert::assertTrue($this->transferWasMade, 'Transfer is incomplete.');
-    }
 
     public function assertBalanceIs(Money $expectedAmount, Member $forMember): void
     {
@@ -50,23 +27,8 @@ class TransferFundsResponderHelper implements TransferFundsResponder
         );
     }
 
-    public function respondToInsufficientFunds(InsufficientFunds $exception): void
-    {
-        $this->senderHasEnoughFunds = true;
-    }
-
     public function assertSenderDoesNotHaveEnoughFunds(): void
     {
         Assert::assertTrue($this->senderHasEnoughFunds, 'Sender should not have enough funds.');
-    }
-
-    public function respondToInvalidInput(InputValidator $input): void
-    {
-        // Covered by TransferFundsTest
-    }
-
-    public function respondToUnknownMember(UnknownMember $exception): void
-    {
-        // Covered by TransferFundsTest
     }
 }

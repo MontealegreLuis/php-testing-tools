@@ -13,7 +13,8 @@ use PhpSpec\ServiceContainer;
 
 class EwalletExtension implements Extension
 {
-    public function load(ServiceContainer $container, array $params)
+    /** @param mixed[] $params */
+    public function load(ServiceContainer $container, array $params): void
     {
         $container->define(
             'ewallet.matchers.amount',

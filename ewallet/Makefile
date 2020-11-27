@@ -24,7 +24,7 @@ tests:
 
 check:
 	@echo "Looking for static analysis violations"
-	@vendor/bin/phpstan analyse src --level 7
+	@php -d memory_limit=-1 vendor/bin/phpstan analyse
 	@echo "Looking for CS violations in src directory"
 	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
 	@echo "Looking for CS violations in tests directory"

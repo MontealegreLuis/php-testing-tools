@@ -8,15 +8,15 @@
 namespace Setup\Commands;
 
 use Alice\ThreeMembersWithSameBalanceFixture;
-use Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SeedDatabaseCommand extends Command
+final class SeedDatabaseCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ewallet:db:seed')
@@ -25,29 +25,27 @@ class SeedDatabaseCommand extends Command
 
     /**
      * Seed some information to our database
-     *
-     * @throws DBALException if any of the tables cannot be truncated
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var EntityManager $entityManager */
         $entityManager = $this->getHelper('em')->getEntityManager();
         $metadataFactory = $entityManager->getMetadataFactory();
+        /** @var ClassMetadataInfo[] $metadata */
         $metadata = $metadataFactory->getAllMetadata();
-        /** @var ClassMetadata $entityMetadata */
         foreach ($metadata as $entityMetadata) {
-            if (! empty($entityMetadata->getIdentifier())) {
+            if (count($entityMetadata->getIdentifier()) > 0) {
                 $this->truncateTable($entityMetadata);
             }
         }
         $fixture = new ThreeMembersWithSameBalanceFixture($entityManager);
         $fixture->load();
         $output->writeln('Database seed <info>completed successfully</info>!');
+
+        return self::SUCCESS;
     }
 
-    /**
-     * @throws DBALException If any of the queries fail
-     */
-    private function truncateTable(ClassMetadata $metadata): void
+    private function truncateTable(ClassMetadataInfo $metadata): void
     {
         $connection = $this->getHelper('db')->getConnection();
         $platform = $connection->getDatabasePlatform();

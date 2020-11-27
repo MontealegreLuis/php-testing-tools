@@ -14,20 +14,19 @@ use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateDatabaseCommand extends DatabaseCommand
+final class CreateDatabaseCommand extends DatabaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ewallet:db:create')
-            ->setDescription('Create database')
-        ;
+            ->setDescription('Create database');
     }
 
     /**
      * Create database unless it already exists.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $parameters = $this->getHelper('db')->getConnection()->getParams();
         try {
@@ -36,11 +35,17 @@ class CreateDatabaseCommand extends DatabaseCommand
         } catch (Exception $e) {
             $this->cannotCreateDatabase($output, $parameters, $e);
         } finally {
-            $connection !== null && $connection->close();
+            if (isset($connection)) {
+                $connection->close();
+            }
         }
+        return self::SUCCESS;
     }
 
-    /** @throws DBALException */
+    /**
+     * @throws DBALException
+     * @param mixed[] $parameters
+     */
     private function createIfNotExists(OutputInterface $output, array $parameters, Connection $connection): void
     {
         if ($this->databaseExists($parameters, $connection)) {
@@ -50,7 +55,10 @@ class CreateDatabaseCommand extends DatabaseCommand
         }
     }
 
-    /** @throws DBALException */
+    /**
+     * @throws DBALException
+     * @param mixed[] $parameters
+     */
     private function createDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);
@@ -66,6 +74,7 @@ class CreateDatabaseCommand extends DatabaseCommand
         ));
     }
 
+    /** @param mixed[] $parameters */
     protected function doNotCreateDatabase(OutputInterface $output, array $parameters): void
     {
         $output->writeln(sprintf(
@@ -74,6 +83,7 @@ class CreateDatabaseCommand extends DatabaseCommand
         ));
     }
 
+    /** @param mixed[] $parameters */
     protected function cannotCreateDatabase(OutputInterface $output, array $parameters, Exception $exception): void
     {
         $output->writeln(sprintf(

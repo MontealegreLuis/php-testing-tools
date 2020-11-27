@@ -12,31 +12,26 @@ use Application\Messaging\InvalidPublishedMessageToTrack;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
 
-class InMemoryMessageTracker implements MessageTracker
+final class InMemoryMessageTracker implements MessageTracker
 {
     /** @var PublishedMessage[] */
     private array $messages = [];
+
+    /** @throws EmptyExchange */
+    public function mostRecentPublishedMessage(string $exchangeName): PublishedMessage
+    {
+        if (count($this->messages) <= 0) {
+            throw new EmptyExchange("No published messages in exchange $exchangeName");
+        }
+        return array_pop($this->messages);
+    }
 
     public function hasPublishedMessages(string $exchangeName): bool
     {
         return count($this->messages) > 0;
     }
 
-    /**
-     * @throws EmptyExchange
-     */
-    public function mostRecentPublishedMessage(
-        string $exchangeName
-    ): PublishedMessage {
-        if (! $this->hasPublishedMessages($exchangeName)) {
-            throw new EmptyExchange("No published messages in exchange $exchangeName");
-        }
-        return array_pop($this->messages);
-    }
-
-    /**
-     * @throws InvalidPublishedMessageToTrack
-     */
+    /** @throws InvalidPublishedMessageToTrack */
     public function track(PublishedMessage $mostRecentPublishedMessage): void
     {
         if (count($this->messages) > 0

@@ -12,7 +12,7 @@ use Faker\Factory;
 use Faker\Generator;
 use ReflectionClass;
 
-class PublishedMessageBuilder
+final class PublishedMessageBuilder
 {
     private Generator $factory;
 
@@ -20,7 +20,7 @@ class PublishedMessageBuilder
 
     private int $mostRecentMessageId;
 
-    private ?int $identifier;
+    private ?int $identifier = null;
 
     public function __construct()
     {
@@ -45,8 +45,7 @@ class PublishedMessageBuilder
     public function build(): PublishedMessage
     {
         $message = new PublishedMessage($this->exchangeName, $this->mostRecentMessageId);
-
-        if ($this->identifier) {
+        if ($this->identifier !== null) {
             $this->assignIdentifierTo($message);
         }
 

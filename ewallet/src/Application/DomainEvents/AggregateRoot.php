@@ -7,7 +7,10 @@
 
 namespace Application\DomainEvents;
 
-trait RecordsEvents
+/**
+ * Domain aggregates are usually the ones in charge to produce and record domain events
+ */
+abstract class AggregateRoot
 {
     /** @var DomainEvent[] */
     private array $events;

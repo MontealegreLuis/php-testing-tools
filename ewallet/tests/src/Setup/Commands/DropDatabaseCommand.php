@@ -14,20 +14,19 @@ use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DropDatabaseCommand extends DatabaseCommand
+final class DropDatabaseCommand extends DatabaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ewallet:db:drop')
-            ->setDescription('Drops the database')
-        ;
+            ->setDescription('Drops the database');
     }
 
     /**
      * Drop database unless it does not exist.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $parameters = $this->getHelper('db')->getConnection()->getParams();
         try {
@@ -37,10 +36,14 @@ class DropDatabaseCommand extends DatabaseCommand
         } catch (Exception $e) {
             $this->cannotDropDatabase($output, $parameters, $e);
         } finally {
-            $connection !== null && $connection->close();
+            if (isset($connection)) {
+                $connection->close();
+            }
         }
+        return self::SUCCESS;
     }
 
+    /** @param mixed[] $parameters */
     private function dropIfExists(OutputInterface $output, array $parameters, Connection $connection): void
     {
         if ($this->databaseExists($parameters, $connection)) {
@@ -50,7 +53,10 @@ class DropDatabaseCommand extends DatabaseCommand
         }
     }
 
-    /** @throws DBALException */
+    /**
+     * @throws DBALException
+     * @param mixed[] $parameters
+     */
     private function dropDatabase(OutputInterface $output, Connection $connection, array $parameters): void
     {
         $name = $this->databaseName($parameters);
@@ -66,6 +72,7 @@ class DropDatabaseCommand extends DatabaseCommand
         ));
     }
 
+    /** @param mixed[] $parameters */
     private function doNotDropDatabase(OutputInterface $output, array $parameters): void
     {
         $output->writeln(sprintf(
@@ -74,6 +81,7 @@ class DropDatabaseCommand extends DatabaseCommand
         ));
     }
 
+    /** @param mixed[] $parameters */
     protected function cannotDropDatabase(OutputInterface $output, array $parameters, Exception $exception): void
     {
         $output->writeln(sprintf(

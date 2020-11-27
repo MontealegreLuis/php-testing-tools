@@ -73,23 +73,20 @@ abstract class MessageTrackerTest extends TestCase
         $aDifferentMessage = A::publishedMessage()
             ->withExchangeName($exchangeName)
             ->withId($aDifferentId)
-            ->build()
-        ;
+            ->build();
 
         $this->expectException(InvalidPublishedMessageToTrack::class);
         $this->tracker->track($aDifferentMessage);
     }
 
     /** @before */
-    function createTracker(): void
+    function let()
     {
         $this->tracker = $this->messageTracker();
     }
 
     abstract function messageTracker(): MessageTracker;
 
-    /** @var MessageTracker */
-    protected $tracker;
-
+    protected MessageTracker $tracker;
     protected const LAST_PUBLISHED_MESSAGE_ID = 5;
 }

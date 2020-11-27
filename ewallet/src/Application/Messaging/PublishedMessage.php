@@ -10,9 +10,7 @@ namespace Application\Messaging;
 class PublishedMessage
 {
     private ?int $id = null;
-
     private string $exchangeName;
-
     private int $mostRecentMessageId;
 
     public function __construct(string $exchangeName, int $mostRecentMessageId)
@@ -21,7 +19,7 @@ class PublishedMessage
         $this->mostRecentMessageId = $mostRecentMessageId;
     }
 
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }

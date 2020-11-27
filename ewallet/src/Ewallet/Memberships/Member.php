@@ -7,24 +7,18 @@
 
 namespace Ewallet\Memberships;
 
-use Application\DomainEvents\CanRecordEvents;
-use Application\DomainEvents\RecordsEvents;
+use Application\DomainEvents\AggregateRoot;
 use Money\Money;
 use Webmozart\Assert\Assert;
 
 /**
  * Members can transfer money to each other's accounts
  */
-class Member implements CanRecordEvents
+class Member extends AggregateRoot
 {
-    use RecordsEvents;
-
     private MemberId $memberId;
-
     private string $name;
-
     private Email $email;
-
     private Account $account;
 
     /**

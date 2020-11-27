@@ -12,14 +12,17 @@ use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Application\DomainEvents\EventPublisher;
 use Doctrine\DataStorageSetup;
+use Ewallet\Memberships\MemberId;
+use Ewallet\Memberships\Members;
 use Exception;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use RuntimeException;
 
-class TransactionalTransferFundsActionTest extends TestCase
+final class TransactionalTransferFundsActionTest extends TestCase
 {
     use ProphecyTrait;
     use ProvidesMoneyConstraints;
@@ -40,11 +43,7 @@ class TransactionalTransferFundsActionTest extends TestCase
     function it_rollbacks_an_incomplete_transfer()
     {
         $originalBalanceInCents = 1000;
-        $this
-            ->responder
-            ->respondToTransferCompleted(Argument::type(TransferFundsSummary::class))
-            ->willThrow(RuntimeException::class)
-        ;
+        $this->publisher->publish(Argument::any())->willThrow(new RuntimeException());
 
         try {
             $this->action->transfer($this->threeMxn);
@@ -67,11 +66,9 @@ class TransactionalTransferFundsActionTest extends TestCase
 
         $this->members = new MembersRepository($entityManager);
 
-        $this->action = new TransactionalTransferFundsAction($this->members, new EventPublisher());
+        $this->publisher = $this->prophesize(EventPublisher::class);
+        $this->action = new TransactionalTransferFundsAction($this->members, $this->publisher->reveal());
         $this->action->setTransactionalSession(new DoctrineSession($entityManager));
-
-        $this->responder = $this->prophesize(TransferFundsResponder::class);
-        $this->action->attach($this->responder->reveal());
 
         $this->threeMxn = new TransferFundsInput([
             'senderId' => 'XYZ',
@@ -82,21 +79,10 @@ class TransactionalTransferFundsActionTest extends TestCase
         $this->recipientId = $this->threeMxn->recipientId();
     }
 
-    /** @var TransactionalTransferFundsAction Subject under test */
-    private $action;
-
-    /** @var \Ewallet\Memberships\MemberId */
-    private $recipientId;
-
-    /** @var \Ewallet\Memberships\MemberId */
-    private $senderId;
-
-    /** @var TransferFundsResponder */
-    private $responder;
-
-    /** @var TransferFundsInput */
-    private $threeMxn;
-
-    /** @var \Ewallet\Memberships\Members $members */
-    private $members;
+    private TransactionalTransferFundsAction $action;
+    private MemberId $recipientId;
+    private MemberId $senderId;
+    private TransferFundsInput $threeMxn;
+    private Members $members;
+    private ObjectProphecy $publisher;
 }

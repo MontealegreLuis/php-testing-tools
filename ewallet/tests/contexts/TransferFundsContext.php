@@ -13,30 +13,29 @@ use DataBuilders\A;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
 use Ewallet\Memberships\MemberId;
+use Ewallet\Memberships\Members;
 use Fakes\Ewallet\Memberships\InMemoryMembers;
 use Money\Money;
+use PHPUnit\Framework\Assert;
 
 /**
  * Defines steps for the 'Transfer funds' feature
  */
-class TransferFundsContext implements Context
+final class TransferFundsContext implements Context
 {
     use MemberDictionary;
 
-    /** @var string */
-    private $senderId = 'abc';
+    private string $senderId = 'abc';
 
-    /** @var string */
-    private $recipientId = 'xyz';
+    private string $recipientId = 'xyz';
 
-    /** @var \Ewallet\Memberships\Members */
-    private $members;
+    private Members $members;
 
-    /** @var TransferFundsResponderHelper */
-    private $helper;
+    private TransferFundsResponderHelper $helper;
 
-    /** @var TransferFundsAction */
-    private $action;
+    private TransferFundsAction $action;
+
+    private $summary;
 
     /** @BeforeScenario */
     public function let()
@@ -44,7 +43,6 @@ class TransferFundsContext implements Context
         $this->members = new InMemoryMembers();
         $this->helper = new TransferFundsResponderHelper();
         $this->action = new TransferFundsAction($this->members, new EventPublisher());
-        $this->action->attach($this->helper);
     }
 
     /**
@@ -54,7 +52,7 @@ class TransferFundsContext implements Context
     {
         $sender = A::member()->withId($this->senderId)->withBalance($amount)->build();
 
-        $this->members->add($sender);
+        $this->members->save($sender);
     }
 
     /**
@@ -64,7 +62,7 @@ class TransferFundsContext implements Context
     {
         $recipient = A::member()->withId($this->recipientId)->withBalance($amount)->build();
 
-        $this->members->add($recipient);
+        $this->members->save($recipient);
     }
 
     /**
@@ -72,7 +70,7 @@ class TransferFundsContext implements Context
      */
     public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
-        $this->action->transfer(new TransferFundsInput([
+        $this->summary = $this->action->transfer(new TransferFundsInput([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
             'amount' => $amount->getAmount() / 100,
@@ -84,7 +82,7 @@ class TransferFundsContext implements Context
      */
     public function theSenderIsNotifiedThatTheTransferIsComplete()
     {
-        $this->helper->assertTransferWasMade();
+        Assert::assertNotNull($this->summary, 'Transfer is incomplete.');
     }
 
     /**

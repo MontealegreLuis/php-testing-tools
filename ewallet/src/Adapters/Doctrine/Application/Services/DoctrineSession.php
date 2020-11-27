@@ -20,8 +20,8 @@ class DoctrineSession implements TransactionalSession
         $this->entityManager = $entityManager;
     }
 
-    public function executeAtomically(callable $operation): void
+    public function executeAtomically(callable $operation): object
     {
-        $this->entityManager->transactional(Closure::fromCallable($operation));
+        return $this->entityManager->transactional(Closure::fromCallable($operation));
     }
 }

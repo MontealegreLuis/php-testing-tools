@@ -12,5 +12,5 @@ namespace Application\Services;
  */
 interface TransactionalSession
 {
-    public function executeAtomically(callable $operation): void;
+    public function executeAtomically(callable $operation): object;
 }

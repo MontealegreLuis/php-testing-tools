@@ -10,7 +10,7 @@ namespace Application\DomainEvents;
 /**
  * Transforms domain events into stored events in order to persist them and publish them via messaging later
  */
-class StoredEventFactory
+final class StoredEventFactory
 {
     private EventSerializer $serializer;
 

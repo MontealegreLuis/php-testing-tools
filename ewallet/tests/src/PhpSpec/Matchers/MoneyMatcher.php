@@ -15,24 +15,35 @@ use PhpSpec\Matcher\BasicMatcher;
  * Adds `shouldAmount` matcher to verify that an amount expressed in
  * cents is equal to the amount of the subject `Money` object
  */
-class MoneyMatcher extends BasicMatcher
+final class MoneyMatcher extends BasicMatcher
 {
     /**
      * Verifies that a Money object has the correct amount
      *
      * @example $this->account->balance()->shouldAmount($amount)
+     * @param mixed $subject
+     * @param mixed[] $arguments
      */
     public function supports(string $name, $subject, array $arguments): bool
     {
         return $name === 'amount' && \count($arguments) === 1;
     }
 
+    /**
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     */
     protected function matches($subject, array $arguments): bool
     {
         $expectedAmount = $arguments[0];
-        return $subject->getAmount() == $expectedAmount;
+        /** @var Money $subject */
+        return $subject->getAmount() === (string) $expectedAmount;
     }
 
+    /**
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     */
     protected function getFailureException(string $name, $subject, array $arguments): FailureException
     {
         $expectedAmount = $arguments[0];
@@ -44,6 +55,10 @@ class MoneyMatcher extends BasicMatcher
         ));
     }
 
+    /**
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     */
     protected function getNegativeFailureException(string $name, $subject, array $arguments): FailureException
     {
         $expectedAmount = $arguments[0];

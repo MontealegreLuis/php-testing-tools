@@ -17,16 +17,13 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class AmqpMessageConsumer implements MessageConsumer
 {
+    private ChannelConfiguration $configuration;
     private AMQPStreamConnection $connection;
-
-    private ?AMQPChannel $channel;
-
+    private ?AMQPChannel $channel = null;
     private ?Closure $callback;
 
-    /** @var boolean Only consume 1 message */
+    /** Consume only 1 message */
     private bool $consumed = false;
-
-    private ChannelConfiguration $configuration;
 
     public function __construct(AMQPStreamConnection $connection, ChannelConfiguration $configuration)
     {
@@ -77,6 +74,9 @@ class AmqpMessageConsumer implements MessageConsumer
      */
     public function callback(AMQPMessage $message): void
     {
+        if (! is_callable($this->callback)) {
+            throw new InvalidConsumerCallback();
+        }
         $callback = $this->callback;
 
         $callback(json_decode($message->body), $message->get('type'));

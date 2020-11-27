@@ -8,7 +8,6 @@
 namespace Ewallet\ManageWallet\TransferFunds;
 
 use Application\Services\ProvidesTransactionalOperations;
-use Ewallet\Memberships\InsufficientFunds;
 
 class TransactionalTransferFundsAction extends TransferFundsAction
 {
@@ -16,17 +15,13 @@ class TransactionalTransferFundsAction extends TransferFundsAction
 
     /**
      * Execute the transfer in a transaction
-     *
-     * @inheritdoc
      */
-    public function transfer(TransferFundsInput $input): void
+    public function transfer(TransferFundsInput $input): TransferFundsSummary
     {
-        try {
-            $this->execute(function () use ($input): void {
-                parent::transfer($input);
-            });
-        } catch (InsufficientFunds $exception) {
-            $this->responder()->respondToInsufficientFunds($exception);
-        }
+        /** @var TransferFundsSummary $summary */
+        $summary = $this->execute(function () use ($input): TransferFundsSummary {
+            return parent::transfer($input);
+        });
+        return $summary;
     }
 }

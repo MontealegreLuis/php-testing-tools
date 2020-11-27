@@ -8,7 +8,7 @@
 namespace Setup;
 
 use Doctrine\DataStorageSetup;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
@@ -20,10 +20,11 @@ use Setup\Commands\SeedDatabaseCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;
 
-class SetupApplication extends Application
+final class SetupApplication extends Application
 {
     /**
-     * @throws DBALException
+     * @param mixed[] $options
+     * @throws Exception
      * @throws ORMException
      */
     public function __construct(array $options)

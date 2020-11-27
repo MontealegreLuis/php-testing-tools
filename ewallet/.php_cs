@@ -29,7 +29,6 @@ return PhpCsFixer\Config::create()
         'single_quote' => true,
         'trailing_comma_in_multiline_array' => true,
         'concat_space' => ['spacing' => 'one'],
-        'no_superfluous_phpdoc_tags' => true,
         'no_empty_phpdoc' => true,
         'no_empty_statement' => true,
         'array_indentation' => true,

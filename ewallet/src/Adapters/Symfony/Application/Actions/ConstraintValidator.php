@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validation;
 abstract class ConstraintValidator implements InputValidator
 {
     /** @var ConstraintViolationListInterface<ConstraintViolationInterface> */
-    private ConstraintViolationList $violations;
+    private ConstraintViolationListInterface $violations;
 
     protected function __construct()
     {

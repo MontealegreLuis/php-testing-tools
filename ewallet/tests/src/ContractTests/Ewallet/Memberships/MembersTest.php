@@ -50,7 +50,7 @@ abstract class MembersTest extends TestCase
         $sender = $this->members->with($this->sender->id());
 
         $sender->transfer(Money::MXN($fivePesos), $recipient);
-        $this->members->update($sender);
+        $this->members->save($sender);
 
         $this->assertBalanceAmounts(
             $fivePesos,
@@ -66,9 +66,9 @@ abstract class MembersTest extends TestCase
         $this->registeredMember = A::member()->build();
         $this->sender = A::member()->withBalance(1000)->build();
 
-        $this->members->add($this->sender);
-        $this->members->add($this->registeredMember);
-        $this->members->add(A::member()->build());
+        $this->members->save($this->sender);
+        $this->members->save($this->registeredMember);
+        $this->members->save(A::member()->build());
     }
 
     /** @var Members */

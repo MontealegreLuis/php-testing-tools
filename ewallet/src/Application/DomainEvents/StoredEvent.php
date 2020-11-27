@@ -15,11 +15,8 @@ use DateTimeInterface;
 class StoredEvent implements DomainEvent
 {
     private ?int $id = null;
-
     private string $body;
-
     private string $type;
-
     private DateTimeInterface $occurredOn;
 
     public function __construct(string $body, string $type, DateTimeInterface $occurredOn)
@@ -29,7 +26,7 @@ class StoredEvent implements DomainEvent
         $this->occurredOn = $occurredOn;
     }
 
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }

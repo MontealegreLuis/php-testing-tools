@@ -17,7 +17,5 @@ interface Members
      */
     public function with(MemberId $memberId): Member;
 
-    public function add(Member $member): void;
-
-    public function update(Member $member): void;
+    public function save(Member $member): void;
 }

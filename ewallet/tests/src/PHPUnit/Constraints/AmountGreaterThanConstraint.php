@@ -10,7 +10,7 @@ namespace PHPUnit\Constraints;
 use Money\Money;
 use PHPUnit\Framework\Constraint\Constraint;
 
-class AmountGreaterThanConstraint extends Constraint
+final class AmountGreaterThanConstraint extends Constraint
 {
     private Money $lowerLimit;
 
@@ -23,10 +23,10 @@ class AmountGreaterThanConstraint extends Constraint
      * Returns true if the provided amount is greater, than the current lower
      * limit
      *
-     * @param  Money $other
      */
     protected function matches($other): bool
     {
+        /** @var Money $other */
         return $this->lowerLimit->lessThan($other);
     }
 

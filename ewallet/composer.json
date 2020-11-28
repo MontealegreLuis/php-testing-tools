@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "behat/behat": "~3.8",
+        "cweagans/composer-patches": "~1.7",
         "friendsofphp/php-cs-fixer": "~2.16",
         "fzaninotto/faker": "~1.9",
         "giorgiosironi/eris": "~0.11",
@@ -75,5 +76,12 @@
     },
     "bin": [
         "bin/setup"
-    ]
+    ],
+    "extra": {
+        "patches": {
+            "giorgiosironi/eris": {
+                "Fix PHP 7.4 deprecation": "https://patch-diff.githubusercontent.com/raw/giorgiosironi/eris/pull/125.patch"
+            }
+        }
+    }
 }

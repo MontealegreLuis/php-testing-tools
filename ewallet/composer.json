@@ -16,6 +16,7 @@
         "doctrine/cache": "~1.10",
         "doctrine/orm": "~2.7",
         "jms/serializer": "~3.10",
+        "laminas/laminas-filter": "^2.9",
         "moneyphp/money": "~3.3",
         "nesbot/carbon": "~2.41",
         "pimple/pimple": "~3.3",

@@ -9,8 +9,10 @@ namespace Application\DomainEvents;
 
 /**
  * A publisher notifies a group of event subscribers when domain events have been published
+ *
+ * @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector
  */
-final class EventPublisher
+class EventPublisher
 {
     /** @var EventSubscriber[] */
     private array $subscribers;

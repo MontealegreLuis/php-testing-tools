@@ -7,53 +7,64 @@
 
 namespace Adapters\Symfony\Ewallet\ManageWallet\TransferFunds;
 
+use Adapters\Laminas\Application\InputValidation\LaminasInputFilter;
+use Adapters\Symfony\Application\InputValidation\ConstraintValidator;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\ValidatorBuilder;
 
-class TransferFundsValidatorTest extends TestCase
+final class TransferFundsValidatorTest extends TestCase
 {
     /** @test */
     function it_does_not_pass_validation_if_no_input_is_present()
     {
-        $input = new TransferFundsValidator([]);
+        $values = new TransferFundsValues(new LaminasInputFilter([]));
 
-        $isValid = $input->isValid();
+        $result = $this->validator->validate($values);
 
-        $this->assertFalse($isValid);
-        $this->assertCount(3, $input->errors());
-        $this->assertArrayHasKey('senderId', $input->errors());
-        $this->assertArrayHasKey('recipientId', $input->errors());
-        $this->assertArrayHasKey('amount', $input->errors());
+        $this->assertFalse($result->isValid());
+        $this->assertCount(3, $result->errors());
+        $this->assertArrayHasKey('senderId', $result->errors());
+        $this->assertArrayHasKey('recipientId', $result->errors());
+        $this->assertArrayHasKey('amount', $result->errors());
     }
 
     /** @test */
     function it_does_not_pass_validation_if_ids_are_empty()
     {
-        $input = new TransferFundsValidator([
+        $values = new TransferFundsValues(new LaminasInputFilter([
             'senderId' => '  ',
             'amount' => 1000,
-        ]);
+        ]));
 
-        $isValid = $input->isValid();
+        $result = $this->validator->validate($values);
 
-        $this->assertFalse($isValid);
-        $this->assertCount(2, $input->errors());
-        $this->assertArrayHasKey('senderId', $input->errors());
-        $this->assertArrayHasKey('recipientId', $input->errors());
+        $this->assertFalse($result->isValid());
+        $this->assertCount(2, $result->errors());
+        $this->assertArrayHasKey('senderId', $result->errors());
+        $this->assertArrayHasKey('recipientId', $result->errors());
     }
 
     /** @test */
     function it_does_not_pass_validation_if_amount_is_not_greater_than_zero()
     {
-        $input = new TransferFundsValidator([
+        $values = new TransferFundsValues(new LaminasInputFilter([
             'senderId' => 'ABC',
             'recipientId' => 'DEF',
             'amount' => 0,
-        ]);
+        ]));
 
-        $isValid = $input->isValid();
+        $result = $this->validator->validate($values);
 
-        $this->assertFalse($isValid);
-        $this->assertCount(1, $input->errors());
-        $this->assertArrayHasKey('amount', $input->errors());
+        $this->assertFalse($result->isValid());
+        $this->assertCount(1, $result->errors());
+        $this->assertArrayHasKey('amount', $result->errors());
     }
+
+    /** @before */
+    function let()
+    {
+        $this->validator = new ConstraintValidator((new ValidatorBuilder())->enableAnnotationMapping()->getValidator());
+    }
+
+    private ConstraintValidator $validator;
 }

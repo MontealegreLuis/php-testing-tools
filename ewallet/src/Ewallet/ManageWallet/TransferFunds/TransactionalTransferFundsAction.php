@@ -19,7 +19,7 @@ final class TransactionalTransferFundsAction extends TransferFundsAction
     public function transfer(TransferFundsInput $input): TransferFundsSummary
     {
         /** @var TransferFundsSummary $summary */
-        $summary = $this->execute(fn(): TransferFundsSummary => parent::transfer($input));
+        $summary = $this->execute(fn (): TransferFundsSummary => parent::transfer($input));
         return $summary;
     }
 }

@@ -11,8 +11,10 @@ use Money\Money;
 
 /**
  * Format money, and members information uniformly across all applications
+ *
+ * @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector
  */
-final class MemberFormatter
+class MemberFormatter
 {
     public function formatMember(Member $member): string
     {

@@ -7,20 +7,21 @@
 
 namespace Adapters\Symfony\Ewallet\ManageWallet\TransferFunds;
 
-use Adapters\Symfony\Application\Actions\ConstraintValidator;
+use Application\InputValidation\InputFilter;
+use Application\InputValidation\InputValues;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class TransferFundsValidator extends ConstraintValidator
+final class TransferFundsValues extends InputValues
 {
     /**
      * @Assert\NotBlank(message="Sender ID cannot be blank")
      */
-    protected string $senderId;
+    protected ?string $senderId;
 
     /**
      * @Assert\NotBlank(message="Recipient ID cannot be blank")
      */
-    protected string $recipientId;
+    protected ?string $recipientId;
 
     /**
      * @Assert\Type(type="numeric", message="Transfer amount must be a number, '{{ value }}' found")
@@ -31,12 +32,10 @@ final class TransferFundsValidator extends ConstraintValidator
      */
     protected int $amount;
 
-    /** @param mixed[] $input */
-    public function __construct(array $input)
+    public function __construct(InputFilter $filter)
     {
-        parent::__construct();
-        $this->senderId = trim($input['senderId'] ?? '');
-        $this->recipientId = trim($input['recipientId'] ?? '');
-        $this->amount = $input['amount'] ?? 0;
+        $this->senderId = $filter->trim('senderId');
+        $this->recipientId = $filter->trim('recipientId');
+        $this->amount = $filter->integer('amount', -1);
     }
 }

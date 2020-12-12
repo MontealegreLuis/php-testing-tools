@@ -9,7 +9,7 @@ namespace Ewallet\ManageWallet\TransferFunds;
 
 use Application\Services\ProvidesTransactionalOperations;
 
-class TransactionalTransferFundsAction extends TransferFundsAction
+final class TransactionalTransferFundsAction extends TransferFundsAction
 {
     use ProvidesTransactionalOperations;
 
@@ -19,9 +19,7 @@ class TransactionalTransferFundsAction extends TransferFundsAction
     public function transfer(TransferFundsInput $input): TransferFundsSummary
     {
         /** @var TransferFundsSummary $summary */
-        $summary = $this->execute(function () use ($input): TransferFundsSummary {
-            return parent::transfer($input);
-        });
+        $summary = $this->execute(fn(): TransferFundsSummary => parent::transfer($input));
         return $summary;
     }
 }

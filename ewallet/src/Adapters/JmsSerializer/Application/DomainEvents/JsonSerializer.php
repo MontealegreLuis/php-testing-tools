@@ -17,7 +17,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use Money\Money;
 
-class JsonSerializer implements EventSerializer
+final class JsonSerializer implements EventSerializer
 {
     /** @var SerializerInterface */
     private $serializer;

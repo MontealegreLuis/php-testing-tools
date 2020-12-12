@@ -15,7 +15,7 @@ use Pimple\ServiceProviderInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-class TwigServiceProvider implements ServiceProviderInterface
+final class TwigServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register Twig's loader and environment

@@ -10,7 +10,7 @@ namespace Adapters\Symfony\Ewallet\ManageWallet\TransferFunds;
 use Adapters\Symfony\Application\Actions\ConstraintValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class TransferFundsValidator extends ConstraintValidator
+final class TransferFundsValidator extends ConstraintValidator
 {
     /**
      * @Assert\NotBlank(message="Sender ID cannot be blank")

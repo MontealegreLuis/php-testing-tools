@@ -15,7 +15,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class AmqpMessageConsumer implements MessageConsumer
+final class AmqpMessageConsumer implements MessageConsumer
 {
     private ChannelConfiguration $configuration;
 
@@ -23,7 +23,7 @@ class AmqpMessageConsumer implements MessageConsumer
 
     private ?AMQPChannel $channel = null;
 
-    private ?Closure $callback;
+    private ?Closure $callback = null;
 
     /** Consume only 1 message */
     private bool $consumed = false;

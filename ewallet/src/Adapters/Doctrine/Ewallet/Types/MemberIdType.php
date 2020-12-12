@@ -14,7 +14,7 @@ use Ewallet\Memberships\MemberId;
  * UUID fields will be stored as a string in the database and converted back to
  * the MemberId value object when querying.
  */
-class MemberIdType extends UuidType
+final class MemberIdType extends UuidType
 {
     public function identifier(string $value): Identifier
     {

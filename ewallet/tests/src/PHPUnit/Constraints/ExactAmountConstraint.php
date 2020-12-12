@@ -10,7 +10,7 @@ namespace PHPUnit\Constraints;
 use Money\Money;
 use PHPUnit\Framework\Constraint\Constraint;
 
-class ExactAmountConstraint extends Constraint
+final class ExactAmountConstraint extends Constraint
 {
     private int $expectedAmount;
 

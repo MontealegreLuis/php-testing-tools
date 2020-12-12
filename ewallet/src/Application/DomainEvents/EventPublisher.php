@@ -10,7 +10,7 @@ namespace Application\DomainEvents;
 /**
  * A publisher notifies a group of event subscribers when domain events have been published
  */
-class EventPublisher
+final class EventPublisher
 {
     /** @var EventSubscriber[] */
     private array $subscribers;

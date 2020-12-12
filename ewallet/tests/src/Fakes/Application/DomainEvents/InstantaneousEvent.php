@@ -11,7 +11,7 @@ use Application\Clock;
 use Application\DomainEvents\DomainEvent;
 use DateTimeInterface;
 
-class InstantaneousEvent implements DomainEvent
+final class InstantaneousEvent implements DomainEvent
 {
     private DateTimeInterface $occurredOn;
 

@@ -11,7 +11,7 @@ use Application\Services\TransactionalSession;
 use Closure;
 use Doctrine\ORM\EntityManagerInterface;
 
-class DoctrineSession implements TransactionalSession
+final class DoctrineSession implements TransactionalSession
 {
     private EntityManagerInterface $entityManager;
 

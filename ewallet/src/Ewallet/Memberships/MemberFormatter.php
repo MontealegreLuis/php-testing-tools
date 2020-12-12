@@ -12,7 +12,7 @@ use Money\Money;
 /**
  * Format money, and members information uniformly across all applications
  */
-class MemberFormatter
+final class MemberFormatter
 {
     public function formatMember(Member $member): string
     {

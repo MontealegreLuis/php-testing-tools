@@ -14,7 +14,7 @@ use Doctrine\ORM\Tools\Setup;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class DoctrineServiceProvider implements ServiceProviderInterface
+final class DoctrineServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register Doctrine's entity manager

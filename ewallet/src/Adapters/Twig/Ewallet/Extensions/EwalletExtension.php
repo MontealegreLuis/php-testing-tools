@@ -13,7 +13,7 @@ use Money\Money;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class EwalletExtension extends AbstractExtension
+final class EwalletExtension extends AbstractExtension
 {
     private MemberFormatter $formatter;
 

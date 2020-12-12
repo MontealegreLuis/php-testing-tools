@@ -13,7 +13,7 @@ use Application\DomainEvents\StoredEvent;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
-class EventStoreRepository extends Repository implements EventStore
+final class EventStoreRepository extends Repository implements EventStore
 {
     /**
      * @throws ORMException

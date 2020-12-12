@@ -11,7 +11,7 @@ use PhpSpec\Extension;
 use PhpSpec\Matchers\MoneyMatcher;
 use PhpSpec\ServiceContainer;
 
-class EwalletExtension implements Extension
+final class EwalletExtension implements Extension
 {
     /** @param mixed[] $params */
     public function load(ServiceContainer $container, array $params): void

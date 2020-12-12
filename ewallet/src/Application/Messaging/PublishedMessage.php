@@ -7,7 +7,7 @@
 
 namespace Application\Messaging;
 
-class PublishedMessage
+final class PublishedMessage
 {
     private ?int $id = null;
 

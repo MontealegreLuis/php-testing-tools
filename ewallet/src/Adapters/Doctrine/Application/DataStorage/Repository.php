@@ -9,7 +9,7 @@ namespace Adapters\Doctrine\Application\DataStorage;
 
 use Doctrine\ORM\EntityManager;
 
-class Repository
+abstract class Repository
 {
     protected EntityManager $manager;
 

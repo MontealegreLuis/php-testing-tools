@@ -12,7 +12,7 @@ use Application\DomainEvents\StoredEvent;
 use ReflectionException;
 use ReflectionObject;
 
-class InMemoryEventStore implements EventStore
+final class InMemoryEventStore implements EventStore
 {
     private static int $nextId = 1;
 

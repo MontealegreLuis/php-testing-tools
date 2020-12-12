@@ -10,7 +10,7 @@ namespace Fakes\Application;
 use Application\Clock;
 use Carbon\CarbonImmutable;
 
-class FakeClock implements Clock
+final class FakeClock implements Clock
 {
     private CarbonImmutable $now;
 

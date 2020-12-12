@@ -11,6 +11,8 @@ use DateTimeInterface;
 
 /**
  * Representation of a persisted domain event
+ *
+ * @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector
  */
 class StoredEvent implements DomainEvent
 {

@@ -14,7 +14,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class AmqpMessageProducer implements MessageProducer
+final class AmqpMessageProducer implements MessageProducer
 {
     private AMQPStreamConnection $connection;
 

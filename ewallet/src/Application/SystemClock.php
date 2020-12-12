@@ -9,7 +9,7 @@ namespace Application;
 
 use Carbon\CarbonImmutable;
 
-class SystemClock implements Clock
+final class SystemClock implements Clock
 {
     public function now(): CarbonImmutable
     {

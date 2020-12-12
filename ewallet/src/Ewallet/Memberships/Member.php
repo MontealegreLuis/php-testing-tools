@@ -13,6 +13,8 @@ use Webmozart\Assert\Assert;
 
 /**
  * Members can transfer money to each other's accounts
+ *
+ * @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector
  */
 class Member extends AggregateRoot
 {

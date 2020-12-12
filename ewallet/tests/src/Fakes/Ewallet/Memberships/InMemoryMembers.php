@@ -13,7 +13,7 @@ use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
 use SplObjectStorage;
 
-class InMemoryMembers implements Members
+final class InMemoryMembers implements Members
 {
     private SplObjectStorage $members;
 

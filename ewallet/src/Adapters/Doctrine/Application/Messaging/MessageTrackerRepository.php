@@ -16,7 +16,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\ORMException;
 
-class MessageTrackerRepository extends Repository implements MessageTracker
+final class MessageTrackerRepository extends Repository implements MessageTracker
 {
     /**
      * @throws NonUniqueResultException

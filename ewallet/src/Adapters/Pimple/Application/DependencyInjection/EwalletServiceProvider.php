@@ -21,7 +21,7 @@ use Ewallet\Memberships\Members;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class EwalletServiceProvider implements ServiceProviderInterface
+final class EwalletServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container): void
     {

@@ -15,7 +15,7 @@ use Nelmio\Alice\Loader\NativeLoader;
  * Fixture with 3 members, one with predefined information, 2 random. All of
  * them have a balance of $1000.00 MXN
  */
-class ThreeMembersWithSameBalanceFixture
+final class ThreeMembersWithSameBalanceFixture
 {
     private EntityManager $objectManager;
 

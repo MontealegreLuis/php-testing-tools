@@ -13,7 +13,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class TwigTemplateEngine implements TemplateEngine
+final class TwigTemplateEngine implements TemplateEngine
 {
     private Twig $twig;
 

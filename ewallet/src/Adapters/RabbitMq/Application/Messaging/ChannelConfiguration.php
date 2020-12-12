@@ -9,7 +9,7 @@ namespace Adapters\RabbitMq\Application\Messaging;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 
-class ChannelConfiguration
+final class ChannelConfiguration
 {
     private bool $durable;
 

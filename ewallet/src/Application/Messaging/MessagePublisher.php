@@ -11,7 +11,7 @@ use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
 use Exception;
 
-class MessagePublisher
+final class MessagePublisher
 {
     private const NO_MESSAGES_PUBLISHED = 0;
 
@@ -21,14 +21,14 @@ class MessagePublisher
 
     private MessageProducer $producer;
 
-    private ?PublishedMessage $mostRecentMessage;
+    private ?PublishedMessage $mostRecentMessage = null;
 
     /** @var StoredEvent[] */
     private array $unpublishedEvents;
 
     private int $publishedMessagesCount;
 
-    private ?StoredEvent $lastPublishedEvent;
+    private ?StoredEvent $lastPublishedEvent = null;
 
     public function __construct(
         EventStore $store,

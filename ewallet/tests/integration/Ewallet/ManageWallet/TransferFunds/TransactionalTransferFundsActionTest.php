@@ -80,9 +80,14 @@ final class TransactionalTransferFundsActionTest extends TestCase
     }
 
     private TransactionalTransferFundsAction $action;
+
     private MemberId $recipientId;
+
     private MemberId $senderId;
+
     private TransferFundsInput $threeMxn;
+
     private Members $members;
+
     private ObjectProphecy $publisher;
 }

@@ -7,46 +7,28 @@
 
 namespace DataBuilders\Ewallet\Memberships;
 
+use DataBuilders\Random;
 use Ewallet\Memberships\Email;
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberId;
-use Faker\Factory;
-use Faker\Generator;
 use function is_int;
 
 use Money\Money;
 
 final class MembersBuilder
 {
-    private Generator $faker;
+    private ?string $id = null;
 
-    private string $name;
+    private ?string $name = null;
 
-    private string $email;
+    private ?string $email = null;
 
     /** @var int|Money|null */
     private $amount;
 
-    private string $id;
-
-    /**
-     * Initialize member's information with fake data
-     */
-    public function __construct()
-    {
-        $this->faker = Factory::create();
-    }
-
     public function named(string $name): MembersBuilder
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function withEmail(string $email): MembersBuilder
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -68,15 +50,15 @@ final class MembersBuilder
 
     public function build(): Member
     {
-        $amount = Money::MXN($this->faker->numberBetween(1, 10_000));
+        $amount = Money::MXN(Random::cents());
         if ($this->amount !== null) {
             $amount = is_int($this->amount) ? Money::MXN($this->amount) : $this->amount;
         }
 
         return Member::withAccountBalance(
-            new MemberId($this->id ?? $this->faker->uuid),
-            $this->name ?? $this->faker->name,
-            new Email($this->email ?? $this->faker->email),
+            new MemberId($this->id ?? Random::uuid()),
+            $this->name ?? Random::name(),
+            new Email($this->email ?? Random::email()),
             $amount
         );
     }

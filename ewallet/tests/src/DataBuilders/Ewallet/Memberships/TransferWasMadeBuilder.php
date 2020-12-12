@@ -7,48 +7,25 @@
 
 namespace DataBuilders\Ewallet\Memberships;
 
+use DataBuilders\Random;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\TransferWasMade;
-use Faker\Factory;
-use Faker\Generator;
 use Money\Money;
 
-class TransferWasMadeBuilder
+final class TransferWasMadeBuilder
 {
-    private Generator $factory;
+    private ?string $senderId = null;
 
-    private string $senderId;
+    private ?int $amount = null;
 
-    private int $amount;
-
-    private string $recipientId;
-
-    public function __construct()
-    {
-        $this->factory = Factory::create();
-        $this->reset();
-    }
+    private ?string $recipientId = null;
 
     public function build(): TransferWasMade
     {
-        $event = new TransferWasMade(
-            new MemberId($this->senderId),
-            Money::MXN($this->amount),
-            new MemberId($this->recipientId)
+        return new TransferWasMade(
+            new MemberId($this->senderId ?? Random::uuid()),
+            Money::MXN($this->amount ?? Random::cents()),
+            new MemberId($this->recipientId ?? Random::uuid())
         );
-
-        $this->reset();
-
-        return $event;
-    }
-
-    /**
-     * Set random initial values for the event
-     */
-    private function reset(): void
-    {
-        $this->senderId = $this->factory->uuid;
-        $this->amount = $this->factory->numberBetween(1, 10_000);
-        $this->recipientId = $this->factory->uuid;
     }
 }

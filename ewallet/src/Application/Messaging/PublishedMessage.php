@@ -10,7 +10,9 @@ namespace Application\Messaging;
 class PublishedMessage
 {
     private ?int $id = null;
+
     private string $exchangeName;
+
     private int $mostRecentMessageId;
 
     public function __construct(string $exchangeName, int $mostRecentMessageId)

@@ -16,6 +16,7 @@ use Ewallet\Memberships\Members;
 class TransferFundsAction
 {
     private Members $members;
+
     private EventPublisher $publisher;
 
     public function __construct(Members $members, EventPublisher $publisher)

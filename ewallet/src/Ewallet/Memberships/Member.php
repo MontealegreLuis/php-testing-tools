@@ -17,8 +17,11 @@ use Webmozart\Assert\Assert;
 class Member extends AggregateRoot
 {
     private MemberId $memberId;
+
     private string $name;
+
     private Email $email;
+
     private Account $account;
 
     /**
@@ -89,6 +92,7 @@ class Member extends AggregateRoot
         Email $email,
         Account $account
     ) {
+        parent::__construct();
         $this->memberId = $memberId;
         $this->setName(trim($name));
         $this->email = $email;

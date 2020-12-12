@@ -13,11 +13,15 @@ use Application\Messaging\InvalidPublishedMessageToTrack;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\ORMException;
 
 class MessageTrackerRepository extends Repository implements MessageTracker
 {
-    /** @throws NonUniqueResultException */
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     public function hasPublishedMessages(string $exchangeName): bool
     {
         $builder = $this->manager->createQueryBuilder();

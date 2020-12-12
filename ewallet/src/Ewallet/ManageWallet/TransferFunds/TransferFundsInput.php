@@ -17,7 +17,9 @@ use Money\Money;
 final class TransferFundsInput
 {
     private MemberId $senderId;
+
     private MemberId $recipientId;
+
     private Money $amount;
 
     public function senderId(): MemberId

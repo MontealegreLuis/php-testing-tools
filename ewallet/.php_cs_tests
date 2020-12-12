@@ -10,6 +10,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__ . '/tests/contexts',
         __DIR__ . '/tests/integration',
         __DIR__ . '/tests/specs',
+        __DIR__ . '/tests/src',
         __DIR__ . '/tests/unit'
     ]);
 
@@ -24,7 +25,6 @@ return PhpCsFixer\Config::create()
         'single_quote' => true,
         'trailing_comma_in_multiline_array' => true,
         'concat_space' => ['spacing' => 'one'],
-        'no_superfluous_phpdoc_tags' => true,
         'no_empty_phpdoc' => true,
         'no_empty_statement' => true,
         'array_indentation' => true,

@@ -8,50 +8,29 @@
 namespace DataBuilders\Application\Messaging;
 
 use Application\Messaging\PublishedMessage;
-use Faker\Factory;
-use Faker\Generator;
-use ReflectionClass;
+use DataBuilders\Random;
+use DataBuilders\WithNumericId;
 
 final class PublishedMessageBuilder
 {
-    private Generator $factory;
-
-    private string $exchangeName;
-
-    private int $mostRecentMessageId;
+    use WithNumericId;
 
     private ?int $identifier = null;
 
-    public function __construct()
-    {
-        $this->factory = Factory::create();
-        $this->reset();
-    }
+    private ?string $exchangeName = null;
+
+    private ?int $mostRecentMessageId = null;
 
     public function withExchangeName(string $name): PublishedMessageBuilder
     {
         $this->exchangeName = $name;
-
         return $this;
     }
 
     public function withMostRecentMessageId(int $id): PublishedMessageBuilder
     {
         $this->mostRecentMessageId = $id;
-
         return $this;
-    }
-
-    public function build(): PublishedMessage
-    {
-        $message = new PublishedMessage($this->exchangeName, $this->mostRecentMessageId);
-        if ($this->identifier !== null) {
-            $this->assignIdentifierTo($message);
-        }
-
-        $this->reset();
-
-        return $message;
     }
 
     public function withId(int $identifier): PublishedMessageBuilder
@@ -60,18 +39,14 @@ final class PublishedMessageBuilder
         return $this;
     }
 
-    public function reset(): void
+    public function build(): PublishedMessage
     {
-        $this->identifier = null;
-        $this->exchangeName = $this->factory->word;
-        $this->mostRecentMessageId = $this->factory->numberBetween(1, 10_000);
-    }
+        $message = new PublishedMessage(
+            $this->exchangeName ?? Random::word(),
+            $this->mostRecentMessageId ?? Random::numericId()
+        );
+        $this->assignId($message, $this->identifier);
 
-    private function assignIdentifierTo(PublishedMessage $message): void
-    {
-        $class = new ReflectionClass($message);
-        $property = $class->getProperty('id');
-        $property->setAccessible(true);
-        $property->setValue($message, $this->identifier);
+        return $message;
     }
 }

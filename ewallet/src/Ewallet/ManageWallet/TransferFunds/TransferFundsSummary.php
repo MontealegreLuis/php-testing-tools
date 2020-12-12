@@ -16,6 +16,7 @@ use Ewallet\Memberships\MemberId;
 final class TransferFundsSummary
 {
     private Member $sender;
+
     private Member $recipient;
 
     public function __construct(Member $sender, Member $recipient)

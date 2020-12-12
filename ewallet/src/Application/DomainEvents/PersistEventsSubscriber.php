@@ -13,6 +13,7 @@ namespace Application\DomainEvents;
 final class PersistEventsSubscriber implements EventSubscriber
 {
     private EventStore $eventStore;
+
     private StoredEventFactory $eventFactory;
 
     public function __construct(EventStore $eventStore, StoredEventFactory $eventFactory)

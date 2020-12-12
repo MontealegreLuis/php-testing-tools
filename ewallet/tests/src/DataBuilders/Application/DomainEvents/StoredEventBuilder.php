@@ -10,28 +10,18 @@ namespace DataBuilders\Application\DomainEvents;
 use Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer;
 use Application\DomainEvents\StoredEvent;
 use Application\Messaging\PublishedMessage;
-use DataBuilders\Ewallet\Memberships\TransferWasMadeBuilder;
-use DateTime;
+use DataBuilders\A;
+use DataBuilders\Random;
+use DataBuilders\WithNumericId;
 use Ewallet\Memberships\TransferWasMade;
-use Faker\Factory;
-use Faker\Generator;
-use ReflectionClass;
 
-class StoredEventBuilder
+final class StoredEventBuilder
 {
-    private Generator $factory;
-
-    private TransferWasMadeBuilder $eventBuilder;
+    use WithNumericId;
 
     private JsonSerializer $serializer;
 
-    private int $id;
-
-    private string $body;
-
-    private string $type;
-
-    private DateTime $occurredOn;
+    private ?int $id = null;
 
     /**
      * By default all the stored event bodies are taken from a `TransferWasMade`
@@ -39,10 +29,12 @@ class StoredEventBuilder
      */
     public function __construct()
     {
-        $this->eventBuilder = new TransferWasMadeBuilder();
-        $this->factory = Factory::create();
         $this->serializer = new JsonSerializer();
-        $this->reset();
+    }
+
+    public function from(PublishedMessage $message): StoredEventBuilder
+    {
+        return $this->withId($message->mostRecentMessageId());
     }
 
     public function withId(int $id): StoredEventBuilder
@@ -52,36 +44,15 @@ class StoredEventBuilder
         return $this;
     }
 
-    public function withUnknownType(): StoredEventBuilder
-    {
-        $this->type = 'Ewallet\UnkownEvent';
-
-        return $this;
-    }
-
-    public function from(PublishedMessage $message): StoredEventBuilder
-    {
-        return $this->withId($message->mostRecentMessageId());
-    }
-
     public function build(): StoredEvent
     {
-        $event = new StoredEvent($this->body, $this->type, $this->occurredOn);
-        $class = new ReflectionClass($event);
-        $property = $class->getProperty('id');
-        $property->setAccessible(true);
-        $property->setValue($event, $this->id);
-
-        $this->reset();
+        $event = new StoredEvent(
+            $this->serializer->serialize(A::transferWasMadeEvent()->build()),
+            TransferWasMade::class,
+            Random::date()
+        );
+        $this->assignId($event, $this->id ?? self::$nextId);
 
         return $event;
-    }
-
-    protected function reset(): void
-    {
-        $this->id = $this->factory->numberBetween(1, 10_000);
-        $this->body = $this->serializer->serialize($this->eventBuilder->build());
-        $this->type = TransferWasMade::class;
-        $this->occurredOn = $this->factory->dateTimeThisMonth;
     }
 }

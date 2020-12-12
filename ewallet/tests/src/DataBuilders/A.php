@@ -12,7 +12,7 @@ use DataBuilders\Application\Messaging\PublishedMessageBuilder;
 use DataBuilders\Ewallet\Memberships\MembersBuilder;
 use DataBuilders\Ewallet\Memberships\TransferWasMadeBuilder;
 
-class A
+final class A
 {
     public static function member(): MembersBuilder
     {

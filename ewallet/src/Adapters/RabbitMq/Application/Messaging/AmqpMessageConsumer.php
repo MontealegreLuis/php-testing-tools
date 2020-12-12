@@ -18,8 +18,11 @@ use PhpAmqpLib\Message\AMQPMessage;
 class AmqpMessageConsumer implements MessageConsumer
 {
     private ChannelConfiguration $configuration;
+
     private AMQPStreamConnection $connection;
+
     private ?AMQPChannel $channel = null;
+
     private ?Closure $callback;
 
     /** Consume only 1 message */

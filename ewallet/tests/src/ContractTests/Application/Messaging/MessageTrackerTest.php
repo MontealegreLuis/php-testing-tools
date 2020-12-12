@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.1
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -59,7 +59,7 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /** @test */
-    function it_cannot_track_a_published_message_unles_it_is_the_most_recent_in_a_given_exchange()
+    function it_cannot_track_a_published_message_unless_it_is_the_most_recent_in_a_given_exchange()
     {
         $originalId = 1;
         $aDifferentId = 2;
@@ -88,5 +88,6 @@ abstract class MessageTrackerTest extends TestCase
     abstract function messageTracker(): MessageTracker;
 
     protected MessageTracker $tracker;
+
     protected const LAST_PUBLISHED_MESSAGE_ID = 5;
 }

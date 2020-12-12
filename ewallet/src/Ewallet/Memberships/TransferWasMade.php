@@ -19,8 +19,11 @@ use Money\Money;
 final class TransferWasMade implements DomainEvent
 {
     private DateTimeInterface $occurredOn;
+
     private MemberId $senderId;
+
     private Money $amount;
+
     private MemberId $recipientId;
 
     public function __construct(MemberId $senderId, Money $amount, MemberId $recipientId, Clock $clock = null)

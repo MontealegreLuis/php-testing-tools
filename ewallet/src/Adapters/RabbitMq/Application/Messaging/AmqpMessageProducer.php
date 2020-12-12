@@ -17,7 +17,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 class AmqpMessageProducer implements MessageProducer
 {
     private AMQPStreamConnection $connection;
+
     private ChannelConfiguration $configuration;
+
     private ?AMQPChannel $channel = null;
 
     public function __construct(

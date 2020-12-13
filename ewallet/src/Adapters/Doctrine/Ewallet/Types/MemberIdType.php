@@ -21,10 +21,7 @@ final class MemberIdType extends UuidType
         return new MemberId($value);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'MemberId';
     }

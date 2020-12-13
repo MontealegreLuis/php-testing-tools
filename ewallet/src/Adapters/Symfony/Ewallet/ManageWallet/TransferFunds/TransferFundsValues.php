@@ -30,12 +30,12 @@ final class TransferFundsValues extends InputValues
      *     message="Transferred amount must be greater than {{ compared_value }}, '{{ value }}' found"
      * )
      */
-    protected int $amount;
+    protected float $amount;
 
     public function __construct(InputFilter $filter)
     {
         $this->senderId = $filter->trim('senderId');
         $this->recipientId = $filter->trim('recipientId');
-        $this->amount = $filter->integer('amount', -1);
+        $this->amount = (float) $filter->float('amount', -1);
     }
 }

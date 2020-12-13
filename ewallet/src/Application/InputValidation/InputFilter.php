@@ -11,5 +11,5 @@ interface InputFilter
 {
     public function trim(string $key): ?string;
 
-    public function integer(string $key, int $default = null): ?int;
+    public function float(string $key, float $default = null): ?float;
 }

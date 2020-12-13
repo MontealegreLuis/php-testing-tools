@@ -9,6 +9,7 @@ namespace Ewallet\ManageWallet\TransferFunds;
 
 use Application\DomainEvents\EventPublisher;
 use DataBuilders\A;
+use DataBuilders\Input;
 use Ewallet\Memberships\InsufficientFunds;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
@@ -23,11 +24,7 @@ final class TransferFundsActionTest extends TestCase
     /** @test */
     function it_provides_feedback_if_sender_cannot_be_found()
     {
-        $input = new TransferFundsInput([
-            'senderId' => 'unknown sender',
-            'recipientId' => 'unknown recipient',
-            'amount' => 10, // 10 MXN
-        ]);
+        $input = Input::transferFunds();
 
         $this->expectException(UnknownMember::class);
         $this->action->transfer($input);
@@ -38,10 +35,8 @@ final class TransferFundsActionTest extends TestCase
     {
         $sender = A::member()->build();
         $this->members->save($sender);
-        $input = new TransferFundsInput([
+        $input = Input::transferFunds([
             'senderId' => $sender->idValue(),
-            'recipientId' => 'unknown recipient',
-            'amount' => 10, // 10 MXN
         ]);
 
         $this->expectException(UnknownMember::class);
@@ -55,10 +50,9 @@ final class TransferFundsActionTest extends TestCase
         $recipient = A::member()->build();
         $this->members->save($sender);
         $this->members->save($recipient);
-        $input = new TransferFundsInput([
+        $input = Input::transferFunds([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
-            'amount' => 10, // 10 MXN
         ]);
 
         $this->expectException(InsufficientFunds::class);
@@ -72,7 +66,7 @@ final class TransferFundsActionTest extends TestCase
         $recipient = A::member()->build();
         $this->members->save($sender);
         $this->members->save($recipient);
-        $input = new TransferFundsInput([
+        $input = Input::transferFunds([
             'senderId' => $sender->idValue(),
             'recipientId' => $recipient->idValue(),
             'amount' => 10, // 10 MXN

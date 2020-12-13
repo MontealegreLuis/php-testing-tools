@@ -11,6 +11,7 @@ use Adapters\Doctrine\Application\Services\DoctrineSession;
 use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Application\DomainEvents\EventPublisher;
+use DataBuilders\Input;
 use Doctrine\DataStorageSetup;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
@@ -60,17 +61,13 @@ final class TransactionalTransferFundsActionTest extends TestCase
         $setup = new DataStorageSetup(require __DIR__ . '/../../../../../config/config.php');
         $setup->updateSchema();
         $entityManager = $setup->entityManager();
-
         $fixtures = new ThreeMembersWithSameBalanceFixture($entityManager);
         $fixtures->load();
-
         $this->members = new MembersRepository($entityManager);
-
         $this->publisher = $this->prophesize(EventPublisher::class);
         $this->action = new TransactionalTransferFundsAction($this->members, $this->publisher->reveal());
         $this->action->setTransactionalSession(new DoctrineSession($entityManager));
-
-        $this->threeMxn = new TransferFundsInput([
+        $this->threeMxn = Input::transferFunds([
             'senderId' => 'XYZ',
             'recipientId' => 'ABC',
             'amount' => 3,

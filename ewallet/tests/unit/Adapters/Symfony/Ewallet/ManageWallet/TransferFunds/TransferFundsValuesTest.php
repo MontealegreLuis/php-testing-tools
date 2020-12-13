@@ -9,10 +9,11 @@ namespace Adapters\Symfony\Ewallet\ManageWallet\TransferFunds;
 
 use Adapters\Laminas\Application\InputValidation\LaminasInputFilter;
 use Adapters\Symfony\Application\InputValidation\ConstraintValidator;
+use DataBuilders\Values;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ValidatorBuilder;
 
-final class TransferFundsValidatorTest extends TestCase
+final class TransferFundsValuesTest extends TestCase
 {
     /** @test */
     function it_does_not_pass_validation_if_no_input_is_present()
@@ -31,10 +32,10 @@ final class TransferFundsValidatorTest extends TestCase
     /** @test */
     function it_does_not_pass_validation_if_ids_are_empty()
     {
-        $values = new TransferFundsValues(new LaminasInputFilter([
+        $values = Values::transferFundsValues([
             'senderId' => '  ',
-            'amount' => 1000,
-        ]));
+            'recipientId' => '',
+        ]);
 
         $result = $this->validator->validate($values);
 
@@ -47,9 +48,7 @@ final class TransferFundsValidatorTest extends TestCase
     /** @test */
     function it_does_not_pass_validation_if_amount_is_not_greater_than_zero()
     {
-        $values = new TransferFundsValues(new LaminasInputFilter([
-            'senderId' => 'ABC',
-            'recipientId' => 'DEF',
+        $values = Values::transferFundsValues(([
             'amount' => 0,
         ]));
 

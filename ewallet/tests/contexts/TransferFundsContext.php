@@ -10,8 +10,8 @@ use Behat\Behat\Context\Context;
 use Behat\Ewallet\ManageWallet\TransferFunds\MemberDictionary;
 use Behat\Ewallet\ManageWallet\TransferFunds\TransferFundsResponderHelper;
 use DataBuilders\A;
+use DataBuilders\Input;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
-use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
 use Fakes\Ewallet\Memberships\InMemoryMembers;
@@ -70,7 +70,7 @@ final class TransferFundsContext implements Context
      */
     public function theSenderTransfersMxnToTheRecipient(Money $amount)
     {
-        $this->summary = $this->action->transfer(new TransferFundsInput([
+        $this->summary = $this->action->transfer(Input::transferFunds([
             'senderId' => $this->senderId,
             'recipientId' => $this->recipientId,
             'amount' => $amount->getAmount() / 100,

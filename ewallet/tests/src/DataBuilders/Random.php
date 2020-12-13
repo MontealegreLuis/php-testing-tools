@@ -30,6 +30,11 @@ final class Random
         return self::faker()->word;
     }
 
+    public static function dollars(): float
+    {
+        return self::faker()->randomFloat(2, 1, 10_000);
+    }
+
     public static function cents(): int
     {
         return self::faker()->numberBetween(1, 10_000);

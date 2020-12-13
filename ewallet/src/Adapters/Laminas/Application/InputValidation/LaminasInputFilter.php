@@ -9,7 +9,7 @@ namespace Adapters\Laminas\Application\InputValidation;
 
 use Application\InputValidation\InputFilter;
 use Laminas\Filter\StringTrim;
-use Laminas\Filter\ToInt;
+use Laminas\Filter\ToFloat;
 
 final class LaminasInputFilter implements InputFilter
 {
@@ -18,14 +18,14 @@ final class LaminasInputFilter implements InputFilter
 
     private StringTrim $trim;
 
-    private ToInt $integer;
+    private ToFloat $float;
 
     /** @param mixed[] $values */
     public function __construct(array $values)
     {
         $this->values = $values;
         $this->trim = new StringTrim();
-        $this->integer = new ToInt();
+        $this->float = new ToFloat();
     }
 
     public function trim(string $key): ?string
@@ -37,12 +37,12 @@ final class LaminasInputFilter implements InputFilter
         return $this->trim->filter((string) $this->values[$key]);
     }
 
-    public function integer(string $key, int $default = null): ?int
+    public function float(string $key, float $default = null): ?float
     {
         if (! isset($this->values[$key]) || ! is_numeric($this->values[$key])) {
             return $default;
         }
 
-        return $this->integer->filter($this->values[$key]);
+        return $this->float->filter($this->values[$key]);
     }
 }

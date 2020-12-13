@@ -41,7 +41,7 @@ abstract class UuidType extends GuidType
      * @throws ConversionException
      * @return string|null
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;

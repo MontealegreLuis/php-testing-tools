@@ -9,7 +9,6 @@ namespace Doctrine;
 
 use Adapters\Doctrine\EntityManagerFactory;
 use Doctrine\DBAL\Exception;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\SchemaTool;

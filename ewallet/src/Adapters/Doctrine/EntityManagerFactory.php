@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Adapters\Doctrine;
 
-use ArrayAccess;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;

@@ -14,6 +14,9 @@ use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
 
+/**
+ * @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector
+ */
 class MembersRepository implements Members
 {
     protected EntityManager $manager;

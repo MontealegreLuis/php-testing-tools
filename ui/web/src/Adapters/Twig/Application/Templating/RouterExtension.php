@@ -30,8 +30,11 @@ final class RouterExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new SimpleFunction('url_for', [$this, 'urlFor']),
-            new SimpleFunction('asset', [$this, 'asset']),
+            new SimpleFunction(
+                'url_for',
+                fn (string $routeName, array $arguments = []): string => $this->urlFor($routeName, $arguments)
+            ),
+            new SimpleFunction('asset', fn (string $path): string => $this->asset($path)),
         ];
     }
 

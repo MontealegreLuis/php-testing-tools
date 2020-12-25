@@ -1,0 +1,16 @@
+imports:
+  - { resource: parameters.yml }
+  - { resource: doctrine.yml }
+  - { resource: twig.yml }
+  - { resource: validation.yml }
+  - { resource: slim.yml }
+  - { resource: ewallet.yml }
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  UI\Slim\Controllers\:
+    public: true
+    resource: '../src/UI/Slim/Controllers/*'
+  UI\Slim\ResponseFactory:

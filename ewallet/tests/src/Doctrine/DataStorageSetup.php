@@ -7,19 +7,18 @@
 
 namespace Doctrine;
 
+use Adapters\Doctrine\EntityManagerFactory;
 use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\SchemaTool;
-use Doctrine\ORM\Tools\Setup;
 
 final class DataStorageSetup
 {
     private static bool $migrated = false;
 
-    private EntityManagerInterface $entityManager;
+    private EntityManager $entityManager;
 
     /**
      * Setup XML mapping configuration, configure entity manager, add custom types
@@ -30,23 +29,10 @@ final class DataStorageSetup
      */
     public function __construct(array $options)
     {
-        $configuration = Setup::createXMLMetadataConfiguration(
-            $options['doctrine']['mapping_dirs'],
-            $options['doctrine']['dev_mode'],
-            $options['doctrine']['proxy_dir']
-        );
-        $this->entityManager = EntityManager::create($options['doctrine']['connection'], $configuration);
-
-        $platform = $this->entityManager->getConnection()->getDatabasePlatform();
-        foreach ($options['doctrine']['types'] as $type => $class) {
-            if (! Type::hasType($type)) {
-                Type::addType($type, $class);
-            }
-            $platform->registerDoctrineTypeMapping($type, $type);
-        }
+        $this->entityManager = EntityManagerFactory::create($options['doctrine']);
     }
 
-    public function entityManager(): EntityManagerInterface
+    public function entityManager(): EntityManager
     {
         return $this->entityManager;
     }

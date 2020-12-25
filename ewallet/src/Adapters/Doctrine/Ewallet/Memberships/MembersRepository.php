@@ -7,18 +7,18 @@
 
 namespace Adapters\Doctrine\Ewallet\Memberships;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
 
-final class MembersRepository implements Members
+class MembersRepository implements Members
 {
-    protected EntityManagerInterface $manager;
+    protected EntityManager $manager;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManager $manager)
     {
         $this->manager = $manager;
     }

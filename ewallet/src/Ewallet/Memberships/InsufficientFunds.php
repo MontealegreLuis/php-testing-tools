@@ -7,13 +7,13 @@
 
 namespace Ewallet\Memberships;
 
+use Application\DomainException;
 use Money\Money;
-use RuntimeException;
 
 /**
  * This exception is thrown to prevent a member to overdraw her account
  */
-final class InsufficientFunds extends RuntimeException
+final class InsufficientFunds extends DomainException
 {
     public static function withdrawing(
         Money $amount,

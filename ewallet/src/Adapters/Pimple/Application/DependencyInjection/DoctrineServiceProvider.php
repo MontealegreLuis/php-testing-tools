@@ -7,10 +7,9 @@
 
 namespace Adapters\Pimple\Application\DependencyInjection;
 
-use Doctrine\DBAL\Types\Type;
+use Adapters\Doctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Setup;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -22,22 +21,7 @@ final class DoctrineServiceProvider implements ServiceProviderInterface
     public function register(Container $container): void
     {
         $container[EntityManagerInterface::class] = static function () use ($container): EntityManager {
-            $configuration = Setup::createXMLMetadataConfiguration(
-                $container['doctrine']['mapping_dirs'],
-                $container['doctrine']['dev_mode'],
-                $container['doctrine']['proxy_dir']
-            );
-            $entityManager = EntityManager::create($container['doctrine']['connection'], $configuration);
-
-            $platform = $entityManager->getConnection()->getDatabasePlatform();
-            foreach ($container['doctrine']['types'] as $type => $class) {
-                if (! Type::hasType($type)) {
-                    Type::addType($type, $class);
-                }
-                $platform->registerDoctrineTypeMapping($type, $type);
-            }
-
-            return $entityManager;
+            return EntityManagerFactory::create($container['doctrine']);
         };
     }
 }

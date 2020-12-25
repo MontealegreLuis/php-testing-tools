@@ -7,17 +7,20 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Adapters\Symfony\DependencyInjection\ContainerFactory;
 use Dotenv\Dotenv;
-use UI\Slim\Application;
+use Framework\Slim\ApplicationFactory;
 
-if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
-    http_response_code(404);
-    die;
-}
+(static function () {
+    if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
+        http_response_code(404);
+        die;
+    }
 
-$environment = Dotenv::create(__DIR__ . '/../', '.env.tests');
-$environment->load();
-$environment->required(['APP_ENV', 'DB_URL', 'PDO_DRIVER']);
+    $environment = Dotenv::createImmutable(__DIR__ . '/../', '.env.tests');
+    $environment->load();
+    $environment->required(['APP_ENV', 'DB_URL', 'PDO_DRIVER']);
 
-$app = new Application(require __DIR__ . '/../config.php');
-$app->run();
+    $app = ApplicationFactory::createFromContainer(ContainerFactory::new());
+    $app->run();
+})();

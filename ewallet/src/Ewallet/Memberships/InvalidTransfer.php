@@ -7,13 +7,13 @@
 
 namespace Ewallet\Memberships;
 
+use Application\DomainException;
 use Money\Money;
-use RuntimeException;
 
 /**
  * This exception is thrown when a member tries to transfer a negative amount.
  */
-final class InvalidTransfer extends RuntimeException
+final class InvalidTransfer extends DomainException
 {
     public static function with(Money $amount): InvalidTransfer
     {

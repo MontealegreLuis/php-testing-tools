@@ -7,14 +7,16 @@
 
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Doctrine\DataStorageSetup;
+use Doctrine\DBAL\Exception;
+use Doctrine\ORM\ORMException;
 
-class TransferFundsCest
+final class TransferFundsCest
 {
     /**
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\ORM\ORMException
+     * @throws Exception
+     * @throws ORMException
      */
-    public function _before()
+    public function _before(): void
     {
         $setup = new DataStorageSetup(require __DIR__ . '/../../config.php');
         $setup->updateSchema();

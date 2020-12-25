@@ -10,18 +10,18 @@ use Adapters\Doctrine\Ewallet\Types\MemberIdType;
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
-        'displayErrorDetails' => getenv('APP_ENV') !== 'production',
+        'displayErrorDetails' => $_ENV['APP_ENV'] !== 'production',
     ],
     'doctrine' => [
         'mapping_dirs' => [
             __DIR__ . '/vendor/ewallet/application/src/Adapters/Doctrine/Ewallet/Resources/config',
             __DIR__ . '/vendor/ewallet/application/src/Adapters/Doctrine/Application/Resources/config',
         ],
-        'dev_mode' => getenv('APP_ENV') !== 'production',
+        'dev_mode' => $_ENV['APP_ENV'] !== 'production',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
-            'url' => str_replace('{{DIR}}', '//' . __DIR__ . '/', getenv('DB_URL')),
-            'driver' => getenv('DB_DRIVER'),
+            'url' => str_replace('{{DIR}}', '//' . __DIR__ . '/', $_ENV['DB_URL']),
+            'driver' => $_ENV['DB_DRIVER'],
         ],
         'types' => [
             'MemberId' => MemberIdType::class,
@@ -30,7 +30,7 @@ return [
     'twig' => [
         'options' => [
             'cache' => __DIR__ . '/var/cache/twig',
-            'debug' => getenv('APP_ENV') !== 'production',
+            'debug' => $_ENV['APP_ENV'] !== 'production',
             'strict_variables' => true,
         ],
         'loader_paths' => [

@@ -11,26 +11,29 @@ use Application\Templating\TemplateEngine;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\MembersWebRepository;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use UI\Slim\ResponseFactory;
 
-class ShowTransferFormController
+final class ShowTransferFormController implements RequestHandlerInterface
 {
-    /** @var MembersWebRepository */
-    private $members;
+    private ResponseFactory $response;
 
-    /** @var TemplateEngine */
-    private $template;
+    private MembersWebRepository $members;
 
-    public function __construct(MembersWebRepository $members, TemplateEngine $template)
+    private TemplateEngine $template;
+
+    public function __construct(MembersWebRepository $members, TemplateEngine $template, ResponseFactory $response)
     {
         $this->members = $members;
         $this->template = $template;
+        $this->response = $response;
     }
 
     /**
      * Show the form to transfer funds between members
      */
-    public function enterTransferInformation(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $senderId = new MemberId('ABC');
 
@@ -39,8 +42,6 @@ class ShowTransferFormController
             'recipients' => $this->members->excluding($senderId),
         ]);
 
-        $response = new Response();
-        $response->getBody()->write($html);
-        return $response;
+        return $this->response->html($html);
     }
 }

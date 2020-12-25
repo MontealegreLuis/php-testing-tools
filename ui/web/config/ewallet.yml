@@ -1,0 +1,22 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Ewallet\Memberships\MembersWebRepository:
+  Application\DomainEvents\PersistEventsSubscriber:
+  Application\DomainEvents\EventStore:
+    class: Adapters\Doctrine\Application\DomainEvents\EventStoreRepository
+  Application\DomainEvents\EventSerializer:
+    class: Adapters\JmsSerializer\Application\DomainEvents\JsonSerializer
+  Application\DomainEvents\StoredEventFactory:
+  Application\DomainEvents\EventPublisher:
+    calls:
+      - subscribe: ['@Application\DomainEvents\PersistEventsSubscriber']
+  Adapters\Doctrine\Application\Services\DoctrineSession:
+  Ewallet\ManageWallet\TransferFunds\TransferFundsAction:
+    class: Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction
+    arguments:
+      - '@Ewallet\Memberships\MembersWebRepository'
+    calls:
+      - setTransactionalSession: ['@Adapters\Doctrine\Application\Services\DoctrineSession']

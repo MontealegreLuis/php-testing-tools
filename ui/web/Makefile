@@ -14,16 +14,17 @@ tests:
 	@echo "Running unit tests"
 	@bin/phpunit --testdox
 	@echo "Running end to end tests"
-	@bin/robo acceptance
-	@bin/infection --min-msi=50 --min-covered-msi=70 --threads=4
+	@bin/codecept clean
+	@bin/codecept run acceptance --steps
+	@bin/infection --min-msi=40 --min-covered-msi=70 --threads=4
 
 server:
-	@Starting the Web application in PHP's built-in server
+	@echo "Starting the Web application in PHP's built-in server"
 	@php -S localhost:8000 -t public
 
 check:
 	@echo "Looking for static analysis violations"
-	@bin/phpstan analyse src --level 7
+	@php -d memory_limit=-1 bin/phpstan analyse
 	@echo "Looking for CS violations in src directory"
 	@bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
 	@echo "Looking for CS violations in tests directory"

@@ -1,0 +1,29 @@
+services:
+  Framework\Slim\RoutesProvider:
+    public: true
+    class: UI\Slim\Routes\ApplicationRoutes
+  Psr\Http\Message\ResponseFactoryInterface:
+    class: Http\Factory\Guzzle\ResponseFactory
+  Slim\Routing\RouteResolver:
+    public: true
+    arguments:
+      - '@Slim\Interfaces\RouteCollectorInterface'
+  Slim\Interfaces\RouteParserInterface:
+    public: true
+    factory: [ '@Slim\Interfaces\RouteCollectorInterface', 'getRouteParser' ]
+  Slim\Interfaces\CallableResolverInterface:
+    public: true
+    class: Slim\CallableResolver
+    arguments:
+      - '@service_container'
+  Slim\Handlers\Strategies\RequestResponse:
+  Slim\Interfaces\RouteCollectorInterface:
+    public: true
+    class: Slim\Routing\RouteCollector
+    arguments:
+      - '@Psr\Http\Message\ResponseFactoryInterface'
+      - '@Slim\Interfaces\CallableResolverInterface'
+      - '@service_container'
+      - '@Slim\Handlers\Strategies\RequestResponse'
+      - null
+      - '%app.base_path%/var/router.cache'

@@ -9,7 +9,7 @@ namespace Ewallet\Memberships;
 
 use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 
-class MembersWebRepository extends MembersRepository
+final class MembersWebRepository extends MembersRepository
 {
     /** @return Member[] */
     public function excluding(MemberId $senderId): array

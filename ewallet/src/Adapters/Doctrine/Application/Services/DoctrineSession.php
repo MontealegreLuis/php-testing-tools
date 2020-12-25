@@ -9,13 +9,13 @@ namespace Adapters\Doctrine\Application\Services;
 
 use Application\Services\TransactionalSession;
 use Closure;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 
 final class DoctrineSession implements TransactionalSession
 {
-    private EntityManagerInterface $entityManager;
+    private EntityManager $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }

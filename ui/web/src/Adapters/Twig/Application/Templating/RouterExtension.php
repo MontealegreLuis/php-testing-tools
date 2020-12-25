@@ -7,33 +7,27 @@
 
 namespace Adapters\Twig\Application\Templating;
 
-use Slim\Http\Request;
-use Slim\Router;
-use Twig_Extension as Extension;
-use Twig_SimpleFunction as SimpleFunction;
+use Slim\Interfaces\RouteParserInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction as SimpleFunction;
 
 /**
  * Registers the function `url_for` in order to be able to use Slim named routes
  * in Twig templates
  */
-class RouterExtension extends Extension
+final class RouterExtension extends AbstractExtension
 {
-    /** @var Router */
-    private $router;
+    private RouteParserInterface $router;
 
-    /** @var Request */
-    private $request;
-
-    public function __construct(Router $router, Request $request)
+    public function __construct(RouteParserInterface $router)
     {
         $this->router = $router;
-        $this->request = $request;
     }
 
     /**
      * @return SimpleFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new SimpleFunction('url_for', [$this, 'urlFor']),
@@ -41,19 +35,18 @@ class RouterExtension extends Extension
         ];
     }
 
+    /** @param mixed[] $arguments */
     public function urlFor(string $routeName, array $arguments = []): string
     {
-        return $this->router->pathFor($routeName, $arguments);
+        return $this->router->urlFor($routeName, $arguments);
     }
 
     public function asset(string $path): string
     {
-        /** @var \Slim\Http\Uri $uri */
-        $uri = $this->request->getUri();
         return (string) preg_replace(
             '#/+#',
             '/',
-            sprintf('%s%s', \dirname($uri->getBasePath()), $path)
+            sprintf('%s%s', '/', $path)
         );
     }
 }

@@ -8,8 +8,10 @@
 use Dotenv\Dotenv;
 use Codeception\Util\Autoload;
 
-Autoload::addNamespace('Page', __DIR__. '/_support/_pages');
+(static function () {
+    Autoload::addNamespace('Page', __DIR__. '/_support/_pages');
 
-$environment = Dotenv::create(__DIR__ . '/../', '.env.tests');
-$environment->load();
-$environment->required(['APP_ENV', 'DB_URL']);
+    $environment = Dotenv::createImmutable(__DIR__ . '/../', '.env.tests');
+    $environment->load();
+    $environment->required(['APP_ENV', 'DB_URL']);
+})();

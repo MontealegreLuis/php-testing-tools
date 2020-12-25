@@ -5,6 +5,6 @@ modules:
         - Helper\Acceptance
     config:
         WebDriver:
-            url: 'http://localhost:8000/index_dev.php/'
+            url: 'http://localhost:8000/'
             browser: phantomjs
             http_proxy: direct

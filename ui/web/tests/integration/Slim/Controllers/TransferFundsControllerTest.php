@@ -7,23 +7,20 @@
 
 namespace Ewallet\Slim\Controllers;
 
+use Adapters\Symfony\DependencyInjection\ContainerFactory;
+use Alice\ThreeMembersWithSameBalanceFixture;
 use Doctrine\DataStorageSetup;
-use Interop\Container\ContainerInterface;
+use Framework\Slim\ApplicationFactory;
+use Http\Factory\Guzzle\ServerRequestFactory;
 use PHPUnit\Framework\TestCase;
-use Slim\Http\Environment;
-use Slim\Http\Request;
-use UI\Slim\Application;
+use Slim\App;
 
-class TransferFundsControllerTest extends TestCase
+final class TransferFundsControllerTest extends TestCase
 {
     /** @test */
     function it_returns_an_ok_response_on_enter_transfer_information_action()
     {
-        $this->container['environment'] = Environment::mock([
-            'REQUEST_URI' => '/transfer-form',
-        ]);
-
-        $response = $this->app->run(true);
+        $response = $this->app->handle((new ServerRequestFactory())->createServerRequest('GET', '/transfer-form'));
 
         $this->assertEquals(200, $response->getStatusCode(), "Actual response is: {$response->getBody()}");
     }
@@ -31,37 +28,29 @@ class TransferFundsControllerTest extends TestCase
     /** @test */
     function it_returns_an_ok_response_on_transfer_funds_action()
     {
-        $this->container['environment'] = Environment::mock([
-            'REQUEST_URI' => '/transfer-funds',
-            'REQUEST_METHOD' => 'POST',
-            'CONTENT_TYPE' => 'application/x-www-form-urlencoded',
-        ]);
-        $request = Request::createFromEnvironment($this->container['environment']);
+        $factory = new ServerRequestFactory();
+        $request = $factory->createServerRequest('POST', '/transfer-funds');
         $request = $request->withParsedBody([
-            'senderId' => 'BCD',
-            'recipientId' => 'EFG',
+            'senderId' => 'ABC',
+            'recipientId' => 'LMN',
             'amount' => 2,
         ]);
-        $this->container['request'] = $request;
 
-        $response = $this->app->run(true);
+        $response = $this->app->handle($request);
 
         $this->assertEquals(200, $response->getStatusCode());
     }
 
     /** @before */
-    public function configureApplication(): void
+    public function let(): void
     {
         $options = require __DIR__ . '/../../../../config.php';
         $setup = new DataStorageSetup($options);
         $setup->updateSchema();
-        $this->app = new Application($options);
-        $this->container = $this->app->getContainer();
+        $fixture = new ThreeMembersWithSameBalanceFixture($setup->entityManager());
+        $fixture->load();
+        $this->app = ApplicationFactory::createFromContainer(ContainerFactory::new());
     }
 
-    /** @var  Application */
-    private $app;
-
-    /** @var ContainerInterface */
-    private $container;
+    private App $app;
 }

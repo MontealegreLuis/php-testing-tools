@@ -7,62 +7,21 @@
 
 namespace Ewallet\Pimple;
 
-use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
-use Adapters\Twig\Application\Templating\RouterExtension;
-use Application\DomainEvents\PersistEventsSubscriber;
+use Adapters\Symfony\DependencyInjection\ContainerFactory;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
-use UI\Slim\Controllers\ShowTransferFormController;
-use UI\Slim\Controllers\TransferFundsController;
-use UI\Slim\DependencyInjection\EwalletWebContainer;
-use UI\Slim\Middleware\{RequestLoggingMiddleware};
+use Symfony\Component\Finder\Finder;
 
-class EwalletWebContainerTest extends TestCase
+final class EwalletWebContainerTest extends TestCase
 {
     /** @test */
-    function it_creates_the_web_application_services()
+    function it_creates_the_web_application_controllers()
     {
-        $options = require __DIR__ . '/../../../config.php';
-        $container = new EwalletWebContainer($options);
-
-        $this->assertInstanceOf(
-            Environment::class,
-            $container[Environment::class]
-        );
-        $this->assertInstanceOf(
-            FilesystemLoader::class,
-            $container[FilesystemLoader::class]
-        );
-        $this->assertInstanceOf(
-            ShowTransferFormController::class,
-            $container[ShowTransferFormController::class]
-        );
-        $this->assertInstanceOf(
-            TransferFundsController::class,
-            $container[TransferFundsController::class]
-        );
-        $this->assertInstanceOf(
-            RouterExtension::class,
-            $container[RouterExtension::class]
-        );
-
-        $this->assertInstanceOf(
-            LoggerInterface::class,
-            $container['slim.logger']
-        );
-        $this->assertInstanceOf(
-            EventStoreRepository::class,
-            $container[EventStoreRepository::class]
-        );
-        $this->assertInstanceOf(
-            PersistEventsSubscriber::class,
-            $container[PersistEventsSubscriber::class]
-        );
-        $this->assertInstanceOf(
-            RequestLoggingMiddleware::class,
-            $container[RequestLoggingMiddleware::class]
-        );
+        $container = ContainerFactory::new();
+        $finder = new Finder();
+        $files = $finder->files()->name('*.php')->in(__DIR__ . '/../../../src/UI/Slim/Controllers');
+        foreach ($files as $file) {
+            $className = "UI\\Slim\\Controllers\\{$file->getFilenameWithoutExtension()}";
+            $this->assertInstanceOf($className, $container->get($className));
+        }
     }
 }

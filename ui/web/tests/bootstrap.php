@@ -9,6 +9,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-$environment = Dotenv::create(__DIR__ . '/../', '.env.tests');
-$environment->load();
-$environment->required(['APP_ENV']);
+(static function () {
+    $environment = Dotenv::createImmutable(__DIR__ . '/../', '.env.tests');
+    $environment->load();
+    $environment->required(['APP_ENV']);
+})();

@@ -7,12 +7,12 @@
 
 namespace Ewallet\Memberships;
 
-use RuntimeException;
+use Application\DomainException;
 
 /**
  * Exception thrown when a member information cannot be found
  */
-final class UnknownMember extends RuntimeException
+final class UnknownMember extends DomainException
 {
     public static function identifiedBy(MemberId $memberId): UnknownMember
     {

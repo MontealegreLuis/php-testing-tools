@@ -1,0 +1,25 @@
+services:
+  Twig\Loader\FilesystemLoader:
+    arguments:
+      -
+        loader_paths: '%app.base_path%/src/Adapters/Twig/Application/Templating/Resources/templates'
+  Twig\Environment:
+    arguments:
+      - '@Twig\Loader\FilesystemLoader'
+      -
+        debug: '%app.debug%'
+        cache: '%app.base_path%/var/cache/twig'
+    calls:
+      - addExtension: ['@Adapters\Twig\Ewallet\Extensions\EwalletExtension']
+      - addExtension: ['@Adapters\Twig\Application\Templating\RouterExtension']
+  Adapters\Twig\Application\Templating\RouterExtension:
+    arguments:
+      - '@Slim\Interfaces\RouteParserInterface'
+  Adapters\Twig\Ewallet\Extensions\EwalletExtension:
+    arguments:
+      - '@Ewallet\Memberships\MemberFormatter'
+  Ewallet\Memberships\MemberFormatter:
+  Application\Templating\TemplateEngine:
+    class: Adapters\Twig\Application\Templating\TwigTemplateEngine
+    arguments:
+      - '@Twig\Environment'

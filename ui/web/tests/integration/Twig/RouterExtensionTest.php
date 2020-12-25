@@ -9,16 +9,18 @@ namespace Ewallet\Twig;
 
 use Adapters\Twig\Application\Templating\RouterExtension;
 use PHPUnit\Framework\TestCase;
-use Slim\Http\Environment;
-use Slim\Http\Request;
-use Slim\Router;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
+use Slim\Interfaces\RouteParserInterface;
 
-class RouterExtensionTest extends TestCase
+final class RouterExtensionTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @test */
     function it_generates_url_for_named_route()
     {
-        $this->router->map(['GET'], '/foo', $this->controller)->setName('foo_action');
+        $this->router->urlFor('foo_action', [])->willReturn('/foo');
 
         $this->assertEquals('/foo', $this->extension->urlFor('foo_action'));
     }
@@ -26,14 +28,10 @@ class RouterExtensionTest extends TestCase
     /** @test */
     function it_generates_url_for_named_route_with_base_path()
     {
-        $this
-            ->router
-            ->map(['GET'], "$this->basePath/foo", $this->controller)
-            ->setName('foo_action')
-        ;
+        $this->router->urlFor('foo_action', [])->willReturn("{$this->basePath}/foo");
 
         $this->assertEquals(
-            "$this->basePath/foo",
+            '/index_dev.php/foo',
             $this->extension->urlFor('foo_action')
         );
     }
@@ -41,11 +39,7 @@ class RouterExtensionTest extends TestCase
     /** @test */
     function it_generates_url_for_named_route_with_arguments()
     {
-        $this
-            ->router
-            ->map(['GET'], '/foo/{name}', $this->controller)
-            ->setName('foo_action')
-        ;
+        $this->router->urlFor('foo_action', ['name' => 'luis'])->willReturn('/foo/luis');
 
         $this->assertEquals(
             '/foo/luis',
@@ -56,14 +50,10 @@ class RouterExtensionTest extends TestCase
     /** @test */
     function it_generates_url_for_named_route_with_arguments_and_base_path()
     {
-        $this
-            ->router
-            ->map(['GET'], "$this->basePath/foo/{name}", $this->controller)
-            ->setName('foo_action')
-        ;
+        $this->router->urlFor('foo_action', ['name' => 'luis'])->willReturn("{$this->basePath}/foo/luis");
 
         $this->assertEquals(
-            "$this->basePath/foo/luis",
+            '/index_dev.php/foo/luis',
             $this->extension->urlFor('foo_action', ['name' => 'luis'])
         );
     }
@@ -78,26 +68,16 @@ class RouterExtensionTest extends TestCase
     }
 
     /** @before */
-    function configureExtension(): void
+    function let()
     {
-        $this->router = new Router();
-        $this->controller = function () {
-        };
-        $this->extension = new RouterExtension(
-            $this->router,
-            Request::createFromEnvironment(Environment::mock())
-        );
+        $this->router = $this->prophesize(RouteParserInterface::class);
+        $this->extension = new RouterExtension($this->router->reveal());
     }
 
-    /** @var RouterExtension */
-    private $extension;
+    private RouterExtension $extension;
 
-    /** @var callable */
-    private $controller;
-
-    /** @var Router */
+    /** @var RouteParserInterface|ObjectProphecy */
     private $router;
 
-    /** @var string */
-    private $basePath = '/index_dev.php';
+    private string $basePath = '/index_dev.php';
 }

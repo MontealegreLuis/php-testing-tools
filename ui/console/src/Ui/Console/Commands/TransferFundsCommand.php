@@ -7,6 +7,9 @@
 
 namespace Ewallet\Ui\Console\Commands;
 
+use Ewallet\Memberships\InsufficientFunds;
+use Ewallet\Memberships\InvalidTransfer;
+use Ewallet\Memberships\UnknownMember;
 use Adapters\Laminas\Application\InputValidation\LaminasInputFilter;
 use Adapters\Symfony\Ewallet\ManageWallet\TransferFunds\TransferFundsValues;
 use Application\DomainException;
@@ -22,14 +25,11 @@ final class TransferFundsCommand extends Command
 {
     private const ERROR = 1;
 
-    /** @var TransferFundsAction */
-    private $action;
+    private TransferFundsAction $action;
 
-    /** @var TransferFundsConsole */
-    private $console;
+    private TransferFundsConsole $console;
 
-    /** @var InputValidator */
-    private $validator;
+    private InputValidator $validator;
 
     public function __construct(
         TransferFundsAction $transferFunds,
@@ -75,10 +75,10 @@ final class TransferFundsCommand extends Command
      * - If invalid input is provided, show validation messages and stop.
      * - If input is correct, execute the transaction and notify the sender appropriately
      *
-     * @throws \Ewallet\Memberships\InsufficientFunds If sender tries to transfer more than her
+     * @throws InsufficientFunds If sender tries to transfer more than her
      * current balance
-     * @throws \Ewallet\Memberships\InvalidTransfer If the amount to transfer is not greater than 0
-     * @throws \Ewallet\Memberships\UnknownMember If either the sender or recipient are unknown
+     * @throws InvalidTransfer If the amount to transfer is not greater than 0
+     * @throws UnknownMember If either the sender or recipient are unknown
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {

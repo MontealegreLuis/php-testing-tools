@@ -11,7 +11,7 @@ use Ewallet\Ui\Console\Commands\TransferFundsCommand;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 
-class EwalletApplication extends Application
+final class EwalletApplication extends Application
 {
     public static function fromContainer(ContainerInterface $container): EwalletApplication
     {

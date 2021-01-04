@@ -17,11 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class TransferFundsConsole
 {
-    /** @var OutputInterface */
-    private $output;
+    private OutputInterface $output;
 
-    /** @var MemberFormatter */
-    private $formatter;
+    private MemberFormatter $formatter;
 
     public function __construct(OutputInterface $output, MemberFormatter $formatter)
     {

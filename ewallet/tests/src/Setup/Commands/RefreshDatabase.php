@@ -7,6 +7,7 @@
 
 namespace Setup\Commands;
 
+use Exception;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -40,6 +41,7 @@ HELP
             );
     }
 
+    /** @throws Exception */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var Application $application */

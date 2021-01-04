@@ -7,10 +7,7 @@
 
 namespace Doctrine;
 
-use Adapters\Doctrine\EntityManagerFactory;
-use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\SchemaTool;
 
 final class DataStorageSetup
@@ -19,16 +16,9 @@ final class DataStorageSetup
 
     private EntityManager $entityManager;
 
-    /**
-     * Setup XML mapping configuration, configure entity manager, add custom types
-     *
-     * @param mixed[] $options
-     * @throws Exception
-     * @throws ORMException
-     */
-    public function __construct(array $options)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->entityManager = EntityManagerFactory::create($options['doctrine']);
+        $this->entityManager = $entityManager;
     }
 
     public function entityManager(): EntityManager

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -10,7 +10,7 @@ namespace Ewallet\Memberships;
 use ContractTests\Ewallet\Memberships\MembersTest;
 use Fakes\Ewallet\Memberships\InMemoryMembers;
 
-class InMemoryMembersTest extends MembersTest
+final class InMemoryMembersTest extends MembersTest
 {
     protected function membersInstance(): Members
     {

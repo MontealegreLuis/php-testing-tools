@@ -1,0 +1,9 @@
+parameters:
+  doctrine:
+    mapping_dirs:
+      - '%app.base_path%/vendor/ewallet/application/src/Adapters/Doctrine/Ewallet/Resources/config'
+      - '%app.base_path%/vendor/ewallet/application/src/Adapters/Doctrine/Application/Resources/config'
+    dev_mode: '%app.debug%'
+    proxy_dir: '%app.base_path%/var/doctrine/proxies'
+    connection: {'url': '%env(resolve:DB_URL)%'}
+    types: {'MemberId': 'Adapters\Doctrine\Ewallet\Types\MemberIdType'}

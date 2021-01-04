@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: containers bootstrap db tests cleanup check
+.PHONY: containers bootstrap db test cleanup check
 
 containers:
 	@echo "Building containers..."
@@ -41,16 +41,16 @@ setup:
 	@cd ewallet && bin/setup ewallet:db:seed
 	@echo "Done!"
 
-tests:
+test:
 	@echo "Running tests for packages..."
 	@echo "ewallet/application..."
-	@cd ewallet && make tests
+	@cd ewallet && make test
 	@echo "Console application"
 	@cd ui/console && make tests
 	@echo "Messaging application"
 	@cd ui/messaging && make tests
 	@echo "Web application"
-	@cd ui/web && make tests
+	@cd ui/web && make test
 	@echo "Done!"
 
 check:

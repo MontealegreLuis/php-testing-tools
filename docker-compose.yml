@@ -1,4 +1,7 @@
-version: '2'
+version: '3'
+
+volumes:
+  db:
 
 services:
   dev:
@@ -70,9 +73,7 @@ services:
       DB_URL: ${DB_URL}
   queue:
     container_name: ewallet_queue
-    build:
-      context: ./containers/queue
-    image: ewallet/queue
+    image: rabbitmq:3.5
     ports:
       - "5674:5672"
     environment:
@@ -85,18 +86,11 @@ services:
     image: ewallet/mail
     ports:
       - "8080:8080"
-  data:
-    container_name: ewallet_data
-    build:
-      context: ./containers/data
-    image: ewallet/data
   db:
     container_name: ewallet_db
-    build:
-      context: ./containers/db
-    image: ewallet/db
-    volumes_from:
-      - data
+    image: mysql:5.7
+    volumes:
+      - db:/var/lib/mysql
     ports:
       - "3306:3306"
     environment:

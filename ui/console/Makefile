@@ -14,7 +14,7 @@ tests:
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
 	@echo "Running mutation tests"
-	@vendor/bin/infection --min-msi=75 --min-covered-msi=85 --threads=4
+	@#vendor/bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=75 --min-covered-msi=85 --threads=4
 
 check:
 	@echo "Looking for static analysis violations"
@@ -29,4 +29,3 @@ format:
 	@vendor/bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs
 	@echo "Fixing CS violations in tests directory"
 	@vendor/bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs_tests
-

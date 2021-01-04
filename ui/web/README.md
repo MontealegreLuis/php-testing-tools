@@ -31,9 +31,9 @@ make server
 
 ## Tests
 
-End to end tests use PhantomJS, please install it globally so you can run the test suite.
-If you're using the Docker containers no need to worry about it.
+End to end tests use PhantomJS, please install it globally, so you can run the test suite.
+If you're using the Docker containers, there's no need to worry about it.
 
 ```bash
-make tests
+make test
 ```

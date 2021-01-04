@@ -7,12 +7,9 @@
 
 namespace Setup;
 
-use Doctrine\DataStorageSetup;
-use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
+use Psr\Container\ContainerInterface;
 use Setup\Commands\CreateDatabaseCommand;
 use Setup\Commands\DropDatabaseCommand;
 use Setup\Commands\RefreshDatabase;
@@ -22,24 +19,18 @@ use Symfony\Component\Console\Helper\HelperSet;
 
 final class SetupApplication extends Application
 {
-    /**
-     * @param mixed[] $options
-     * @throws Exception
-     * @throws ORMException
-     */
-    public function __construct(array $options)
+    public static function fromContainer(ContainerInterface $container): SetupApplication
     {
-        parent::__construct('EWallet Application Setup', 'v1.0.0');
-        $setup = new DataStorageSetup($options);
-        $entityManager = $setup->entityManager();
-        $this->setHelperSet(new HelperSet([
-            'db' => new ConnectionHelper($entityManager->getConnection()),
-            'em' => new EntityManagerHelper($entityManager),
+        $application = new self('EWallet Application Setup', 'v1.0.0');
+        $application->setHelperSet(new HelperSet([
+            'em' => $container->get(EntityManagerHelper::class),
         ]));
-        $this->add(new DropDatabaseCommand());
-        $this->add(new CreateDatabaseCommand());
-        $this->add(new SeedDatabaseCommand());
-        $this->add((new UpdateCommand())->setHidden(true));
-        $this->add(new RefreshDatabase());
+        $application->add($container->get(DropDatabaseCommand::class));
+        $application->add($container->get(CreateDatabaseCommand::class));
+        $application->add($container->get(SeedDatabaseCommand::class));
+        $application->add($container->get(UpdateCommand::class));
+        $application->add($container->get(RefreshDatabase::class));
+
+        return $application;
     }
 }

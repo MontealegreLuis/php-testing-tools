@@ -16,6 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateDatabaseCommand extends DatabaseCommand
 {
+    private Connection $connection;
+
+    public function __construct(Connection $connection)
+    {
+        parent::__construct();
+        $this->connection = $connection;
+    }
+
     protected function configure(): void
     {
         $this
@@ -28,7 +36,7 @@ final class CreateDatabaseCommand extends DatabaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $parameters = $this->getHelper('db')->getConnection()->getParams();
+        $parameters = $this->connection->getParams();
         try {
             $connection = DriverManager::getConnection($this->withoutDatabaseName($parameters));
             $this->createIfNotExists($output, $parameters, $connection);

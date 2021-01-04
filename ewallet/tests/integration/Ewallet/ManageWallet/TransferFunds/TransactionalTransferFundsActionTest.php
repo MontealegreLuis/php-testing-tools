@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -12,7 +12,7 @@ use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Alice\ThreeMembersWithSameBalanceFixture;
 use Application\DomainEvents\EventPublisher;
 use DataBuilders\Input;
-use Doctrine\DataStorageSetup;
+use Doctrine\WithDatabaseSetup;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
 use Exception;
@@ -22,11 +22,13 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use RuntimeException;
+use SplFileInfo;
 
 final class TransactionalTransferFundsActionTest extends TestCase
 {
     use ProphecyTrait;
     use ProvidesMoneyConstraints;
+    use WithDatabaseSetup;
 
     /** @test */
     function it_transfers_funds_between_members()
@@ -56,11 +58,10 @@ final class TransactionalTransferFundsActionTest extends TestCase
     }
 
     /** @before */
-    public function let(): void
+    public function let()
     {
-        $setup = new DataStorageSetup(require __DIR__ . '/../../../../../config/config.php');
-        $setup->updateSchema();
-        $entityManager = $setup->entityManager();
+        $this->_setupDatabaseSchema(new SplFileInfo(__DIR__ . '/../../../../../'));
+        $entityManager = $this->setup->entityManager();
         $fixtures = new ThreeMembersWithSameBalanceFixture($entityManager);
         $fixtures->load();
         $this->members = new MembersRepository($entityManager);

@@ -24,11 +24,9 @@ I'm also starting to use it to describe an [hexagonal architecture][12] in PHP.
 ## Installation
 
 *It is recommended to use [Docker][16] and [Docker Compose][17] to run this example.
-However it is also possible to install all the required software locally and run it without the containers.* 
+However, it is also possible to install all the required software locally and run it without the containers.* 
 
 All instructions below assume a Docker setup. 
-
-Once you have them installed, run this command:
 
 ```bash
 make containers     # Build the Docker images
@@ -69,7 +67,7 @@ console ewallet:transfer ABC LMN 5 # Transfers $5 MXN from sender with ID ABC to
 
 ### Messaging
 
-Both the Web and the console application generate domain events, those events trigger email notifications. 
+Both the Web and the console application generate domain events, those events send email notifications. 
 Browse to [http://localhost:8080/][15] to see the emails that are sent after transferring funds either from the console or the Web application. 
 
 To start the messaging container run this command:
@@ -83,7 +81,7 @@ messaging # Container with the cron jobs that send emails to MailCatcher based o
 Run the tests of all the applications and packages with this command:
 
 ```bash
-dev make tests
+dev make test
 ```
 
 Each folder in the `ui` and `ewallet` directories, has its own `README` file. 

@@ -29,6 +29,7 @@ return PhpCsFixer\Config::create()
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'no_whitespace_in_blank_line' => true,
+        'declare_strict_types' => true,
         'class_attributes_separation' => ['elements' => ['method', 'property']],
         'header_comment' => [
             'commentType' => 'PHPDoc',

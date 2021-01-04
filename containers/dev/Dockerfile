@@ -1,4 +1,4 @@
-FROM php:7.2-cli
+FROM php:7.4.12-cli
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -6,9 +6,8 @@ COPY ./config/php.ini /usr/local/etc/php/
 
 # Install modules
 RUN apt-get update && apt-get install -y \
-    && apt-get install -y zlib1g zlib1g-dev git-core zip unzip curl \
+    && apt-get install -y zlib1g zlib1g-dev git-core libzip-dev zip unzip curl \
     && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install zip \
     && docker-php-ext-install sockets
@@ -18,6 +17,8 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_connect_back=on" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+RUN yes |  pecl install pcov
 
 # Install Composer
 RUN mkdir -p /composer/.composer
@@ -40,7 +41,7 @@ RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
 RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer && rm -rf /tmp/composer-setup.php
 
 # Install MySQL's client
-RUN apt-get -y install mysql-client
+RUN apt-get -y install default-mysql-client
 
 # Install PhantomJS
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -

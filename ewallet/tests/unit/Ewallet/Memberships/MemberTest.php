@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -14,9 +14,10 @@ use Money\Money;
 use PHPUnit\Constraints\ProvidesMoneyConstraints;
 use PHPUnit\Framework\TestCase;
 
-class MemberTest extends TestCase
+final class MemberTest extends TestCase
 {
-    use TestTrait, ProvidesMoneyConstraints;
+    use ProvidesMoneyConstraints;
+    use TestTrait;
 
     /** @test */
     function sender_balance_should_decrease_after_funds_have_been_transferred()

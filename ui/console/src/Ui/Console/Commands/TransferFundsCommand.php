@@ -1,44 +1,45 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Ewallet\Ui\Console\Commands;
 
-use Adapters\Symfony\Ewallet\ManageWallet\TransferFunds\TransferFundsValidator;
-use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
+use Adapters\Laminas\Application\InputValidation\LaminasInputFilter;
+use Adapters\Symfony\Ewallet\ManageWallet\TransferFunds\TransferFundsValues;
+use Application\DomainException;
+use Application\InputValidation\InputValidator;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsInput;
-use Ewallet\ManageWallet\TransferFunds\TransferFundsResponder;
-use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
-use Ewallet\Memberships\InsufficientFunds;
-use Ewallet\Memberships\UnknownMember;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TransferFundsCommand extends Command implements TransferFundsResponder
+final class TransferFundsCommand extends Command
 {
-    private const SUCCESS = 0;
     private const ERROR = 1;
 
-    /** @var int */
-    private $exitCode;
-
-    /** @var TransactionalTransferFundsAction */
+    /** @var TransferFundsAction */
     private $action;
 
     /** @var TransferFundsConsole */
     private $console;
 
-    public function __construct(TransactionalTransferFundsAction $transferFunds, TransferFundsConsole $console)
-    {
+    /** @var InputValidator */
+    private $validator;
+
+    public function __construct(
+        TransferFundsAction $transferFunds,
+        TransferFundsConsole $console,
+        InputValidator $validator
+    ) {
         parent::__construct();
         $this->action = $transferFunds;
-        $this->action->attach($this);
         $this->console = $console;
+        $this->validator = $validator;
     }
 
     /**
@@ -79,34 +80,23 @@ class TransferFundsCommand extends Command implements TransferFundsResponder
      * @throws \Ewallet\Memberships\InvalidTransfer If the amount to transfer is not greater than 0
      * @throws \Ewallet\Memberships\UnknownMember If either the sender or recipient are unknown
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $validator = new TransferFundsValidator($input->getArguments());
-        if (! $validator->isValid()) {
-            $this->console->printError($validator->errors(), 'FUNDS-422-001');
+        $values = new TransferFundsValues(new LaminasInputFilter($input->getArguments()));
+        $result = $this->validator->validate($values);
+        if (! $result->isValid()) {
+            $this->console->printError($result->errors(), 'invalid-input');
             return self::ERROR;
         }
 
-        $this->action->transfer(new TransferFundsInput($input->getArguments()));
+        try {
+            $summary = $this->action->transfer(new TransferFundsInput($values->values()));
+            $this->console->printSummary($summary);
+        } catch (DomainException $exception) {
+            $this->console->printError([$exception->getMessage()], 'cannot-complete-transfer');
+            return self::ERROR;
+        }
 
-        return $this->exitCode;
-    }
-
-    public function respondToTransferCompleted(TransferFundsSummary $summary): void
-    {
-        $this->console->printSummary($summary);
-        $this->exitCode = self::SUCCESS;
-    }
-
-    public function respondToUnknownMember(UnknownMember $exception): void
-    {
-        $this->console->printError([$exception->getMessage()], 'FUNDS-400-001');
-        $this->exitCode = self::ERROR;
-    }
-
-    public function respondToInsufficientFunds(InsufficientFunds $exception): void
-    {
-        $this->console->printError([$exception->getMessage()], 'FUNDS-400-002');
-        $this->exitCode = self::ERROR;
+        return self::SUCCESS;
     }
 }

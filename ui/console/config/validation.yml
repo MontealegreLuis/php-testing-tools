@@ -1,0 +1,10 @@
+services:
+  Symfony\Component\Validator\ValidatorBuilder:
+    calls:
+      - enableAnnotationMapping: []
+  Symfony\Component\Validator\Validator\ValidatorInterface:
+    factory: ['@Symfony\Component\Validator\ValidatorBuilder', 'getValidator']
+  Application\InputValidation\InputValidator:
+    class: Adapters\Symfony\Application\InputValidation\ConstraintValidator
+    arguments:
+      - '@Symfony\Component\Validator\Validator\ValidatorInterface'

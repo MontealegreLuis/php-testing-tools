@@ -1,0 +1,6 @@
+services:
+  Doctrine\ORM\EntityManager:
+    public: true
+    factory: ['Adapters\Doctrine\EntityManagerFactory', 'new']
+    arguments:
+      - '%doctrine%'

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -10,16 +10,18 @@ namespace Adapters\Doctrine\Application\DomainEvents;
 use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
 use ContractTests\Application\DomainEvents\EventStoreTest;
-use Doctrine\DataStorageSetup;
+use Doctrine\WithDatabaseSetup;
+use SplFileInfo;
 
-class EventStoreRepositoryTest extends EventStoreTest
+final class EventStoreRepositoryTest extends EventStoreTest
 {
+    use WithDatabaseSetup;
+
     /** @before */
     function let()
     {
-        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../../../config/config.php');
-        $this->setup->updateSchema();
-        $this->setup->entityManager()->createQuery('DELETE FROM ' . StoredEvent::class)->execute();
+        $this->_setupDatabaseSchema(new SplFileInfo(__DIR__ . '/../../../../../../'));
+        $this->_executeDqlQuery('DELETE FROM ' . StoredEvent::class);
         parent::let();
     }
 
@@ -27,7 +29,4 @@ class EventStoreRepositoryTest extends EventStoreTest
     {
         return new EventStoreRepository($this->setup->entityManager());
     }
-
-    /** @var DataStorageSetup */
-    private $setup;
 }

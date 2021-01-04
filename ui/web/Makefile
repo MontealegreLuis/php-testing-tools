@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: bootstrap setup tests server check format
+.PHONY: bootstrap setup test server check format
 
 bootstrap:
 	@echo "Installing application dependencies"
@@ -10,13 +10,13 @@ setup:
 	@echo "Creating .env file for local development"
 	@cp .env.dist .env
 
-tests:
+test:
 	@echo "Running unit tests"
 	@bin/phpunit --testdox
 	@echo "Running end to end tests"
 	@bin/codecept clean
 	@bin/codecept run acceptance --steps
-	@bin/infection --min-msi=40 --min-covered-msi=70 --threads=4
+	@bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=40 --min-covered-msi=70 --threads=4
 
 server:
 	@echo "Starting the Web application in PHP's built-in server"

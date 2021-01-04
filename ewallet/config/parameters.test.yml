@@ -1,0 +1,15 @@
+parameters:
+  doctrine:
+    mapping_dirs:
+      - '%app.base_path%/src/Adapters/Doctrine/Ewallet/Resources/config'
+      - '%app.base_path%/src/Adapters/Doctrine/Application/Resources/config'
+    dev_mode: '%app.debug%'
+    proxy_dir: '%app.base_path%/var/doctrine/proxies'
+    connection:
+      url: 'sqlite:///%app.base_path%/var/ewallet.sq3'
+      dbname: '%env(MYSQL_DATABASE)%'
+      user: '%env(MYSQL_USER)%'
+      password: '%env(MYSQL_PASSWORD)%'
+      host: '%env(MYSQL_HOST)%'
+      driver: 'pdo_sqlite'
+    types: {'MemberId': 'Adapters\Doctrine\Ewallet\Types\MemberIdType'}

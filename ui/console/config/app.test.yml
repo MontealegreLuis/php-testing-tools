@@ -1,0 +1,21 @@
+imports:
+  - { resource: app.yml }
+services:
+  Doctrine\ORM\EntityManager:
+    public: true
+    factory: ['Adapters\Doctrine\EntityManagerFactory', 'create']
+    arguments:
+      - '%doctrine%'
+  Ewallet\ManageWallet\TransferFunds\TransferFundsAction:
+    public: true
+    class: Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction
+    arguments:
+      - '@Adapters\Doctrine\Ewallet\Memberships\MembersRepository'
+      - '@Application\DomainEvents\EventPublisher'
+    calls:
+      - setTransactionalSession: [ '@Adapters\Doctrine\Application\Services\DoctrineSession' ]
+  Application\InputValidation\InputValidator:
+    public: true
+    class: Adapters\Symfony\Application\InputValidation\ConstraintValidator
+    arguments:
+      - '@Symfony\Component\Validator\Validator\ValidatorInterface'

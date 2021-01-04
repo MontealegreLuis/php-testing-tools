@@ -4,7 +4,7 @@ This application transfers funds between 2 registered users.
 
 You'll need to install SQLite 3.19 or higher, and RabbitMQ 3.7 or higher to execute the test suite.
 
-As an alternative you can use the Docker containers available in this repository.
+As an alternative, you can use the Docker containers available in this repository.
 
 ## Setup
 
@@ -18,8 +18,8 @@ $ make bootstrap
 
 **Skip this step if you're using the `dev` Docker containers**
 
-In order to run the tests you'll need a `.env` file specific for testing.
-To generate this file execute:
+In order to run the tests you'll need a `.env` file, specific for testing.
+To generate this file, execute:
 
 ```bash
 $ make setup
@@ -33,5 +33,5 @@ This project test suite assumes the RabbitMQ service is running.
 If you're not using the `dev` Docker container please start the service.
 
 ```bash
-$ make tests
+$ make test
 ```

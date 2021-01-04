@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -10,14 +10,13 @@ namespace Adapters\Doctrine\Application\Messaging;
 use Application\Messaging\MessageTracker;
 use Application\Messaging\PublishedMessage;
 use ContractTests\Application\Messaging\MessageTrackerTest;
-use Doctrine\DataStorageSetup;
+use Doctrine\WithDatabaseSetup;
+use SplFileInfo;
 
 class MessageTrackerRepositoryTest extends MessageTrackerTest
 {
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\ORM\ORMException
-     */
+    use WithDatabaseSetup;
+
     public function messageTracker(): MessageTracker
     {
         $this->cleanUpMessages();
@@ -25,19 +24,9 @@ class MessageTrackerRepositoryTest extends MessageTrackerTest
         return new MessageTrackerRepository($this->setup->entityManager());
     }
 
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\ORM\ORMException
-     */
     private function cleanUpMessages(): void
     {
-        $options = require __DIR__ . '/../../../../../../config/config.php';
-
-        $this->setup = new DataStorageSetup($options);
-        $this->setup->updateSchema();
-        $this->setup->entityManager()->createQuery('DELETE FROM ' . PublishedMessage::class)->execute();
+        $this->_setupDatabaseSchema(new SplFileInfo(__DIR__ . '/../../../../../../'));
+        $this->_executeDqlQuery('DELETE FROM ' . PublishedMessage::class);
     }
-
-    /** @var DataStorageSetup */
-    private $setup;
 }

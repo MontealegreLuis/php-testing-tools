@@ -8,16 +8,12 @@
 use Adapters\Doctrine\Ewallet\Types\MemberIdType;
 
 return [
-    'settings' => [
-        'determineRouteBeforeAppMiddleware' => true,
-        'displayErrorDetails' => $_ENV['APP_ENV'] !== 'production',
-    ],
     'doctrine' => [
         'mapping_dirs' => [
             __DIR__ . '/vendor/ewallet/application/src/Adapters/Doctrine/Ewallet/Resources/config',
             __DIR__ . '/vendor/ewallet/application/src/Adapters/Doctrine/Application/Resources/config',
         ],
-        'dev_mode' => $_ENV['APP_ENV'] !== 'production',
+        'dev_mode' => $_ENV['APP_ENV'] !== 'prod',
         'proxy_dir' => __DIR__ . '/var/doctrine/proxies',
         'connection' => [
             'url' => str_replace('{{DIR}}', '//' . __DIR__ . '/', $_ENV['DB_URL']),
@@ -30,7 +26,7 @@ return [
     'twig' => [
         'options' => [
             'cache' => __DIR__ . '/var/cache/twig',
-            'debug' => $_ENV['APP_ENV'] !== 'production',
+            'debug' => $_ENV['APP_ENV'] !== 'prod',
             'strict_variables' => true,
         ],
         'loader_paths' => [

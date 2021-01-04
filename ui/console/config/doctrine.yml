@@ -1,0 +1,5 @@
+services:
+  Doctrine\ORM\EntityManager:
+    factory: ['Adapters\Doctrine\EntityManagerFactory', 'create']
+    arguments:
+      - '%doctrine%'

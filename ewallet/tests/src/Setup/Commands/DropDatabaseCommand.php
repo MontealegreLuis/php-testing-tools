@@ -16,6 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class DropDatabaseCommand extends DatabaseCommand
 {
+    private Connection $connection;
+
+    public function __construct(Connection $connection)
+    {
+        parent::__construct();
+        $this->connection = $connection;
+    }
+
     protected function configure(): void
     {
         $this
@@ -23,12 +31,10 @@ final class DropDatabaseCommand extends DatabaseCommand
             ->setDescription('Drops the database');
     }
 
-    /**
-     * Drop database unless it does not exist.
-     */
+    /** Drop database unless it does not exist. */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $parameters = $this->getHelper('db')->getConnection()->getParams();
+        $parameters = $this->connection->getParams();
         try {
             $arr = $this->withoutDatabaseName($parameters);
             $connection = DriverManager::getConnection($arr);

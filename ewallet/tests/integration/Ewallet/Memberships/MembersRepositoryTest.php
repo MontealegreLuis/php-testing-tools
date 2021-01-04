@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -9,24 +9,22 @@ namespace Ewallet\Memberships;
 
 use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use ContractTests\Ewallet\Memberships\MembersTest;
-use Doctrine\DataStorageSetup;
+use Doctrine\WithDatabaseSetup;
+use SplFileInfo;
 
-class MembersRepositoryTest extends MembersTest
+final class MembersRepositoryTest extends MembersTest
 {
+    use WithDatabaseSetup;
+
     /** @before */
-    function generateFixtures(): void
+    function let()
     {
-        $this->setup = new DataStorageSetup(require __DIR__ . '/../../../../config/config.php');
-        $this->setup->updateSchema();
-        $this->setup->entityManager()->createQuery('DELETE FROM ' . Member::class)->execute();
-        parent::generateFixtures();
+        $this->_setupDatabaseSchema(new SplFileInfo(__DIR__ . '/../../../../'));
+        $this->_executeDqlQuery('DELETE FROM ' . Member::class);
     }
 
     protected function membersInstance(): Members
     {
         return new MembersRepository($this->setup->entityManager());
     }
-
-    /** @var DataStorageSetup */
-    private $setup;
 }

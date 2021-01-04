@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -9,18 +9,20 @@ use Alice\ThreeMembersWithSameBalanceFixture;
 use Doctrine\DataStorageSetup;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\ORMException;
+use Doctrine\WithDatabaseSetup;
 
 final class TransferFundsCest
 {
+    use WithDatabaseSetup;
+
     /**
      * @throws Exception
      * @throws ORMException
      */
     public function _before(): void
     {
-        $setup = new DataStorageSetup(require __DIR__ . '/../../config.php');
-        $setup->updateSchema();
-        $fixture = new ThreeMembersWithSameBalanceFixture($setup->entityManager());
+        $this->_setupDatabaseSchema(new \SplFileInfo(__DIR__ . '/../../'));
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->setup->entityManager());
         $fixture->load();
     }
 

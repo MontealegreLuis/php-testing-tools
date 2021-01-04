@@ -1,0 +1,23 @@
+imports:
+  - { resource: doctrine.yml }
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Doctrine\DBAL\Connection:
+    public: true
+    factory: ['@Doctrine\ORM\EntityManager', 'getConnection']
+  Doctrine\DBAL\Tools\Console\ConnectionProvider\SingleConnectionProvider:
+    public: true
+  Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper:
+    public: true
+    arguments:
+      - '@Doctrine\ORM\EntityManager'
+  Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand:
+    public: true
+    calls:
+      - setHidden: [true]
+  Setup\Commands\:
+    public: true
+    resource: '../tests/src/Setup/Commands/*'

@@ -1,25 +1,29 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Ewallet\Ui\Console\Commands;
 
-use Adapters\Doctrine\Application\Services\DoctrineSession;
-use Adapters\Doctrine\Ewallet\Memberships\MembersRepository;
 use Alice\ThreeMembersWithSameBalanceFixture;
-use Application\DomainEvents\EventPublisher;
-use Doctrine\DataStorageSetup;
-use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
+use Application\InputValidation\InputValidator;
+use Doctrine\WithDatabaseSetup;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
 use Ewallet\Memberships\MemberFormatter;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-class TransferFundsCommandTest extends TestCase
+/**
+ * @covers \Ewallet\Ui\Console\Commands\TransferFundsCommand
+ */
+final class TransferFundsCommandTest extends TestCase
 {
+    use WithDatabaseSetup;
+
     /** @test */
     function it_transfers_funds_between_members()
     {
@@ -31,7 +35,7 @@ class TransferFundsCommandTest extends TestCase
 
         $statusCode = $this->command->run($input, $this->output);
 
-        $this->assertRegExp('/Transfer completed successfully!/', $this->output->fetch());
+        $this->assertMatchesRegularExpression('/Transfer completed successfully!/', $this->output->fetch());
         $this->assertEquals($success = 0, $statusCode);
     }
 
@@ -42,7 +46,7 @@ class TransferFundsCommandTest extends TestCase
 
         $statusCode = $this->command->run($input, $this->output);
 
-        $this->assertRegExp('/FUNDS-422-001/', $this->output->fetch());
+        $this->assertMatchesRegularExpression('/invalid-input/', $this->output->fetch());
         $this->assertEquals($error = 1, $statusCode);
     }
 
@@ -57,7 +61,7 @@ class TransferFundsCommandTest extends TestCase
 
         $statusCode = $this->command->run($input, $this->output);
 
-        $this->assertRegExp('/FUNDS-400-001/', $this->output->fetch());
+        $this->assertMatchesRegularExpression('/cannot-complete-transfer/', $this->output->fetch());
         $this->assertEquals($success = 1, $statusCode);
     }
 
@@ -72,7 +76,7 @@ class TransferFundsCommandTest extends TestCase
 
         $statusCode = $this->command->run($input, $this->output);
 
-        $this->assertRegExp('/FUNDS-400-001/', $this->output->fetch());
+        $this->assertMatchesRegularExpression('/cannot-complete-transfer/', $this->output->fetch());
         $this->assertEquals($success = 1, $statusCode);
     }
 
@@ -87,31 +91,23 @@ class TransferFundsCommandTest extends TestCase
 
         $statusCode = $this->command->run($input, $this->output);
 
-        $this->assertRegExp('/FUNDS-400-002/', $this->output->fetch());
+        $this->assertMatchesRegularExpression('/cannot-complete-transfer/', $this->output->fetch());
         $this->assertEquals($success = 1, $statusCode);
     }
 
     /** @before */
-    public function let(): void
+    function let()
     {
-        $setup = new DataStorageSetup(require __DIR__ . '/../../../../../config.php');
-        $setup->updateSchema();
-        (new ThreeMembersWithSameBalanceFixture($setup->entityManager()))->load();
-        $members = new MembersRepository($setup->entityManager());
-        $action = new TransactionalTransferFundsAction($members, new EventPublisher());
-        $action->setTransactionalSession(new DoctrineSession($setup->entityManager()));
-        $this->input = new ArrayInput([]);
+        $path = new SplFileInfo(__DIR__ . '/../../../../../');
+        $this->_setupDatabaseSchema($path);
+        (new ThreeMembersWithSameBalanceFixture($this->setup->entityManager()))->load();
+        $action = $this->container->get(TransferFundsAction::class);
         $this->output = new BufferedOutput();
         $console = new TransferFundsConsole($this->output, new MemberFormatter());
-        $this->command = new TransferFundsCommand($action, $console);
+        $this->command = new TransferFundsCommand($action, $console, $this->container->get(InputValidator::class));
     }
 
-    /** @var TransferFundsCommand Subject under test */
-    private $command;
+    private TransferFundsCommand $command;
 
-    /** @var ArrayInput */
-    private $input;
-
-    /** @var BufferedOutput */
-    private $output;
+    private BufferedOutput $output;
 }

@@ -1,44 +1,39 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 namespace Ewallet\Pimple;
 
-use Application\DomainEvents\EventPublisher;
-use Ewallet\ManageWallet\TransferFunds\TransactionalTransferFundsAction;
-use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
+use Adapters\Symfony\Application\DependencyInjection\ContainerFactory;
+use Application\BasePath;
+use Application\Environment;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\Finder;
 
-class EwalletConsoleContainerTest extends TestCase
+final class EwalletConsoleContainerTest extends TestCase
 {
     /** @test */
     function it_creates_the_console_application_services()
     {
-        $arguments = require __DIR__ . '/../../../config.php';
-        $container = new EwalletConsoleContainer($arguments);
+        $basePath = new BasePath(new SplFileInfo(__DIR__ . '/../../../'));
+        $container = ContainerFactory::create($basePath, new Environment('test', true));
+        $finder = new Finder();
+        $files = $finder->files()->name('*.php')->in(__DIR__ . '/../../../src/UI/Console/Commands');
+        foreach ($files as $file) {
+            $className = "Ewallet\\UI\\Console\\Commands\\{$file->getFilenameWithoutExtension()}";
+            $this->assertInstanceOf($className, $container->get($className));
+        }
 
-        $this->assertInstanceOf(
-            ArgvInput::class,
-            $container[InputInterface::class]
-        );
-        $this->assertInstanceOf(
-            ConsoleOutput::class,
-            $container[OutputInterface::class]
-        );
-        $this->assertInstanceOf(
-            TransactionalTransferFundsAction::class,
-            $container[TransferFundsAction::class]
-        );
-        $this->assertInstanceOf(
-            EventPublisher::class,
-            $container[EventPublisher::class]
-        );
+
+        $this->assertInstanceOf(ArgvInput::class, $container->get(InputInterface::class));
+        $this->assertInstanceOf(ConsoleOutput::class, $container->get(OutputInterface::class));
     }
 }

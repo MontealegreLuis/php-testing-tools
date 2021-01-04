@@ -3,7 +3,5 @@ parameters:
    level: 8
    paths:
       - 'src'
-   scanFiles:
-      - var/container-development.php
 includes:
    - vendor/phpstan/phpstan-strict-rules/rules.neon

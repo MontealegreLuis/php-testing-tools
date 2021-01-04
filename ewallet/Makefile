@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: bootstrap setup tests check format
+.PHONY: bootstrap setup test check format
 
 bootstrap:
 	@echo "Installing application dependencies"
@@ -12,7 +12,7 @@ setup:
 	@echo "Creating .env file for local development"
 	@cp .env.dist .env
 
-tests:
+test:
 	@echo "Running scenarios.."
 	@vendor/bin/behat
 	@echo "Running specs"
@@ -20,7 +20,7 @@ tests:
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
 	@echo "Running mutation tests"
-	@vendor/bin/infection --min-msi=60 --min-covered-msi=70 --threads=4
+	@vendor/bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=60 --min-covered-msi=70 --threads=4
 
 check:
 	@echo "Looking for static analysis violations"

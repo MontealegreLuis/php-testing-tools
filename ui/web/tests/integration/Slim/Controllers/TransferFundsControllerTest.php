@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.4
  *
@@ -7,16 +7,18 @@
 
 namespace Ewallet\Slim\Controllers;
 
-use Adapters\Symfony\DependencyInjection\ContainerFactory;
 use Alice\ThreeMembersWithSameBalanceFixture;
-use Doctrine\DataStorageSetup;
+use Doctrine\WithDatabaseSetup;
 use Framework\Slim\ApplicationFactory;
 use Http\Factory\Guzzle\ServerRequestFactory;
 use PHPUnit\Framework\TestCase;
 use Slim\App;
+use SplFileInfo;
 
 final class TransferFundsControllerTest extends TestCase
 {
+    use WithDatabaseSetup;
+
     /** @test */
     function it_returns_an_ok_response_on_enter_transfer_information_action()
     {
@@ -42,14 +44,12 @@ final class TransferFundsControllerTest extends TestCase
     }
 
     /** @before */
-    public function let(): void
+    public function let()
     {
-        $options = require __DIR__ . '/../../../../config.php';
-        $setup = new DataStorageSetup($options);
-        $setup->updateSchema();
-        $fixture = new ThreeMembersWithSameBalanceFixture($setup->entityManager());
+        $this->_setupDatabaseSchema(new SplFileInfo(__DIR__ . '/../../../../'));
+        $fixture = new ThreeMembersWithSameBalanceFixture($this->setup->entityManager());
         $fixture->load();
-        $this->app = ApplicationFactory::createFromContainer(ContainerFactory::new());
+        $this->app = ApplicationFactory::createFromContainer($this->container);
     }
 
     private App $app;

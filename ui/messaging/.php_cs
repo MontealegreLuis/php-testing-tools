@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
@@ -21,7 +21,6 @@ return PhpCsFixer\Config::create()
         'single_quote' => true,
         'trailing_comma_in_multiline_array' => true,
         'concat_space' => ['spacing' => 'one'],
-        'no_superfluous_phpdoc_tags' => true,
         'no_empty_phpdoc' => true,
         'no_empty_statement' => true,
         'array_indentation' => true,
@@ -32,7 +31,7 @@ return PhpCsFixer\Config::create()
         'class_attributes_separation' => ['elements' => ['method', 'property']],
         'header_comment' => [
             'commentType' => 'PHPDoc',
-            'header' => 'PHP version 7.2
+            'header' => 'PHP version 7.4
 
 This source file is subject to the license that is bundled with this package in the file LICENSE.',
             'separate' => 'bottom',

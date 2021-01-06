@@ -1,0 +1,13 @@
+parameters:
+  doctrine:
+    mapping_dirs:
+      - '%app.base_path%/vendor/ewallet/application/src/Adapters/Doctrine/Ewallet/Resources/config'
+      - '%app.base_path%/vendor/ewallet/application/src/Adapters/Doctrine/Application/Resources/config'
+    dev_mode: '%app.debug%'
+    proxy_dir: '%app.base_path%/var/doctrine/proxies'
+    connection: {'url': 'sqlite:///%app.base_path%/var/ewallet.sq3'}
+    types: {'MemberId': 'Adapters\Doctrine\Ewallet\Types\MemberIdType'}
+  rabbit_mq_host: '%env(RABBIT_MQ_HOST)%'
+  rabbit_mq_port: 5672
+  rabbit_mq_user: '%env(RABBIT_MQ_USER)%'
+  rabbit_mq_password: '%env(RABBIT_MQ_PASSWORD)%'

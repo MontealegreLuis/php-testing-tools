@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.2
  *
@@ -62,7 +62,7 @@ class NotifyTransferByEmailCommandTest extends TestCase
     }
 
     /** @before */
-    function let(): void
+    function let()
     {
         $configuration = ChannelConfiguration::temporary();
         $this->bindChannel($configuration);

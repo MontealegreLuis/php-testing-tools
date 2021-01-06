@@ -1,21 +1,21 @@
 <?php declare(strict_types=1);
 /**
- * PHP version 7.2
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Zf2\Mail;
+namespace Ewallet\Adapters\Laminas\Mail;
 
 use Application\Templating\TemplateEngine;
 use DateTimeInterface;
 use Ewallet\ManageWallet\Notifications\TransferFundsEmailSender;
 use Ewallet\Memberships\Member;
+use Laminas\Mail\Message;
+use Laminas\Mail\Transport\TransportInterface;
 use Money\Money;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\TransportInterface;
 
-class TransferFundsZendMailSender implements TransferFundsEmailSender
+class LaminasTransferFundsMailSender implements TransferFundsEmailSender
 {
     /** @var TemplateEngine */
     private $template;

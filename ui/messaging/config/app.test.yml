@@ -1,0 +1,8 @@
+imports:
+  - { resource: app.yml }
+services:
+  Doctrine\ORM\EntityManager:
+    public: true
+    factory: ['Adapters\Doctrine\EntityManagerFactory', 'create']
+    arguments:
+      - '%doctrine%'

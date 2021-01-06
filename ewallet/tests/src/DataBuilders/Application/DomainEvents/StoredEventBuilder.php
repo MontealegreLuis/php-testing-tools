@@ -23,6 +23,8 @@ final class StoredEventBuilder
 
     private ?int $id = null;
 
+    private ?string $type;
+
     /**
      * By default all the stored event bodies are taken from a `TransferWasMade`
      * event built with random values
@@ -44,11 +46,18 @@ final class StoredEventBuilder
         return $this;
     }
 
+    public function withUnknownType(): StoredEventBuilder
+    {
+        $this->type = 'Ewallet\UnkownEvent';
+
+        return $this;
+    }
+
     public function build(): StoredEvent
     {
         $event = new StoredEvent(
             $this->serializer->serialize(A::transferWasMadeEvent()->build()),
-            TransferWasMade::class,
+            $this->type ?? TransferWasMade::class,
             Random::date()
         );
         $this->assignId($event, $this->id ?? self::$nextId);

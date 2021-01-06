@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.2
  *
@@ -31,7 +31,7 @@ class PublishMessagesCommandTest extends TestCase
         $tester = new CommandTester(new PublishMessagesCommand($publisher));
         $tester->execute([]);
 
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/3 messages published/',
             $tester->getDisplay()
         );

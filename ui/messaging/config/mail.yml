@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier:
+  Ewallet\ManageWallet\Notifications\TransferFundsEmailSender:
+    class: Ewallet\Adapters\Laminas\Mail\LaminasTransferFundsMailSender
+  Laminas\Mail\Transport\TransportInterface:
+    class: Laminas\Mail\Transport\Sendmail

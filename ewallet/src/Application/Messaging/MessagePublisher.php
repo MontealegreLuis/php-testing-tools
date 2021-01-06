@@ -11,7 +11,8 @@ use Application\DomainEvents\EventStore;
 use Application\DomainEvents\StoredEvent;
 use Exception;
 
-final class MessagePublisher
+/** @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector */
+class MessagePublisher
 {
     private const NO_MESSAGES_PUBLISHED = 0;
 

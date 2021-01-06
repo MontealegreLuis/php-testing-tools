@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.2
  *
@@ -7,60 +7,25 @@
 
 namespace Ewallet\Pimple\ServiceProviders;
 
-use Adapters\Doctrine\Application\DomainEvents\EventStoreRepository;
-use Adapters\Doctrine\Application\Messaging\MessageTrackerRepository;
-use Adapters\Pimple\Application\DependencyInjection\DoctrineServiceProvider;
-use Adapters\Pimple\Application\DependencyInjection\TwigServiceProvider;
-use Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer;
-use Adapters\RabbitMq\Application\Messaging\AmqpMessageProducer;
-use Application\Messaging\MessagePublisher;
-use Application\Messaging\MessageTracker;
-use Ewallet\ManageWallet\Notifications\TransferFundsEmailNotifier;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Adapters\Symfony\Application\DependencyInjection\ContainerFactory;
+use Application\BasePath;
+use Application\Environment;
 use PHPUnit\Framework\TestCase;
-use Pimple\Container;
+use SplFileInfo;
+use Symfony\Component\Finder\Finder;
 
-class EwalletMessagingServiceProviderTest extends TestCase
+final class EwalletMessagingServiceProviderTest extends TestCase
 {
     /** @test */
     function it_creates_the_services_for_the_messaging_application()
     {
-        $options = require __DIR__ . '/../../../../config.tests.php';
-        $container = new Container($options);
-        $container->register(new TwigServiceProvider());
-        $container->register(new DoctrineServiceProvider());
-        $container->register(new MessagingServiceProvider());
-        $container->register(new EwalletMessagingServiceProvider());
-        $this->assertInstanceOf(
-            TransferFundsEmailNotifier::class,
-            $container['ewallet.transfer_mail_notifier']
-        );
-        $this->assertInstanceOf(
-            EventStoreRepository::class,
-            $container[EventStoreRepository::class]
-        );
-        $this->assertInstanceOf(
-            MessageTrackerRepository::class,
-            $container[MessageTracker::class]
-        );
-        $this->assertInstanceOf(
-            AMQPStreamConnection::class,
-            $connection = $container['hexagonal.amqp_connection']
-        );
-        $connection->close();
-        $this->assertInstanceOf(
-            AmqpMessageProducer::class,
-            $producer = $container['hexagonal.messages_producer']
-        );
-        $producer->close();
-        $this->assertInstanceOf(
-            AmqpMessageConsumer::class,
-            $consumer = $container['hexagonal.messages_consumer']
-        );
-        $consumer->close();
-        $this->assertInstanceOf(
-            MessagePublisher::class,
-            $container['hexagonal.messages_publisher']
-        );
+        $basePath = new BasePath(new SplFileInfo(__DIR__ . '/../../../../'));
+        $container = ContainerFactory::create($basePath, new Environment('test', true));
+        $finder = new Finder();
+        $files = $finder->files()->name('*.php')->in(__DIR__ . '/../../../../src/Ui/Console/Commands');
+        foreach ($files as $file) {
+            $className = "Ewallet\\Ui\\Console\\Commands\\{$file->getFilenameWithoutExtension()}";
+            $this->assertInstanceOf($className, $container->get($className));
+        }
     }
 }

@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Application\Messaging\MessageConsumer:
+    class: Adapters\RabbitMq\Application\Messaging\AmqpMessageConsumer
+  PhpAmqpLib\Connection\AMQPStreamConnection:
+    arguments:
+      - '%rabbit_mq_host%'
+      - '%rabbit_mq_port%'
+      - '%rabbit_mq_user%'
+      - '%rabbit_mq_password%'
+  Adapters\RabbitMq\Application\Messaging\ChannelConfiguration:
+    factory: ['Adapters\RabbitMq\Application\Messaging\ChannelConfiguration', 'durable']
+  Application\Messaging\MessagePublisher:
+  Application\Messaging\MessageTracker:
+    class: Adapters\Doctrine\Application\Messaging\MessageTrackerRepository
+  Application\Messaging\MessageProducer:
+    class: Adapters\RabbitMq\Application\Messaging\AmqpMessageProducer

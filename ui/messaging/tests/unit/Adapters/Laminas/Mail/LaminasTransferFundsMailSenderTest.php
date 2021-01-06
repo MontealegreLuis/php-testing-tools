@@ -1,22 +1,22 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP version 7.2
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Zf2\Mail;
+namespace Ewallet\Adapters\Laminas\Mail;
 
 use Application\Templating\TemplateEngine;
 use DataBuilders\A;
 use DateTime;
+use Laminas\Mail\Transport\InMemory;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use Zend\Mail\Transport\InMemory;
 
-class TransferFundsZendMailSenderTest extends TestCase
+final class LaminasTransferFundsMailSenderTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -37,7 +37,7 @@ class TransferFundsZendMailSenderTest extends TestCase
             $this->transport->getLastMessage()->getTo()->current()->getEmail(),
             'Address doesn\'t belong to the member making the transfer'
         );
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/transfer completed/',
             $this->transport->getLastMessage()->getSubject(),
             'Email\'s subject is wrong'
@@ -61,7 +61,7 @@ class TransferFundsZendMailSenderTest extends TestCase
             $this->transport->getLastMessage()->getTo()->current()->getEmail(),
             'Address doesn\'t belong to the member receiving the deposit'
         );
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/received.*deposit/',
             $this->transport->getLastMessage()->getSubject(),
             'Email\'s subject is wrong'
@@ -69,14 +69,11 @@ class TransferFundsZendMailSenderTest extends TestCase
     }
 
     /** @before */
-    public function configureMailSender(): void
+    public function let()
     {
         $this->template = Mockery::mock(TemplateEngine::class);
         $this->transport = new InMemory();
-        $this->sender = new TransferFundsZendMailSender(
-            $this->template,
-            $this->transport
-        );
+        $this->sender = new LaminasTransferFundsMailSender($this->template, $this->transport);
         $this->template
             ->shouldReceive('render')
             ->once()
@@ -84,7 +81,7 @@ class TransferFundsZendMailSenderTest extends TestCase
         ;
     }
 
-    /** @var TransferFundsZendMailSender */
+    /** @var LaminasTransferFundsMailSender */
     private $sender;
 
     /** @var TemplateEngine */

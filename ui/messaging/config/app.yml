@@ -1,0 +1,14 @@
+imports:
+  - { resource: doctrine.yml }
+  - { resource: twig.yml }
+  - { resource: mail.yml }
+  - { resource: queue.yml }
+  - { resource: ewallet.yml }
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Ewallet\Ui\Console\Commands\:
+    public: true
+    resource: '../src/Ui/Console/Commands/*'

@@ -48,6 +48,12 @@ final class MembersBuilder
         return $this;
     }
 
+    public function withEmail(string $email): MembersBuilder
+    {
+        $this->email = $email;
+        return $this;
+    }
+
     public function build(): Member
     {
         $amount = Money::MXN(Random::cents());

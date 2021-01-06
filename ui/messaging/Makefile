@@ -13,11 +13,11 @@ setup:
 tests:
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
-	@vendor/bin/infection --min-msi=65 --min-covered-msi=75 --threads=4
+	@vendor/bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=65 --min-covered-msi=75 --threads=4
 
 check:
 	@echo "Looking for static analysis violations"
-	@vendor/bin/phpstan analyse src --level 7
+	@vendor/bin/phpstan analyse
 	@echo "Looking for CS violations in src directory"
 	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
 	@echo "Looking for CS violations in tests directory"

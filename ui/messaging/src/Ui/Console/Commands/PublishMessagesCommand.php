@@ -12,10 +12,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PublishMessagesCommand extends Command
+final class PublishMessagesCommand extends Command
 {
-    /** @var MessagePublisher */
-    private $publisher;
+    private MessagePublisher $publisher;
 
     public function __construct(MessagePublisher $publisher)
     {

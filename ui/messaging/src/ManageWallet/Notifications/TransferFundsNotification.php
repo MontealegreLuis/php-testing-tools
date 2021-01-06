@@ -14,23 +14,19 @@ use Ewallet\Memberships\MemberId;
 use Money\Currency;
 use Money\Money;
 
-class TransferFundsNotification
+final class TransferFundsNotification
 {
-    /** @var CarbonImmutable */
-    private $occurredOn;
+    private CarbonImmutable $occurredOn;
 
-    /** @var MemberId */
-    private $senderId;
+    private MemberId $senderId;
 
-    /** @var Money */
-    private $amount;
+    private Money $amount;
 
-    /** @var MemberId */
-    private $recipientId;
+    private MemberId $recipientId;
 
     public function __construct(string $senderId, int $amount, string $recipientId, Clock $clock = null)
     {
-        $clock = $clock ?? new SystemClock();
+        $clock ??= new SystemClock();
         $this->occurredOn = $clock->now();
         $this->senderId = new MemberId($senderId);
         $this->amount = new Money($amount, new Currency('MXN'));

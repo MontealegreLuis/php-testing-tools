@@ -15,13 +15,11 @@ use Laminas\Mail\Message;
 use Laminas\Mail\Transport\TransportInterface;
 use Money\Money;
 
-class LaminasTransferFundsMailSender implements TransferFundsEmailSender
+final class LaminasTransferFundsMailSender implements TransferFundsEmailSender
 {
-    /** @var TemplateEngine */
-    private $template;
+    private TemplateEngine $template;
 
-    /** @var TransportInterface */
-    private $mailTransport;
+    private TransportInterface $mailTransport;
 
     public function __construct(TemplateEngine $template, TransportInterface $mailTransport)
     {

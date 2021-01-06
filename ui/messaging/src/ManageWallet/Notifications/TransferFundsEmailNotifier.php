@@ -7,16 +7,15 @@
 
 namespace Ewallet\ManageWallet\Notifications;
 
+use Ewallet\Memberships\UnknownMember;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\TransferWasMade;
 
-class TransferFundsEmailNotifier
+final class TransferFundsEmailNotifier
 {
-    /** @var Members */
-    private $members;
+    private Members $members;
 
-    /** @var TransferFundsEmailSender */
-    private $sender;
+    private TransferFundsEmailSender $sender;
 
     public function __construct(Members $members, TransferFundsEmailSender $sender)
     {
@@ -35,7 +34,7 @@ class TransferFundsEmailNotifier
      * It will send an email to both members summarizing their last account
      * transaction
      *
-     * @throws \Ewallet\Memberships\UnknownMember If either the sender or the
+     * @throws UnknownMember If either the sender or the
      * recipient is unknown
      */
     public function notify(TransferFundsNotification $notification): void

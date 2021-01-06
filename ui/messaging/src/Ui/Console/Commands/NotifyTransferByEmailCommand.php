@@ -16,16 +16,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class NotifyTransferByEmailCommand extends Command
+final class NotifyTransferByEmailCommand extends Command
 {
-    /** @var TransferFundsEmailNotifier */
-    private $notifier;
+    private TransferFundsEmailNotifier $notifier;
 
-    /** @var MessageConsumer */
-    private $consumer;
+    private MessageConsumer $consumer;
 
-    /** @var string */
-    private $exchangeName;
+    private string $exchangeName;
 
     public function __construct(
         TransferFundsEmailNotifier $notifier,
@@ -49,7 +46,9 @@ class NotifyTransferByEmailCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->consumer->open($this->exchangeName);
-        $this->consumer->consume($this->exchangeName, Closure::fromCallable([$this, 'notify']));
+        $this->consumer->consume($this->exchangeName, Closure::fromCallable(function (stdClass $message, string $event) : void {
+            $this->notify($message, $event);
+        }));
         $this->consumer->close();
 
         return 0;

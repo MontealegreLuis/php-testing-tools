@@ -10,7 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Adapters\Symfony\Application\DependencyInjection\ContainerFactory;
 use Application\BasePath;
 use Application\Environment;
-use Ewallet\Ui\Console\EwalletApplication;
+use Ewallet\UI\Console\EwalletApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

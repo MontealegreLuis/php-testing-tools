@@ -31,7 +31,7 @@
     "require-dev": {
         "behat/behat": "~3.8.1",
         "cweagans/composer-patches": "~1.7.0",
-        "ergebnis/composer-normalize": "^2.13",
+        "ergebnis/composer-normalize": "~2.13.2",
         "fakerphp/faker": "~1.13.0",
         "friendsofphp/php-cs-fixer": "~2.17.3",
         "giorgiosironi/eris": "~0.11.0",

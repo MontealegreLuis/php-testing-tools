@@ -6,7 +6,7 @@ parameters:
     dev_mode: '%app.debug%'
     proxy_dir: '%app.base_path%/var/doctrine/proxies'
     connection:
-      url: 'sqlite:///%app.base_path%/var/ewallet.sq3'
+      url: '%env(resolve:DB_URL)%'
       dbname: '%env(MYSQL_DATABASE)%'
       user: '%env(MYSQL_USER)%'
       password: '%env(MYSQL_PASSWORD)%'

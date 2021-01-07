@@ -11,18 +11,18 @@ use Ewallet\Memberships\Member;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\UnknownMember;
-use SplObjectStorage;
 
 final class InMemoryMembers implements Members
 {
-    private SplObjectStorage $members;
+    /** @var Member[] */
+    private array $members;
 
     /**
      * Create an empty collection of members
      */
     public function __construct()
     {
-        $this->members = new SplObjectStorage();
+        $this->members = [];
     }
 
     /**
@@ -41,6 +41,6 @@ final class InMemoryMembers implements Members
 
     public function save(Member $member): void
     {
-        $this->members->attach($member);
+        $this->members[] = $member;
     }
 }

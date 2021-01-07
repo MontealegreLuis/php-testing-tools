@@ -18,11 +18,11 @@ setup: ## Create configuration files
 .PHONY: tests
 tests: ## Run all test suites
 	@echo "Running unit tests"
-	@bin/phpunit --testdox
+	@vendor/bin/phpunit --testdox
 	@echo "Running end to end tests"
-	@bin/codecept clean
-	@bin/codecept run acceptance --steps
-	@bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=40 --min-covered-msi=70 --threads=4
+	@vendor/bin/codecept clean
+	@vendor/bin/codecept run acceptance --steps
+	@vendor/bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=40 --min-covered-msi=70 --threads=4
 
 .PHONY: serve
 serve: ## Run the application locally
@@ -32,14 +32,16 @@ serve: ## Run the application locally
 .PHONY: check
 check: ## Run all code quality checks
 	@echo "Looking for static analysis violations"
-	@php -d memory_limit=-1 bin/phpstan analyse
+	@php -d memory_limit=-1 vendor/bin/phpstan analyse
 	@echo "Looking for CS violations in src directory"
-	@bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
+	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
 	@echo "Looking for CS violations in tests directory"
-	@bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs_tests
+	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs_tests
+	@echo "Looking for missing soft dependencies"
+	@vendor/bin/composer-require-checker check --config-file=require-checker.json composer.json
 
 format: ## Execute CS formatting
 	@echo "Fixing CS violations in src directory"
-	@bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs
+	@vendor/bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs
 	@echo "Fixing CS violations in tests directory"
-	@bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs_tests
+	@vendor/bin/php-cs-fixer fix -v --using-cache=no --config=.php_cs_tests

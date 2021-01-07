@@ -15,17 +15,24 @@
         "guzzlehttp/psr7": "1.7.0",
         "http-interop/http-factory-guzzle": "1.0.0",
         "monolog/monolog": "2.2.0",
+        "psr/container": "1.0.0",
+        "psr/http-factory": "1.0.1",
+        "psr/http-message": "1.0.1",
+        "psr/http-server-handler": "1.0.1",
+        "psr/http-server-middleware": "1.0.1",
         "slim/slim": "4.7.1",
         "symfony/dependency-injection": "5.2.1",
         "teapot/status-code": "1.1.2",
-        "twig/twig": "3.1.1",
+        "twig/twig": "3.2.1",
         "vlucas/phpdotenv": "5.2.0"
     },
     "require-dev": {
         "codeception/codeception": "4.1.12",
         "codeception/module-webdriver": "1.1.4",
+        "ergebnis/composer-normalize": "^2.13",
         "friendsofphp/php-cs-fixer": "2.17.2",
         "infection/infection": "0.20.2",
+        "maglnet/composer-require-checker": "^2.1",
         "mockery/mockery": "1.4.2",
         "nelmio/alice": "3.7.4",
         "phpspec/phpspec": "7.0.0",
@@ -38,7 +45,6 @@
         "symfony/finder": "5.2.1"
     },
     "config": {
-        "bin-dir": "bin/",
         "platform": {
             "php": "7.4.12"
         },

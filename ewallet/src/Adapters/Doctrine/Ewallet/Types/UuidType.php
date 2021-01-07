@@ -24,7 +24,7 @@ abstract class UuidType extends GuidType
      * @throws ConversionException
      * @return Identifier|null
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Identifier
     {
         if ($value ===  null) {
             return null;

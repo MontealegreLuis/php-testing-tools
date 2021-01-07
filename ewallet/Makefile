@@ -36,6 +36,8 @@ check: ## Run code quality checks
 	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs
 	@echo "Looking for CS violations in tests directory"
 	@vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no --config=.php_cs_tests
+	@echo "Looking for missing soft dependencies"
+	@bin/composer-require-checker check --config-file=require-checker.json composer.json
 
 .PHONY: format
 format: ## Format code

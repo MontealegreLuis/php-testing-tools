@@ -23,7 +23,7 @@ final class StoredEventBuilder
 
     private ?int $id = null;
 
-    private ?string $type;
+    private ?string $type = null;
 
     /**
      * By default all the stored event bodies are taken from a `TransferWasMade`

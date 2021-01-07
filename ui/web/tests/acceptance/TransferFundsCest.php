@@ -6,7 +6,6 @@
  */
 
 use Alice\ThreeMembersWithSameBalanceFixture;
-use Doctrine\DataStorageSetup;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\ORMException;
 use Doctrine\WithDatabaseSetup;

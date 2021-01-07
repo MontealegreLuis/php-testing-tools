@@ -5,9 +5,9 @@
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
-namespace Ewallet\Ui\Console;
+namespace Ewallet\UI\Console;
 
-use Ewallet\Ui\Console\Commands\TransferFundsCommand;
+use Ewallet\UI\Console\Commands\TransferFundsCommand;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 

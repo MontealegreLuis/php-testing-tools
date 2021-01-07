@@ -13,7 +13,7 @@ setup:
 tests:
 	@echo "Running unit tests"
 	@vendor/bin/phpunit --testdox
-	@vendor/bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=65 --min-covered-msi=75 --threads=4
+	@vendor/bin/infection --initial-tests-php-options='-d extension=pcov.so' --min-msi=65 --min-covered-msi=70 --threads=4
 
 check:
 	@echo "Looking for static analysis violations"

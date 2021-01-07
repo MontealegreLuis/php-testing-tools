@@ -33,5 +33,5 @@ This project test suite assumes the RabbitMQ service is running.
 If you're not using the `dev` Docker container please start the service.
 
 ```bash
-$ make test
+$ make tests
 ```

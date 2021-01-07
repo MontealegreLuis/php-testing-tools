@@ -8,6 +8,8 @@
 namespace Setup\Commands;
 
 use Alice\ThreeMembersWithSameBalanceFixture;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\Console\Command\Command;
@@ -16,6 +18,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class SeedDatabaseCommand extends Command
 {
+    private Connection $connection;
+
+    public function __construct(Connection $connection)
+    {
+        parent::__construct();
+        $this->connection = $connection;
+    }
+
     protected function configure(): void
     {
         $this
@@ -25,6 +35,8 @@ final class SeedDatabaseCommand extends Command
 
     /**
      * Seed some information to our database
+     *
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -45,17 +57,17 @@ final class SeedDatabaseCommand extends Command
         return self::SUCCESS;
     }
 
+    /** @throws Exception */
     private function truncateTable(ClassMetadataInfo $metadata): void
     {
-        $connection = $this->getHelper('db')->getConnection();
-        $platform = $connection->getDatabasePlatform();
+        $platform = $this->connection->getDatabasePlatform();
         $isMySQL = $platform->getName() === 'mysql';
         if ($isMySQL) {
-            $connection->query('SET FOREIGN_KEY_CHECKS=0');
+            $this->connection->executeQuery('SET FOREIGN_KEY_CHECKS=0');
         }
-        $connection->executeUpdate($platform->getTruncateTableSQL($metadata->getTableName()));
+        $this->connection->executeStatement($platform->getTruncateTableSQL($metadata->getTableName()));
         if ($isMySQL) {
-            $connection->query('SET FOREIGN_KEY_CHECKS=1');
+            $this->connection->executeQuery('SET FOREIGN_KEY_CHECKS=1');
         }
     }
 }

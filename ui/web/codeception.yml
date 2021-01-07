@@ -12,13 +12,7 @@ settings:
 extensions:
     enabled:
       - Codeception\Extension\RunProcess:
-          0: phantomjs --webdriver=4444 --webdriver-loglevel=WARNING
+          0: chromedriver --url-base=/wd/hub --whitelisted-ips=
           1: php -S localhost:8000 -t public
           sleep: 3
       - Codeception\Extension\RunFailed
-modules:
-    enabled:
-        - WebDriver:
-              url: 'http://localhost:8000/'
-              port: 4444
-              browser: phantomjs

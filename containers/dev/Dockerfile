@@ -43,11 +43,16 @@ RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filenam
 # Install MySQL's client
 RUN apt-get -y install default-mysql-client
 
-# Install PhantomJS
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs libfreetype6 libfontconfig bzip2
-RUN npm install -g phantomjs-prebuilt --unsafe-perm
+# Install ChromeDriver
+RUN apt-get -y update && apt-get install -y gnupg2 \
+    && curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get -y update && apt-get -y install google-chrome-stable \
+    && wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip \
+    && unzip chromedriver_linux64.zip \
+    && mv chromedriver /usr/bin/chromedriver \
+    && chmod +x /usr/bin/chromedriver
 
 WORKDIR /usr/src/myapp
 
-EXPOSE 8000 4444
+EXPOSE 8000 9515

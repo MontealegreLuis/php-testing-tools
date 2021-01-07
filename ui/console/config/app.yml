@@ -13,7 +13,7 @@ services:
   Symfony\Component\Console\Output\OutputInterface:
     public: true
     class: Symfony\Component\Console\Output\ConsoleOutput
-  Ewallet\Ui\Console\Commands\TransferFundsConsole:
+  Ewallet\UI\Console\Commands\TransferFundsConsole:
   Ewallet\UI\Console\Commands\:
     public: true
     resource: '../src/UI/Console/Commands/*'

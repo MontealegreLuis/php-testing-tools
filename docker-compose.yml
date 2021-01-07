@@ -27,6 +27,7 @@ services:
       RABBIT_MQ_USER: ${RABBIT_MQ_USER}
       RABBIT_MQ_PASSWORD: ${RABBIT_MQ_PASSWORD}
       RABBIT_MQ_HOST: ${RABBIT_MQ_HOST}
+      DB_URL: ${DB_URL}
   web:
     container_name: ewallet_web
     build:

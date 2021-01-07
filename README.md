@@ -81,7 +81,7 @@ messaging # Container with the cron jobs that send emails to MailCatcher based o
 Run the tests of all the applications and packages with this command:
 
 ```bash
-dev make test
+dev make tests
 ```
 
 Each folder in the `ui` and `ewallet` directories, has its own `README` file. 

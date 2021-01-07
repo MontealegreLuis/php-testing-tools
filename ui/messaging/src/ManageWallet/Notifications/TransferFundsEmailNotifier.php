@@ -11,7 +11,8 @@ use Ewallet\Memberships\UnknownMember;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\TransferWasMade;
 
-final class TransferFundsEmailNotifier
+/** @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector */
+class TransferFundsEmailNotifier
 {
     private Members $members;
 

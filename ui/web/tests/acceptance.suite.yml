@@ -6,5 +6,9 @@ modules:
     config:
         WebDriver:
             url: 'http://localhost:8000/'
-            browser: phantomjs
-            http_proxy: direct
+            window_size: false
+            port: 9515
+            browser: chrome
+            capabilities:
+                "goog:chromeOptions":
+                    "args": ['headless', 'no-sandbox', 'disable-dev-shm-usage']

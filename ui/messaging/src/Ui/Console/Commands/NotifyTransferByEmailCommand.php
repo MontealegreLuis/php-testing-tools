@@ -46,7 +46,7 @@ final class NotifyTransferByEmailCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->consumer->open($this->exchangeName);
-        $this->consumer->consume($this->exchangeName, Closure::fromCallable(function (stdClass $message, string $event) : void {
+        $this->consumer->consume($this->exchangeName, Closure::fromCallable(function (stdClass $message, string $event): void {
             $this->notify($message, $event);
         }));
         $this->consumer->close();

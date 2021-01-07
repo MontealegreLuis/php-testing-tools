@@ -7,9 +7,9 @@
 
 namespace Ewallet\ManageWallet\Notifications;
 
-use Ewallet\Memberships\UnknownMember;
 use Ewallet\Memberships\Members;
 use Ewallet\Memberships\TransferWasMade;
+use Ewallet\Memberships\UnknownMember;
 
 /** @noRector Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector */
 class TransferFundsEmailNotifier

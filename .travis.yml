@@ -22,6 +22,7 @@ before_script:
   - sudo chmod +x /usr/local/bin/chromedriver
   - cd ../../ewallet && composer install --prefer-source --no-interaction
   - cp .env.travis .env.tests
+  - cd ..
 
 script:
   - make check

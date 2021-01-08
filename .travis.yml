@@ -12,6 +12,8 @@ addons:
   chrome: stable
 
 before_script:
+  - sudo apt-get install libzip-dev
+  - pecl install zip
   - composer self-update
   - cd ui/console && composer install --prefer-source --no-interaction
   - cd ../messaging && composer install --prefer-source --no-interaction

@@ -6,13 +6,20 @@ php:
 services:
   - rabbitmq
 
+addons:
+  chrome: stable
+
 before_script:
   - composer self-update
   - cd ui/console && composer install --prefer-source --no-interaction
   - cd ../messaging && composer install --prefer-source --no-interaction
   - cp .env.travis .env.tests
   - cd ../web && composer install --prefer-source --no-interaction
-  - npm install -g phantomjs-prebuilt
+  - wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
+  - unzip ~/chromedriver_linux64.zip -d ~/
+  - rm ~/chromedriver_linux64.zip
+  - sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+  - sudo chmod +x /usr/local/bin/chromedriver
   - cd ../../ewallet && composer install --prefer-source --no-interaction
   - cp .env.travis .env.tests
 

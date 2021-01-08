@@ -12,6 +12,7 @@ use Behat\Ewallet\ManageWallet\TransferFunds\TransferFundsResponderHelper;
 use DataBuilders\A;
 use DataBuilders\Input;
 use Ewallet\ManageWallet\TransferFunds\TransferFundsAction;
+use Ewallet\ManageWallet\TransferFunds\TransferFundsSummary;
 use Ewallet\Memberships\MemberId;
 use Ewallet\Memberships\Members;
 use Fakes\Ewallet\Memberships\InMemoryMembers;
@@ -35,7 +36,7 @@ final class TransferFundsContext implements Context
 
     private TransferFundsAction $action;
 
-    private $summary;
+    private TransferFundsSummary $summary;
 
     /** @BeforeScenario */
     public function let()

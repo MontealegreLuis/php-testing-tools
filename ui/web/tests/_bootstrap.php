@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * PHP version 7.1
+ * PHP version 7.4
  *
  * This source file is subject to the license that is bundled with this package in the file LICENSE.
  */
 
 use Application\BasePath;
-use Dotenv\Dotenv;
 use Codeception\Util\Autoload;
+use Dotenv\Dotenv;
 
-(static function () {
-    Autoload::addNamespace('Page', __DIR__. '/_support/_pages');
+(static function (): void {
+    Autoload::addNamespace('Page', __DIR__ . '/_support/_pages');
 
     $basePath = new BasePath(new SplFileInfo(__DIR__ . '/../'));
     if (file_exists($basePath->cachePath() . '/container-test.php')) {

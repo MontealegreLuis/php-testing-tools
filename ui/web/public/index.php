@@ -12,7 +12,7 @@ use Application\BasePath;
 use Application\Environment;
 use Framework\Slim\ApplicationFactory;
 
-(static function () {
+(static function (): void {
     $basePath = new BasePath(new SplFileInfo(__DIR__ . '/../'));
     $environment = Environment::fromGlobals($basePath);
     $app = ApplicationFactory::createFromContainer(ContainerFactory::new($basePath, $environment));

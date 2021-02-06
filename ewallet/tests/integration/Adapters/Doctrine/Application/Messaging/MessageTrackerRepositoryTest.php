@@ -13,7 +13,7 @@ use ContractTests\Application\Messaging\MessageTrackerTest;
 use Doctrine\WithDatabaseSetup;
 use SplFileInfo;
 
-class MessageTrackerRepositoryTest extends MessageTrackerTest
+final class MessageTrackerRepositoryTest extends MessageTrackerTest
 {
     use WithDatabaseSetup;
 

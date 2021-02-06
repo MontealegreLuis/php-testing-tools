@@ -5,5 +5,7 @@ parameters:
       - '%app.base_path%/vendor/ewallet/application/src/Adapters/Doctrine/Application/Resources/config'
     dev_mode: '%app.debug%'
     proxy_dir: '%app.base_path%/var/doctrine/proxies'
-    connection: {'url': '%env(resolve:DB_URL)%'}
+    connection:
+      url: '%env(resolve:DB_URL)%'
+      driver: 'pdo_sqlite'
     types: {'MemberId': 'Adapters\Doctrine\Ewallet\Types\MemberIdType'}

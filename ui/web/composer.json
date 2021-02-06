@@ -29,10 +29,10 @@
     "require-dev": {
         "codeception/codeception": "4.1.12",
         "codeception/module-webdriver": "1.1.4",
-        "ergebnis/composer-normalize": "^2.13",
+        "ergebnis/composer-normalize": "2.13.2",
         "friendsofphp/php-cs-fixer": "2.17.2",
         "infection/infection": "0.20.2",
-        "maglnet/composer-require-checker": "^2.1",
+        "maglnet/composer-require-checker": "2.1.0",
         "mockery/mockery": "1.4.2",
         "nelmio/alice": "3.7.4",
         "phpspec/phpspec": "7.0.0",

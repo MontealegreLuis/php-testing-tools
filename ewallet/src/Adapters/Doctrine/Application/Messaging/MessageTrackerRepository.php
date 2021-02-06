@@ -71,12 +71,13 @@ final class MessageTrackerRepository extends Repository implements MessageTracke
             ->where('p.exchangeName = :exchangeName')
             ->setParameter('exchangeName', $mostRecentPublishedMessage->exchangeName());
 
+        /** @var PublishedMessage|null $currentMessage */
         $currentMessage = $builder->getQuery()->getOneOrNullResult();
         if ($currentMessage !== null && ! $currentMessage->equals($mostRecentPublishedMessage)) {
             throw InvalidPublishedMessageToTrack::isNotTheMostRecent($mostRecentPublishedMessage, $currentMessage);
         }
 
         $this->manager->persist($mostRecentPublishedMessage);
-        $this->manager->flush($mostRecentPublishedMessage);
+        $this->manager->flush();
     }
 }

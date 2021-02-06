@@ -1,6 +1,6 @@
 # PHP Testing tools
 
-[![Build Status](https://travis-ci.org/MontealegreLuis/php-testing-tools.svg?branch=master)](https://travis-ci.org/MontealegreLuis/php-testing-tools)
+![CI build status](https://github.com/MontealegreLuis/php-testing-tools/workflows/CI/badge.svg)
 [![Code Climate](https://codeclimate.com/github/MontealegreLuis/php-testing-tools/badges/gpa.svg)](https://codeclimate.com/github/MontealegreLuis/php-testing-tools)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](LICENSE)
 

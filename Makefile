@@ -13,10 +13,10 @@ containers: ## Build all containers
 .PHONY: bootstrap
 bootstrap: ## Install PHP dependencies
 	@echo "Installing PHP dependencies..."
-	@echo "Messaging application..."
-	@composer install --no-interaction -d ui/messaging
 	@echo "Console application..."
 	@composer install --no-interaction -d ui/console
+	@echo "Messaging application..."
+	@composer install --no-interaction -d ui/messaging
 	@echo "Web application..."
 	@composer install --no-interaction -d ui/web
 	@echo "ewallet/application..."

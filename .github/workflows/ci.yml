@@ -1,0 +1,42 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout project"
+        uses: actions/checkout@v1
+
+      - name: "Install RabbitMQ 3.5"
+        uses: nijel/rabbitmq-action@v1.0.0
+        with:
+          rabbitmq version: '3.5'
+
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "7.4"
+          ini-values: memory_limit=-1
+          coverage: pcov
+
+      - name: "Install dependencies with composer"
+        run: |
+          sudo sed -i.bkp 's/^extension=pcov.so/;extension=pcov.so/' /etc/php/7.4/cli/conf.d/20-pcov.ini
+          cd ui/console && composer install --no-interaction --no-progress --no-suggest
+          cd ../messaging && composer install --prefer-source --no-interaction
+          cp .env.travis .env.tests
+          cd ../web && composer install --prefer-source --no-interaction
+          cp .env.test .env
+          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
+          unzip ~/chromedriver_linux64.zip -d ~/
+          rm ~/chromedriver_linux64.zip
+          sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+          cd ../../ewallet && composer install --prefer-source --no-interaction
+          cp .env.travis .env.tests
+
+      - name: "Run tests"
+        run: "make check"

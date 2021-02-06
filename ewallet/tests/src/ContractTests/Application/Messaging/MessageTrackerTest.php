@@ -23,7 +23,7 @@ abstract class MessageTrackerTest extends TestCase
     }
 
     /** @test */
-    function it_knows_there_is_published_messages_to_track()
+    function it_knows_there_are_published_messages_to_track()
     {
         $message = new PublishedMessage('non_empty_exchange', $arbitraryId = 1);
         $this->tracker->track($message);
@@ -61,18 +61,13 @@ abstract class MessageTrackerTest extends TestCase
     /** @test */
     function it_cannot_track_a_published_message_unless_it_is_the_most_recent_in_a_given_exchange()
     {
-        $originalId = 1;
-        $aDifferentId = 2;
         $exchangeName = 'non_empty_exchange';
-        $this->tracker->track(
-            A::publishedMessage()
-                ->withExchangeName($exchangeName)
-                ->withId($originalId)
-                ->build()
-        );
+        $mostRecentPublishedMessage = A::publishedMessage()
+            ->withExchangeName($exchangeName)
+            ->build();
+        $this->tracker->track($mostRecentPublishedMessage);
         $aDifferentMessage = A::publishedMessage()
             ->withExchangeName($exchangeName)
-            ->withId($aDifferentId)
             ->build();
 
         $this->expectException(InvalidPublishedMessageToTrack::class);
